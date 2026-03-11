@@ -1,6 +1,7 @@
 ---
 import BaseLayout from './BaseLayout.astro';
 import Navbar from '../components/sections/Navbar.astro';
+import Footer from '../components/sections/Footer.astro';
 
 interface Props {
   title?: string;
@@ -18,7 +19,5 @@ const { title, description, ogImage } = Astro.props;
     <slot />
   </main>
 
-  <footer>
-    <!-- TODO: <Footer /> component -->
-  </footer>
+  <Footer />
 </BaseLayout>

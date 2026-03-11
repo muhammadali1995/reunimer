@@ -45,3 +45,624 @@ body {
   font-family: var(--font-body);
   color: var(--color-bleu-abysse);
 }
+
+.nav-dropdown__panel {
+  width: 269px;
+  background: var(--color-white);
+  padding: 17px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+}
+
+.nav-dropdown__link {
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-label-sm);
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-bleu-abysse);
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.nav-dropdown__link:hover {
+  color: var(--color-turquoise-ocean);
+}
+
+.nav-dropdown__divider,
+.mobile-submenu__divider {
+  width: 100%;
+  height: 1px;
+  background: var(--color-brume-alize);
+  margin: 0;
+  position: relative;
+  top: -0.5px;
+}
+
+.mobile-submenu__link {
+  display: block;
+  width: 100%;
+  line-height: 1.15;
+}
+
+.mobile-menu__wrapper {
+  height: 100%;
+  padding: 92px 24px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+  overflow-y: auto;
+  width: 100%;
+}
+
+.mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.mobile-menu__item {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.mobile-menu__link {
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-label-sm);
+  line-height: 1;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-bleu-abysse);
+  text-decoration: none;
+  display: block;
+  width: 100%;
+  transition: color 200ms ease;
+}
+
+.mobile-menu__link:hover,
+.mobile-menu__link--active {
+  color: var(--color-turquoise-ocean);
+}
+
+.mobile-submenu {
+  margin-left: var(--space-xl);
+  margin-top: var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 300ms ease;
+  padding-bottom: var(--space-sm);
+}
+
+.mobile-menu__divider {
+  width: 100%;
+  margin: 0;
+  border: none;
+  border-top: 1px solid var(--color-gris-clair);
+}
+
+.mobile-menu__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.mobile-menu__search-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--color-bleu-abysse);
+  cursor: pointer;
+  transition: color 200ms ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-menu__search-btn:hover,
+.mobile-menu__search-btn:focus-visible {
+  color: var(--color-turquoise-ocean);
+}
+
+.mobile-menu__icon {
+  width: 20px;
+  height: 20px;
+}
+
+.mobile-menu__lang {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-family: var(--font-heading);
+  font-weight: var(--font-semibold);
+  font-size: var(--text-label-sm);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-bleu-abysse);
+}
+
+.mobile-menu__lang-icon {
+  width: 10px;
+  height: 5px;
+  color: inherit;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+}
+
+.navbar__actions {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-inner {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .navbar-inner {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-inner {
+    padding-left: 26px;
+    padding-right: 26px;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   Footer  (Figma node 87:1782, 1440 × 1413 px)
+   Content area: 78 px side padding → 1284 px
+   ───────────────────────────────────────────── */
+
+.footer {
+  background: var(--color-bleu-abysse);
+  color: var(--color-white);
+}
+
+/* inner wrapper matches the 1284-px content column */
+.footer__inner {
+  max-width: 1284px;
+  margin: 0 auto;
+  padding: 0 20px;          /* mobile */
+}
+
+@media (min-width: 640px) {
+  .footer__inner { padding: 0 40px; }
+}
+
+@media (min-width: 1440px) {
+  .footer__inner { padding: 0; }
+}
+
+/* ── 1. Contact form ── */
+.footer__contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 67px;
+  padding-bottom: 109px; /* 813 - 67 - 44.5 - 62 - 530 ≈ 109 px to divider */
+}
+
+/* "CONTACTEZ-NOUS" — Zalando Sans Expanded Black 40 / 44.5 */
+.footer__contact-title {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 28px;
+  line-height: 1.2;
+  letter-spacing: 0;
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--color-white);
+  white-space: normal;
+  padding: 0 16px;
+  margin-bottom: 40px;
+}
+
+@media (min-width: 640px) {
+  .footer__contact-title {
+    font-size: 36px;
+    padding: 0 24px;
+    margin-bottom: 50px;
+  }
+}
+
+/* form: 489 px wide, single column, 22 px between fields */
+.footer__form {
+  width: 489px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* each field: label + control */
+.footer__field {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* label: Inter Regular 14 px, white */
+.footer__field label {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--color-white);
+}
+
+/* shared control styles */
+.footer__field input,
+.footer__field textarea {
+  width: 100%;
+  height: 39px;
+  padding: 10px 15px;
+  border: 1px solid var(--color-turquoise-ocean);
+  border-radius: 5px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--color-turquoise-ocean);
+  outline: none;
+  transition: box-shadow 150ms ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.footer__field input::placeholder,
+.footer__field textarea::placeholder {
+  color: var(--color-turquoise-ocean);
+}
+
+.footer__field input:focus,
+.footer__field textarea:focus {
+  box-shadow: 0 0 0 1px var(--color-turquoise-ocean);
+}
+
+/* textarea overrides */
+.footer__field textarea {
+  height: 91px;
+  padding: 14px 15px;
+  resize: vertical;
+}
+
+/* select wrapper for custom chevron */
+.footer__select-wrap {
+  position: relative;
+}
+
+.footer__select-wrap select {
+  width: 100%;
+  height: 39px;
+  padding: 10px 15px;
+  border: 1px solid var(--color-turquoise-ocean);
+  border-radius: 5px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--color-turquoise-ocean);
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  transition: box-shadow 150ms ease;
+}
+
+.footer__select-wrap select:focus {
+  box-shadow: 0 0 0 1px var(--color-turquoise-ocean);
+}
+
+/* native option color reset for legibility in dropdown */
+.footer__select-wrap option {
+  background: var(--color-bleu-abysse);
+  color: var(--color-white);
+}
+
+.footer__select-chevron {
+  pointer-events: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 8px;
+  color: var(--color-turquoise-ocean);
+}
+
+/* submit button: turquoise bg, 39 px tall, full-width */
+.footer__submit {
+  width: 100%;
+  height: 39px;
+  padding: 10px 15px;
+  background: var(--color-turquoise-ocean);
+  border: none;
+  border-radius: 5px;
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 14px;
+  color: var(--color-white);
+  cursor: pointer;
+  transition: opacity 150ms ease;
+}
+
+.footer__submit:hover {
+  opacity: 0.85;
+}
+
+/* ── Dividers ── */
+.footer__hr {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ── 2. Site plan ── */
+/* "Plan du site" left + 6 columns grid right, side-by-side on desktop */
+.footer__sitemap {
+  padding-top: 45px;
+  padding-bottom: 90px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+/* "Plan du site" heading — Montserrat SemiBold 20 / tracking 2.4 */
+.footer__sitemap-label {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 20px;
+  line-height: normal;
+  letter-spacing: 2.4px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 6-column nav grid */
+.footer__columns {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 24px;
+  flex: 1;
+}
+
+/* column heading — Montserrat ExtraBold 12 / tracking 1.44 */
+.footer__col-title {
+  display: block;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 12px;
+  line-height: normal;
+  letter-spacing: 1.44px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-decoration: none;
+  margin-bottom: 20px;
+  white-space: nowrap;
+}
+
+.footer__col-title--link {
+  transition: color 200ms ease;
+}
+
+.footer__col-title--link:hover {
+  color: var(--color-turquoise-ocean);
+}
+
+/* links list — Montserrat SemiBold 10 / tracking 1.2 / gap 15 */
+.footer__col-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.footer__col-link {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: normal;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.footer__col-link:hover {
+  color: var(--color-turquoise-ocean);
+}
+
+/* ── 3. Brand row ── */
+.footer__brand-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 51px;
+  padding-bottom: 47px;
+}
+
+/* logo: 199 × 33 px */
+.footer__logo {
+  display: block;
+  width: 199px;
+  height: 33px;
+}
+
+/* social icons: 27 × 27 px, gap 30 */
+.footer__socials {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.footer__social {
+  display: block;
+  width: 27px;
+  height: 27px;
+  transition: opacity 150ms ease;
+}
+
+.footer__social:hover {
+  opacity: 0.8;
+}
+
+.footer__social img {
+  width: 100%;
+  height: 100%;
+}
+
+/* ── 4. Gradient strip ── */
+.footer__strip {
+  display: block;
+  width: 100%;
+  height: 7px;
+}
+
+/* ── 5. Bottom row ── */
+.footer__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-top: 39px;
+  padding-bottom: 46px;
+}
+
+/* address / company — Inter Regular 10 / leading 14 */
+.footer__addr,
+.footer__company {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 14px;
+  color: var(--color-white);
+}
+
+/* legal links — Montserrat SemiBold 10 / tracking 2.2, | dividers, gap 16 */
+.footer__legal {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer__legal-link {
+  font-family: var(--font-heading);
+  font-weight: 600;
+  font-size: 10px;
+  line-height: normal;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--color-white);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: color 200ms ease;
+}
+
+.footer__legal-link:hover {
+  color: var(--color-turquoise-ocean);
+}
+
+.footer__legal-sep {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+}
+
+/* ──────────────────────────
+   Responsive overrides
+   ────────────────────────── */
+
+/* tablet: 3-col sitemap grid, bottom row changes */
+@media (min-width: 640px) {
+  .footer__columns {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .footer__bottom {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 32px 40px;
+  }
+}
+
+/* desktop: side-by-side sitemap + precise bottom row positions */
+@media (min-width: 1024px) {
+  .footer__contact-title {
+    font-size: 40px;
+    line-height: 44.5px;
+    white-space: nowrap;
+    padding: 0;
+    margin-bottom: 62px;
+  }
+
+  .footer__sitemap {
+    flex-direction: row;
+    gap: 0;
+  }
+
+  /* "Plan du site" occupies the same 289 px offset as the first column */
+  .footer__sitemap-label {
+    width: 289px;
+    padding-top: 1px; /* baseline-align with column headings */
+  }
+
+  /* 6-column grid in remaining 995 px */
+  .footer__columns {
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+  }
+
+  /* bottom row: 3 precise groups */
+  .footer__bottom {
+    flex-wrap: nowrap;
+    gap: 0;
+    align-items: flex-start;
+  }
+
+  /* address group: 0 → 289 px (matches column start offset) */
+  .footer__addr {
+    width: 289px;
+    flex-shrink: 0;
+  }
+
+  /* company group: 289 → 627 px (338 px wide) */
+  .footer__company {
+    width: 338px;
+    flex-shrink: 0;
+  }
+
+  /* legal: 627 px → end, right-aligned */
+  .footer__legal {
+    flex: 1;
+    justify-content: flex-end;
+  }
+}

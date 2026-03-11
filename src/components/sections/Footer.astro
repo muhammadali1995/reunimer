@@ -1,0 +1,219 @@
+---
+/**
+ * Footer — pixel-perfect match of Figma node 87:1782.
+ *
+ * Desktop frame: 1440 × 1413px, bg #002C41
+ * Content: 78px side padding → 1284px wide
+ *
+ * Sections (top→bottom):
+ *  1. Contact form    pt-67 / pb to divider at y=813
+ *  2. Divider         y=813
+ *  3. Site plan       y=813→1169  (pt-45 pb-90)
+ *  4. Divider         y=1169
+ *  5. Brand + social  pt-51 pb-47   (logo y=1220, strip y=1300)
+ *  6. Gradient strip  y=1300, h=7
+ *  7. Bottom row      pt-39 pb-46   (y=1346→1413)
+ */
+
+const sitePlan = [
+  {
+    title: 'Groupe',
+    href: null,
+    links: [
+      { text: 'Un modèle intégré',   href: '/groupe/modele-integre' },
+      { text: "Notre raison d'être", href: '/groupe/raison-detre' },
+      { text: 'Notre histoire',      href: '/groupe/histoire' },
+      { text: 'Nos filiales',        href: '/groupe/filiales' },
+      { text: 'Nos implantations',   href: '/groupe/implantations' },
+    ],
+  },
+  {
+    title: 'Expertises',
+    href: null,
+    links: [
+      { text: 'Pêche',          href: '/expertises/peche' },
+      { text: 'Transformation', href: '/expertises/transformation' },
+      { text: 'Distribution',   href: '/expertises/distribution' },
+      { text: 'Logistique',     href: '/expertises/logistique' },
+      { text: 'RSE & RH',       href: '/expertises/rse-rh' },
+    ],
+  },
+  { title: 'Produits',        href: '/produits',       links: [] },
+  {
+    title: 'Engagements RSE',
+    href: null,
+    links: [
+      { text: 'Notre lien à la Mer',       href: '/engagements-rse/mer' },
+      { text: 'Notre lien à la Terre',     href: '/engagements-rse/terre' },
+      { text: "Notre lien à l'Humain",     href: '/engagements-rse/humain' },
+      { text: "Notre lien à l'Énergie",    href: '/engagements-rse/energie' },
+      { text: 'Notre lien à la Santé',     href: '/engagements-rse/sante' },
+      { text: 'Notre lien à la Formation', href: '/engagements-rse/formation' },
+      { text: 'Notre lien au Social',      href: '/engagements-rse/social' },
+      { text: 'Notre lien aux Filières',   href: '/engagements-rse/filieres' },
+    ],
+  },
+  { title: 'Actualités', href: '/actualites', links: [] },
+  { title: 'Carrières',  href: '/carrieres',  links: [] },
+];
+
+const legalLinks = [
+  { text: 'Mentions légales',          href: '#' },
+  { text: 'Politique de confidentialité', href: '#' },
+  { text: 'Gestion des cookies',       href: '#' },
+  { text: 'CGV',                       href: '#' },
+];
+---
+
+<footer class="footer" aria-label="Pied de page">
+  <div class="footer__inner">
+
+    <!-- ─── 1. Contact Form ─── -->
+    <section class="footer__contact" aria-labelledby="footer-contact-heading">
+      <h2 id="footer-contact-heading" class="footer__contact-title">Contactez-nous</h2>
+
+      <form class="footer__form" aria-label="Formulaire de contact">
+        <!-- Prénom -->
+        <div class="footer__field">
+          <label for="f-prenom">Prénom</label>
+          <input id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" />
+        </div>
+        <!-- Nom -->
+        <div class="footer__field">
+          <label for="f-nom">Nom</label>
+          <input id="f-nom" name="nom" type="text" placeholder="Tapez ici" />
+        </div>
+        <!-- Email -->
+        <div class="footer__field">
+          <label for="f-email">Email</label>
+          <input id="f-email" name="email" type="email" placeholder="Tapez ici" />
+        </div>
+        <!-- Motif (select) -->
+        <div class="footer__field">
+          <label for="f-motif">Motif</label>
+          <div class="footer__select-wrap">
+            <select id="f-motif" name="motif">
+              <option value="" disabled selected>Choisissez</option>
+              <option value="expertises">Expertises</option>
+              <option value="produits">Produits</option>
+              <option value="engagements-rse">Engagements RSE</option>
+              <option value="carrieres">Carrières</option>
+              <option value="autre">Autre</option>
+            </select>
+            <!-- chevron icon -->
+            <svg
+              class="footer__select-chevron"
+              viewBox="0 0 10.5 6.5"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path
+                d="M0.75 0.75L5.25 5.75L9.75 0.75"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+        </div>
+        <!-- Message (textarea) -->
+        <div class="footer__field">
+          <label for="f-message">Message</label>
+          <textarea id="f-message" name="message" placeholder="Tapez ici"></textarea>
+        </div>
+        <!-- Submit -->
+        <button type="submit" class="footer__submit">Envoyer</button>
+      </form>
+    </section>
+
+    <!-- ─── Divider ─── -->
+    <div class="footer__hr" aria-hidden="true"></div>
+
+    <!-- ─── 2. Site Plan ─── -->
+    <section class="footer__sitemap" aria-labelledby="footer-sitemap-heading">
+      <h2 id="footer-sitemap-heading" class="footer__sitemap-label">Plan du site</h2>
+
+      <nav class="footer__columns" aria-label="Plan du site">
+        {sitePlan.map((col) => (
+          <div class="footer__col">
+            {col.links.length > 0 ? (
+              <>
+                <p class="footer__col-title">{col.title}</p>
+                <ul class="footer__col-links">
+                  {col.links.map((link) => (
+                    <li>
+                      <a href={link.href} class="footer__col-link">{link.text}</a>
+                    </li>
+                  ))}
+                </ul>
+              </>
+            ) : (
+              <a href={col.href ?? '#'} class="footer__col-title footer__col-title--link">
+                {col.title}
+              </a>
+            )}
+          </div>
+        ))}
+      </nav>
+    </section>
+
+    <!-- ─── Divider ─── -->
+    <div class="footer__hr" aria-hidden="true"></div>
+
+    <!-- ─── 3. Brand + Social ─── -->
+    <div class="footer__brand-row">
+      <a href="/" aria-label="Reunimer — accueil">
+        <img
+          src="/logos/reunimer-logo-footer.svg"
+          alt="Reunimer"
+          width="199"
+          height="33"
+          class="footer__logo"
+        />
+      </a>
+      <div class="footer__socials">
+        <a href="#" class="footer__social" aria-label="YouTube">
+          <img src="/icons/social-icon.svg" alt="" width="27" height="27" />
+        </a>
+        <a href="#" class="footer__social" aria-label="LinkedIn">
+          <img src="/icons/linkedin.svg" alt="" width="27" height="27" />
+        </a>
+      </div>
+    </div>
+
+    <!-- ─── 4. Gradient strip ─── -->
+    <img
+      src="/icons/footer-certifications.svg"
+      alt=""
+      width="1284"
+      height="7"
+      class="footer__strip"
+      aria-hidden="true"
+    />
+
+    <!-- ─── 5. Bottom row ─── -->
+    <div class="footer__bottom">
+      <div class="footer__addr">
+        <p>9 Rue Armagnac, 97420 Le Port, La Réunion</p>
+        <p>0262 42 13 82 - info@reunimer.com</p>
+      </div>
+      <div class="footer__company">
+        <p>Reunimer Holding SAS au capital de 2 906 383 €</p>
+        <p>SIRET : 52831457800014 - RCS : B 528 314 578</p>
+      </div>
+      <nav class="footer__legal" aria-label="Liens légaux">
+        {legalLinks.map((link, i) => (
+          <>
+            <a href={link.href} class="footer__legal-link">{link.text}</a>
+            {i < legalLinks.length - 1 && (
+              <span class="footer__legal-sep" aria-hidden="true"></span>
+            )}
+          </>
+        ))}
+      </nav>
+    </div>
+
+  </div>
+</footer>
