@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Container from '../components/ui/Container.astro';
+import SectionWrapper from '../components/ui/SectionWrapper.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Button from '../components/ui/Button.astro';
+import Tag from '../components/ui/Tag.astro';
+import ExpertiseCard from '../components/ui/ExpertiseCard.astro';
+import ArticleCard from '../components/ui/ArticleCard.astro';
+import FormField from '../components/ui/FormField.astro';
+---
+
+<BaseLayout title="UI Components Preview — Reunimer">
+
+  <!-- Buttons -->
+  <SectionWrapper>
+    <Container>
+      <SectionHeading title="Boutons" subtitle="Tous les variants de boutons du design." />
+      <div class="mt-10 flex flex-wrap items-center gap-6">
+        <Button variant="outline-dark" href="#">Découvrez nos filiales</Button>
+        <Button variant="outline-dark" href="#" hideArrow>Sans flèche</Button>
+        <Button variant="primary" class="max-w-[389px]">Envoyer</Button>
+      </div>
+      <div class="mt-10 bg-bleu-abysse p-10 rounded-lg flex flex-wrap items-center gap-6">
+        <Button variant="outline-light" href="#">En savoir plus</Button>
+      </div>
+    </Container>
+  </SectionWrapper>
+
+  <!-- Section Headings -->
+  <SectionWrapper bg="gris-clair">
+    <Container>
+      <SectionHeading
+        title="Les trésors<br/>d'aujourd'hui"
+        subtitle="Chez Reunimer, nous croyons que la performance durable naît de l'équilibre entre le respect de la nature."
+      />
+      <div class="mt-10">
+        <SectionHeading
+          title="Nos expertises"
+          subtitle="Nos expertises dans la chaîne de valeurs intégrée."
+          align="center"
+        />
+      </div>
+    </Container>
+  </SectionWrapper>
+
+  <!-- Tags -->
+  <SectionWrapper>
+    <Container>
+      <SectionHeading title="Tags" />
+      <div class="mt-10 flex flex-wrap gap-3">
+        <Tag color="bleu-abysse">Groupe</Tag>
+        <Tag color="turquoise-ocean">Events</Tag>
+        <Tag color="sable-corail">Produits</Tag>
+      </div>
+    </Container>
+  </SectionWrapper>
+
+  <!-- Expertise Cards -->
+  <SectionWrapper>
+    <Container>
+      <SectionHeading title="Cartes expertises" align="center" />
+      <div class="mt-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+        <ExpertiseCard
+          title="Pêche"
+          description="Une force maritime responsable pour l'excellence à la source."
+          color="terre-laterite"
+        />
+        <ExpertiseCard
+          title="Production"
+          description="Valoriser chaque ressource sans compromis."
+          color="lagon-mayotte"
+        />
+        <ExpertiseCard
+          title="Distribution"
+          description="Un engagement de proximité et de performance."
+          color="sable-corail"
+        />
+        <ExpertiseCard
+          title="Supports"
+          description="La force invisible au service de l'excellence."
+          color="nuit-australe"
+        />
+        <ExpertiseCard
+          title="RH"
+          description="Un engagement humain porteur d'avenir."
+          color="ecume-poudree"
+        />
+      </div>
+    </Container>
+  </SectionWrapper>
+
+  <!-- Article Cards -->
+  <SectionWrapper bg="gris-clair">
+    <Container>
+      <SectionHeading title="Actualités" />
+      <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <ArticleCard
+          title="Visite du Chef Thierry Marx"
+          date="11 FÉV. 2026"
+          tag="Events"
+          tagColor="turquoise-ocean"
+          size="lg"
+        />
+        <ArticleCard
+          title="Reunimer en couverture du Leader Magazine"
+          date="11 FÉV. 2026"
+          tag="Groupe"
+        />
+        <ArticleCard
+          title="La langouste pour la St-Valentin"
+          date="11 FÉV. 2026"
+          tag="Produits"
+          tagColor="sable-corail"
+        />
+      </div>
+    </Container>
+  </SectionWrapper>
+
+  <!-- Contact Form Fields -->
+  <SectionWrapper bg="bleu-abysse">
+    <Container>
+      <SectionHeading title="Contactez-nous" align="center" light />
+      <div class="mt-10 max-w-[489px] mx-auto flex flex-col gap-[22px]">
+        <FormField label="Prénom" name="prenom" />
+        <FormField label="Nom" name="nom" />
+        <FormField label="Email" name="email" type="email" />
+        <FormField
+          label="Motif"
+          name="motif"
+          type="select"
+          placeholder="Choisissez"
+          options={[
+            { value: 'info', label: 'Demande d\'information' },
+            { value: 'partner', label: 'Partenariat' },
+            { value: 'other', label: 'Autre' },
+          ]}
+        />
+        <FormField label="Message" name="message" type="textarea" />
+        <Button variant="primary">Envoyer</Button>
+      </div>
+    </Container>
+  </SectionWrapper>
+
+</BaseLayout>

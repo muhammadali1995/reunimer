@@ -1,0 +1,50 @@
+---
+/**
+ * Section heading matching Figma "Titres" + "Chapeau" pattern.
+ *
+ * Title:    Zalando Sans Expanded Black, 40px, line-height 44.5px, uppercase, bleu-abysse
+ * Subtitle: Montserrat Regular, 20px, line-height 1.461, bleu-abysse
+ *
+ * Used across: Groupe, Expertises, RSE, Actus, Carrières, Raison d'être sections
+ */
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  align?: 'left' | 'center';
+  light?: boolean;
+  class?: string;
+}
+
+const {
+  title,
+  subtitle,
+  align = 'left',
+  light = false,
+  class: className = '',
+} = Astro.props;
+
+const textColor = light ? 'text-white' : 'text-bleu-abysse';
+const alignment = align === 'center' ? 'text-center' : 'text-left';
+---
+
+<div class:list={[alignment, className]}>
+  <h2
+    class:list={[
+      'font-display font-black text-[28px] leading-[34px] md:text-[40px] md:leading-[44.5px] uppercase',
+      textColor,
+    ]}
+  >
+    <Fragment set:html={title} />
+  </h2>
+  {subtitle && (
+    <p
+      class:list={[
+        'mt-4 font-heading font-normal text-base md:text-xl md:leading-[1.461]',
+        textColor,
+      ]}
+    >
+      {subtitle}
+    </p>
+  )}
+</div>

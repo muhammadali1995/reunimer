@@ -1,0 +1,31 @@
+---
+/**
+ * Tag/Badge component matching Figma "tag-actus" pattern.
+ *
+ * Figma: px-[7px] py-[5px], Montserrat SemiBold 10px, tracking 1.2px, uppercase, white text
+ * Colors seen: bleu-abysse (#002C41), turquoise-ocean (#0A97A6), sable-corail (#AC8652)
+ */
+
+interface Props {
+  color?: 'bleu-abysse' | 'turquoise-ocean' | 'sable-corail';
+  class?: string;
+}
+
+const { color = 'bleu-abysse', class: className = '' } = Astro.props;
+
+const colors = {
+  'bleu-abysse': 'bg-bleu-abysse',
+  'turquoise-ocean': 'bg-turquoise-ocean',
+  'sable-corail': 'bg-sable-corail',
+};
+---
+
+<span
+  class:list={[
+    'inline-flex items-center justify-center px-[7px] py-[5px] font-heading font-semibold text-[10px] tracking-[1.2px] uppercase text-white',
+    colors[color],
+    className,
+  ]}
+>
+  <slot />
+</span>

@@ -1,0 +1,19 @@
+---
+/**
+ * Container component for consistent page-width content.
+ *
+ * Figma uses 1440px frames with ~78px side padding = 1284px content area.
+ * Responsive: full-width with padding on mobile, max-w-[1284px] centered on desktop.
+ */
+
+interface Props {
+  class?: string;
+  as?: 'div' | 'section' | 'article' | 'nav';
+}
+
+const { class: className = '', as: Tag = 'div' } = Astro.props;
+---
+
+<Tag class:list={['mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0', className]}>
+  <slot />
+</Tag>
