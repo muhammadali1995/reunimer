@@ -72,27 +72,27 @@ const legalLinks = [
     <section class="footer__contact" aria-labelledby="footer-contact-heading">
       <h2 id="footer-contact-heading" class="footer__contact-title">Contactez-nous</h2>
 
-      <form class="footer__form" aria-label="Formulaire de contact">
+      <form id="contact-form" class="footer__form" aria-label="Formulaire de contact" novalidate>
         <!-- Prénom -->
         <div class="footer__field">
           <label for="f-prenom">Prénom</label>
-          <input id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" />
+          <input id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" required />
         </div>
         <!-- Nom -->
         <div class="footer__field">
           <label for="f-nom">Nom</label>
-          <input id="f-nom" name="nom" type="text" placeholder="Tapez ici" />
+          <input id="f-nom" name="nom" type="text" placeholder="Tapez ici" required />
         </div>
         <!-- Email -->
         <div class="footer__field">
           <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" placeholder="Tapez ici" />
+          <input id="f-email" name="email" type="email" placeholder="Tapez ici" required />
         </div>
         <!-- Motif (select) -->
         <div class="footer__field">
           <label for="f-motif">Motif</label>
           <div class="footer__select-wrap">
-            <select id="f-motif" name="motif">
+            <select id="f-motif" name="motif" required>
               <option value="" disabled selected>Choisissez</option>
               <option value="expertises">Expertises</option>
               <option value="produits">Produits</option>
@@ -121,10 +121,12 @@ const legalLinks = [
         <!-- Message (textarea) -->
         <div class="footer__field">
           <label for="f-message">Message</label>
-          <textarea id="f-message" name="message" placeholder="Tapez ici"></textarea>
+          <textarea id="f-message" name="message" placeholder="Tapez ici" required></textarea>
         </div>
         <!-- Submit -->
-        <button type="submit" class="footer__submit">Envoyer</button>
+        <button type="submit" class="footer__submit" id="contact-submit">Envoyer</button>
+        <!-- Feedback -->
+        <p id="contact-feedback" class="footer__feedback" aria-live="polite" hidden></p>
       </form>
     </section>
 
@@ -217,3 +219,36 @@ const legalLinks = [
 
   </div>
 </footer>
+
+<script>
+  const form     = document.getElementById('contact-form')     as HTMLFormElement;
+  const feedback = document.getElementById('contact-feedback') as HTMLParagraphElement;
+
+  function showFeedback(msg: string, isError: boolean) {
+    feedback.textContent = msg;
+    feedback.className   = 'footer__feedback ' + (isError ? 'footer__feedback--error' : 'footer__feedback--ok');
+    feedback.hidden      = false;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    feedback.hidden = true;
+
+    const invalid = Array.from(form.elements).find(
+      (el) => (el instanceof HTMLInputElement || el instanceof HTMLSelectElement || el instanceof HTMLTextAreaElement)
+        ? !el.checkValidity()
+        : false
+    ) as HTMLInputElement | null;
+
+    if (invalid) {
+      invalid.focus();
+      showFeedback('Veuillez remplir tous les champs obligatoires.', true);
+      return;
+    }
+
+    const data = Object.fromEntries(new FormData(form));
+    console.log('Form data:', data);
+    showFeedback('Votre message a bien été envoyé. Nous vous répondrons rapidement.', false);
+    form.reset();
+  });
+</script>

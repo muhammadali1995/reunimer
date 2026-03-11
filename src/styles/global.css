@@ -411,6 +411,33 @@ body {
   opacity: 0.85;
 }
 
+.footer__submit:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* success / error feedback */
+.footer__feedback {
+  font-family: var(--font-body);
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: center;
+  border-radius: 5px;
+  padding: 10px 14px;
+}
+
+.footer__feedback--ok {
+  background: rgba(10, 151, 166, 0.15);
+  color: #6de3ec;
+  border: 1px solid rgba(10, 151, 166, 0.4);
+}
+
+.footer__feedback--error {
+  background: rgba(163, 76, 38, 0.2);
+  color: #f4a07a;
+  border: 1px solid rgba(163, 76, 38, 0.4);
+}
+
 /* ── Dividers ── */
 .footer__hr {
   height: 1px;
