@@ -1,0 +1,36 @@
+---
+/**
+ * Section wrapper for consistent vertical spacing and optional background.
+ *
+ * Figma sections use ~80-120px vertical padding on desktop.
+ * Background options match the two patterns seen in the design:
+ * - white (default)
+ * - gris-clair (#F6F6F6) — used for Groupe, RSE, Actus sections
+ * - bleu-abysse (#002C41) — used for footer/contact
+ */
+
+interface Props {
+  bg?: 'white' | 'gris-clair' | 'bleu-abysse';
+  id?: string;
+  class?: string;
+}
+
+const { bg = 'white', id, class: className = '' } = Astro.props;
+
+const backgrounds = {
+  'white': 'bg-white',
+  'gris-clair': 'bg-gris-clair',
+  'bleu-abysse': 'bg-bleu-abysse',
+};
+---
+
+<section
+  id={id}
+  class:list={[
+    'py-16 md:py-24 lg:py-[120px]',
+    backgrounds[bg],
+    className,
+  ]}
+>
+  <slot />
+</section>

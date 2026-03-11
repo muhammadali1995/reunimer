@@ -1,0 +1,87 @@
+---
+/**
+ * Expertise/Filière card matching Figma "Carte-Filiere-2" pattern.
+ *
+ * Structure: tall card with image top, colored panel bottom that slides up on hover.
+ * - Image fills top portion (overflow hidden)
+ * - Colored panel: px-[25px] py-[15px], gap-[48px] between groups
+ * - Title: Montserrat Medium 32px, line-height 1.461, white
+ * - Separator: 1px white line, gap-[17px] from title
+ * - Description: Montserrat Regular 20px, line-height 1.461, white
+ * - Button: outline-light variant
+ *
+ * Colors per expertise (from Figma):
+ *   peche:        terre-laterite  #A34C26
+ *   production:   lagon-mayotte   #2D7890
+ *   distribution: sable-corail    #AC8652
+ *   supports:     nuit-australe   #587682
+ *   rh:           ecume-poudree   #6EAEB5
+ */
+
+import Button from './Button.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  href?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+  color?: 'terre-laterite' | 'lagon-mayotte' | 'sable-corail' | 'nuit-australe' | 'ecume-poudree';
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  href = '#',
+  imageSrc,
+  imageAlt = '',
+  color = 'terre-laterite',
+  class: className = '',
+} = Astro.props;
+
+const bgColors = {
+  'terre-laterite': 'bg-terre-laterite',
+  'lagon-mayotte': 'bg-lagon-mayotte',
+  'sable-corail': 'bg-sable-corail',
+  'nuit-australe': 'bg-nuit-australe',
+  'ecume-poudree': 'bg-ecume-poudree',
+};
+---
+
+<div class:list={['group relative overflow-hidden flex flex-col', className]}>
+  <!-- Image area -->
+  <div class="relative flex-1 min-h-[200px] md:min-h-[280px] overflow-hidden">
+    {imageSrc && (
+      <img
+        src={imageSrc}
+        alt={imageAlt}
+        class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+        loading="lazy"
+      />
+    )}
+  </div>
+
+  <!-- Content panel -->
+  <div
+    class:list={[
+      'flex flex-col gap-8 md:gap-12 px-6 py-4 md:px-[25px] md:py-[15px] transition-transform duration-500',
+      bgColors[color],
+    ]}
+  >
+    <div class="flex flex-col gap-4 md:gap-[17px]">
+      <h3 class="font-heading font-medium text-2xl md:text-[32px] md:leading-[1.461] text-white">
+        {title}
+      </h3>
+      <hr class="border-t border-white/40" />
+    </div>
+
+    <p class="font-heading font-normal text-base md:text-xl md:leading-[1.461] text-white">
+      {description}
+    </p>
+
+    <Button variant="outline-light" href={href}>
+      En savoir plus
+    </Button>
+  </div>
+</div>

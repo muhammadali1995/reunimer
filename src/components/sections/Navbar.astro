@@ -1,0 +1,305 @@
+---
+/**
+ * Navbar matching Figma "Header" (node 18:272) with all variants.
+ *
+ * Figma specs:
+ * - Container: 1360px wide, h-[92px], bg-white, px-[26px] py-[28px]
+ * - Logo: 199×33px
+ * - Nav links: Montserrat SemiBold 12px, tracking 1.44px, uppercase, bleu-abysse, gap-[34px]
+ * - Hover state: text turns turquoise-ocean + 3px turquoise underline bar
+ * - Dropdown: white bg, w-[269px], px-[20px] py-[17px], links separated by 1px lines, gap-[15px]
+ * - Dropdown links: Montserrat SemiBold 12px, tracking 1.44px, uppercase, bleu-abysse
+ * - Search icon: 14×14px
+ * - Lang selector: "FR" + chevron
+ * - Fixed at top
+ */
+
+interface Props {
+  currentPath?: string;
+}
+
+const { currentPath = Astro.url.pathname } = Astro.props;
+
+const navLinks = [
+  {
+    label: 'Groupe',
+    href: '/groupe',
+    children: [
+      { label: 'Notre Modèle intégré', href: '/groupe/modele-integre' },
+      { label: 'Le mot du président', href: '/groupe/mot-du-president' },
+      { label: 'Notre raison d\'être', href: '/groupe/raison-detre' },
+      { label: 'Notre histoire', href: '/groupe/histoire' },
+      { label: 'Nos implantations', href: '/groupe/implantations' },
+      { label: 'Nos filiales', href: '/groupe/filiales' },
+    ],
+  },
+  {
+    label: 'Expertises',
+    href: '/expertises',
+    children: [
+      { label: 'Pêche', href: '/expertises/peche' },
+      { label: 'Production', href: '/expertises/production' },
+      { label: 'Distribution', href: '/expertises/distribution' },
+      { label: 'Supports', href: '/expertises/supports' },
+      { label: 'RH', href: '/expertises/rh' },
+    ],
+  },
+  {
+    label: 'Produits',
+    href: '/produits',
+  },
+  {
+    label: 'Engagements RSE',
+    href: '/engagements-rse',
+    children: [
+      { label: 'Notre lien à la mer', href: '/engagements-rse/mer' },
+      { label: 'Notre lien à la terre', href: '/engagements-rse/terre' },
+      { label: 'Notre lien à l\'humain', href: '/engagements-rse/humain' },
+      { label: 'Notre lien à l\'énergie', href: '/engagements-rse/energie' },
+      { label: 'Notre lien à la santé', href: '/engagements-rse/sante' },
+      { label: 'Notre lien à la formation', href: '/engagements-rse/formation' },
+      { label: 'Notre lien au social', href: '/engagements-rse/social' },
+      { label: 'Notre lien aux filières', href: '/engagements-rse/filieres' },
+    ],
+  },
+  {
+    label: 'Actualités',
+    href: '/actualites',
+  },
+  {
+    label: 'Carrières',
+    href: '/carrieres',
+  },
+];
+
+function isActive(href: string): boolean {
+  if (href === '/') return currentPath === '/';
+  return currentPath.startsWith(href);
+}
+---
+
+<nav
+  class="fixed top-0 left-0 right-0 z-50 flex justify-center"
+  id="navbar"
+>
+  <!-- Desktop bar -->
+  <div class="bg-white w-full max-w-[1360px] h-[92px] flex items-center justify-between px-[26px]">
+    <!-- Logo -->
+    <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
+      <img
+        src="/logos/reunimer-logo-header.svg"
+        alt="Reunimer"
+        width="199"
+        height="33"
+        class="h-[33px] w-[199px]"
+      />
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden lg:flex items-center gap-[34px]">
+      {navLinks.map((link) => (
+        <div class="nav-item group relative flex items-center h-[92px]">
+          <a
+            href={link.href}
+            class:list={[
+              'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors',
+              isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse',
+            ]}
+          >
+            {link.label}
+          </a>
+          {/* Turquoise underline bar — 4px tall, full link width, flush at bottom of 92px header */}
+          <span
+            class:list={[
+              'absolute bottom-0 left-0 w-full h-[4px] bg-turquoise-ocean transition-opacity',
+              isActive(link.href) ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
+            ]}
+          />
+
+          {/* Dropdown */}
+          {link.children && (
+            <div class="nav-dropdown absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div class="bg-white w-[269px] px-[20px] py-[17px] flex flex-col gap-[15px]">
+                {link.children.map((child, i) => (
+                  <>
+                    <a
+                      href={child.href}
+                      class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:text-turquoise-ocean transition-colors whitespace-nowrap shrink-0"
+                    >
+                      {child.label}
+                    </a>
+                    {i < link.children!.length - 1 && (
+                      <div class="h-0 shrink-0 w-full relative">
+                        <div class="absolute inset-x-0 top-[-0.5px] h-px bg-[#E5E5E5]"></div>
+                      </div>
+                    )}
+                  </>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+
+      <!-- Search -->
+      <button
+        type="button"
+        class="shrink-0 text-bleu-abysse hover:text-turquoise-ocean transition-colors cursor-pointer"
+        aria-label="Rechercher"
+      >
+        <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
+        </svg>
+      </button>
+
+      <!-- Language -->
+      <div class="flex items-center gap-1 shrink-0">
+        <span class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
+          FR
+        </span>
+        <svg class="w-[10px] h-[5px] text-brume-alize" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Mobile hamburger -->
+    <button
+      type="button"
+      class="lg:hidden flex flex-col justify-center items-center w-10 h-10 gap-[6px] cursor-pointer"
+      id="mobile-menu-btn"
+      aria-label="Ouvrir le menu"
+      aria-expanded="false"
+    >
+      <span class="block w-6 h-[2px] bg-bleu-abysse transition-all duration-300 origin-center" id="bar1"></span>
+      <span class="block w-6 h-[2px] bg-bleu-abysse transition-all duration-300" id="bar2"></span>
+      <span class="block w-6 h-[2px] bg-bleu-abysse transition-all duration-300 origin-center" id="bar3"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile menu overlay -->
+<div
+  class="fixed inset-0 z-40 bg-white translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+  id="mobile-menu"
+>
+  <div class="pt-[92px] px-6 pb-10 h-full overflow-y-auto flex flex-col">
+    <div class="flex flex-col gap-2 mt-8">
+      {navLinks.map((link) => (
+        <div>
+          <a
+            href={link.href}
+            class:list={[
+              'block py-2 font-heading font-semibold text-sm tracking-[1.44px] uppercase transition-colors',
+              isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse',
+            ]}
+          >
+            {link.label}
+          </a>
+          {link.children && (
+            <div class="mobile-submenu ml-4 flex flex-col gap-1 overflow-hidden max-h-0 transition-[max-height] duration-300" data-parent={link.label}>
+              {link.children.map((child) => (
+                <a
+                  href={child.href}
+                  class="block py-1.5 font-heading font-semibold text-[11px] tracking-[1.2px] uppercase text-brume-alize hover:text-turquoise-ocean transition-colors"
+                >
+                  {child.label}
+                </a>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+
+    <hr class="my-8 border-gris-clair" />
+
+    <div class="flex items-center gap-6">
+      <button type="button" class="text-bleu-abysse" aria-label="Rechercher">
+        <svg class="w-5 h-5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
+        </svg>
+      </button>
+      <div class="flex items-center gap-1">
+        <span class="font-heading font-semibold text-sm tracking-[1.44px] uppercase text-bleu-abysse">FR</span>
+        <svg class="w-[10px] h-[5px] text-brume-alize" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Spacer to push content below fixed navbar -->
+<div class="h-[92px]"></div>
+
+<script>
+  // --- Mobile menu ---
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  const bar1 = document.getElementById('bar1');
+  const bar2 = document.getElementById('bar2');
+  const bar3 = document.getElementById('bar3');
+  let open = false;
+
+  btn?.addEventListener('click', () => {
+    open = !open;
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+
+    if (open) {
+      menu?.classList.remove('translate-x-full');
+      menu?.classList.add('translate-x-0');
+      bar1?.classList.add('rotate-45', 'translate-y-[4px]');
+      bar2?.classList.add('opacity-0');
+      bar3?.classList.add('-rotate-45', '-translate-y-[4px]');
+      document.body.style.overflow = 'hidden';
+    } else {
+      menu?.classList.add('translate-x-full');
+      menu?.classList.remove('translate-x-0');
+      bar1?.classList.remove('rotate-45', 'translate-y-[4px]');
+      bar2?.classList.remove('opacity-0');
+      bar3?.classList.remove('-rotate-45', '-translate-y-[4px]');
+      document.body.style.overflow = '';
+    }
+  });
+
+  // --- Mobile accordion submenus ---
+  document.querySelectorAll('#mobile-menu a[href]').forEach((link) => {
+    const parent = link.nextElementSibling;
+    if (parent?.classList.contains('mobile-submenu')) {
+      link.addEventListener('click', (e) => {
+        // If submenu exists, toggle it instead of navigating on first click
+        if (parent.style.maxHeight) {
+          parent.style.maxHeight = '';
+        } else {
+          e.preventDefault();
+          parent.style.maxHeight = parent.scrollHeight + 'px';
+        }
+      });
+    }
+  });
+
+  // --- Desktop: hover opens dropdown, also make active link text color change ---
+  document.querySelectorAll('.nav-item').forEach((item) => {
+    const link = item.querySelector('a');
+    const dropdown = item.querySelector('.nav-dropdown');
+    if (!dropdown) return;
+
+    // On hover, also change the link text to turquoise
+    item.addEventListener('mouseenter', () => {
+      link?.classList.add('text-turquoise-ocean');
+      link?.classList.remove('text-bleu-abysse');
+    });
+    item.addEventListener('mouseleave', () => {
+      // Only revert if not the active link
+      if (!link?.getAttribute('class')?.includes('active-link')) {
+        const isActive = link?.querySelector('.opacity-100');
+        if (!isActive) {
+          link?.classList.remove('text-turquoise-ocean');
+          link?.classList.add('text-bleu-abysse');
+        }
+      }
+    });
+  });
+</script>

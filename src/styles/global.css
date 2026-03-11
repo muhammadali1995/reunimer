@@ -1,0 +1,47 @@
+@import "tailwindcss";
+@import "./tokens.css";
+
+@theme {
+  /* Colors: Primary */
+  --color-bleu-abysse: #002C41;
+  --color-turquoise-ocean: #0A97A6;
+
+  /* Colors: Accent / Expertise cards */
+  --color-terre-laterite: #A34C26;
+  --color-lagon-mayotte: #2D7890;
+  --color-sable-corail: #AC8652;
+  --color-nuit-australe: #587682;
+  --color-ecume-poudree: #6EAEB5;
+
+  /* Colors: Neutral */
+  --color-brume-alize: #809AA0;
+  --color-gris-clair: #F6F6F6;
+
+  /* Font Families */
+  --font-display: 'Zalando Sans Expanded', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+
+  /* Border Radius */
+  --radius-button: 3px;
+  --radius-input: 5px;
+}
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  font-family: var(--font-body);
+  color: var(--color-bleu-abysse);
+}

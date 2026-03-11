@@ -1,0 +1,89 @@
+---
+/**
+ * Form field component matching Figma contact form pattern.
+ *
+ * All fields on dark (bleu-abysse) background:
+ * - Label: Inter Regular 14px, white, leading 14px
+ * - Input: border 1px turquoise-ocean, rounded-[5px], h-[39px],
+ *          px-[15px] py-[10px], placeholder turquoise-ocean, Inter Regular 14px
+ * - Textarea: same border, h-[91px], px-[15px] py-[14px], resize
+ * - Select: same input + chevron-down icon
+ */
+
+interface Props {
+  label: string;
+  name: string;
+  type?: 'text' | 'email' | 'tel' | 'select' | 'textarea';
+  placeholder?: string;
+  required?: boolean;
+  options?: { value: string; label: string }[];
+  class?: string;
+}
+
+const {
+  label,
+  name,
+  type = 'text',
+  placeholder = 'Tapez ici',
+  required = false,
+  options = [],
+  class: className = '',
+} = Astro.props;
+
+const inputBase =
+  'w-full border border-turquoise-ocean rounded-[5px] bg-transparent font-body text-sm text-turquoise-ocean placeholder:text-turquoise-ocean focus:outline-none focus:ring-1 focus:ring-turquoise-ocean';
+---
+
+<div class:list={['flex flex-col gap-3', className]}>
+  <label for={name} class="font-body text-sm leading-[14px] text-white">
+    {label}
+  </label>
+
+  {type === 'textarea' ? (
+    <textarea
+      id={name}
+      name={name}
+      placeholder={placeholder}
+      required={required}
+      class:list={[inputBase, 'h-[91px] px-[15px] py-3.5 resize-y']}
+    />
+  ) : type === 'select' ? (
+    <div class="relative">
+      <select
+        id={name}
+        name={name}
+        required={required}
+        class:list={[inputBase, 'h-[39px] px-[15px] py-2.5 appearance-none cursor-pointer']}
+      >
+        <option value="" disabled selected>{placeholder || 'Choisissez'}</option>
+        {options.map((opt) => (
+          <option value={opt.value}>{opt.label}</option>
+        ))}
+      </select>
+      <svg
+        class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 w-[14px] h-[8px] text-turquoise-ocean"
+        viewBox="0 0 10.5 6.5"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+      >
+        <path
+          d="M0.75 0.75L5.25 5.75L9.75 0.75"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </div>
+  ) : (
+    <input
+      id={name}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      class:list={[inputBase, 'h-[39px] px-[15px] py-2.5']}
+    />
+  )}
+</div>
