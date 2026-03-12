@@ -11,6 +11,7 @@
  */
 
 import { Image } from 'astro:assets';
+import Button from './Button.astro';
 
 interface Props {
   name: string;
@@ -38,6 +39,7 @@ const {
       class="absolute inset-0 w-full h-full object-cover"
       widths={[375, 768, 1082]}
       sizes="(min-width: 1024px) 1082px, (min-width: 768px) 90vw, 100vw"
+      loading="lazy"
     />
 
     <!-- Text overlay -->
@@ -52,25 +54,9 @@ const {
   </div>
 
   <!-- Hover CTA — appears below card -->
-  <a
-    href="#footer-contact-heading"
-    class="absolute top-full left-[3.7%] mt-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 inline-flex items-center gap-3.5 bg-white rounded-[47px] px-[22px] py-[18px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse whitespace-nowrap no-underline hover:bg-gris-clair"
-  >
-    Contactez-nous pour en savoir plus
-    <svg
-      class="w-2 h-3.5 shrink-0"
-      viewBox="0 0 10.5 16.5"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M1.25 15.25L9.25 8.25L1.25 1.25"
-        stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      />
-    </svg>
-  </a>
+  <div class="absolute top-full left-[3.7%] mt-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 transition-opacity duration-300 z-10">
+    <Button variant="pill-light" href="#footer-contact-heading" class="whitespace-nowrap">
+      Contactez-nous pour en savoir plus
+    </Button>
+  </div>
 </div>

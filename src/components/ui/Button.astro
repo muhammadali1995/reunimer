@@ -9,10 +9,14 @@
  *                  px-[18px] py-[16px], same typography
  * - primary:       bg turquoise-ocean, text white, full-width form submit
  *                  px-[15px] py-[10px], rounded-[5px], Inter Regular 14px
+ * - pill-primary:  bg turquoise-ocean, text white, rounded pill CTA
+ *                  px-[22px] py-[18px], rounded-[47px], Montserrat SemiBold 12px
+ * - pill-light:    bg white, text bleu-abysse, rounded pill CTA (hover state)
+ *                  px-[22px] py-[18px], rounded-[47px], same typography
  */
 
 interface Props {
-  variant?: 'outline-dark' | 'outline-light' | 'primary';
+  variant?: 'outline-dark' | 'outline-light' | 'primary' | 'pill-primary' | 'pill-light';
   href?: string;
   type?: 'button' | 'submit';
   class?: string;
@@ -35,6 +39,8 @@ const variants = {
   'outline-dark': `border border-bleu-abysse rounded-[3px] px-[22px] py-[19px] text-bleu-abysse text-xs tracking-[1.44px]`,
   'outline-light': `border border-white rounded-[3px] px-[18px] py-[16px] text-white text-xs tracking-[1.44px]`,
   'primary': `bg-turquoise-ocean rounded-[5px] px-[15px] py-2.5 text-white font-body font-normal text-sm justify-center w-full`,
+  'pill-primary': `bg-turquoise-ocean rounded-[47px] px-[22px] py-[18px] text-white text-xs tracking-[1.44px] no-underline`,
+  'pill-light': `bg-white rounded-[47px] px-[22px] py-[18px] text-bleu-abysse text-xs tracking-[1.44px] no-underline hover:bg-gris-clair`,
 };
 
 const classes = [base, variants[variant], className].join(' ');

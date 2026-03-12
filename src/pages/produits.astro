@@ -3,30 +3,9 @@ import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import Container from '../components/ui/Container.astro';
 import ProductCard from '../components/ui/ProductCard.astro';
+import Button from '../components/ui/Button.astro';
 import heroImage from '../assets/images/produits/hero-produits.png';
-
-// Product images — replace placeholders with real Figma exports
-import poissonsPelagiquesImg from '../assets/images/produits/poissons-pelagiques.png';
-import langousteMadagascarImg from '../assets/images/produits/langouste-madagascar.png';
-import crabeMadagascarImg from '../assets/images/produits/crabe-madagascar.png';
-import seicheBoulogneImg from '../assets/images/produits/seiche-boulogne.png';
-import sardineBoulogneImg from '../assets/images/produits/sardine-boulogne.png';
-import poulpeMadagascarImg from '../assets/images/produits/poulpe-madagascar.jpg';
-import legineTaafImg from '../assets/images/produits/legine-taaf.png';
-import poissonsDemerseauxImg from '../assets/images/produits/poissons-demersaux.png';
-import produitsTraiteurImg from '../assets/images/produits/produits-traiteur.png';
-
-const products = [
-  { name: 'Poissons pélagiques',  origin: "de l'Océan Indien",          image: poissonsPelagiquesImg,  alt: 'Thon albacore frais tranché — poissons pélagiques de l\'Océan Indien' },
-  { name: 'Langouste',            origin: 'de Madagascar',              image: langousteMadagascarImg, alt: 'Langouste tropicale congelée — langouste de Madagascar' },
-  { name: 'Crabe',                origin: 'de Madagascar',              image: crabeMadagascarImg,     alt: 'Crabe préparé — crabe de Madagascar' },
-  { name: 'Seiche',               origin: 'de Boulogne-sur-Mer',        image: seicheBoulogneImg,      alt: 'Seiche fraîche cuisinée — seiche de Boulogne-sur-Mer' },
-  { name: 'Sardine',              origin: 'de Boulogne-sur-Mer',        image: sardineBoulogneImg,     alt: 'Sardines fraîches — sardine de Boulogne-sur-Mer' },
-  { name: 'Poulpe',               origin: 'de Madagascar',              image: poulpeMadagascarImg,    alt: 'Poulpe (zourite) cuisiné — poulpe de Madagascar' },
-  { name: 'Légine',               origin: 'des TAAF',                   image: legineTaafImg,          alt: 'Filet de légine — légine des TAAF' },
-  { name: 'Poissons démersaux',   origin: 'de Madagascar',              image: poissonsDemerseauxImg,  alt: 'Filet de poisson démersal — poissons démersaux de Madagascar' },
-  { name: 'Produits traiteur',    origin: "de l'Île de la Réunion",     image: produitsTraiteurImg,    alt: 'Produits traiteur préparés — produits traiteur de l\'Île de la Réunion' },
-];
+import { products } from '../data/products';
 ---
 
 <PageLayout
@@ -101,26 +80,8 @@ const products = [
 
   <!-- CTA Button -->
   <div class="bg-white pb-16 md:pb-20 lg:pb-[130px] flex justify-center">
-    <a
-      href="#footer-contact-heading"
-      class="inline-flex items-center gap-3.5 bg-turquoise-ocean rounded-[47px] px-[22px] py-[18px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-white no-underline transition-opacity hover:opacity-80"
-    >
+    <Button variant="pill-primary" href="#footer-contact-heading">
       Contactez-nous pour en savoir plus
-      <svg
-        class="w-2 h-3.5 shrink-0"
-        viewBox="0 0 10.5 16.5"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M1.25 15.25L9.25 8.25L1.25 1.25"
-          stroke="currentColor"
-          stroke-width="2.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        />
-      </svg>
-    </a>
+    </Button>
   </div>
 </PageLayout>

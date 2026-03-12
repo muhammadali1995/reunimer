@@ -141,6 +141,66 @@ Social sharing (Open Graph, Twitter Card) meta tags may be missing or incomplete
 
 ---
 
+### 15. Produits Page — Product Data Inline in Page File
+
+**File:** `src/pages/produits.astro` (lines 8–29)
+
+9 image imports and the products array are defined directly in the page. Same pattern we fixed on carrières — data should live in `src/data/products.ts` with a typed interface in `src/types/products.ts`.
+
+**Fix:** Extract `Product` interface to `src/types/products.ts`, move data to `src/data/products.ts`, import in page.
+
+---
+
+### 16. Produits Page — CTA Pill Button Duplicated (Not Using Button Component)
+
+**File:** `src/pages/produits.astro` (lines 103–125), `src/components/ui/ProductCard.astro` (lines 55–75)
+
+The turquoise pill CTA at the bottom of the page and the white hover CTA on each ProductCard are both hand-coded `<a>` tags with inline SVG arrows. The existing `Button` component already handles the arrow SVG and shared typography — but it lacks a `pill` variant for rounded-[47px] pill-shaped CTAs.
+
+**Fix:** Add a `pill` (or `pill-primary` / `pill-light`) variant to `Button.astro`. Replace the inline CTAs in both files.
+
+---
+
+### 17. Produits Page — Hardcoded Fallback Color in ProductCard
+
+**File:** `src/components/ui/ProductCard.astro` (line 34)
+
+`bg-[#DACBB4]` is a hardcoded hex value not in the design tokens. If this is a real design token (used across multiple places), it should be added to `tailwind.config.mjs`. If it's a one-off fallback, it's acceptable but should be documented.
+
+**Fix:** Add to Tailwind config as `sable-clair` or similar, or accept as-is and document.
+
+---
+
+### 18. Produits Page — Product Images Missing `loading="lazy"`
+
+**File:** `src/components/ui/ProductCard.astro` (line 35–41)
+
+Product card images don't specify `loading="lazy"`. Only the first 1–2 cards are visible above fold — the remaining 7 should lazy-load.
+
+**Fix:** Add `loading="lazy"` to the `<Image />` in ProductCard. Optionally accept a `loading` prop so the first card can use `"eager"`.
+
+---
+
+### 19. Produits Page — Hover CTA Inaccessible on Touch Devices
+
+**File:** `src/components/ui/ProductCard.astro` (lines 54–75)
+
+The "Contactez-nous" hover CTA uses `opacity-0 group-hover:opacity-100`. On mobile/tablet (touch devices), hover states don't work — the CTA is invisible and unreachable. The bottom-of-page CTA partially compensates, but individual card CTAs are lost.
+
+**Fix:** Make hover CTA always visible on touch devices via `@media (hover: none)` or show it on focus-within. Alternatively, make the entire card clickable on mobile.
+
+---
+
+### 20. Produits Page — ProductCard Props Interface Not in Types Directory
+
+**File:** `src/components/ui/ProductCard.astro` (lines 15–21)
+
+The `Props` interface is defined inline in the component. Following the pattern established for carrières, it should be in `src/types/products.ts` for reuse and consistency.
+
+**Fix:** Move to `src/types/products.ts` alongside the `Product` data type.
+
+---
+
 ---
 
 ## Implementation Plan
@@ -256,7 +316,55 @@ All changes are **non-breaking** — each phase produces identical visual output
 
 ---
 
-### Phase 8 — Pre-Launch Blockers (Requires Decisions)
+### Phase 8 — Produits Page: Data & Types Extraction (Low Risk)
+
+**Goal:** Separate product data and types from the page file, matching the carrières pattern.
+
+**Tasks:**
+1. Create `src/types/products.ts` with `Product` interface:
+   - `name: string`, `origin: string`, `image: ImageMetadata`, `alt: string`
+2. Create `src/data/products.ts` with the 9-product array (move imports + data from page)
+3. Update `src/pages/produits.astro` to import from `data/products`
+4. **Verify:** Page renders identically
+
+**Estimated scope:** 3 files (2 new, 1 modified), page reduced by ~20 lines
+
+---
+
+### Phase 9 — Produits Page: Button Pill Variant + CTA Deduplication (Low Risk)
+
+**Goal:** Eliminate duplicated pill CTA markup by extending the existing Button component.
+
+**Tasks:**
+1. Add `pill-primary` variant to `Button.astro`:
+   - `bg-turquoise-ocean rounded-[47px] px-[22px] py-[18px] text-white text-xs tracking-[1.44px]`
+2. Add `pill-light` variant to `Button.astro`:
+   - `bg-white rounded-[47px] px-[22px] py-[18px] text-bleu-abysse text-xs tracking-[1.44px]`
+3. Replace the inline CTA `<a>` in `produits.astro` (lines 103–125) with `<Button variant="pill-primary" href="#footer-contact-heading">`
+4. Replace the inline CTA `<a>` in `ProductCard.astro` (lines 55–75) with `<Button variant="pill-light" href="#footer-contact-heading">`
+5. **Verify:** Both CTAs render identically (same padding, radius, typography, arrow)
+
+**Estimated scope:** 3 files modified
+
+---
+
+### Phase 10 — Produits Page: Lazy Loading + Touch Accessibility (Medium Risk)
+
+**Goal:** Improve performance and mobile UX for product cards.
+
+**Tasks:**
+1. Add `loading="lazy"` to the `<Image />` in `ProductCard.astro`
+2. Add touch-device support for hover CTA using one of:
+   - Option A: `@media (hover: none) { .group .hover-cta { opacity: 1; } }` — always show on touch
+   - Option B: Use `focus-within` — show CTA when card receives focus
+   - Option C: Make entire card a link on mobile (wrap in `<a>`) — simplest UX
+3. **Verify:** Cards lazy-load below fold, CTA accessible on mobile
+
+**Estimated scope:** 1 file modified + possibly `global.css`
+
+---
+
+### Phase 11 — Pre-Launch Blockers (Requires Decisions)
 
 These items need user/stakeholder input before implementation:
 
@@ -267,21 +375,25 @@ These items need user/stakeholder input before implementation:
 | Johanne Serri testimonial | Is the quote text available? Or is the section intentionally label-only? |
 | Placeholder article images | When will real content/images be available? |
 | Legal page links (`#` hrefs) | When will Mentions légales, CGV, etc. pages be created? |
+| ProductCard fallback color | Is `#DACBB4` a design token? Should it be added to Tailwind config? |
 
 ---
 
 ## Priority Matrix
 
-| Priority | Phase | Impact | Risk |
-|----------|-------|--------|------|
-| High | Phase 1 — JobCard extraction | Maintainability | Low |
-| High | Phase 2 — Accessibility fixes | UX / Compliance | Low |
-| Medium | Phase 4 — ArticleCard images | Performance | Medium |
-| Medium | Phase 7 — Performance & SEO | Performance / SEO | Medium |
-| Medium | Phase 3 — Actualités cleanup | Maintainability | Low |
-| Low | Phase 5 — Footer form cleanup | Code quality | Low |
-| Low | Phase 6 — Navbar SVG dedup | Code quality | Low |
-| Blocker | Phase 8 — Pre-launch decisions | Launch readiness | N/A |
+| Priority | Phase | Impact | Risk | Status |
+|----------|-------|--------|------|--------|
+| ~~High~~ | ~~Phase 1 — JobCard extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 2 — Accessibility fixes~~ | ~~UX / Compliance~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 8 — Produits data/types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 9 — Button pill variant + CTA dedup~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 10 — Produits lazy load + touch a11y~~ | ~~Performance / UX~~ | ~~Medium~~ | Done |
+| Medium | Phase 4 — ArticleCard images | Performance | Medium | Pending |
+| Medium | Phase 7 — Performance & SEO | Performance / SEO | Medium | Pending |
+| Medium | Phase 3 — Actualités cleanup | Maintainability | Low | Pending |
+| Low | Phase 5 — Footer form cleanup | Code quality | Low | Pending |
+| Low | Phase 6 — Navbar SVG dedup | Code quality | Low | Pending |
+| Blocker | Phase 11 — Pre-launch decisions | Launch readiness | N/A | Pending |
 
 ---
 
