@@ -1,4 +1,6 @@
 ---
+import headerLogo from '../../assets/logos/reunimer-logo-header.svg';
+
 /**
  * Navbar matching Figma "Header" (node 18:272) with all variants.
  *
@@ -16,9 +18,10 @@
 
 interface Props {
   currentPath?: string;
+  overlay?: boolean;
 }
 
-const { currentPath = Astro.url.pathname } = Astro.props;
+const { currentPath = Astro.url.pathname, overlay = false } = Astro.props;
 
 const navLinks = [
   {
@@ -79,7 +82,10 @@ function isActive(href: string): boolean {
 ---
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 flex justify-center"
+  class:list={[
+    'fixed left-0 right-0 z-50 flex justify-center',
+    overlay ? 'top-0 lg:top-[43px]' : 'top-0',
+  ]}
   id="navbar"
 >
   <!-- Desktop bar -->
@@ -87,7 +93,7 @@ function isActive(href: string): boolean {
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
       <img
-        src="/logos/reunimer-logo-header.svg"
+        src={headerLogo.src}
         alt="Reunimer"
         width="199"
         height="33"
@@ -252,7 +258,7 @@ function isActive(href: string): boolean {
 </div>
 
 <!-- Spacer to push content below fixed navbar -->
-<div class="h-[92px]"></div>
+{!overlay && <div class="h-[92px]"></div>}
 
 <script>
   // --- Mobile menu ---

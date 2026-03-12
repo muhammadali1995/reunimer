@@ -1,0 +1,41 @@
+---
+import Container from '../ui/Container.astro';
+
+const statistics = [
+  {
+    number: '111 M€',
+    description: "de chiffre d’affaires consolidé",
+  },
+  {
+    number: '+900',
+    description: 'collaborateurs',
+  },
+  {
+    number: '16500 T',
+    description: 'tonnes de produit dont 3200 Algues',
+  },
+];
+---
+
+<section class="w-full bg-gris-clair py-[76px] md:py-[92px] lg:py-[99px]">
+  <Container>
+    <h2 class="pl-0 font-display text-[34px] leading-[1.02] font-black uppercase text-bleu-abysse md:text-[40px] md:leading-[44.5px] lg:pl-[128px]">
+      Le groupe en quelques chiffres
+    </h2>
+
+    <div class="mt-[54px] lg:mx-[128px]">
+      {statistics.map((stat) => (
+        <div class="border-b border-[#809AA0] py-[24px] first:pt-0 last:pb-[18px]">
+          <div class="flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+            <p class="font-display text-[54px] leading-[0.95] font-black uppercase text-bleu-abysse md:text-[72px] lg:text-[82px] lg:leading-[91px]">
+              {stat.number}
+            </p>
+            <p class="max-w-[372px] font-body text-[20px] leading-[1.3] text-bleu-abysse md:text-right lg:text-[24px] lg:leading-[1.4]">
+              {stat.description}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

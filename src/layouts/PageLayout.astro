@@ -7,13 +7,14 @@ interface Props {
   title?: string;
   description?: string;
   ogImage?: string;
+  overlayNavbar?: boolean;
 }
 
-const { title, description, ogImage } = Astro.props;
+const { title, description, ogImage, overlayNavbar = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} ogImage={ogImage}>
-  <Navbar />
+  <Navbar overlay={overlayNavbar} />
 
   <main>
     <slot />

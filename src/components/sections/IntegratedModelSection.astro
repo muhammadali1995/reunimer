@@ -1,0 +1,72 @@
+---
+import Button from '../ui/Button.astro';
+import Container from '../ui/Container.astro';
+
+const expertiseCards = [
+  {
+    title: 'Pêche',
+    description: 'Une force maritime responsable',
+    classes: 'bg-terre-laterite lg:col-start-1',
+  },
+  {
+    title: 'Production',
+    description: 'Une transformation experte et innovante',
+    classes: 'bg-lagon-mayotte lg:col-start-2',
+  },
+  {
+    title: 'Distribution',
+    description: 'Un accès direct et maîtrisé aux marchés',
+    classes: 'bg-sable-corail lg:col-start-3',
+  },
+  {
+    title: 'Maintenance & logistique',
+    description: "La garantie de l'intégrité opérationnelle",
+    classes: 'bg-brume-alize lg:col-span-3',
+  },
+  {
+    title: 'RSE & RH',
+    description: 'Un engagement humain et environnemental durable',
+    classes: 'bg-ecume-poudree lg:col-span-3',
+  },
+];
+---
+
+<section class="w-full bg-gris-clair py-[72px] md:py-[88px] lg:py-[120px]">
+  <Container>
+    <div class="grid gap-12 lg:grid-cols-[393px_739px] lg:gap-[68px]">
+      <div class="pt-1">
+        <h2 class="font-display text-[34px] leading-[1.02] font-black uppercase text-bleu-abysse md:text-[40px] md:leading-[44.5px]">
+          De l’océan<br />à l’assiette
+        </h2>
+        <p class="mt-[18px] font-heading text-[18px] leading-[1.46] font-normal text-bleu-abysse md:text-[20px]">
+          Un modèle intégré :<br />
+          la signature d’une confiance absolue
+        </p>
+        <p class="mt-[12px] max-w-[393px] font-body text-[16px] leading-[1.4] text-[#636A6B]">
+          Reunimer s’impose par un modèle intégré garantissant une autonomie totale, sans aucun intermédiaire.
+          Cette maîtrise repose sur une triple expertise unique — sourcer à la racine, transformer avec talent et
+          distribuer en direct — pour offrir une traçabilité absolue. Plus qu’une organisation, c’est une promesse de
+          fiabilité et de transparence qui garantit l’excellence, de l’océan à l’assiette.
+        </p>
+
+        <Button href="/expertises" class="mt-[28px]">
+          Découvrez nos expertises
+        </Button>
+      </div>
+
+      <div class="grid gap-[16px] lg:grid-cols-3">
+        {expertiseCards.map((card) => (
+          <div
+            class:list={[
+              'flex min-h-[127px] flex-col items-center justify-center px-[28px] py-[30px] text-center text-white',
+              card.classes,
+            ]}
+          >
+            <h3 class="font-display text-[20px] leading-[23px] font-extrabold uppercase">{card.title}</h3>
+            <p class="mt-[8px] font-heading text-[16px] leading-[1.2] font-normal">{card.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

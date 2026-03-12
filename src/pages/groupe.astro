@@ -1,0 +1,31 @@
+---
+import PageLayout from '../layouts/PageLayout.astro';
+import GroupHeroSection from '../components/sections/GroupHeroSection.astro';
+import IntegratedModelSection from '../components/sections/IntegratedModelSection.astro';
+import HistorySection from '../components/sections/HistorySection.astro';
+import MissionSection from '../components/sections/MissionSection.astro';
+import GroupStatisticsSection from '../components/sections/GroupStatisticsSection.astro';
+import FiltersSection from '../components/sections/FiltersSection.astro';
+import WorldPresenceSection from '../components/sections/WorldPresenceSection.astro';
+
+const groupeHeroImage = 'https://www.figma.com/api/mcp/asset/cb5ae073-e023-4da4-9c02-377355bec2b2';
+---
+
+<PageLayout title="Groupe" description="Découvrez le groupe Reunimer" overlayNavbar={true}>
+  <GroupHeroSection
+    imageSrc={groupeHeroImage}
+    imageAlt="Le groupe Reunimer en mer, sous l'eau et sur les quais"
+  />
+
+  <IntegratedModelSection />
+
+  <GroupStatisticsSection />
+
+  <MissionSection />
+
+  <HistorySection />
+
+  <FiltersSection />
+
+  <WorldPresenceSection />
+</PageLayout>

@@ -1,0 +1,149 @@
+---
+const implantationHubs = [
+  {
+    title: 'La Réunion',
+    description: 'Armement, transformation, distribution, pilotage groupe',
+    size: 'h-[168px] w-[191px]',
+    imageSrc: 'https://www.figma.com/api/mcp/asset/fa514151-e5db-4a9d-8f7d-483e3c897c0b',
+  },
+  {
+    title: 'Madagascar',
+    description: 'Collecte artisanale, transformation, algoculture durable.',
+    size: 'h-[246px] w-[125px]',
+    imageSrc: 'https://www.figma.com/api/mcp/asset/c64a916a-38e4-4fb8-a6f8-8958a32d85f6',
+  },
+  {
+    title: 'France métropolitaine',
+    description: 'Mareyage, transformation, distribution et importation.',
+    size: 'h-[212px] w-[231px]',
+    imageSrc: 'https://www.figma.com/api/mcp/asset/d2a59944-b3c5-4232-8519-e1666f3c5498',
+  },
+];
+
+const continents = [
+  ['France métropolitaine', '36%', '#FFFFFF'],
+  ['La Réunion', '35%', '#0A97A6'],
+  ['Europe (Hors France)', '16%', '#6EAEB5'],
+  ['Asie', '6%', '#A34C26'],
+  ['États-Unis', '4%', '#AC8652'],
+  ['Afrique', '2%', '#809AA0'],
+  ['Océanie', '1%', '#587682'],
+];
+
+const portfolio = [
+  ['Négociants, grossiste et distributeurs', '54%', 'text-bleu-abysse', 'border-bleu-abysse'],
+  ['Commerce de détail', '18%', 'text-lagon-mayotte', 'border-lagon-mayotte'],
+  ['CHR', '9%', 'text-turquoise-ocean', 'border-turquoise-ocean'],
+  ['Industriels', '7%', 'text-ecume-poudree', 'border-ecume-poudree'],
+  ['Mareyeurs', '6%', 'text-terre-laterite', 'border-terre-laterite'],
+  ['Collectivités', '4%', 'text-sable-corail', 'border-sable-corail'],
+  ['Autres', '2%', 'text-nuit-australe', 'border-nuit-australe'],
+];
+---
+
+<section class="w-full bg-bleu-abysse pt-[94px] text-white">
+  <div class="mx-auto max-w-[1440px] px-5 md:px-10 lg:px-[100px]">
+    <div class="text-center">
+      <h2 class="font-display text-[34px] leading-[1.02] font-black uppercase md:text-[40px] md:leading-[44.5px]">
+        l’implantation de nos filiales
+      </h2>
+      <p class="mx-auto mt-[22px] max-w-[820px] font-body text-[16px] leading-[1.4]">
+        De La Réunion à Madagascar, en passant par les places fortes du mareyage français comme Boulogne-sur-Mer et
+        Lorient, le Groupe conjugue puissance industrielle et ancrage local. Cette présence multi-sites nous permet
+        d’offrir une diversité exceptionnelle de produits, des pélagiques aux crustacés.
+      </p>
+    </div>
+
+    <div class="mt-[74px] grid gap-10 md:grid-cols-3 md:items-end md:justify-items-center">
+      {implantationHubs.map((hub) => (
+        <div class="text-center">
+          <img
+            src={hub.imageSrc}
+            alt=""
+            class:list={['mx-auto object-contain', hub.size]}
+            width="231"
+            height="246"
+          />
+          <p class="mt-[34px] font-heading text-[20px] leading-[1.2] font-semibold">{hub.title}</p>
+          <p class="mx-auto mt-[7px] max-w-[279px] font-body text-[16px] leading-[1.4]">{hub.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div class="relative pb-[110px] pt-[144px] text-center">
+      <h2 class="font-display text-[34px] leading-[1.02] font-black uppercase md:text-[40px] md:leading-[44.5px]">
+        les flux<br class="md:hidden" /> commerciaux
+      </h2>
+      <p class="mx-auto mt-[22px] max-w-[820px] font-body text-[16px] leading-[1.4]">
+        Le groupe Reunimer déploie son expertise à travers trois hubs stratégiques, créant un pont direct entre les
+        ressources de l’Océan Indien et les marchés européens.
+      </p>
+
+      <div class="relative mx-auto mt-[52px] h-[430px] max-w-[1180px] overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.12]">
+          <div class="absolute left-[2%] top-[12%] h-[38%] w-[28%] rounded-[50%] bg-white/80 blur-[2px]"></div>
+          <div class="absolute left-[16%] top-[52%] h-[24%] w-[16%] rounded-[50%] bg-white/80 blur-[2px]"></div>
+          <div class="absolute left-[42%] top-[20%] h-[18%] w-[18%] rounded-[48%] bg-white/80 blur-[2px]"></div>
+          <div class="absolute left-[45%] top-[47%] h-[24%] w-[12%] rounded-[46%] bg-white/80 blur-[2px]"></div>
+          <div class="absolute left-[58%] top-[13%] h-[33%] w-[36%] rounded-[52%] bg-white/80 blur-[2px]"></div>
+          <div class="absolute left-[83%] top-[58%] h-[22%] w-[12%] rounded-[55%] bg-white/80 blur-[2px]"></div>
+        </div>
+
+        <div class="absolute left-[49%] top-[24%] h-[52%] w-px border-l-2 border-dashed border-turquoise-ocean/80"></div>
+      </div>
+
+      <div class="mt-[22px] flex flex-col items-center gap-[10px] text-[15px] lg:mt-[-6px] lg:absolute lg:left-[300px] lg:translate-y-[-146px]">
+        {continents.map(([name, value, color]) => (
+          <div class="flex items-end gap-[12px]">
+            <span class="w-[198px] text-right font-body text-[15px] leading-[1.4] font-bold">{name}</span>
+            <span class="inline-block h-[21px] w-px" style={`background:${color};`}></span>
+            <span class="w-[40px] text-left font-body text-[15px] leading-[1.4]">{value}</span>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-[20px] grid items-start gap-10 lg:mt-[-80px] lg:grid-cols-[1fr_456px] lg:items-center">
+        <div class="flex justify-center lg:justify-start">
+          <p class="max-w-[365px] text-left font-heading text-[20px] leading-[1.1] font-semibold uppercase tracking-[1px]">
+            Une portée mondiale sur les 5 continents
+          </p>
+        </div>
+
+        <div class="text-left lg:justify-self-end">
+          <p class="font-display text-[56px] leading-none font-black uppercase">71%</p>
+          <p class="mt-[6px] max-w-[456px] font-body text-[16px] leading-[1.4]">
+            de produits vendus en France (Métropole et Réunion)
+          </p>
+        </div>
+      </div>
+
+      <div class="mt-[84px] grid gap-12 lg:grid-cols-[560px_1fr] lg:items-start">
+        <div class="flex justify-center">
+          <div
+            class="relative h-[305px] w-[283px] rounded-full"
+            style="background: conic-gradient(#002c41 0 54%, #2d7890 54% 72%, #0a97a6 72% 81%, #6eaeb5 81% 88%, #a34c26 88% 94%, #ac8652 94% 98%, #587682 98% 100%);"
+          >
+            <div class="absolute inset-[46px] rounded-full bg-gris-clair"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <span class="font-display text-[20px] leading-none font-extrabold uppercase text-bleu-abysse">108,1M€</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="text-left">
+          <h3 class="font-heading text-[20px] leading-[1.46] font-normal">
+            Un portefeuille client équilibré<br />(% sur volume total)
+          </h3>
+          <div class="mt-[18px] max-w-[420px] space-y-[5px]">
+            {portfolio.map(([label, value, textColor, borderColor]) => (
+              <div class:list={['flex items-center justify-between border-b pb-[7px]', borderColor]}>
+                <span class:list={['font-heading text-[14px] leading-[1.4] font-semibold', textColor]}>{label}</span>
+                <span class:list={['font-display text-[20px] leading-none font-extrabold uppercase', textColor]}>{value}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

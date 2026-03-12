@@ -1,0 +1,46 @@
+---
+import Container from '../ui/Container.astro';
+
+interface Props {
+  title: string;
+  subtitle?: string;
+  imageSrc?: string;
+  imageAlt?: string;
+}
+
+const {
+  title,
+  subtitle,
+  imageSrc,
+  imageAlt = '',
+} = Astro.props;
+---
+
+<section class="w-full bg-white">
+  <Container class="pt-[40px] pb-[56px] md:pt-[52px] md:pb-[68px] lg:pt-[60px] lg:pb-[78px]">
+    <div class="grid items-center gap-[32px] lg:grid-cols-[1fr_755px] lg:gap-[42px]">
+      <div class="max-w-[360px]">
+        {subtitle && (
+          <p class="mb-[18px] font-heading text-[12px] font-semibold leading-[1.2] tracking-[1.44px] text-turquoise-ocean uppercase md:mb-[22px]">
+            {subtitle}
+          </p>
+        )}
+        <h1 class="font-display text-[44px] font-black leading-[0.95] text-bleu-abysse uppercase md:text-[58px] lg:text-[72px]">
+          {title}
+        </h1>
+      </div>
+
+      {imageSrc && (
+        <div class="w-full max-w-[755px] justify-self-end overflow-hidden">
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            width="755"
+            height="407"
+            class="block h-auto w-full object-cover"
+          />
+        </div>
+      )}
+    </div>
+  </Container>
+</section>

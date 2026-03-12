@@ -1,0 +1,64 @@
+---
+import raisonDetreImage from '../../assets/images/groupe/raison-detre.jpg';
+
+const missionPoints = [
+  {
+    title: 'Audace',
+    description:
+      'Plutôt que de suivre les marchés, nous les structurons activement. En investissant là où les filières sont fragiles, nous créons une valeur durable pour nos territoires.',
+  },
+  {
+    title: 'Expertise',
+    description:
+      "Un contrôle total de la chaîne, de l'hameçon à l'assiette. Notre rigueur technique garantit une traçabilité et une qualité irréprochables.",
+  },
+  {
+    title: 'Performance durable',
+    description:
+      "La preuve par l'action que réussite économique et préservation absolue des écosystèmes marins sont indissociables.",
+  },
+  {
+    title: 'Solidarité locale',
+    description:
+      'Le soutien aux communautés locales est au cœur de notre modèle intégré pour assurer un impact social et environnemental positif.',
+  },
+  {
+    title: 'Rayonnement mondial',
+    description:
+      "En devenant une référence dans l’océan Indien et ailleurs, nous portons un standard d'excellence responsable au-delà des frontières.",
+  },
+];
+---
+
+<section class="w-full bg-gris-clair">
+  <div class="grid lg:grid-cols-[680px_1fr]">
+    <div class="min-h-[420px] lg:min-h-[973px]">
+      <img
+        src={raisonDetreImage.src}
+        alt="Notre raison d’être"
+        width="680"
+        height="973"
+        class="block h-full w-full object-cover"
+      />
+    </div>
+
+    <div class="px-5 py-16 md:px-10 lg:px-[59px] lg:py-[100px]">
+      <h2 class="font-display text-[34px] leading-[1.02] font-black uppercase text-bleu-abysse md:text-[40px] md:leading-[44.5px]">
+        Notre raison d’être
+      </h2>
+      <p class="mt-[20px] max-w-[456px] font-heading text-[18px] leading-[1.46] font-normal text-bleu-abysse md:text-[20px]">
+        Préserver et valoriser durablement les ressources marines de l’océan Indien, en créant un impact positif pour
+        les territoires et les communautés qui en vivent.
+      </p>
+
+      <div class="mt-[28px] max-w-[445px] space-y-[18px]">
+        {missionPoints.map((point) => (
+          <div>
+            <h3 class="font-heading text-[20px] leading-[1.2] font-semibold text-bleu-abysse">{point.title}</h3>
+            <p class="mt-[4px] font-body text-[16px] leading-[1.4] text-bleu-abysse">{point.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,84 @@
+---
+const historyHeroImage = 'https://www.figma.com/api/mcp/asset/9f713f958f14439cc74d6a91ac47a2388d78d1d1.png';
+
+const timelineEvents = [
+  {
+    year: '1996',
+    description:
+      'Création de la société Le Martin Pêcheur, initialement dédié à la pêche, la transformation et la distribution à Ste-Marie (Réunion)',
+  },
+  {
+    year: '1998',
+    description:
+      'Naissance de l’Armement Enez, lançant une flotte de pêche pélagique en partenariat avec Le Martin Pêcheur.',
+  },
+  {
+    year: '2000',
+    description: 'Création de Pêcherie du Sud (Maurice) et Copefrito (Tuléar - Madagascar)',
+  },
+  {
+    year: '2002',
+    description:
+      'Création de Réunion Pélagique, marquant la reprise d’une usine de traitement et une diversification vers le surgelé.',
+  },
+];
+---
+
+<section class="w-full bg-white">
+  <div class="relative h-[373px] overflow-hidden">
+    <img
+      src={historyHeroImage}
+      alt="Notre histoire"
+      width="1440"
+      height="373"
+      class="block h-full w-full object-cover grayscale"
+    />
+    <div class="absolute inset-0 bg-bleu-abysse/45"></div>
+    <h2 class="absolute left-5 top-1/2 -translate-y-1/2 font-display text-[34px] leading-none font-extrabold uppercase text-white md:left-[104px] md:text-[40px]">
+      Notre histoire
+    </h2>
+  </div>
+
+  <div class="bg-bleu-abysse px-5 py-[72px] text-white md:px-10 lg:px-[97px] lg:py-[129px]">
+    <div class="relative mx-auto max-w-[1247px]">
+      <div class="absolute left-0 right-0 top-[50px] hidden border-t border-white/80 lg:block"></div>
+      <div class="grid gap-10 lg:grid-cols-4 lg:gap-[84px]">
+        {timelineEvents.map((event) => (
+          <div class="relative pt-0 lg:pt-[15px]">
+            <div class="hidden lg:block">
+              <div class="absolute left-0 top-[45px] h-[11px] w-[11px] rounded-full bg-white"></div>
+              <div class="absolute left-[5px] top-[-7px] h-[65px] w-px bg-white"></div>
+            </div>
+            <p class="font-heading text-[32px] leading-none font-semibold uppercase tracking-[0.5px] md:text-[39px]">
+              {event.year}
+            </p>
+            <p class="mt-[30px] max-w-[255px] font-body text-[16px] leading-[1.4] text-white/95">
+              {event.description}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-[28px] flex justify-end gap-[10px]">
+        <button
+          type="button"
+          class="flex h-[50px] w-[50px] items-center justify-center rounded-full border border-white/40 text-white/80"
+          aria-label="Précédent"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8.75 11.5L4.25 7L8.75 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+        <button
+          type="button"
+          class="flex h-[50px] w-[50px] items-center justify-center rounded-full bg-white text-bleu-abysse"
+          aria-label="Suivant"
+        >
+          <svg class="h-4 w-4" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M5.25 11.5L9.75 7L5.25 2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,83 @@
+---
+import Container from '../ui/Container.astro';
+import reunimerLogo from '../../assets/logos/reunimer-wordmark.svg';
+import rpaLogo from '../../assets/logos/subsidiaries/rpa.svg';
+import reunipecheLogo from '../../assets/logos/subsidiaries/reunipeche.svg';
+import pecheurLogo from '../../assets/logos/subsidiaries/pecheur-creole.svg';
+import oceanFarmersLogo from '../../assets/logos/subsidiaries/ocean-farmers.svg';
+import stargelLogo from '../../assets/logos/subsidiaries/stargel.svg';
+import norseaLogo from '../../assets/logos/subsidiaries/norsea.svg';
+
+const subsidiaryGroups = [
+  {
+    region: 'À la Réunion',
+    cards: [
+      { kind: 'image', logo: reunimerLogo.src, name: 'Reunimer', activity: 'Distribution', logoClass: 'max-h-[41px] max-w-[232px]' },
+      { kind: 'image', logo: rpaLogo.src, name: 'Réunion Pêche Australe', activity: 'Pêche & distribution', logoClass: 'max-h-[72px] max-w-[170px]' },
+      { kind: 'image', logo: reunipecheLogo.src, name: 'Réunipêche', activity: 'Pêche & distribution', logoClass: 'max-h-[70px] max-w-[145px]' },
+    ],
+  },
+  {
+    region: 'À Madagascar',
+    cards: [
+      { kind: 'text-msf', name: 'MSF', activity: 'Pêche traditionnelle & transformation' },
+      { kind: 'image', logo: pecheurLogo.src, name: 'Le Martin Pêcheur', activity: 'Point de vente', logoClass: 'max-h-[64px] max-w-[168px]' },
+      { kind: 'image', logo: oceanFarmersLogo.src, name: 'Ocean Farmers', activity: 'Algoculture', logoClass: 'max-h-[82px] max-w-[176px]' },
+    ],
+  },
+  {
+    region: 'En France Métropolitaine',
+    cards: [
+      { kind: 'text-msf', name: 'MSF', activity: 'Distribution' },
+      { kind: 'text-phf', name: 'PHF', activity: 'Mareyage & distribution' },
+      { kind: 'image', logo: stargelLogo.src, name: 'Stargel', activity: 'Distribution', logoClass: 'max-h-[82px] max-w-[190px]' },
+      { kind: 'image', logo: norseaLogo.src, name: 'Norsea', activity: 'Distribution', logoClass: 'max-h-[76px] max-w-[170px]' },
+    ],
+  },
+];
+---
+
+<section class="w-full bg-white py-[82px] md:py-[96px] lg:py-[86px]">
+  <Container>
+    <h2 class="text-center font-display text-[34px] leading-none font-black uppercase text-bleu-abysse md:text-[40px] md:leading-[44.5px]">
+      Nos filiales
+    </h2>
+
+    <div class="mt-[24px] space-y-[46px]">
+      {subsidiaryGroups.map((group) => (
+        <div>
+          <p class="text-center font-heading text-[20px] leading-none font-semibold uppercase tracking-[2.4px] text-bleu-abysse">
+            {group.region}
+          </p>
+
+          <div class="mx-auto mt-[28px] grid max-w-[1053px] gap-x-[32px] gap-y-[30px] md:grid-cols-3">
+            {group.cards.map((card) => (
+              <div class="flex flex-col items-center">
+                <div class="flex h-[190px] w-full items-center justify-center border border-bleu-abysse bg-gris-clair px-6 py-[13px]">
+                  {card.kind === 'image' && (
+                    <img src={card.logo} alt={card.name} class:list={['object-contain', card.logoClass]} />
+                  )}
+
+                  {card.kind === 'text-msf' && (
+                    <div class="translate-y-[-2px] text-center text-bleu-abysse">
+                      <div class="font-body text-[68px] leading-[0.88] font-normal lowercase tracking-[-2px]">msf</div>
+                      <div class="mt-[2px] font-body text-[18px] leading-none font-normal tracking-[-0.3px]">MadagascarSeaFood</div>
+                    </div>
+                  )}
+
+                  {card.kind === 'text-phf' && (
+                    <div class="relative translate-y-[-2px] text-center text-bleu-abysse">
+                      <div class="font-heading text-[54px] leading-none font-bold uppercase tracking-[-1px]">PHF</div>
+                      <div class="absolute right-[-22px] top-[-10px] text-[46px] leading-none">✦</div>
+                    </div>
+                  )}
+                </div>
+                <p class="mt-[14px] text-center font-body text-[16px] leading-none font-bold text-black">{card.activity}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

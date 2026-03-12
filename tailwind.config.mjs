@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
+  content: [
+    './src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+    './src/**/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}',
+  
+  ],
   theme: {
     extend: {
       colors: {
@@ -17,6 +21,7 @@ export default {
 
         // Neutral
         'brume-alize': '#809AA0',
+        'gris-merou': '#636A6B',
         'gris-clair': '#F6F6F6',
       },
       fontFamily: {
