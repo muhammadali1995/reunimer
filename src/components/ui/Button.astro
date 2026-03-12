@@ -15,13 +15,9 @@
  *                  px-[22px] py-[18px], rounded-[47px], same typography
  */
 
-interface Props {
-  variant?: 'outline-dark' | 'outline-light' | 'primary' | 'pill-primary' | 'pill-light';
-  href?: string;
-  type?: 'button' | 'submit';
-  class?: string;
-  hideArrow?: boolean;
-}
+import type { ButtonProps } from '../../types';
+
+type Props = ButtonProps;
 
 const {
   variant = 'outline-dark',

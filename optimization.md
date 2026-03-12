@@ -337,6 +337,123 @@ This is a single hardcoded page. Every new article would require creating a new 
 
 ---
 
+### 34. Navbar — Nav Links Data Inline in Component
+
+**File:** `src/components/sections/Navbar.astro` (lines 21–71)
+
+The `navLinks` array (~50 lines) with all navigation structure is defined inline in the component frontmatter. Following the established pattern (footer, articles, products, carrières), this data should live in `src/data/navbar.ts` with types in `src/types/navbar.ts`.
+
+**Fix:** Create `NavLink` / `NavChild` interfaces in `src/types/navbar.ts`, move `navLinks` to `src/data/navbar.ts`.
+
+---
+
+### 35. Navbar — Search Icon SVG Duplicated
+
+**File:** `src/components/sections/Navbar.astro` (lines 148–150, 260–262)
+
+Identical search icon SVG path (~4 lines) repeated for desktop and mobile. Minor duplication but easy to DRY up.
+
+**Fix:** Extract into a constant or inline fragment.
+
+---
+
+### 36. Navbar — Chevron SVG Duplicated
+
+**File:** `src/components/sections/Navbar.astro` (lines 165–167, 273–275)
+
+Identical chevron SVG for language dropdown repeated for desktop and mobile.
+
+**Fix:** Extract alongside search icon.
+
+---
+
+### 37. Navbar — Lang Dropdown Markup Duplicated
+
+**File:** `src/components/sections/Navbar.astro` (lines 154–194, 264–301)
+
+Desktop and mobile language dropdowns share nearly identical markup (~30 lines each): button with label + chevron, dropdown with FR/EN options + checkmark SVGs. They differ only in `id` prefixes and positioning classes.
+
+**Fix:** Extract into a data-driven loop or fragment. The JS `initLangDropdown()` already handles both via id prefix — the markup should follow the same pattern.
+
+---
+
+### 38. Navbar — Lang Option Button Class Duplicated
+
+**File:** `src/components/sections/Navbar.astro` (lines 175, 185, 283, 293)
+
+The same long class string for lang option buttons is repeated 4 times:
+`"lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none"`
+
+**Fix:** Extract to a constant in frontmatter.
+
+---
+
+### 39. Navbar — Checkmark SVG Duplicated 4 Times
+
+**File:** `src/components/sections/Navbar.astro` (lines 179–181, 189–191, 287–289, 297–299)
+
+Identical checkmark SVG repeated in all 4 lang option buttons (2 desktop + 2 mobile).
+
+**Fix:** Use a constant or inline with `set:html`.
+
+---
+
+---
+
+### 40. ExpertiseCard — Uses Raw `<img>` Instead of `<Image />`
+
+**File:** `src/components/ui/ExpertiseCard.astro` (line 56)
+
+Uses `<img src={imageSrc}>` with a `string` prop. Per project rules, all images must use Astro's `<Image />` component.
+
+**Fix:** Change `imageSrc` prop type to `ImageMetadata`, use `<Image />`.
+
+---
+
+### 41. ExpertiseCard — `href` Defaults to `'#'`
+
+**File:** `src/components/ui/ExpertiseCard.astro` (line 36)
+
+`href` defaults to `'#'` — same dead link issue we fixed in ArticleCard.
+
+**Fix:** Make `href` required (no default).
+
+---
+
+### 42. FormField Component — Exists but Never Used
+
+**File:** `src/components/ui/FormField.astro`
+
+A fully built form field component exists with support for text/email/select/textarea types — but the Footer builds all form fields inline instead of using it. This is dead code.
+
+**Fix:** Either refactor Footer to use `FormField`, or delete the component if it's a leftover.
+
+---
+
+### 43. Carrières Hero Image — Still Uses `h-auto` (Unfixed Issue #3)
+
+**File:** `src/pages/carrieres.astro` (line 20)
+
+The hero `<Image>` uses `class="w-full h-auto"` inside a fixed-height container. This was identified in Issue #3 but never fixed during Phase 2.
+
+**Fix:** Change to `class="w-full h-full object-cover"`.
+
+---
+
+## Implementation Plan (continued)
+
+(Issues 34–39 are addressed in Phases 6 and 6b. Issues 40–43 in Phase 14.)
+
+---
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro`
+
+This is a single hardcoded page. Every new article would require creating a new `.astro` file with copy-pasted layout. This doesn't scale.
+
+**Fix:** Migrate to Astro content collections or a dynamic `[slug].astro` route that renders from a data source. This is the most impactful change for the article system.
+
+---
+
 ---
 
 ## Implementation Plan
@@ -448,30 +565,32 @@ All changes are **non-breaking** — each phase produces identical visual output
 
 ---
 
-### Phase 6 — Navbar SVG Deduplication (Low Risk, Optional)
+### Phase 6 — Navbar Data & Types Extraction (Low Risk)
 
-**Goal:** Reduce duplicated SVG markup in the navbar.
+**Goal:** Move nav links data to `src/data/navbar.ts` and types to `src/types/navbar.ts`, matching the established pattern.
 
 **Tasks:**
-1. Extract search icon SVG into a reusable inline fragment or small component
-2. Consider extracting the language dropdown into a small component (desktop/mobile share same logic)
-3. **Only if it clearly simplifies** — don't over-abstract
+1. Create `src/types/navbar.ts` with `NavChild` and `NavLink` interfaces
+2. Create `src/data/navbar.ts` with the `navLinks` array (move from Navbar.astro frontmatter)
+3. Update `Navbar.astro` to import from `../../data/navbar`
+4. **Verify:** Navbar renders identically, dropdowns work, mobile menu works
 
-**Estimated scope:** ~1-2 files changed
+**Estimated scope:** 3 files (2 new, 1 modified), ~50 lines moved out of Navbar.astro
 
 ---
 
-### Phase 7 — Performance & SEO (Medium Risk)
+### Phase 6b — Navbar SVG & Markup Deduplication (Low Risk, Optional)
 
-**Goal:** Improve page load and social sharing.
+**Goal:** Reduce duplicated SVG and lang dropdown markup in the navbar.
 
 **Tasks:**
-1. Audit `BaseLayout.astro` for OG/Twitter meta tags — add if missing
-2. Add `loading="lazy"` explicitly to all below-fold `<Image />` calls
-3. Verify hero images use `loading="eager"` (above-fold, should load immediately)
-4. Check that Astro's image optimization is generating WebP for all product/article images
+1. Extract `langOptionClasses` constant in frontmatter (repeated 4×)
+2. Define `languages` data array (`[{ code: 'fr', label: 'FR' }, { code: 'en', label: 'EN' }]`)
+3. Extract `searchIconSvg` and `chevronSvg` and `checkSvg` as constants
+4. Render lang option buttons via `.map()` for both desktop and mobile
+5. **Only if it clearly simplifies** — don't over-abstract
 
-**Estimated scope:** ~2-3 files changed
+**Estimated scope:** 1 file modified, ~40 lines reduced
 
 ---
 
@@ -556,23 +675,20 @@ All changes are **non-breaking** — each phase produces identical visual output
 
 ---
 
-### Phase 11 — Pre-Launch Blockers (Requires Decisions)
+### Phase 14 — UI Component Cleanup (Low Risk)
 
-These items need user/stakeholder input before implementation:
+**Goal:** Fix remaining component issues: raw `<img>`, dead links, unused code, hero image fit.
 
-| Item | Question |
-|------|----------|
-| "Postuler à l'offre" links | Where should they go? (email, form, external board) |
-| Contact form backend | Which service? (Formspree, Netlify Forms, custom API) |
-| Johanne Serri testimonial | Is the quote text available? Or is the section intentionally label-only? |
-| Placeholder article images | When will real content/images be available? |
-| Legal page links (`#` hrefs) | When will Mentions légales, CGV, etc. pages be created? |
-| ProductCard fallback color | Is `#DACBB4` a design token? Should it be added to Tailwind config? |
-| Article detail gallery images | When will real images (3 distinct photos) be available? |
-| Article body content | When will real article text be available? Will it include rich formatting? |
-| Additional articles | How many articles are planned? This determines if content collections are worth implementing. |
+**Tasks:**
+1. **ExpertiseCard** — Change `imageSrc: string` to `image: ImageMetadata`, replace `<img>` with `<Image />`, make `href` required
+2. **FormField** — Delete `FormField.astro` (unused component — Footer has its own inline form with different styling)
+3. **Carrières hero** — Change `class="w-full h-auto"` to `class="w-full h-full object-cover"` (Issue #3)
+4. **Verify:** No regressions on carrières page, ExpertiseCard still works in ui-preview
+
+**Estimated scope:** 2–3 files modified, 1 file deleted
 
 ---
+
 
 ## Priority Matrix
 
@@ -588,10 +704,10 @@ These items need user/stakeholder input before implementation:
 | ~~Medium~~ | ~~Phase 4b — ArticleCard improvements~~ | ~~Performance / UX~~ | ~~Medium~~ | Done |
 | ~~High~~ | ~~Phase 12 — Article detail quick wins~~ | ~~UX / A11y~~ | ~~Low~~ | Done |
 | ~~High~~ | ~~Phase 13 — Article detail dynamic route~~ | ~~Scalability~~ | ~~Medium~~ | Done |
-| Medium | Phase 7 — Performance & SEO | Performance / SEO | Medium | Pending |
-| Low | Phase 5 — Footer form cleanup | Code quality | Low | Pending |
-| Low | Phase 6 — Navbar SVG dedup | Code quality | Low | Pending |
-| Blocker | Phase 11 — Pre-launch decisions | Launch readiness | N/A | Pending |
+| ~~Low~~ | ~~Phase 5 — Footer form cleanup~~ | ~~Code quality~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 6 — Navbar data/types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Low~~ | ~~Phase 6b — Navbar SVG/markup dedup~~ | ~~Code quality~~ | ~~Low~~ | Done |
+| ~~Low~~ | ~~Phase 14 — UI component cleanup~~ | ~~Code quality~~ | ~~Low~~ | Done |
 
 ---
 

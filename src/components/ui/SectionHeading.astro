@@ -8,13 +8,9 @@
  * Used across: Groupe, Expertises, RSE, Actus, Carrières, Raison d'être sections
  */
 
-interface Props {
-  title: string;
-  subtitle?: string;
-  align?: 'left' | 'center';
-  light?: boolean;
-  class?: string;
-}
+import type { SectionHeadingProps } from '../../types';
+
+type Props = SectionHeadingProps;
 
 const {
   title,

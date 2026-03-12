@@ -7,7 +7,6 @@ import Button from '../components/ui/Button.astro';
 import Tag from '../components/ui/Tag.astro';
 import ExpertiseCard from '../components/ui/ExpertiseCard.astro';
 import ArticleCard from '../components/ui/ArticleCard.astro';
-import FormField from '../components/ui/FormField.astro';
 ---
 
 <BaseLayout title="UI Components Preview — Reunimer">
@@ -65,26 +64,31 @@ import FormField from '../components/ui/FormField.astro';
           title="Pêche"
           description="Une force maritime responsable pour l'excellence à la source."
           color="terre-laterite"
+          href="/expertises/peche"
         />
         <ExpertiseCard
           title="Production"
           description="Valoriser chaque ressource sans compromis."
           color="lagon-mayotte"
+          href="/expertises/production"
         />
         <ExpertiseCard
           title="Distribution"
           description="Un engagement de proximité et de performance."
           color="sable-corail"
+          href="/expertises/distribution"
         />
         <ExpertiseCard
           title="Supports"
           description="La force invisible au service de l'excellence."
           color="nuit-australe"
+          href="/expertises/supports"
         />
         <ExpertiseCard
           title="RH"
           description="Un engagement humain porteur d'avenir."
           color="ecume-poudree"
+          href="/expertises/rh"
         />
       </div>
     </Container>
@@ -117,29 +121,5 @@ import FormField from '../components/ui/FormField.astro';
     </Container>
   </SectionWrapper>
 
-  <!-- Contact Form Fields -->
-  <SectionWrapper bg="bleu-abysse">
-    <Container>
-      <SectionHeading title="Contactez-nous" align="center" light />
-      <div class="mt-10 max-w-[489px] mx-auto flex flex-col gap-[22px]">
-        <FormField label="Prénom" name="prenom" />
-        <FormField label="Nom" name="nom" />
-        <FormField label="Email" name="email" type="email" />
-        <FormField
-          label="Motif"
-          name="motif"
-          type="select"
-          placeholder="Choisissez"
-          options={[
-            { value: 'info', label: 'Demande d\'information' },
-            { value: 'partner', label: 'Partenariat' },
-            { value: 'other', label: 'Autre' },
-          ]}
-        />
-        <FormField label="Message" name="message" type="textarea" />
-        <Button variant="primary">Envoyer</Button>
-      </div>
-    </Container>
-  </SectionWrapper>
 
 </BaseLayout>

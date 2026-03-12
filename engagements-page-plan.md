@@ -92,13 +92,13 @@ The page follows an alternating two-column layout for each "engagement" section:
 
 ---
 
-## Phase 3 — EngagementSection Component + Notre lien à la Mer
+## Phase 3 — EngagementSection Component
 
-**Goal:** Build a reusable `EngagementSection` component and implement the first engagement section (Kelonia).
+**Goal:** Build a reusable `EngagementSection` component for the alternating two-column layout used across all engagement sections.
 
 **Tasks:**
 
-### 3a — EngagementSection Component (`src/components/ui/EngagementSection.astro`)
+### EngagementSection Component (`src/components/ui/EngagementSection.astro`)
 - Props: `title`, `bodyText`, `imageSrc`, `imageAlt`, `imagePosition` (left | right), `bgColor` (white | gris-clair), `id`
 - Slots: `partner-logo`, `extra-content` (for partner descriptions, key figures, etc.)
 - Layout: Two columns — image (≈51% width) + text content (≈49% width)
@@ -106,8 +106,22 @@ The page follows an alternating two-column layout for each "engagement" section:
 - Text column: title (Montserrat SemiBold 32px) + body (Montserrat Regular 20px, 1.461 lh) + optional partner logo + "EN SAVOIR PLUS" button
 - "EN SAVOIR PLUS" button: outline style, 190 × 53px (use existing Button component)
 - Section height: ~785px at desktop (flexible based on content)
+- `imagePosition="left"` → image left, text right (Mer, Femmes/Hommes, Social)
+- `imagePosition="right"` → text left, image right (Terre, Énergie, Formation, Filières)
 
-### 3b — Notre lien à la Mer (y=1531, h=785)
+**Responsive:**
+- Mobile: single column, image on top (~300px), text below
+- Tablet: reduce image width, adjust text sizing
+
+---
+
+## Phase 4 — Notre lien à la Mer
+
+**Goal:** Implement the first engagement section (Kelonia partnership) using the EngagementSection component.
+
+**Tasks:**
+
+### Notre lien à la Mer (y=1531, h=785)
 - Background: gris-clair (#F6F6F6), node `729:16418`
 - Image LEFT (node `729:16422`, 742 × 785): sea turtle / marine scene
   - Export → `src/assets/images/engagements/lien-mer.jpg`
@@ -119,13 +133,9 @@ The page follows an alternating two-column layout for each "engagement" section:
   - Font: appears smaller (~Inter or Montserrat), width 218px
 - "EN SAVOIR PLUS" button (node `729:16419`) at y=2131
 
-**Responsive:**
-- Mobile: single column, image on top, text below, reduce image height to ~300px
-- Tablet: reduce image width, adjust text sizing
-
 ---
 
-## Phase 4 — Notre lien à la Terre
+## Phase 5 — Notre lien à la Terre
 
 **Goal:** Build the second engagement section (Bôndy partnership).
 
@@ -143,15 +153,11 @@ The page follows an alternating two-column layout for each "engagement" section:
   - Width: 280px
 - "EN SAVOIR PLUS" button (node `729:16427`) at y=2953
 
-**Responsive:**
-- Mobile: single column, image on top, text below
-- Tablet: reduce image width proportionally
-
 ---
 
-## Phase 5 — Notre lien aux femmes et aux hommes
+## Phase 6 — Notre lien aux femmes et aux hommes
 
-**Goal:** Build the third engagement section (Together + key figures block).
+**Goal:** Build the third engagement section (Together + key figures block). Create a reusable `KeyFigures` component.
 
 **Tasks:**
 
@@ -165,6 +171,10 @@ The page follows an alternating two-column layout for each "engagement" section:
 - Together logo (node `729:16443`, Group 11, 200 × 46)
   - Export → `src/assets/images/engagements/logo-together.png`
 - "EN SAVOIR PLUS" button (node `729:16428`) at y=3538
+
+### KeyFigures Component (`src/components/ui/KeyFigures.astro`)
+- Reusable component for stat grids (used here and in Phase 11)
+- Props: `title` (string), `stats` (array of { value: string, label: string }), `columns` (2 | 4)
 - **Key Figures block** (node `729:16586`, 467 × 394) at y=3639:
   - Title: "L'impact socio-économique de Reunimer à Madagascar" (Montserrat Bold 16px)
   - 6 stat items in a grid (2 columns × 3 rows):
@@ -175,15 +185,10 @@ The page follows an alternating two-column layout for each "engagement" section:
     5. XX emplois indirects soutenus dans la filière
     6. 1800 tonnes de poissons pélagiques pêchés
   - Each stat: number in Zalando Sans Black 40px + label in Montserrat Regular 16px
-  - Consider creating a reusable `KeyFigures` component (used again in Phase 8)
-
-**Responsive:**
-- Mobile: single column, image on top, key figures 2-col grid, reduce number size to ~28px
-- Tablet: reduce image width, adjust text sizing
 
 ---
 
-## Phase 6 — Notre lien à l'énergie
+## Phase 7 — Notre lien à l'énergie
 
 **Goal:** Build the energy transition section with solar panel image.
 
@@ -200,19 +205,15 @@ The page follows an alternating two-column layout for each "engagement" section:
 - The image appears to overlap both background zones
 - Export → `src/assets/images/engagements/lien-energie.jpg`
 
-**Responsive:**
-- Mobile: single column, image on top
-- Tablet: reduce image width, stack if needed
-
 ---
 
-## Phase 7 — Notre lien à la santé + Notre lien à la formation
+## Phase 8 — Notre lien à la santé
 
-**Goal:** Build the health and formation sections.
+**Goal:** Build the health section (text-only, no image).
 
 **Tasks:**
 
-### 7a — Notre lien à la santé (y=5163, ~570px)
+### Notre lien à la santé (y=5163, ~570px)
 - Background: White (between gris-clair sections)
 - No image in this section — text-only
 - Title (node `729:16436`): "Notre lien à la santé"
@@ -220,7 +221,15 @@ The page follows an alternating two-column layout for each "engagement" section:
   - Width: 496px, height: 382px
 - Layout: title + body text, left-aligned within Container
 
-### 7b — Notre lien à la formation (y=5732, h=785)
+---
+
+## Phase 9 — Notre lien à la formation
+
+**Goal:** Build the EAMP maritime school partnership section.
+
+**Tasks:**
+
+### Notre lien à la formation (y=5732, h=785)
 - Background: White
 - Image RIGHT (node `729:16417`, 766 × 785): EAMP maritime school scene
   - Export → `src/assets/images/engagements/lien-formation.jpg`
@@ -229,13 +238,9 @@ The page follows an alternating two-column layout for each "engagement" section:
   - Width: 445px
 - Layout: text LEFT + image RIGHT
 
-**Responsive:**
-- Mobile: santé text full-width, formation single column with image on top
-- Tablet: adjust proportionally
-
 ---
 
-## Phase 8 — Notre lien au social
+## Phase 10 — Notre lien au social
 
 **Goal:** Build the Ocean Farmers section with key figures.
 
@@ -260,16 +265,11 @@ The page follows an alternating two-column layout for each "engagement" section:
     2. 2000 familles
     3. 300 km de littoral d'activité
     4. 1800 tonnes de poissons pélagiques pêchés
-  - Same style as Phase 5 key figures (Zalando Sans Black 40px + Montserrat Regular 16px)
-  - Reuse `KeyFigures` component from Phase 5
-
-**Responsive:**
-- Mobile: single column, image on top, key figures 2-col grid
-- Tablet: adjust proportionally
+  - Reuse `KeyFigures` component from Phase 6
 
 ---
 
-## Phase 9 — Notre lien aux filières
+## Phase 11 — Notre lien aux filières
 
 **Goal:** Build the final engagement section (ADIR, ARIPA, EcoVadis).
 
@@ -289,19 +289,13 @@ The page follows an alternating two-column layout for each "engagement" section:
   - Width: 445px
 - "EN SAVOIR PLUS" buttons × 2 (nodes `729:16430`, `729:16431`) at y=8048
 
-**Responsive:**
-- Mobile: single column, logos center-aligned, reduce sizes proportionally
-- Tablet: adjust widths, keep two-column where possible
-
 ---
 
-## Phase 10 — Responsive Design Pass + Final Polish
+## Phase 12 — Responsive Design Pass
 
-**Goal:** Ensure all sections look great on tablet (768–1024px) and mobile (375–767px). Polish all details.
+**Goal:** Ensure all sections look great on tablet (768–1024px) and mobile (375–767px).
 
 **Tasks:**
-
-### 10a — Responsive Design
 - **Hero**: scale height (860 → ~500px tablet, ~300px mobile), adjust text positioning, reduce title to ~28px mobile
 - **Intro section**: full-width text, stack vertically
 - **Engagement sections**: single column on mobile (image → text stacked), reduce image height to ~300px
@@ -312,13 +306,21 @@ The page follows an alternating two-column layout for each "engagement" section:
 - **Buttons**: adequate tap targets (min 44px)
 - Test at 375px, 768px, 1024px, 1440px
 
-### 10b — Final Polish
-- Verify Navbar "Engagements" or relevant link points correctly
+---
+
+## Phase 13 — Final Polish
+
+**Goal:** Verify everything matches Figma and clean up.
+
+**Tasks:**
+- Verify Navbar "Engagements RSE" link and dropdown anchors work correctly
 - Verify all spacings match Figma at 1440px
 - Ensure all partner logos render correctly
 - Verify key figures blocks alignment
+- Add smooth scroll anchors (`id` attributes) to each engagement section
+- Ensure `scroll-mt-[135px]` for fixed navbar offset on anchor targets
 - Clean up temporary code or comments
-- Smooth scroll anchors if needed
+- Cross-check all text content against Figma for typos
 
 ---
 

@@ -1,11 +1,8 @@
 ---
 import '../styles/global.css';
+import type { PageProps } from '../types';
 
-interface Props {
-  title?: string;
-  description?: string;
-  ogImage?: string;
-}
+type Props = PageProps;
 
 const {
   title = 'Reunimer — Pêche, Production & Distribution dans l\'océan Indien',

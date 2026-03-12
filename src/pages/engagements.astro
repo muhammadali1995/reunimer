@@ -2,7 +2,14 @@
 import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
+import EngagementSection from '../components/ui/EngagementSection.astro';
 import heroImage from '../assets/images/engagements/hero-engagements.png';
+import rapportRseBg from '../assets/images/engagements/rapport-rse-bg.png';
+import lienMerImg from '../assets/images/engagements/lien-mer.png';
+import logoKelonia from '../assets/images/engagements/logo-kelonia.png';
+import lienTerreImg from '../assets/images/engagements/lien-terre.png';
+import logoBondy from '../assets/images/engagements/logo-bondy.png';
 ---
 
 <PageLayout
@@ -37,4 +44,101 @@ import heroImage from '../assets/images/engagements/hero-engagements.png';
       </div>
     </div>
   </section>
+
+  <!-- Intro: ONG placeholder labels -->
+  <section class="bg-white pt-10 md:pt-14 lg:pt-[59px]">
+    <Container>
+      <div class="flex flex-col sm:flex-row gap-6 sm:gap-16 lg:gap-[445px]">
+        <h2 class="font-heading font-semibold text-xl md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          LOGO ONG
+        </h2>
+        <h2 class="font-heading font-semibold text-xl md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          ONG concern&eacute;es&nbsp;?
+        </h2>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Intro: Explorez nos Engagements + RSE report -->
+  <section class="relative mt-8 md:mt-10 lg:mt-[60px] overflow-hidden">
+    <!-- Background image — RSE report on wooden dock -->
+    <div class="relative h-[300px] sm:h-[380px] md:h-[450px] lg:h-[516px]">
+      <Image
+        src={rapportRseBg}
+        alt="Rapport RSE de Reunimer pos&eacute; sur un ponton en bois au bord de l'oc&eacute;an"
+        class="w-full h-full object-cover"
+        widths={[375, 768, 1024, 1440]}
+        sizes="100vw"
+      />
+
+      <!-- Text overlay — left side -->
+      <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-10 lg:pl-[126px] lg:pr-0 lg:pt-[84px] lg:justify-start">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-white">
+          Explorez nos<br />Engagements
+        </h2>
+        <p class="mt-4 md:mt-6 lg:mt-[21px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-white max-w-[445px]">
+          Parce que la transparence est aussi essentielle que la fra&icirc;cheur de nos produits, nous vous invitons &agrave; d&eacute;couvrir l&rsquo;envers du d&eacute;cor. Notre Rapport RSE d&eacute;taille nos actions concr&egrave;tes pour une p&ecirc;che durable, la protection de la biodiversit&eacute; r&eacute;unionnaise et le d&eacute;veloppement de notre &eacute;conomie locale. Plongez dans nos engagements pour comprendre comment nous transformons, jour apr&egrave;s jour, les d&eacute;fis de l&rsquo;oc&eacute;an en opportunit&eacute;s pour le territoire.
+        </p>
+        <div class="mt-6 md:mt-8 lg:mt-[29px]">
+          <Button variant="outline-light" href="#">
+            T&eacute;l&eacute;charger le rapport RSE
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien à la Mer -->
+  <EngagementSection
+    title="Notre lien à la Mer"
+    bodyText="En partenariat avec Kelonia, le groupe Reunimer forme ses marins aux gestes de secours pour les tortues marines. De l'application de protocoles de réanimation au décrochage sécurisé, ces compétences permettent de minimiser l'impact de la pêche et de transformer les équipages en véritables sentinelles de la biodiversité dans l'océan Indien."
+    imageSrc={lienMerImg}
+    imageAlt="Tortue marine dans l'océan Indien — partenariat Reunimer et Kelonia"
+    imagePosition="left"
+    bgColor="gris-clair"
+    id="lien-mer"
+  >
+    <!-- Kelonia partner logo + description -->
+    <div class="mt-6 md:mt-8 lg:mt-[31px] flex flex-col sm:flex-row gap-4 lg:gap-6">
+      <div class="shrink-0">
+        <Image
+          src={logoKelonia}
+          alt="Logo Kelonia — l'observatoire des tortues marines"
+          class="w-[120px] md:w-[150px] lg:w-[175px] h-auto"
+          widths={[120, 150, 175]}
+          sizes="175px"
+        />
+      </div>
+      <p class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[218px]">
+        K&eacute;lonia est &agrave; la fois un aquarium, mus&eacute;e, et un centre de recherche, d&rsquo;intervention et de soins consacr&eacute; aux tortues marines.
+      </p>
+    </div>
+  </EngagementSection>
+
+  <!-- Notre lien à la Terre -->
+  <EngagementSection
+    title="Notre lien à la Terre"
+    bodyText="Engagé pour la préservation de son environnement régional, le groupe Reunimer soutient l'association malgache Bôndy via un don dédié à la reforestation et au développement de l'agroforesterie. Ce partenariat concret permet de restaurer les écosystèmes de la Grande Île tout en accompagnant les communautés locales vers des modèles économiques durables, affirmant ainsi la responsabilité sociétale de Reunimer au cœur de l'océan Indien."
+    imageSrc={lienTerreImg}
+    imageAlt="Reforestation à Madagascar — partenariat Reunimer et Bôndy"
+    imagePosition="right"
+    bgColor="white"
+    id="lien-terre"
+  >
+    <!-- Bôndy partner logo + description -->
+    <div class="mt-6 md:mt-8 lg:mt-[31px] flex flex-col sm:flex-row gap-4 lg:gap-6">
+      <div class="shrink-0">
+        <Image
+          src={logoBondy}
+          alt="Logo Bôndy — association de reforestation à Madagascar"
+          class="w-[90px] md:w-[105px] lg:w-[117px] h-auto"
+          widths={[90, 105, 117]}
+          sizes="117px"
+        />
+      </div>
+      <p class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[280px]">
+        Avec les entreprises engag&eacute;es, B&ocirc;ndy mobilise tous les acteurs pour recr&eacute;er une croissance inclusive et durable &agrave; Madagascar, en activant des circuits agricoles et &eacute;conomiques, vertueux, r&eacute;g&eacute;n&eacute;ratifs et rentables pour tous.
+      </p>
+    </div>
+  </EngagementSection>
 </PageLayout>

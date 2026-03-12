@@ -15,59 +15,12 @@
  *  7. Bottom row      pt-39 pb-46   (y=1346→1413)
  */
 
-const sitePlan = [
-  {
-    title: 'Groupe',
-    href: null,
-    links: [
-      { text: 'Un modèle intégré',   href: '/groupe/modele-integre' },
-      { text: "Notre raison d'être", href: '/groupe/raison-detre' },
-      { text: 'Notre histoire',      href: '/groupe/histoire' },
-      { text: 'Nos filiales',        href: '/groupe/filiales' },
-      { text: 'Nos implantations',   href: '/groupe/implantations' },
-    ],
-  },
-  {
-    title: 'Expertises',
-    href: null,
-    links: [
-      { text: 'Pêche',          href: '/expertises/peche' },
-      { text: 'Transformation', href: '/expertises/transformation' },
-      { text: 'Distribution',   href: '/expertises/distribution' },
-      { text: 'Logistique',     href: '/expertises/logistique' },
-      { text: 'RSE & RH',       href: '/expertises/rse-rh' },
-    ],
-  },
-  { title: 'Produits',        href: '/produits',       links: [] },
-  {
-    title: 'Engagements RSE',
-    href: null,
-    links: [
-      { text: 'Notre lien à la Mer',       href: '/engagements-rse/mer' },
-      { text: 'Notre lien à la Terre',     href: '/engagements-rse/terre' },
-      { text: "Notre lien à l'Humain",     href: '/engagements-rse/humain' },
-      { text: "Notre lien à l'Énergie",    href: '/engagements-rse/energie' },
-      { text: 'Notre lien à la Santé',     href: '/engagements-rse/sante' },
-      { text: 'Notre lien à la Formation', href: '/engagements-rse/formation' },
-      { text: 'Notre lien au Social',      href: '/engagements-rse/social' },
-      { text: 'Notre lien aux Filières',   href: '/engagements-rse/filieres' },
-    ],
-  },
-  { title: 'Actualités', href: '/actualites', links: [] },
-  { title: 'Carrières',  href: '/carrieres',  links: [] },
-];
-
-const legalLinks = [
-  { text: 'Mentions légales',          href: '#' },
-  { text: 'Politique de confidentialité', href: '#' },
-  { text: 'Gestion des cookies',       href: '#' },
-  { text: 'CGV',                       href: '#' },
-];
-
+import { sitePlan, legalLinks, socialLinks } from '../../data/footer';
 import logoFooter from '../../assets/logos/reunimer-logo-footer.svg';
-import socialIcon from '../../assets/icons/social-icon.svg';
-import linkedinIcon from '../../assets/icons/linkedin.svg';
 import certifications from '../../assets/icons/footer-certifications.svg';
+
+const inputClasses = 'w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none';
+const labelClasses = 'font-body text-sm leading-[14px] text-white';
 ---
 
 <footer class="bg-bleu-abysse text-white" aria-label="Pied de page">
@@ -85,31 +38,31 @@ import certifications from '../../assets/icons/footer-certifications.svg';
       <form id="contact-form" class="w-[489px] max-w-full flex flex-col gap-[22px]" aria-label="Formulaire de contact" novalidate>
         <!-- Prénom -->
         <div class="flex flex-col gap-3">
-          <label for="f-prenom" class="font-body text-sm leading-[14px] text-white">Prénom</label>
+          <label for="f-prenom" class={labelClasses}>Prénom</label>
           <input
             id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" required
-            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+            class={inputClasses}
           />
         </div>
         <!-- Nom -->
         <div class="flex flex-col gap-3">
-          <label for="f-nom" class="font-body text-sm leading-[14px] text-white">Nom</label>
+          <label for="f-nom" class={labelClasses}>Nom</label>
           <input
             id="f-nom" name="nom" type="text" placeholder="Tapez ici" required
-            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+            class={inputClasses}
           />
         </div>
         <!-- Email -->
         <div class="flex flex-col gap-3">
-          <label for="f-email" class="font-body text-sm leading-[14px] text-white">Email</label>
+          <label for="f-email" class={labelClasses}>Email</label>
           <input
             id="f-email" name="email" type="email" placeholder="Tapez ici" required
-            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+            class={inputClasses}
           />
         </div>
         <!-- Motif -->
         <div class="flex flex-col gap-3">
-          <label for="f-motif" class="font-body text-sm leading-[14px] text-white">Motif</label>
+          <label for="f-motif" class={labelClasses}>Motif</label>
           <div class="relative">
             <select
               id="f-motif" name="motif" required
@@ -141,10 +94,10 @@ import certifications from '../../assets/icons/footer-certifications.svg';
         </div>
         <!-- Message -->
         <div class="flex flex-col gap-3">
-          <label for="f-message" class="font-body text-sm leading-[14px] text-white">Message</label>
+          <label for="f-message" class={labelClasses}>Message</label>
           <textarea
             id="f-message" name="message" placeholder="Tapez ici" required
-            class="w-full h-[91px] px-[15px] py-[14px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none resize-y"
+            class={`${inputClasses} h-[91px] py-[14px] resize-y`}
           ></textarea>
         </div>
         <!-- Submit -->
@@ -221,12 +174,11 @@ import certifications from '../../assets/icons/footer-certifications.svg';
         />
       </a>
       <div class="flex items-center gap-[30px]">
-        <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="YouTube">
-          <img src={socialIcon.src} alt="" width="27" height="27" class="w-full h-full" />
-        </a>
-        <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="LinkedIn">
-          <img src={linkedinIcon.src} alt="" width="27" height="27" class="w-full h-full" />
-        </a>
+        {socialLinks.map((link) => (
+          <a href={link.href} class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label={link.label}>
+            <img src={link.icon.src} alt="" width="27" height="27" class="w-full h-full" />
+          </a>
+        ))}
       </div>
     </div>
 
@@ -274,20 +226,15 @@ import certifications from '../../assets/icons/footer-certifications.svg';
   const form     = document.getElementById('contact-form')     as HTMLFormElement;
   const feedback = document.getElementById('contact-feedback') as HTMLParagraphElement;
 
+  const successClasses = ['bg-[rgba(10,151,166,0.15)]', 'text-[#6de3ec]', 'border', 'border-[rgba(10,151,166,0.4)]'];
+  const errorClasses = ['bg-[rgba(163,76,38,0.2)]', 'text-[#f4a07a]', 'border', 'border-[rgba(163,76,38,0.4)]'];
+
   function showFeedback(msg: string, isError: boolean) {
     feedback.textContent = msg;
-    feedback.hidden      = false;
-    // Reset classes then apply variant
-    feedback.classList.remove('hidden', 'bg-[rgba(10,151,166,0.15)]', 'text-[#6de3ec]', 'border', 'border-[rgba(10,151,166,0.4)]', 'bg-[rgba(163,76,38,0.2)]', 'text-[#f4a07a]', 'border-[rgba(163,76,38,0.4)]');
-    if (isError) {
-      feedback.style.background = 'rgba(163, 76, 38, 0.2)';
-      feedback.style.color = '#f4a07a';
-      feedback.style.border = '1px solid rgba(163, 76, 38, 0.4)';
-    } else {
-      feedback.style.background = 'rgba(10, 151, 166, 0.15)';
-      feedback.style.color = '#6de3ec';
-      feedback.style.border = '1px solid rgba(10, 151, 166, 0.4)';
-    }
+    feedback.hidden = false;
+    feedback.style.cssText = '';
+    feedback.classList.remove('hidden', ...successClasses, ...errorClasses);
+    feedback.classList.add(...(isError ? errorClasses : successClasses));
   }
 
   form.addEventListener('submit', (e) => {
