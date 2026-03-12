@@ -74,6 +74,8 @@ function isActive(href: string): boolean {
   if (href === '/') return currentPath === '/';
   return currentPath.startsWith(href);
 }
+
+import logoHeader from '../../assets/logos/reunimer-logo-header.svg';
 ---
 
 <nav
@@ -85,7 +87,7 @@ function isActive(href: string): boolean {
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
       <img
-        src="/logos/reunimer-logo-header.svg"
+        src={logoHeader.src}
         alt="Reunimer"
         width="199"
         height="33"
@@ -101,7 +103,7 @@ function isActive(href: string): boolean {
             <a
               href={link.href}
               class:list={[
-                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors',
+                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors flex items-center h-full',
                 isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse',
               ]}
             >
@@ -149,13 +151,46 @@ function isActive(href: string): boolean {
         </button>
 
         <!-- Language -->
-        <div class="flex items-center gap-1 shrink-0">
-          <span class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
-            FR
-          </span>
-          <svg class="w-[10px] h-[5px] text-brume-alize" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="relative" id="lang-desktop">
+          <button
+            type="button"
+            class="flex items-center gap-1 shrink-0 cursor-pointer bg-transparent border-none p-0"
+            id="lang-desktop-btn"
+            aria-label="Choisir la langue"
+            aria-expanded="false"
+          >
+            <span class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse" id="lang-desktop-label">
+              FR
+            </span>
+            <svg class="w-[10px] h-[5px] text-brume-alize transition-transform duration-200" id="lang-desktop-chevron" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div
+            class="absolute top-full right-0 mt-2 w-[120px] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.08)] py-1 opacity-0 invisible transition-all duration-200 z-50 rounded"
+            id="lang-desktop-dropdown"
+          >
+            <button
+              type="button"
+              class="lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none"
+              data-lang="fr"
+            >
+              <span>FR</span>
+              <svg class="lang-check w-3.5 h-3.5 text-turquoise-ocean" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <button
+              type="button"
+              class="lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none"
+              data-lang="en"
+            >
+              <span>EN</span>
+              <svg class="lang-check w-3.5 h-3.5 text-turquoise-ocean hidden" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -226,11 +261,44 @@ function isActive(href: string): boolean {
           <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
         </svg>
       </button>
-      <div class="inline-flex items-center gap-[7px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
-        <span>FR</span>
-        <svg class="w-[10px] h-[5px]" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <div class="relative" id="lang-mobile">
+        <button
+          type="button"
+          class="inline-flex items-center gap-[7px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse bg-transparent border-none p-0 cursor-pointer"
+          id="lang-mobile-btn"
+          aria-label="Choisir la langue"
+          aria-expanded="false"
+        >
+          <span id="lang-mobile-label">FR</span>
+          <svg class="w-[10px] h-[5px] transition-transform duration-200" id="lang-mobile-chevron" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div
+          class="absolute bottom-full left-0 mb-2 w-[120px] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.08)] py-1 opacity-0 invisible transition-all duration-200 z-50 rounded"
+          id="lang-mobile-dropdown"
+        >
+          <button
+            type="button"
+            class="lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none"
+            data-lang="fr"
+          >
+            <span>FR</span>
+            <svg class="lang-check w-3.5 h-3.5 text-turquoise-ocean" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none"
+            data-lang="en"
+          >
+            <span>EN</span>
+            <svg class="lang-check w-3.5 h-3.5 text-turquoise-ocean hidden" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 8.5L6.5 12L13 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
   </div>
@@ -284,6 +352,80 @@ function isActive(href: string): boolean {
       });
     }
   });
+
+  // --- Language dropdown ---
+  function initLangDropdown(id: string) {
+    const wrapper = document.getElementById(id);
+    const btnEl = document.getElementById(`${id}-btn`);
+    const dropdown = document.getElementById(`${id}-dropdown`);
+    const chevron = document.getElementById(`${id}-chevron`);
+    const label = document.getElementById(`${id}-label`);
+    if (!wrapper || !btnEl || !dropdown || !label) return;
+
+    let langOpen = false;
+
+    function toggle() {
+      langOpen = !langOpen;
+      btnEl!.setAttribute('aria-expanded', String(langOpen));
+      if (langOpen) {
+        dropdown!.classList.remove('opacity-0', 'invisible');
+        dropdown!.classList.add('opacity-100', 'visible');
+        chevron?.classList.add('rotate-180');
+      } else {
+        dropdown!.classList.add('opacity-0', 'invisible');
+        dropdown!.classList.remove('opacity-100', 'visible');
+        chevron?.classList.remove('rotate-180');
+      }
+    }
+
+    function close() {
+      if (!langOpen) return;
+      langOpen = false;
+      btnEl!.setAttribute('aria-expanded', 'false');
+      dropdown!.classList.add('opacity-0', 'invisible');
+      dropdown!.classList.remove('opacity-100', 'visible');
+      chevron?.classList.remove('rotate-180');
+    }
+
+    btnEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
+    });
+
+    dropdown.querySelectorAll('.lang-option').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const lang = (opt as HTMLElement).dataset.lang?.toUpperCase() || 'FR';
+        label.textContent = lang;
+
+        // Update checks in this dropdown
+        dropdown!.querySelectorAll('.lang-check').forEach((check) => check.classList.add('hidden'));
+        opt.querySelector('.lang-check')?.classList.remove('hidden');
+
+        // Sync the other dropdown
+        const otherId = id === 'lang-desktop' ? 'lang-mobile' : 'lang-desktop';
+        const otherLabel = document.getElementById(`${otherId}-label`);
+        if (otherLabel) otherLabel.textContent = lang;
+        const otherDropdown = document.getElementById(`${otherId}-dropdown`);
+        otherDropdown?.querySelectorAll('.lang-option').forEach((o) => {
+          const check = o.querySelector('.lang-check');
+          if ((o as HTMLElement).dataset.lang === (opt as HTMLElement).dataset.lang) {
+            check?.classList.remove('hidden');
+          } else {
+            check?.classList.add('hidden');
+          }
+        });
+
+        close();
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target as Node)) close();
+    });
+  }
+
+  initLangDropdown('lang-desktop');
+  initLangDropdown('lang-mobile');
 
   // --- Desktop: hover opens dropdown, also change link text color ---
   document.querySelectorAll('.nav-item').forEach((item) => {

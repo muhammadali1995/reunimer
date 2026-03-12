@@ -63,6 +63,11 @@ const legalLinks = [
   { text: 'Gestion des cookies',       href: '#' },
   { text: 'CGV',                       href: '#' },
 ];
+
+import logoFooter from '../../assets/logos/reunimer-logo-footer.svg';
+import socialIcon from '../../assets/icons/social-icon.svg';
+import linkedinIcon from '../../assets/icons/linkedin.svg';
+import certifications from '../../assets/icons/footer-certifications.svg';
 ---
 
 <footer class="bg-bleu-abysse text-white" aria-label="Pied de page">
@@ -208,7 +213,7 @@ const legalLinks = [
     <div class="flex items-center justify-between pt-[51px] pb-[47px]">
       <a href="/" aria-label="Reunimer — accueil">
         <img
-          src="/logos/reunimer-logo-footer.svg"
+          src={logoFooter.src}
           alt="Reunimer"
           width="199"
           height="33"
@@ -217,17 +222,17 @@ const legalLinks = [
       </a>
       <div class="flex items-center gap-[30px]">
         <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="YouTube">
-          <img src="/icons/social-icon.svg" alt="" width="27" height="27" class="w-full h-full" />
+          <img src={socialIcon.src} alt="" width="27" height="27" class="w-full h-full" />
         </a>
         <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="LinkedIn">
-          <img src="/icons/linkedin.svg" alt="" width="27" height="27" class="w-full h-full" />
+          <img src={linkedinIcon.src} alt="" width="27" height="27" class="w-full h-full" />
         </a>
       </div>
     </div>
 
     <!-- 4. Gradient strip -->
     <img
-      src="/icons/footer-certifications.svg"
+      src={certifications.src}
       alt=""
       width="1284"
       height="7"
