@@ -5,52 +5,7 @@ import Container from '../components/ui/Container.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
 import Tag from '../components/ui/Tag.astro';
 import ArticleCard from '../components/ui/ArticleCard.astro';
-import articlePlaceholder from '../assets/images/actus/article-4.jpg';
-
-const gridArticles = [
-  {
-    tag: 'GROUPE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-  {
-    tag: 'FILIÈRE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-  {
-    tag: 'GROUPE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-  {
-    tag: 'GROUPE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-  {
-    tag: 'FILIÈRE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-  {
-    tag: 'GROUPE',
-    tagColor: 'turquoise-ocean' as const,
-    date: '11 FÉV. 2026',
-    title: 'Un engagement durable',
-    description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
-  },
-];
+import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHref } from '../data/articles';
 ---
 
 <PageLayout
@@ -70,26 +25,26 @@ const gridArticles = [
       <div class="flex flex-col lg:flex-row lg:gap-[21px]">
         <!-- Large Featured Article (Left) -->
         <div class="lg:w-[710px] lg:flex-shrink-0">
-          <a href="/actualites/visite-chef-thierry-marx" class="group block">
+          <a href={getArticleHref(featuredLargeArticle.slug)} class="group block">
             <!-- Featured Image -->
             <div class="relative overflow-hidden aspect-[710/498]">
               <Image
-                src={articlePlaceholder}
-                alt="Visite du Chef Thierry Marx"
+                src={featuredLargeArticle.image}
+                alt={featuredLargeArticle.imageAlt}
                 class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                 loading="lazy"
               />
               <div class="absolute top-[19px] left-[14px]">
-                <Tag color="turquoise-ocean">EVENTS</Tag>
+                <Tag color={featuredLargeArticle.tagColor}>{featuredLargeArticle.tag}</Tag>
               </div>
             </div>
             <!-- Date & Title -->
             <div class="mt-4">
               <time class="font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
-                11 FÉV. 2026
+                {featuredLargeArticle.date}
               </time>
               <h3 class="mt-[6px] font-heading font-bold text-xl md:text-heading-xl text-bleu-abysse group-hover:text-turquoise-ocean transition-colors leading-tight">
-                Visite du Chef Thierry Marx
+                {featuredLargeArticle.title}
               </h3>
             </div>
           </a>
@@ -97,68 +52,18 @@ const gridArticles = [
 
         <!-- Small Articles (Right) -->
         <div class="flex-1 mt-8 lg:mt-0 flex flex-col gap-[18px]">
-          <!-- Small Article 1 -->
-          <a href="/actualites/visite-chef-thierry-marx" class="group flex flex-row gap-5">
-            <div class="relative overflow-hidden w-[223px] h-[154px] flex-shrink-0">
-              <Image
-                src={articlePlaceholder}
-                alt="Reunimer en couverture du Leader Magazine"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-            <div class="flex flex-col items-start justify-start pt-1">
-              <Tag color="bleu-abysse">GROUPE</Tag>
-              <time class="mt-2 font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
-                11 FÉV. 2026
-              </time>
-              <h3 class="mt-[6px] font-heading font-bold text-base md:text-heading-lg leading-none text-bleu-abysse group-hover:text-turquoise-ocean transition-colors">
-                Reunimer en couverture du Leader Magazine
-              </h3>
-            </div>
-          </a>
-
-          <!-- Small Article 2 -->
-          <a href="/actualites/visite-chef-thierry-marx" class="group flex flex-row gap-5">
-            <div class="relative overflow-hidden w-[223px] h-[154px] flex-shrink-0">
-              <Image
-                src={articlePlaceholder}
-                alt="La langouste pour la St-Valentin"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-            <div class="flex flex-col items-start justify-start pt-1">
-              <Tag color="sable-corail">PRODUITS</Tag>
-              <time class="mt-2 font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
-                11 FÉV. 2026
-              </time>
-              <h3 class="mt-[6px] font-heading font-bold text-base md:text-heading-lg leading-none text-bleu-abysse group-hover:text-turquoise-ocean transition-colors">
-                La langouste pour la St-Valentin
-              </h3>
-            </div>
-          </a>
-
-          <!-- Small Article 3 -->
-          <a href="/actualites/visite-chef-thierry-marx" class="group flex flex-row gap-5">
-            <div class="relative overflow-hidden w-[223px] h-[154px] flex-shrink-0">
-              <Image
-                src={articlePlaceholder}
-                alt="Un engagement durable"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
-            </div>
-            <div class="flex flex-col items-start justify-start pt-1">
-              <Tag>GROUPE</Tag>
-              <time class="mt-2 font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
-                11 FÉV. 2026
-              </time>
-              <h3 class="mt-[6px] font-heading font-bold text-base md:text-heading-lg leading-none text-bleu-abysse group-hover:text-turquoise-ocean transition-colors">
-                Un engagement durable
-              </h3>
-            </div>
-          </a>
+          {featuredSmallArticles.map((article) => (
+            <ArticleCard
+              layout="horizontal"
+              tag={article.tag}
+              tagColor={article.tagColor}
+              date={article.date}
+              title={article.title}
+              image={article.image}
+              imageAlt={article.imageAlt}
+              href={getArticleHref(article.slug)}
+            />
+          ))}
         </div>
       </div>
     </Container>
@@ -175,7 +80,7 @@ const gridArticles = [
             date={article.date}
             title={article.title}
             description={article.description}
-            href="/actualites/visite-chef-thierry-marx"
+            href={getArticleHref(article.slug)}
           />
         ))}
       </div>

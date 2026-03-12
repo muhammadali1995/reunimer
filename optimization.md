@@ -201,6 +201,142 @@ The `Props` interface is defined inline in the component. Following the pattern 
 
 ---
 
+### 21. Actualités Page — Article Data Inline in Page Frontmatter
+
+**File:** `src/pages/actualites.astro` (lines 10–53)
+
+The `gridArticles` array (6 items) is defined inline in the page frontmatter with no TypeScript interface. The `as const` casts on `tagColor` are a workaround for missing type safety. Following the pattern from carrières and produits, this should live in `src/data/articles.ts` with a typed interface in `src/types/articles.ts`.
+
+**Fix:** Create `Article` interface in `src/types/articles.ts`, move data to `src/data/articles.ts`.
+
+---
+
+### 22. Actualités Page — Featured Section Doesn't Reuse ArticleCard
+
+**File:** `src/pages/actualites.astro` (lines 70–162)
+
+The featured section has a large article (lines 73–95) and 3 small articles (lines 101–161) all built with inline markup (~90 lines). The existing `ArticleCard` component already has a `size` prop (`'sm' | 'lg'`), but the featured section doesn't use it at all — only the grid section does.
+
+The 3 small featured articles are particularly wasteful: each repeats ~20 lines of identical structure (image, tag, date, title) differing only in data. They also use a horizontal layout (`flex flex-row`) that `ArticleCard` doesn't support.
+
+**Fix:**
+1. Extract the 3 small articles into a `featuredSmallArticles` data array + `.map()`
+2. Add a `layout` prop (`'vertical' | 'horizontal'`) to `ArticleCard` for the horizontal small variant
+3. Use `ArticleCard size="lg"` for the large featured article
+4. The featured large article's data should also come from the data file
+
+---
+
+### 23. Actualités Page — ArticleCard `href` Defaults to `#`
+
+**File:** `src/components/ui/ArticleCard.astro` (line 38)
+
+`href` defaults to `'#'`, which is a dead link. Every article card is wrapped in an `<a>` tag, so a missing `href` produces a broken navigation. Clicking a `#` link scrolls to the top of the page — confusing UX.
+
+**Fix:** Either make `href` required (no default) or default to a more meaningful fallback. Making it required is preferred — it forces the caller to provide a real link.
+
+---
+
+### 24. Actualités Page — ArticleCard Uses Raw `<img>` Instead of `<Image />`
+
+**File:** `src/components/ui/ArticleCard.astro` (lines 51–56)
+
+The component uses `<img src={imageSrc}>` with a `string` prop. Per project rules, all images must use Astro's `<Image />` for WebP conversion, responsive `srcset`, and automatic optimization. The featured section inline markup correctly uses `<Image />`, but `ArticleCard` does not.
+
+**Fix:** Change `imageSrc` type to `ImageMetadata`, use `<Image />` instead of `<img>`. Update all callers to pass imported image assets.
+
+---
+
+### 25. Actualités Page — Placeholder Fallback Color `#D9D9D9` Not in Tokens
+
+**File:** `src/components/ui/ArticleCard.astro` (line 58)
+
+`bg-[#D9D9D9]` is a hardcoded hex not in the design token system. If it's a standard placeholder gray, it should be in `tailwind.config.mjs`.
+
+**Fix:** Add to Tailwind config as a placeholder token (e.g., `gris-placeholder`) or use an existing neutral like `gris-clair`.
+
+---
+
+### 26. Actualités Page — Featured Large Article Data Hardcoded
+
+**File:** `src/pages/actualites.astro` (lines 73–95)
+
+The large featured article has its data (title "Visite du Chef Thierry Marx", date "11 FÉV. 2026", tag "EVENTS", image) all hardcoded directly in the template. This should come from the same data source as the other articles, with a `featured: true` flag or similar.
+
+**Fix:** Include the featured article in the articles data file with a `featured` property. Render from data, not inline markup.
+
+---
+
+### 27. Article Detail — All Data Hardcoded in Static File
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro`
+
+The entire article detail page has all data (title, date, tag, images, body text) hardcoded directly in the template. This is a single static `.astro` file — if more articles are added, each would need its own copy-pasted file with the same structure. Not scalable.
+
+**Fix:** Extract article detail data into the articles data source (or Astro content collections). Use a dynamic route (`[slug].astro`) to render all articles from a single template.
+
+---
+
+### 28. Article Detail — Navigation Arrows Dead Links
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro` (lines 68, 77)
+
+Both prev/next navigation arrows use `href="#"` — dead links. These should navigate to the previous and next articles in the list.
+
+**Fix:** Compute prev/next article slugs from the articles data and wire the `href` values. If only one article exists, hide or disable the arrows.
+
+---
+
+### 29. Article Detail — Navigation Arrow Buttons Duplicated
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro` (lines 67–84)
+
+The prev and next arrow buttons repeat ~8 lines of identical markup (circle container, SVG), differing only in the SVG path direction and aria-label. Could be a small reusable pattern or loop.
+
+**Fix:** Extract into a data-driven loop or a small `ArrowButton` fragment. Low priority — only 2 instances.
+
+---
+
+### 30. Article Detail — No Back-to-List Navigation
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro`
+
+There is no breadcrumb or "back to Actualités" link. Users can only navigate via the browser back button or the nav. A breadcrumb or back link improves UX and SEO (structured data).
+
+**Fix:** Add a breadcrumb or back link above the gallery (e.g., "Actualités > Visite du Chef Thierry Marx").
+
+---
+
+### 31. Article Detail — Gallery Images Identical Alt Text
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro` (lines 21, 33, 43)
+
+All three gallery images have the same `alt="Visite du Chef Thierry Marx"`. Each image should have a distinct, descriptive alt text for accessibility. With placeholder images this is expected, but the structure should support unique alts per image.
+
+**Fix:** When real images are provided, ensure each has a distinct alt. Structure the data to support an array of gallery images with individual alt texts.
+
+---
+
+### 32. Article Detail — Placeholder Body Content
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro` (lines 94–99)
+
+The body text is lorem ipsum ("Ipsunda ime non cumquat...") — the two paragraphs are identical. This is fine for development but must be replaced before launch. The article body should also support rich content (headings, lists, links) — currently it's just plain `<p>` tags.
+
+**Fix:** When migrating to content collections, use Markdown/MDX for article bodies to support rich formatting.
+
+---
+
+### 33. Article Detail — Not Scalable (Single Static File)
+
+**File:** `src/pages/actualites/visite-chef-thierry-marx.astro`
+
+This is a single hardcoded page. Every new article would require creating a new `.astro` file with copy-pasted layout. This doesn't scale.
+
+**Fix:** Migrate to Astro content collections or a dynamic `[slug].astro` route that renders from a data source. This is the most impactful change for the article system.
+
+---
+
 ---
 
 ## Implementation Plan
@@ -248,31 +384,54 @@ All changes are **non-breaking** — each phase produces identical visual output
 
 ---
 
-### Phase 3 — Actualités Cleanup (Low Risk)
+### Phase 3 — Actualités: Data & Types Extraction (Low Risk)
 
-**Goal:** Reduce duplication in the featured articles section.
+**Goal:** Separate article data and types from the page file, matching the carrières/produits pattern.
 
 **Tasks:**
-1. Extract the 3 small featured articles into a data array
-2. Render with `.map()` using the existing markup structure
-3. Optionally extend `ArticleCard` with a `layout="horizontal"` variant to reuse it for the small cards
+1. Create `src/types/articles.ts` with `Article` interface:
+   - `tag: string`, `tagColor: 'bleu-abysse' | 'turquoise-ocean' | 'sable-corail'`
+   - `date: string`, `title: string`, `description?: string`
+   - `image: ImageMetadata`, `imageAlt: string`
+   - `href: string`
+   - `featured?: 'large' | 'small'` — marks featured section articles
+2. Create `src/data/articles.ts` with all articles (1 featured large + 3 featured small + 6 grid)
+3. Update `src/pages/actualites.astro` to import from `data/articles` — filter by `featured` for the sections
+4. Remove inline `gridArticles` array and `as const` casts from page
+5. **Verify:** Page renders identically
 
-**Estimated scope:** ~1 file changed, ~80 lines reduced
+**Estimated scope:** 3 files (2 new, 1 modified), page reduced by ~50 lines
 
 ---
 
-### Phase 4 — ArticleCard Image Optimization (Medium Risk)
+### Phase 4 — Actualités: Featured Section Deduplication (Low Risk)
 
-**Goal:** Use Astro `<Image />` for all images, enabling WebP and responsive `srcset`.
+**Goal:** Eliminate 60+ lines of duplicated featured article markup using data arrays + `.map()`.
 
 **Tasks:**
-1. Change `ArticleCard.astro` prop `imageSrc` from `string` to `ImageMetadata | string`
-2. When `ImageMetadata` is passed, render with `<Image />` instead of `<img>`
-3. Update `actualites.astro` to pass imported image assets instead of string paths
-4. Add `loading="lazy"` to all below-fold images across the site
-5. **Verify:** All images render correctly, no broken paths
+1. Extract the 3 small featured articles (lines 101–161) into a `.map()` loop driven by data from `data/articles.ts`
+2. Extract the large featured article (lines 73–95) to also render from data
+3. Keep the existing inline markup structure (no ArticleCard reuse yet — that's Phase 4b)
+4. **Verify:** Featured section renders identically at all breakpoints
 
-**Estimated scope:** ~2 files changed
+**Estimated scope:** 1 file modified, ~60 lines reduced
+
+---
+
+### Phase 4b — ArticleCard Component Improvements (Medium Risk)
+
+**Goal:** Upgrade `ArticleCard` to support all article layouts and use Astro `<Image />`.
+
+**Tasks:**
+1. Change `imageSrc` prop type from `string` to `ImageMetadata`
+2. Replace `<img>` with `<Image />` for WebP/srcset optimization
+3. Add `layout` prop (`'vertical' | 'horizontal'`) — horizontal layout for featured small articles
+4. Make `href` required (remove `'#'` default) to prevent dead links
+5. Replace `bg-[#D9D9D9]` placeholder with a design token or existing neutral
+6. Update `actualites.astro` to use `ArticleCard` in the featured section (replace remaining inline markup)
+7. **Verify:** All article cards render identically, images optimized
+
+**Estimated scope:** 2 files modified
 
 ---
 
@@ -364,6 +523,39 @@ All changes are **non-breaking** — each phase produces identical visual output
 
 ---
 
+### Phase 12 — Article Detail: Quick Wins (Low Risk)
+
+**Goal:** Fix dead links, reduce duplication, and improve navigation on the detail page.
+
+**Tasks:**
+1. Fix prev/next arrow `href="#"` dead links — disable or hide when no adjacent article exists
+2. Add a "back to Actualités" breadcrumb or link above the gallery
+3. Extract the prev/next arrow buttons into a small loop (identical markup, only path + aria-label differ)
+4. Ensure gallery images have distinct alt texts (structure to support per-image alts)
+5. **Verify:** Page renders identically except for the added breadcrumb
+
+**Estimated scope:** 1 file modified
+
+---
+
+### Phase 13 — Article Detail: Dynamic Route Migration (Medium Risk)
+
+**Goal:** Make the article system scalable by using a single template for all articles.
+
+**Tasks:**
+1. Create `src/content/articles/` directory with Markdown/MDX files for article content
+2. Configure Astro content collections schema (title, date, tag, tagColor, images, slug)
+3. Create `src/pages/actualites/[slug].astro` — dynamic route rendering from content collection
+4. Extract the article detail layout into a reusable template (gallery, header, body, nav arrows)
+5. Compute prev/next article links from the collection
+6. Delete the static `visite-chef-thierry-marx.astro` file
+7. Update `src/data/articles.ts` to derive from the content collection (or replace with collection queries)
+8. **Verify:** Existing article URL `/actualites/visite-chef-thierry-marx` still works
+
+**Estimated scope:** 3–4 files (1 new dynamic route, 1 content config, content files, 1 deleted)
+
+---
+
 ### Phase 11 — Pre-Launch Blockers (Requires Decisions)
 
 These items need user/stakeholder input before implementation:
@@ -376,6 +568,9 @@ These items need user/stakeholder input before implementation:
 | Placeholder article images | When will real content/images be available? |
 | Legal page links (`#` hrefs) | When will Mentions légales, CGV, etc. pages be created? |
 | ProductCard fallback color | Is `#DACBB4` a design token? Should it be added to Tailwind config? |
+| Article detail gallery images | When will real images (3 distinct photos) be available? |
+| Article body content | When will real article text be available? Will it include rich formatting? |
+| Additional articles | How many articles are planned? This determines if content collections are worth implementing. |
 
 ---
 
@@ -388,9 +583,12 @@ These items need user/stakeholder input before implementation:
 | ~~High~~ | ~~Phase 8 — Produits data/types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
 | ~~High~~ | ~~Phase 9 — Button pill variant + CTA dedup~~ | ~~Maintainability~~ | ~~Low~~ | Done |
 | ~~Medium~~ | ~~Phase 10 — Produits lazy load + touch a11y~~ | ~~Performance / UX~~ | ~~Medium~~ | Done |
-| Medium | Phase 4 — ArticleCard images | Performance | Medium | Pending |
+| ~~High~~ | ~~Phase 3 — Actualités data/types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 4 — Actualités featured dedup~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 4b — ArticleCard improvements~~ | ~~Performance / UX~~ | ~~Medium~~ | Done |
+| ~~High~~ | ~~Phase 12 — Article detail quick wins~~ | ~~UX / A11y~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 13 — Article detail dynamic route~~ | ~~Scalability~~ | ~~Medium~~ | Done |
 | Medium | Phase 7 — Performance & SEO | Performance / SEO | Medium | Pending |
-| Medium | Phase 3 — Actualités cleanup | Maintainability | Low | Pending |
 | Low | Phase 5 — Footer form cleanup | Code quality | Low | Pending |
 | Low | Phase 6 — Navbar SVG dedup | Code quality | Low | Pending |
 | Blocker | Phase 11 — Pre-launch decisions | Launch readiness | N/A | Pending |

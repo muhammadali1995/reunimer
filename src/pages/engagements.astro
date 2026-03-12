@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import heroImage from '../assets/images/engagements/hero-engagements.png';
+---
+
+<PageLayout
+  title="Engagements RSE — Reunimer"
+  description="Découvrez les engagements RSE de Reunimer : biodiversité marine, reforestation, inclusion sociale, transition énergétique et développement des filières locales."
+>
+  <!-- Hero Section -->
+  <section class="relative -mt-[92px]">
+    <div class="relative h-[280px] sm:h-[380px] md:h-[500px] lg:h-[860px] overflow-hidden">
+      <Image
+        src={heroImage}
+        alt="Un enfant souriant dans l'océan Indien — engagement humain et environnemental de Reunimer"
+        class="w-full h-full object-cover"
+        widths={[375, 768, 1024, 1440]}
+        sizes="100vw"
+      />
+
+      <!-- Text overlay — centered mobile, right-side desktop -->
+      <div class="absolute inset-0 flex items-center justify-center px-6 lg:block">
+        <div class="text-center lg:text-left lg:absolute lg:top-[297px] lg:left-[49.65%] lg:w-[559px]">
+          <h1 class="font-display font-black text-[22px] leading-[1.1] sm:text-[28px] md:text-[32px] lg:text-[40px] lg:leading-[44.5px] uppercase text-white drop-shadow-[0_4px_16.2px_rgba(0,0,0,0.51)]">
+            Un engagement<br />humain et<br />environnemental<br />porteur d&rsquo;avenir
+          </h1>
+          <p class="mt-4 md:mt-6 lg:mt-[20px] font-heading font-normal text-sm leading-relaxed sm:text-base md:text-lg lg:text-xl lg:leading-[1.461] text-white max-w-[500px] mx-auto lg:mx-0 lg:max-w-[659px]">
+            Chez Reunimer, nous croyons que la performance durable na&icirc;t
+            de l&rsquo;&eacute;quilibre entre le respect de la nature et l&rsquo;&eacute;panouissement
+            des hommes. Notre strat&eacute;gie RSE n&rsquo;est pas une option, mais
+            le socle de notre vision&nbsp;: un mod&egrave;le d&rsquo;ancrage territorial o&ugrave;
+            chaque action g&eacute;n&egrave;re un impact positif et mesurable.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</PageLayout>
