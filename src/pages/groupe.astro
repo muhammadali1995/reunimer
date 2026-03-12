@@ -1,7 +1,11 @@
 ---
 import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import Button from '../components/ui/Button.astro';
 import heroImage from '../assets/images/groupe/hero.png';
+import raisonDetreImage from '../assets/images/groupe/raison-detre.jpg';
+import histoireImage from '../assets/images/groupe/pecheur-malgache.jpg';
 ---
 
 <PageLayout
@@ -17,5 +21,259 @@ import heroImage from '../assets/images/groupe/hero.png';
       widths={[375, 768, 1024, 1440]}
       sizes="100vw"
     />
+  </section>
+
+  <!-- Integrated Model Section: "De l'océan à l'assiette" -->
+  <section id="modele-integre" class="scroll-mt-[135px] py-16 md:py-24 lg:py-[120px]">
+    <Container>
+      <div class="flex flex-col gap-10 lg:flex-row lg:items-start lg:pl-[63px] lg:gap-[72px]">
+        <!-- Left column: text content -->
+        <div class="lg:w-[393px] lg:shrink-0">
+          <h2 class="font-display font-black text-[28px] leading-[34px] md:text-[40px] md:leading-[44.5px] uppercase text-bleu-abysse">
+            De l'océan<br />à l'assiette
+          </h2>
+
+          <div class="mt-4 lg:mt-6">
+            <p class="font-heading font-normal text-base md:text-xl md:leading-[1.461] text-bleu-abysse">
+              Un modèle intégré :<br />
+              la signature d'une confiance absolue
+            </p>
+          </div>
+
+          <p class="mt-4 lg:mt-[18px] font-body font-normal text-sm md:text-base leading-[1.4] text-[#636A6B] max-w-[393px]">
+            Reunimer s'impose par un modèle intégré garantissant une autonomie totale, sans aucun intermédiaire. Cette maîtrise repose sur une triple expertise unique — sourcer à la racine, transformer avec talent et distribuer en direct — pour offrir une traçabilité absolue. Plus qu'une organisation, c'est une promesse de fiabilité et de transparence qui garantit l'excellence, de l'océan à l'assiette.
+          </p>
+
+          <div class="mt-8 lg:mt-[40px]">
+            <Button variant="outline-dark" href="/expertises">
+              Découvrez nos expertises
+            </Button>
+          </div>
+        </div>
+
+        <!-- Right column: expertise cards grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-x-[12px] sm:gap-y-[16px] lg:w-[739px] lg:shrink-0">
+          <!-- Top row: 3 small cards -->
+          <div class="bg-terre-laterite px-5 py-8 sm:px-[28px] sm:py-[38px] flex flex-col gap-2 text-center text-white">
+            <p class="font-display font-extrabold text-base sm:text-xl leading-[23px] uppercase">Pêche</p>
+            <p class="font-heading font-normal text-sm sm:text-base">Une force maritime responsable</p>
+          </div>
+
+          <div class="bg-lagon-mayotte px-5 py-8 sm:px-[28px] sm:py-[38px] flex flex-col gap-2 text-center text-white">
+            <p class="font-display font-extrabold text-base sm:text-xl leading-[23px] uppercase">Production</p>
+            <p class="font-heading font-normal text-sm sm:text-base">Une transformation experte et innovante</p>
+          </div>
+
+          <div class="bg-sable-corail px-5 py-8 sm:px-[28px] sm:py-[38px] flex flex-col gap-2 text-center text-white">
+            <p class="font-display font-extrabold text-base sm:text-xl leading-[23px] uppercase">Distribution</p>
+            <p class="font-heading font-normal text-sm sm:text-base">Un accès direct et maîtrisé aux marchés</p>
+          </div>
+
+          <!-- Full-width cards -->
+          <div class="sm:col-span-3 bg-brume-alize px-5 py-8 sm:px-[28px] sm:py-[38px] flex flex-col gap-2 text-center text-white">
+            <p class="font-display font-extrabold text-base sm:text-xl leading-[23px] uppercase">Maintenance & logistique</p>
+            <p class="font-heading font-normal text-sm sm:text-base">La garantie de l'intégrité opérationnelle</p>
+          </div>
+
+          <div class="sm:col-span-3 bg-ecume-poudree px-5 py-8 sm:px-[28px] sm:py-[38px] flex flex-col gap-2 text-center text-white">
+            <p class="font-display font-extrabold text-base sm:text-xl leading-[23px] uppercase">RSE & RH</p>
+            <p class="font-heading font-normal text-sm sm:text-base">Un engagement humain et environnemental durable</p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Statistics Section: "Le groupe en quelques chiffres" -->
+  <section class="py-16 md:py-24 lg:py-[100px]">
+    <Container>
+      <h2 class="font-display font-black text-[28px] leading-[34px] md:text-[40px] md:leading-[44.5px] uppercase text-bleu-abysse text-center">
+        Le groupe en quelques chiffres
+      </h2>
+
+      <div class="mt-10 lg:mt-0 max-w-[893px] mx-auto flex flex-col gap-6 lg:gap-[37px]">
+        <!-- Stat 1: 111 M€ -->
+        <div>
+          <div class="flex items-end justify-between text-bleu-abysse">
+            <span class="font-display font-black text-[40px] leading-[44px] md:text-[60px] md:leading-[68px] lg:text-[80px] lg:leading-[92px] uppercase">111 M€</span>
+            <span class="font-body font-normal text-sm md:text-base lg:text-[24px] leading-[1.4] text-right">de chiffre d'affaires consolidé</span>
+          </div>
+          <div class="w-full h-px bg-bleu-abysse/20 mt-4 lg:mt-[25px]"></div>
+        </div>
+
+        <!-- Stat 2: +900 -->
+        <div>
+          <div class="flex items-end justify-between text-bleu-abysse">
+            <span class="font-display font-black text-[40px] leading-[44px] md:text-[60px] md:leading-[68px] lg:text-[80px] lg:leading-[92px] uppercase">+900</span>
+            <span class="font-body font-normal text-sm md:text-base lg:text-[24px] leading-[1.4] text-right">collaborateurs</span>
+          </div>
+          <div class="w-full h-px bg-bleu-abysse/20 mt-4 lg:mt-[25px]"></div>
+        </div>
+
+        <!-- Stat 3: 16500 T -->
+        <div>
+          <div class="flex items-end justify-between text-bleu-abysse">
+            <span class="font-display font-black text-[40px] leading-[44px] md:text-[60px] md:leading-[68px] lg:text-[80px] lg:leading-[92px] uppercase">16 500 T</span>
+            <span class="font-body font-normal text-sm md:text-base lg:text-[24px] leading-[1.4] text-right">tonnes de produit dont 3200 Algues</span>
+          </div>
+          <div class="w-full h-px bg-bleu-abysse/20 mt-4 lg:mt-[25px]"></div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Raison d'Être Section -->
+  <section id="raison-detre" class="scroll-mt-[135px] overflow-hidden">
+    <div class="flex flex-col lg:flex-row lg:items-stretch">
+      <!-- Left: full-bleed image -->
+      <div class="relative h-[350px] sm:h-[450px] md:h-[550px] lg:h-[973px] lg:w-[47%] lg:shrink-0">
+        <Image
+          src={raisonDetreImage}
+          alt="Enfant savourant une brochette sur la plage — les valeurs de Reunimer au quotidien"
+          class="absolute inset-0 w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(max-width: 1024px) 100vw, 47vw"
+        />
+      </div>
+
+      <!-- Right: text content -->
+      <div class="px-5 py-12 md:px-10 lg:py-[100px] lg:pl-[40px] lg:pr-[80px]">
+        <h2 class="font-display font-extrabold text-[28px] leading-[34px] md:text-[40px] md:leading-[44.5px] uppercase text-bleu-abysse">
+          Notre raison d'être
+        </h2>
+
+        <p class="mt-4 lg:mt-[19px] font-heading font-normal text-base md:text-xl md:leading-[1.461] text-bleu-abysse max-w-[456px]">
+          Préserver et valoriser durablement les ressources marines de l'océan Indien, en créant un impact positif pour les territoires et les communautés qui en vivent.
+        </p>
+
+        <!-- Nos valeurs -->
+        <div class="mt-8 lg:mt-[74px] max-w-[445px]">
+          <p class="font-heading font-semibold text-base md:text-xl text-bleu-abysse">
+            Nos valeurs
+          </p>
+
+          <div class="mt-6 lg:mt-8 flex flex-col gap-5 lg:gap-6">
+            <!-- Audace -->
+            <div>
+              <p class="font-body font-bold text-sm md:text-base leading-[1.4] text-bleu-abysse">Audace</p>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse mt-1">
+                Nous ne suivons pas les marchés, nous les bâtissons. Là où il n'y a rien, nous créons des filières innovantes au service de nos territoires.
+              </p>
+            </div>
+
+            <!-- Expertise -->
+            <div>
+              <p class="font-body font-bold text-sm md:text-base leading-[1.4] text-bleu-abysse">Expertise</p>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse mt-1">
+                La culture marine est notre ADN. De la mer à l'usine, nous sommes des passionnés exigeants qui apprennent sans cesse pour maîtriser leur art.
+              </p>
+            </div>
+
+            <!-- Engagement -->
+            <div>
+              <p class="font-body font-bold text-sm md:text-base leading-[1.4] text-bleu-abysse">Engagement</p>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse mt-1">
+                Assez de paroles, place aux actes. Nous protégeons activement la ressource halieutique et soutenons les communautés locales.
+              </p>
+            </div>
+
+            <!-- Éthique -->
+            <div>
+              <p class="font-body font-bold text-sm md:text-base leading-[1.4] text-bleu-abysse">Éthique</p>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse mt-1">
+                La confiance est notre capital. Transparence et respect sont non-négociables : nous disons ce que nous faisons, et nous faisons ce que nous disons.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- History Section -->
+  <section id="histoire" class="scroll-mt-[135px]">
+    <!-- History Header: grayscale fisherman photo + title -->
+    <div class="relative h-[250px] md:h-[300px] lg:h-[373px] overflow-hidden">
+      <Image
+        src={histoireImage}
+        alt="Pêcheur malgache souriant avec des cordages — l'histoire de Reunimer"
+        class="absolute inset-0 w-full h-full object-cover object-top"
+        widths={[375, 768, 1024, 1440]}
+        sizes="100vw"
+      />
+      <div class="absolute inset-0 bg-black/30"></div>
+      <div class="absolute inset-0 flex items-center">
+        <Container>
+          <h2 class="font-display font-extrabold text-[28px] leading-[34px] md:text-[40px] md:leading-[44.5px] uppercase text-white">
+            Notre histoire
+          </h2>
+        </Container>
+      </div>
+    </div>
+
+    <!-- Timeline: bleu-abysse bg with 4 milestones -->
+    <div class="bg-bleu-abysse py-12 md:py-16 lg:py-[130px]">
+      <Container>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 relative">
+          <!-- Horizontal timeline line (desktop only) -->
+          <div class="hidden lg:block absolute left-0 right-0 top-[68px] h-px bg-white/40"></div>
+
+          <!-- 1996 -->
+          <div class="relative lg:pr-8">
+            <p class="font-body font-normal text-base lg:text-lg text-white">1996</p>
+            <!-- Dot on timeline (desktop only) -->
+            <div class="hidden lg:block absolute left-0 top-[63px] w-[11px] h-[11px] rounded-full bg-white"></div>
+            <div class="hidden lg:block absolute left-[5px] top-[48px] w-px h-[40px] bg-white/40"></div>
+            <p class="mt-4 lg:mt-[50px] font-body font-normal text-xs md:text-sm leading-[1.4] text-white/80 max-w-[242px]">
+              Création de la société Le Martin Pêcheur, initialement dédié à la pêche, la transformation et la distribution à Ste-Marie (Réunion)
+            </p>
+          </div>
+
+          <!-- 1998 -->
+          <div class="relative lg:pr-8">
+            <p class="font-body font-normal text-base lg:text-lg text-white">1998</p>
+            <div class="hidden lg:block absolute left-0 top-[63px] w-[11px] h-[11px] rounded-full bg-white"></div>
+            <div class="hidden lg:block absolute left-[5px] top-[48px] w-px h-[40px] bg-white/40"></div>
+            <p class="mt-4 lg:mt-[50px] font-body font-normal text-xs md:text-sm leading-[1.4] text-white/80 max-w-[255px]">
+              Naissance de l'Armement Enez, lançant une flotte de pêche pélagique en partenariat avec Le Martin Pêcheur.
+            </p>
+          </div>
+
+          <!-- 2000 -->
+          <div class="relative lg:pr-8">
+            <p class="font-body font-normal text-base lg:text-lg text-white">2000</p>
+            <div class="hidden lg:block absolute left-0 top-[63px] w-[11px] h-[11px] rounded-full bg-white"></div>
+            <div class="hidden lg:block absolute left-[5px] top-[48px] w-px h-[40px] bg-white/40"></div>
+            <p class="mt-4 lg:mt-[50px] font-body font-normal text-xs md:text-sm leading-[1.4] text-white/80 max-w-[214px]">
+              Création de Pêcherie du Sud (Maurice) et Copefrito (Tuléar - Madagascar)
+            </p>
+          </div>
+
+          <!-- 2002 -->
+          <div class="relative">
+            <p class="font-body font-normal text-base lg:text-lg text-white">2002</p>
+            <div class="hidden lg:block absolute left-0 top-[63px] w-[11px] h-[11px] rounded-full bg-white"></div>
+            <div class="hidden lg:block absolute left-[5px] top-[48px] w-px h-[40px] bg-white/40"></div>
+            <p class="mt-4 lg:mt-[50px] font-body font-normal text-xs md:text-sm leading-[1.4] text-white/80 max-w-[253px]">
+              Création de Réunion Pélagique, marquant la reprise d'une usine de traitement et une diversification vers le surgelé.
+            </p>
+          </div>
+        </div>
+
+        <!-- Navigation arrows -->
+        <div class="hidden lg:flex justify-end mt-10 gap-2">
+          <button class="w-[50px] h-[50px] border border-white/40 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors duration-200 cursor-pointer" aria-label="Précédent">
+            <svg class="w-4 h-4 rotate-180" viewBox="0 0 10.5 16.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <button class="w-[50px] h-[50px] border border-white/40 rounded-full flex items-center justify-center text-white hover:bg-white/10 transition-colors duration-200 cursor-pointer" aria-label="Suivant">
+            <svg class="w-4 h-4" viewBox="0 0 10.5 16.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+        </div>
+      </Container>
+    </div>
   </section>
 </PageLayout>

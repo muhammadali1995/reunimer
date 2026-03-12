@@ -210,7 +210,7 @@
 
 ---
 
-## Phase 8 — RSE & RH Section
+## Phase 8 — RSE & RH Section ✅
 
 **Goal:** Build the "La même chance pour tous" RH section with stats and HR policy text.
 
@@ -238,7 +238,7 @@
 
 ---
 
-## Phase 9 — Responsive Design
+## Phase 9 — Responsive Design ✅
 
 **Goal:** Make all sections responsive for tablet and mobile.
 
@@ -257,7 +257,7 @@
 
 ---
 
-## Phase 10 — Polish & Final Verification
+## Phase 10 — Polish & Final Verification ✅
 
 **Goal:** Final visual comparison, navigation verification, and cleanup.
 

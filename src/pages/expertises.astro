@@ -14,6 +14,7 @@ import distriApproImage from "../assets/images/expertise/distri-approvisionnemen
 import distriExpertiseImage from "../assets/images/expertise/distri-expertise.png";
 import distriServiceImage from "../assets/images/expertise/distri-service.png";
 import supportBgImage from "../assets/images/expertise/support-bg.png";
+import rhBackgroundImage from "../assets/images/expertise/rh-background.png";
 ---
 
 <PageLayout
@@ -293,7 +294,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
       </Container>
     </section>
   </div>
-  <section id="peche" class="relative py-16 md:py-24 lg:py-[120px]">
+  <section id="certifications" class="relative py-16 md:py-24 lg:py-[120px]">
     <Image
       src={heroImage2}
       alt="Expertise Reunimer : une vue de l'océan, symbole de notre savoir-faire maritime"
@@ -813,7 +814,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
 
         <!-- 3 Distribution Cards -->
         <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12 lg:mt-[80px]"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8 mt-12 lg:mt-[80px]"
         >
           <!-- Card: Approvisionnement -->
           <div class="flex flex-col">
@@ -942,6 +943,143 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
           permettant au Groupe de rester dans un mouvement perpétuel et d'aller
           toujours plus loin dans ses ambitions.
         </p>
+      </div>
+    </Container>
+  </section>
+
+  <!-- RSE & RH Section -->
+  <section id="rh" class="relative overflow-hidden">
+    <!-- Background image -->
+    <Image
+      src={rhBackgroundImage}
+      alt="Politique ressources humaines — marins pêcheurs Reunimer"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+
+    <Container class="relative z-10 pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-[115px] lg:pb-[158px]">
+      <!-- Title: NOTRE POLITIQUE RESSOURCES HUMAINES -->
+      <h2
+        class="font-display font-black text-[28px] leading-[34px] md:text-[36px] md:leading-[40px] lg:text-[40px] lg:leading-[44.5px] uppercase text-ecume-poudree max-w-[934px]"
+      >
+        NOTRE POLITIQUE<br />RESSOURCES HUMAINES
+      </h2>
+
+      <!-- Intro text -->
+      <p
+        class="font-heading font-normal text-base md:text-lg lg:text-xl lg:leading-[1.461] text-bleu-abysse mt-4 lg:mt-[20px]"
+      >
+        Petit texte d'introduction sur la politique RH.
+      </p>
+
+      <!-- La même chance pour tous -->
+      <div class="mt-24 md:mt-40 lg:mt-[459px]">
+        <p
+          class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white max-w-[710px]"
+        >
+          La même chance pour tous
+        </p>
+        <div class="w-full max-w-[522px] h-px bg-white mt-3 lg:mt-[17px]"></div>
+      </div>
+
+      <!-- Donut charts -->
+      <div
+        class="flex flex-col sm:flex-row gap-10 lg:gap-[67px] mt-8 lg:mt-[62px] items-start"
+      >
+        <!-- Chart 1: Proportion Hommes/femmes -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-[180px] h-[180px] md:w-[234px] md:h-[234px]">
+            <svg
+              viewBox="0 0 234 234"
+              class="w-full h-full"
+              aria-hidden="true"
+            >
+              <!-- Track ring -->
+              <circle
+                cx="117"
+                cy="117"
+                r="90"
+                fill="none"
+                stroke="white"
+                stroke-opacity="0.3"
+                stroke-width="27"
+              />
+              <!-- Filled arc (~65%) -->
+              <circle
+                cx="117"
+                cy="117"
+                r="90"
+                fill="none"
+                stroke="#6EAEB5"
+                stroke-width="27"
+                stroke-dasharray="367 199"
+                transform="rotate(-90 117 117)"
+              />
+            </svg>
+            <!-- Center label -->
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center text-center"
+            >
+              <p
+                class="font-body font-bold text-xs md:text-base text-white leading-tight"
+              >
+                Proportion<br />Hommes/femmes
+              </p>
+              <p class="font-body font-bold text-xs md:text-base text-white mt-1">
+                X%
+              </p>
+            </div>
+          </div>
+          <span class="font-body font-bold text-base text-bleu-abysse">X%</span>
+        </div>
+
+        <!-- Chart 2: Proportion - de 30 ans / + de 30 ans -->
+        <div class="flex items-center gap-3">
+          <div class="relative w-[180px] h-[180px] md:w-[234px] md:h-[234px]">
+            <svg
+              viewBox="0 0 234 234"
+              class="w-full h-full"
+              aria-hidden="true"
+            >
+              <!-- Track ring -->
+              <circle
+                cx="117"
+                cy="117"
+                r="90"
+                fill="none"
+                stroke="white"
+                stroke-opacity="0.3"
+                stroke-width="27"
+              />
+              <!-- Filled arc (~65%) -->
+              <circle
+                cx="117"
+                cy="117"
+                r="90"
+                fill="none"
+                stroke="#6EAEB5"
+                stroke-width="27"
+                stroke-dasharray="367 199"
+                transform="rotate(-90 117 117)"
+              />
+            </svg>
+            <!-- Center label -->
+            <div
+              class="absolute inset-0 flex flex-col items-center justify-center text-center"
+            >
+              <p
+                class="font-body font-bold text-xs md:text-base text-white leading-tight"
+              >
+                Proportion<br />- de 30 ans<br />/+ de 30 ans
+              </p>
+              <p class="font-body font-bold text-xs md:text-base text-white mt-1">
+                X%
+              </p>
+            </div>
+          </div>
+          <span class="font-body font-bold text-base text-bleu-abysse">X%</span>
+        </div>
       </div>
     </Container>
   </section>

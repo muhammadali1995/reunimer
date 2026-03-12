@@ -14,6 +14,19 @@ import lienFemmesHommesImg from '../assets/images/engagements/lien-femmes-hommes
 import logoTogether from '../assets/images/engagements/logo-together.png';
 import lienEnergieImg from '../assets/images/engagements/lien-energie.png';
 import lienSanteImg from '../assets/images/engagements/lien-sante.png';
+import lienFormationImg from '../assets/images/engagements/lien-formation.png';
+import lienSocialImg from '../assets/images/engagements/lien-social.png';
+import logoOceanFarmers from '../assets/images/engagements/logo-ocean-farmers.png';
+import logoAdir from '../assets/images/engagements/logo-adir.png';
+import logoAripa from '../assets/images/engagements/logo-aripa.png';
+import medailleEcovadis from '../assets/images/engagements/medaille-ecovadis.png';
+
+const keyFiguresSocial = [
+  { value: '55', label: 'villages engag\u00e9s dans la fili\u00e8re' },
+  { value: '2000', label: 'familles' },
+  { value: '300', label: 'km de littoral d\u2019activit\u00e9' },
+  { value: '1800', label: 'tonnes de poissons p\u00e9lagiques p\u00each\u00e9s' },
+];
 
 const keyFiguresFemmesHommes = [
   { value: 'XX', label: 'personnes impact\u00e9es' },
@@ -41,7 +54,7 @@ const keyFiguresFemmesHommes = [
 
       <!-- Text overlay — centered mobile, right-side desktop -->
       <div class="absolute inset-0 flex items-center justify-center px-6 lg:block">
-        <div class="text-center lg:text-left lg:absolute lg:top-[297px] lg:left-[49.65%] lg:w-[559px]">
+        <div class="text-center lg:text-left lg:absolute lg:top-[200px] xl:top-[297px] lg:left-[40%] xl:left-[49.65%] lg:w-[450px] xl:w-[559px]">
           <h1 class="font-display font-black text-[22px] leading-[1.1] sm:text-[28px] md:text-[32px] lg:text-[40px] lg:leading-[44.5px] uppercase text-white drop-shadow-[0_4px_16.2px_rgba(0,0,0,0.51)]">
             Un engagement<br />humain et<br />environnemental<br />porteur d&rsquo;avenir
           </h1>
@@ -60,7 +73,7 @@ const keyFiguresFemmesHommes = [
   <!-- Intro: ONG placeholder labels -->
   <section class="bg-white pt-10 md:pt-14 lg:pt-[59px]">
     <Container>
-      <div class="flex flex-col sm:flex-row gap-6 sm:gap-16 lg:gap-[445px]">
+      <div class="flex flex-col sm:flex-row gap-6 sm:gap-16 lg:gap-[200px] xl:gap-[445px]">
         <h2 class="font-heading font-semibold text-xl md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
           LOGO ONG
         </h2>
@@ -84,7 +97,7 @@ const keyFiguresFemmesHommes = [
       />
 
       <!-- Text overlay — left side -->
-      <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-10 lg:pl-[126px] lg:pr-0 lg:pt-[84px] lg:justify-start">
+      <div class="absolute inset-0 flex flex-col justify-center px-6 md:px-10 lg:pl-[80px] xl:pl-[126px] lg:pr-0 lg:pt-[60px] xl:pt-[84px] lg:justify-start">
         <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-white">
           Explorez nos<br />Engagements
         </h2>
@@ -169,7 +182,7 @@ const keyFiguresFemmesHommes = [
       </div>
 
       <!-- Text column -->
-      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[116px] lg:px-[60px]">
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[80px] xl:py-[116px] lg:px-[40px] xl:px-[60px]">
         <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
           Notre lien aux femmes<br class="hidden lg:block" /> et aux hommes
         </h2>
@@ -204,7 +217,7 @@ const keyFiguresFemmesHommes = [
           </h3>
           <div class="mt-4 lg:mt-[18px] max-w-[467px]">
             {keyFiguresFemmesHommes.map((stat) => (
-              <div class="flex items-baseline justify-between gap-4 py-2 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
+              <div class="flex items-baseline justify-between gap-3 sm:gap-4 py-2 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
                 <span class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0">
                   {stat.value}
                 </span>
@@ -234,7 +247,7 @@ const keyFiguresFemmesHommes = [
       </div>
 
       <!-- Text column -->
-      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[177px] lg:px-[60px] lg:pl-[165px]">
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[100px] xl:py-[177px] lg:pl-[80px] xl:pl-[165px] lg:pr-[40px] xl:pr-[60px]">
         <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
           Notre lien &agrave; l&rsquo;&eacute;nergie
         </h2>
@@ -263,7 +276,7 @@ const keyFiguresFemmesHommes = [
       </div>
 
       <!-- Text column -->
-      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[216px] lg:px-[88px]">
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[120px] xl:py-[216px] lg:px-[50px] xl:px-[88px]">
         <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
           Notre lien &agrave; la sant&eacute;
         </h2>
@@ -273,6 +286,180 @@ const keyFiguresFemmesHommes = [
         <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[496px]">
           Pour Reunimer, promouvoir une consommation saine et transparente aujourd&rsquo;hui, c&rsquo;est investir directement dans la vitalit&eacute; des g&eacute;n&eacute;rations futures.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien à la formation -->
+  <section id="lien-formation" class="bg-white relative overflow-hidden scroll-mt-[135px]">
+    <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
+      <!-- Image column (RIGHT) -->
+      <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[53.2%] shrink-0">
+        <Image
+          src={lienFormationImg}
+          alt="Formation maritime — partenariat Reunimer et EAMP La R&eacute;union"
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 766px, 100vw"
+        />
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[100px] xl:py-[177px] lg:pl-[80px] xl:pl-[165px] lg:pr-[40px] xl:pr-[60px]">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          Notre lien &agrave; la formation
+        </h2>
+        <p class="mt-5 md:mt-6 lg:mt-[52px] font-body font-bold text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+          Le Partenariat avec l&rsquo;EAMP
+        </p>
+        <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+          Pour p&eacute;renniser l&rsquo;excellence de ses m&eacute;tiers, le groupe Reunimer collabore &eacute;troitement avec l&rsquo;&Eacute;cole d&rsquo;Apprentissage Maritime de La R&eacute;union (EAMP). Ce partenariat strat&eacute;gique vise &agrave; former les futurs experts de la mer, qu&rsquo;il s&rsquo;agisse de navigation, de m&eacute;canique navale ou de techniques de p&ecirc;che, en alignant les cursus p&eacute;dagogiques sur les r&eacute;alit&eacute;s du terrain.
+        </p>
+        <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+          En offrant des terrains de stage et des perspectives d&rsquo;embauche concr&egrave;tes, Reunimer s&rsquo;assure un vivier de comp&eacute;tences locales hautement qualifi&eacute;es, tout en soutenant activement l&rsquo;insertion professionnelle de la jeunesse r&eacute;unionnaise.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien au social -->
+  <section id="lien-social" class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]">
+    <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
+      <!-- Image column (LEFT) -->
+      <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[49.3%] shrink-0">
+        <Image
+          src={lienSocialImg}
+          alt="Algoculture &agrave; Madagascar — Ocean Farmers, innovation sociale Reunimer"
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 710px, 100vw"
+        />
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[60px] xl:py-[88px] lg:px-[50px] xl:px-[88px]">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          Notre lien au social
+        </h2>
+
+        <!-- Subtitle -->
+        <p class="mt-4 md:mt-6 lg:mt-[33px] font-heading font-normal text-base leading-relaxed md:text-lg lg:text-xl lg:leading-[29.2px] text-bleu-abysse max-w-[487px]">
+          Une &eacute;conomie bleue pour l&rsquo;avenir de notre ressource.
+        </p>
+
+        <!-- Body text -->
+        <p class="mt-3 md:mt-4 lg:mt-[15px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[512px]">
+          <strong>Ocean Farmers&nbsp;: L&rsquo;innovation sociale au service des &eacute;cosyst&egrave;mes</strong> Pionnier de l&rsquo;algoculture tropicale &agrave; Madagascar depuis 2010, Reunimer a b&acirc;ti un mod&egrave;le villageois unique, contractuel et &eacute;quitable. &Agrave; travers 55 villages, nous cr&eacute;ons des emplois durables, majoritairement occup&eacute;s par des femmes, tout en r&eacute;g&eacute;n&eacute;rant les milieux c&ocirc;tiers. Cette diversification responsable r&eacute;duit la pression sur les ressources halieutiques et incarne notre engagement pour un d&eacute;veloppement solidaire.
+        </p>
+
+        <!-- Ocean Farmers logo -->
+        <div class="mt-6 md:mt-8 lg:mt-[46px]">
+          <Image
+            src={logoOceanFarmers}
+            alt="Logo Ocean Farmers — algoculture tropicale &agrave; Madagascar"
+            class="w-[160px] md:w-[185px] lg:w-[209px] h-auto"
+            widths={[160, 185, 209]}
+            sizes="209px"
+          />
+        </div>
+
+        <!-- Button -->
+        <div class="mt-6 md:mt-8 lg:mt-[58px]">
+          <Button variant="outline-dark" href="#footer-contact-heading">
+            En savoir plus
+          </Button>
+        </div>
+
+        <!-- Key Figures -->
+        <div class="mt-8 md:mt-10 lg:mt-[52px]">
+          <h3 class="font-heading font-semibold text-base md:text-lg lg:text-xl lg:leading-[24.4px] text-bleu-abysse max-w-[487px]">
+            L&rsquo;impact social de l&rsquo;algoculture &agrave; Madagascar
+          </h3>
+          <hr class="mt-4 lg:mt-[34px] border-t border-bleu-abysse/50 max-w-[487px]" />
+          <div class="mt-4 lg:mt-[33px] max-w-[487px]">
+            {keyFiguresSocial.map((stat) => (
+              <div class="flex items-baseline justify-between gap-3 sm:gap-4 py-2 lg:py-[6px] border-b border-bleu-abysse/50">
+                <span class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0">
+                  {stat.value}
+                </span>
+                <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse text-right">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien aux filières -->
+  <section id="lien-filieres" class="relative overflow-hidden scroll-mt-[135px]">
+    <!-- Top part: white bg — title + body left, logos + buttons right -->
+    <div class="bg-white">
+      <div class="max-w-[1284px] mx-auto px-6 md:px-10 lg:px-[78px] py-10 md:py-14 lg:pt-[70px] lg:pb-[80px]">
+        <div class="flex flex-col lg:flex-row lg:gap-[60px] xl:gap-[100px]">
+          <!-- Left: Title + body -->
+          <div class="flex-1 max-w-[512px]">
+            <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+              Notre lien aux fili&egrave;res
+            </h2>
+            <p class="mt-4 md:mt-6 lg:mt-[30px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse">
+              Membre de l&rsquo;ADIR, Reunimer s&rsquo;engage pour l&rsquo;excellence industrielle de La R&eacute;union. En structurant la fili&egrave;re p&ecirc;che et en d&eacute;fendant la production locale, le groupe renforce la souverainet&eacute; alimentaire de l&rsquo;&icirc;le et valorise le savoir-faire r&eacute;unionnais au c&oelig;ur de l&rsquo;oc&eacute;an Indien.
+            </p>
+            <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse">
+              &Eacute;galement membre de l&rsquo;ARIPA, Reunimer s&rsquo;engage pour une fili&egrave;re p&ecirc;che et aquaculture structur&eacute;e &agrave; La R&eacute;union. Cette synergie interprofessionnelle assure la tra&ccedil;abilit&eacute; des produits, la stabilit&eacute; du march&eacute; et une gestion durable des ressources au service d&rsquo;une &eacute;conomie bleue locale et performante.
+            </p>
+          </div>
+
+          <!-- Right: Logos + buttons -->
+          <div class="mt-8 lg:mt-0 flex flex-col items-start lg:items-end">
+            <div class="flex items-center gap-6 lg:gap-[74px]">
+              <Image
+                src={logoAdir}
+                alt="Logo ADIR — Association pour le D&eacute;veloppement Industriel de La R&eacute;union"
+                class="w-[100px] md:w-[120px] lg:w-[145px] h-auto"
+                widths={[100, 120, 145]}
+                sizes="145px"
+              />
+              <Image
+                src={logoAripa}
+                alt="Logo ARIPA — Association R&eacute;unionnaise Interprofessionnelle de la P&ecirc;che et de l'Aquaculture"
+                class="w-[140px] md:w-[175px] lg:w-[207px] h-auto"
+                widths={[140, 175, 207]}
+                sizes="207px"
+              />
+            </div>
+            <div class="mt-6 md:mt-8 lg:mt-[60px] xl:mt-[108px] flex flex-wrap gap-4 lg:gap-[40px] xl:gap-[80px]">
+              <Button variant="outline-dark" href="#footer-contact-heading">
+                En savoir plus
+              </Button>
+              <Button variant="outline-dark" href="#footer-contact-heading">
+                En savoir plus
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bottom part: gris-clair bg — EcoVadis medal + description -->
+    <div class="bg-gris-clair">
+      <div class="max-w-[1284px] mx-auto px-6 md:px-10 lg:px-[78px] py-10 md:py-14 lg:py-[47px]">
+        <div class="flex flex-col sm:flex-row items-center gap-8 lg:gap-[120px] xl:gap-[260px]">
+          <div class="shrink-0">
+            <Image
+              src={medailleEcovadis}
+              alt="M&eacute;daille d'argent EcoVadis — performance RSE de Reunimer"
+              class="w-[200px] md:w-[250px] lg:w-[304px] h-auto"
+              widths={[200, 250, 304]}
+              sizes="304px"
+            />
+          </div>
+          <p class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+            EcoVadis est une entreprise SaaS qui propose une gamme de solutions RSE con&ccedil;ues pour vous aider &agrave; g&eacute;rer, &agrave; mesurer et &agrave; am&eacute;liorer votre performance RSE dans l&rsquo;ensemble de la cha&icirc;ne de valeur.
+          </p>
+        </div>
       </div>
     </div>
   </section>
