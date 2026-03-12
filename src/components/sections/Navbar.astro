@@ -55,27 +55,28 @@ const languages = [
 
     <!-- Desktop nav -->
     <div class="hidden lg:flex items-center gap-8">
-      <div class="flex items-center gap-[34px]">
+      <div class="relative flex items-center gap-[34px]" id="desktop-nav-links">
         {navLinks.map((link) => (
-          <div class="nav-item group relative flex items-center h-[92px]">
+          <div
+            class="nav-item group relative flex items-center h-[92px]"
+            data-nav-item
+            data-active={isActive(link.href) ? 'true' : 'false'}
+          >
             <a
               href={link.href}
               class:list={[
-                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors flex items-center h-full',
+                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors flex items-center h-full hover:text-turquoise-ocean',
                 isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse',
               ]}
             >
               {link.label}
             </a>
-            <span
-              class:list={[
-                'absolute bottom-0 left-0 w-full h-[4px] bg-turquoise-ocean transition-opacity',
-                isActive(link.href) ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
-              ]}
-            />
 
             {link.children && (
-              <div class="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div
+                class="absolute top-full left-0 opacity-0 invisible -translate-y-2 scale-y-95 origin-top transition-[opacity,transform,visibility] duration-300 ease-out z-50"
+                data-nav-dropdown
+              >
                 <div class="w-[269px] bg-white px-5 py-[17px] flex flex-col gap-[15px] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
                   {link.children.map((child, i) => (
                     <>
@@ -95,6 +96,11 @@ const languages = [
             )}
           </div>
         ))}
+        <span
+          id="desktop-nav-indicator"
+          class="pointer-events-none absolute bottom-0 left-0 h-[4px] bg-turquoise-ocean opacity-0 transition-[transform,width,opacity] duration-500 ease-out"
+          aria-hidden="true"
+        ></span>
       </div>
       <div class="flex items-center gap-8">
         <!-- Search -->
@@ -369,24 +375,152 @@ const languages = [
   initLangDropdown('lang-desktop');
   initLangDropdown('lang-mobile');
 
-  // --- Desktop: hover opens dropdown, also change link text color ---
-  document.querySelectorAll('.nav-item').forEach((item) => {
-    const link = item.querySelector('a');
-    const dropdown = item.querySelector('[class*="group-hover"]');
-    if (!dropdown) return;
+  // --- Desktop: dropdown reveals as cursor moves down ---
+  function initDesktopHoverDropdowns() {
+    const desktopItems = Array.from(document.querySelectorAll('.nav-item[data-nav-item]')) as HTMLElement[];
 
-    item.addEventListener('mouseenter', () => {
-      link?.classList.add('text-turquoise-ocean');
-      link?.classList.remove('text-bleu-abysse');
-    });
-    item.addEventListener('mouseleave', () => {
-      if (!link?.getAttribute('class')?.includes('active-link')) {
-        const isActive = link?.querySelector('.opacity-100');
-        if (!isActive) {
-          link?.classList.remove('text-turquoise-ocean');
-          link?.classList.add('text-bleu-abysse');
+    desktopItems.forEach((item) => {
+      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
+      if (!dropdown) return;
+
+      let hideTimer: number | undefined;
+      const REVEAL_THRESHOLD = 0.78;
+
+      const clearHideTimer = () => {
+        if (hideTimer) {
+          window.clearTimeout(hideTimer);
+          hideTimer = undefined;
         }
-      }
+      };
+
+      const setRevealProgress = (progress: number) => {
+        clearHideTimer();
+
+        const clamped = Math.min(1, Math.max(0, progress));
+
+        if (clamped < REVEAL_THRESHOLD) {
+          dropdown.style.visibility = 'hidden';
+          dropdown.style.opacity = '0';
+          dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
+          dropdown.style.pointerEvents = 'none';
+          return;
+        }
+
+        dropdown.style.visibility = 'visible';
+        dropdown.style.opacity = '1';
+        dropdown.style.transform = 'translateY(0) scaleY(1)';
+        dropdown.style.pointerEvents = 'auto';
+      };
+
+      const revealFully = () => {
+        setRevealProgress(1);
+      };
+
+      const hideDropdown = () => {
+        clearHideTimer();
+        dropdown.style.opacity = '0';
+        dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
+        dropdown.style.pointerEvents = 'none';
+
+        hideTimer = window.setTimeout(() => {
+          dropdown.style.visibility = 'hidden';
+        }, 220);
+      };
+
+      item.addEventListener('mouseenter', (event) => {
+        const rect = item.getBoundingClientRect();
+        const pointerY = (event as MouseEvent).clientY;
+        const progress = (pointerY - (rect.top + 6)) / (rect.bottom - rect.top);
+        setRevealProgress(progress);
+      });
+
+      item.addEventListener('mousemove', (event) => {
+        const rect = item.getBoundingClientRect();
+        const pointerY = (event as MouseEvent).clientY;
+        const progress = (pointerY - (rect.top + 6)) / ((rect.bottom + 18) - (rect.top + 6));
+        setRevealProgress(progress);
+      });
+
+      item.addEventListener('mouseleave', (event) => {
+        const next = event.relatedTarget as Node | null;
+        if (next && dropdown.contains(next)) {
+          revealFully();
+          return;
+        }
+
+        hideDropdown();
+      });
+
+      dropdown.addEventListener('mouseenter', revealFully);
+      dropdown.addEventListener('mouseleave', hideDropdown);
     });
-  });
+  }
+
+  initDesktopHoverDropdowns();
+
+  // --- Desktop: smooth sliding active indicator ---
+  const desktopNavLinks = document.getElementById('desktop-nav-links');
+  const desktopNavIndicator = document.getElementById('desktop-nav-indicator') as HTMLElement | null;
+
+  if (desktopNavLinks && desktopNavIndicator) {
+    const navItems = Array.from(desktopNavLinks.querySelectorAll('[data-nav-item]')) as HTMLElement[];
+    const activeItem = navItems.find((item) => item.dataset.active === 'true') ?? null;
+    let currentItem: HTMLElement | null = activeItem;
+
+    const moveIndicatorToItem = (item: HTMLElement | null, immediate = false) => {
+      if (!item) {
+        desktopNavIndicator.style.opacity = '0';
+        return;
+      }
+
+      const link = item.querySelector('a') as HTMLElement | null;
+      if (!link) return;
+
+      const containerRect = desktopNavLinks.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      const left = linkRect.left - containerRect.left;
+
+      if (immediate) {
+        const previousTransition = desktopNavIndicator.style.transition;
+        desktopNavIndicator.style.transition = 'none';
+        desktopNavIndicator.style.width = `${linkRect.width}px`;
+        desktopNavIndicator.style.transform = `translateX(${left}px)`;
+        desktopNavIndicator.style.opacity = '1';
+        requestAnimationFrame(() => {
+          desktopNavIndicator.style.transition = previousTransition;
+        });
+        return;
+      }
+
+      desktopNavIndicator.style.width = `${linkRect.width}px`;
+      desktopNavIndicator.style.transform = `translateX(${left}px)`;
+      desktopNavIndicator.style.opacity = '1';
+    };
+
+    if (activeItem) {
+      moveIndicatorToItem(activeItem, true);
+    }
+
+    navItems.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        currentItem = item;
+        moveIndicatorToItem(item);
+      });
+
+      const link = item.querySelector('a');
+      link?.addEventListener('focus', () => {
+        currentItem = item;
+        moveIndicatorToItem(item);
+      });
+    });
+
+    desktopNavLinks.addEventListener('mouseleave', () => {
+      currentItem = activeItem;
+      moveIndicatorToItem(activeItem);
+    });
+
+    window.addEventListener('resize', () => {
+      moveIndicatorToItem(currentItem ?? activeItem, true);
+    });
+  }
 </script>

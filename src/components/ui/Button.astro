@@ -29,14 +29,14 @@ const {
 
 const Tag = href ? 'a' : 'button';
 
-const base = 'inline-flex items-center gap-3.5 font-heading font-semibold uppercase cursor-pointer transition-opacity hover:opacity-80';
+const base = 'inline-flex items-center gap-3.5 font-heading font-semibold uppercase cursor-pointer transition-colors duration-200';
 
 const variants = {
   'outline-dark': `border border-bleu-abysse rounded-[3px] px-[22px] py-[19px] text-bleu-abysse text-xs tracking-[1.44px]`,
-  'outline-light': `border border-white rounded-[3px] px-[18px] py-[16px] text-white text-xs tracking-[1.44px]`,
-  'primary': `bg-turquoise-ocean rounded-[5px] px-[15px] py-2.5 text-white font-body font-normal text-sm justify-center w-full`,
-  'pill-primary': `bg-turquoise-ocean rounded-[47px] px-[22px] py-[18px] text-white text-xs tracking-[1.44px] no-underline`,
-  'pill-light': `bg-white rounded-[47px] px-[22px] py-[18px] text-bleu-abysse text-xs tracking-[1.44px] no-underline hover:bg-gris-clair`,
+  'outline-light': `border border-white rounded-[3px] px-[18px] py-[16px] text-white text-xs tracking-[1.44px] hover:bg-turquoise-ocean hover:text-white hover:border-turquoise-ocean`,
+  'primary': `bg-turquoise-ocean rounded-[5px] px-[15px] py-2.5 text-white font-body font-normal text-sm justify-center w-full hover:bg-white hover:text-bleu-abysse`,
+  'pill-primary': `bg-turquoise-ocean rounded-[47px] px-[22px] py-[18px] text-white text-xs tracking-[1.44px] no-underline hover:bg-white hover:text-bleu-abysse`,
+  'pill-light': `bg-white rounded-[47px] px-[22px] py-[18px] text-bleu-abysse text-xs tracking-[1.44px] no-underline hover:bg-turquoise-ocean hover:text-white`,
 };
 
 const classes = [base, variants[variant], className].join(' ');
