@@ -1,7 +1,7 @@
-# Actualités Page — Implementation Plan
+# Détail Actualités Page — Implementation Plan
 
-**Figma source:** [Site-Reunimer / Actualités](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=729-16602&m=dev)
-**Figma node:** `729:16602` (frame "Actualités", 1440 × 3462)
+**Figma source:** [Site-Reunimer / Détail Actualités](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=729-16768&m=dev)
+**Figma node:** `729:16768` (frame "Détail Actualités", 1440 × 2686)
 
 ---
 
@@ -9,132 +9,99 @@
 
 | # | Section | Figma Node | Dimensions | Background |
 |---|---------|-----------|------------|------------|
-| 1 | Page Title "ACTUALITÉS" | `729:16603` | x=122, y=192, 397×89 | White |
-| 2 | Featured News (large photo + 3 small) | `729:16604` + `729:16607-09` | y=291 to ~915 | White |
-| 3 | Article Grid (2 rows × 3 cols) | `729:16633-38` | y=922 to ~1970 | White |
-| 4 | Footer | `729:16632` | — | Already in PageLayout |
+| 1 | Header (navbar) | `729:16784` | — | Already in PageLayout |
+| 2 | Image Gallery (3 photos) | `729:16769`, `729:16774`, `729:16775` | y=220, h=498 | White |
+| 3 | Article Header (tag, date, title, nav arrows) | `729:16770-16772`, `729:16776`, `729:16779` | y=741 to ~851 | White |
+| 4 | Article Body (2-column text) | `729:16782`, `729:16783` | y=852, h=355 | White |
+| 5 | Footer | `729:16773` | — | Already in PageLayout |
 
 ---
 
-## Phase 1 — Page Setup & Title
+## Phase 1 — Page Setup & Image Gallery
 
-**Goal:** Create `src/pages/actualites.astro` with PageLayout + page title.
+**Goal:** Create `src/pages/actualites/[slug].astro` (or static detail page) with PageLayout + 3-image gallery.
 
 **Tasks:**
-- Create `src/pages/actualites.astro` using `PageLayout`
-- Page title: "ACTUALITÉS" — Zalando Sans Expanded Black 40px, uppercase, bleu-abysse
-- Use `SectionHeading` component
-- Title positioned at x=122, y=192 (relative to page top below navbar)
-- Content within `Container`
+- Create page file using `PageLayout`
+- Build 3-image gallery in a flex row with 10px gaps
+- Image 1 (large): 574×498px — main article photo
+- Image 2 (medium): 410×498px — secondary photo
+- Image 3 (narrow): 152×498px — tertiary photo
+- Tag "EVENTS" overlaid on first image (top-left, turquoise-ocean)
+- All images: `object-cover`, `overflow-hidden`
+- Use placeholder images for now
 
 **Figma specs:**
-- Title (node 729:16603): x=122, y=192, 397×89, Zalando Sans 40px
+- Image 1 (node 729:16769): x=120, y=220, 574×498
+- Image 2 (node 729:16774): x=704, y=220, 410×498
+- Image 3 (node 729:16775): x=1124, y=220, 152×498
+- Gap between images: 704-120-574 = 10px, 1124-704-410 = 10px
+- Tag (node 729:16770): x=135, y=241 — "EVENTS", turquoise-ocean bg
+- Total gallery width: 574+10+410+10+152 = 1156px (within container)
 
 ---
 
-## Phase 2 — Featured News Section (Left: Large Article)
+## Phase 2 — Article Header (Date, Title, Navigation)
 
-**Goal:** Build the large featured article on the left side.
+**Goal:** Build the date, title, and prev/next navigation arrows below the gallery.
 
 **Tasks:**
-- Large photo area: 710×498px, with `object-cover`, overflow hidden
-- Tag badge overlaid on top-left of image (e.g., "EVENTS" — turquoise-ocean bg)
-- Below image: date text + large title
-- Use existing `ArticleCard` component with `size="lg"`, or build custom if layout doesn't match
-- The large photo is a clickable link
+- Date: "11 FÉV. 2026" — Inter Medium 12px, brume-alize
+- Title: "Visite du Chef Thierry Marx" — Montserrat Bold 32px, bleu-abysse, 525×92
+- Navigation arrows: 2 circular buttons (50×50) at the right side
+  - Left arrow (previous) and right arrow (next)
+  - Positioned to the right of the title, vertically aligned
+- Layout: title on the left, arrows on the right
 
 **Figma specs:**
-- Grande-Photo-Actu (node 729:16604): x=121, y=291, 710×498
-- Tag (node 729:16605): "EVENTS", turquoise-ocean bg, Montserrat SemiBold 10px, px-[7px] py-[5px]
-- Date (node 729:16612): "11 FÉV. 2026", x=122, y=805
-- Grand Titre (node 729:16622): "Visite du Chef Thierry Marx", x=121, y=823, 525×92, Montserrat Bold 32px, bleu-abysse
+- Date (node 729:16771): x=122, y=741, 80×12, Inter Medium 12px
+- Title (node 729:16772): x=121, y=759, 525×92, Montserrat Bold 32px
+- Arrow right (node 729:16776): x=1228, y=746, 50×50
+- Arrow left (node 729:16779): x=1214, y=796, 50×50 (rotated 180°)
 
 ---
 
-## Phase 3 — Featured News Section (Right: 3 Small Articles)
+## Phase 3 — Article Body (2-Column Text)
 
-**Goal:** Build the 3 small horizontal article cards in a right sidebar column.
+**Goal:** Build the 2-column article body text.
 
 **Tasks:**
-- 3 small articles stacked vertically on the right side of the featured section
-- Each small article is a **horizontal layout**: thumbnail left (223×154) + text right (tag, date, title)
-- Gap between image and text: ~20px
-- Gap between small articles: ~18px vertical (463-291-154 = 18px)
-- Tags: "FILIÈRE", "FILIÈRE", "GROUPE" — turquoise-ocean bg
-- Dates: "11 FÉV. 2026" — Inter Medium 12px, brume-alize
-- Titles: Montserrat Bold 20px, bleu-abysse — e.g., "Reunimer en couverture du Leader Magazine", "La langouste pour la St-Valentin", "Un engagement durable"
+- 2-column layout below the title area
+- Each column: ~552px wide
+- Gap between columns: 724-122-552 = 50px
+- Text: Montserrat Regular 20px, leading 1.461, bleu-abysse
+- Placeholder Lorem ipsum text
 
 **Figma specs:**
-- Petite-photo-actu 1 (node 729:16607): x=852, y=291, 223×154
-- Petite-photo-actu 2 (node 729:16608): x=852, y=463, 223×154
-- Petite-photo-actu 3 (node 729:16609): x=852, y=635, 223×154
-- Tags (nodes 729:16606/10/11): x=1095, turquoise-ocean
-- Dates: x=1095, y=323/495/667
-- Titles (nodes 729:16623/24/25): x=1094, y=342/514/686, 209×35, Montserrat Bold 20px
-
-**Layout calculation:**
-- Left column (large photo): x=121, w=710, right edge = 831
-- Gap: 852 - 831 = 21px
-- Right column: x=852, total width = (1094+209) - 852 = 451px
-- Overall: flex row with ~21px gap
+- Left column (node 729:16782): x=122, y=852, 552×355
+- Right column (node 729:16783): x=724, y=852, 552×355
+- Font: Montserrat Regular 20px, line-height 1.461, bleu-abysse
 
 ---
 
-## Phase 4 — Article Grid (6 Cards)
+## Phase 4 — Responsive Design
 
-**Goal:** Build the 3-column article card grid (2 rows, 6 cards total).
-
-**Tasks:**
-- 3-column grid layout with ~57px horizontal gap
-- 2 rows with ~34px vertical gap between description bottom and next row top
-- Each card structure:
-  1. Image placeholder (364×318px, bg #D9D9D9 or actual images)
-  2. Tag badge overlaid inside image (top-left, 14px from left, 19px from top)
-  3. Date: "11 FÉV. 2026" — Inter Medium 12px, brume-alize
-  4. Title: "Un engagement durable" — Montserrat Bold 20px, bleu-abysse, leading-none
-  5. Description excerpt: Inter Regular 16px, leading 1.4, bleu-abysse — "L'audace (nous ouvrons la voie)..."
-- Extend `ArticleCard` component to support `description` prop, OR build the description inline
-
-**Figma specs:**
-- Card images (nodes 729:16633-38): 364×318 (or 363×318), bg #D9D9D9
-- Card positions: x = 121, 542, 960 (row 1 y=922, row 2 y=1463)
-- Horizontal gaps: ~57px (542-121-364), ~55px (960-542-363)
-- Tags (nodes 729:16639-44): positioned inside images
-- Dates (nodes 729:16616-21): Inter Medium 12px
-- Titles (nodes 729:16626-31): Montserrat Bold 20px, 364×35
-- Descriptions (nodes 729:16645-50): Inter Regular 16px, 363×110, leading 1.4
-
-**Existing components to use:**
-- `ArticleCard` — has image, tag, date, title. Missing: description excerpt. Either extend or add description as a slot/prop.
-- `Tag` — already matches exactly (turquoise-ocean variant)
-
----
-
-## Phase 5 — Responsive Design
-
-**Goal:** Make all sections responsive for tablet (768–1024px) and mobile (375–767px).
+**Goal:** Make all sections responsive for tablet and mobile.
 
 **Tasks:**
-- **Featured section:** Stack large article above small articles on mobile; 2-column on tablet
-- **Small articles:** Stack vertically on mobile, keep horizontal thumbnail+text layout
-- **Article grid:** 2 columns on tablet, 1 column on mobile
-- **Typography:** Scale down proportionally at each breakpoint
-- **Spacing:** Reduce gaps and padding on smaller screens
-- **Images:** Maintain aspect ratios, use `object-cover`
+- **Image gallery:** Stack or reduce to 1-2 images on smaller screens
+- **Title & arrows:** Stack arrows below title on mobile
+- **Article body:** Single column on mobile, 2 columns on tablet+
+- **Typography:** Scale down proportionally
+- **Spacing:** Reduce gaps on smaller screens
 - Ensure min 44px tap targets, no horizontal overflow
 
 ---
 
-## Phase 6 — Navbar Link & Final Polish
+## Phase 5 — Polish & Navigation
 
 **Goal:** Verify navigation and finalize.
 
 **Tasks:**
-- Verify `Navbar.astro` has Actualités link at `/actualites` (already exists — line 64-66)
-- Confirm `isActive()` highlights Actualités on the page
-- Verify Footer link
+- Ensure the page is accessible from `/actualites` listing
+- Verify navbar highlights "Actualités" on this page
 - Cross-check against Figma screenshot
-- Clean up any placeholder content
+- Clean up placeholder content
 
 ---
 
@@ -142,7 +109,7 @@
 
 1. **One phase at a time.** Do not start the next phase until the user reviews and approves.
 2. **Figma is the source of truth.** Always reference node-ids when extracting values.
-3. **Use existing components.** Reuse `ArticleCard`, `Tag`, `Container`, `SectionHeading`, etc.
+3. **Use existing components.** Reuse `Tag`, `Container`, `SectionHeading`, etc.
 4. **Design tokens only.** Never hardcode colors or font sizes.
 5. **Pixel-perfect at desktop.** Match the exact Figma frame at 1440px.
 6. **Responsive is my responsibility.** Figma only provides desktop.
@@ -157,51 +124,35 @@
 
 | Asset | Source Node | Save To |
 |-------|-----------|---------|
-| Featured article photo (Chef Thierry Marx) | `I729:16604;729:16854` | `src/assets/images/actus/chef-thierry-marx.jpg` |
-| Small article photo 1 | `I729:16607;729:16859` | `src/assets/images/actus/article-1.jpg` |
-| Small article photo 2 | `I729:16608;729:16859` | `src/assets/images/actus/article-2.jpg` |
-| Small article photo 3 | `I729:16609;729:16859` | `src/assets/images/actus/article-3.jpg` |
-| Grid article images (6 cards) | Placeholders (#D9D9D9) | Use existing `article-4.jpg` or placeholders |
+| Main article photo | `729:16769` | `src/assets/images/actus/chef-thierry-marx.jpg` |
+| Secondary photo | `729:16774` | `src/assets/images/actus/detail-photo-2.jpg` |
+| Tertiary photo | `729:16775` | `src/assets/images/actus/detail-photo-3.jpg` |
+| Arrow right icon | `729:16776` | SVG inline or `src/assets/icons/arrow-right.svg` |
+| Arrow left icon | `729:16779` | SVG inline or `src/assets/icons/arrow-left.svg` |
 
 ---
 
 ## Figma Node Reference
 
 ```
-729:16602 — Actualités (full page frame, 1440×3462)
-├── 729:16651 — Header instance (navbar, handled by PageLayout)
-├── 729:16603 — Title "Actualités" (x=122, y=192)
+729:16768 — Détail Actualités (full page frame, 1440×2686)
+├── 729:16784 — Header instance (navbar, handled by PageLayout)
 │
-├── FEATURED SECTION (y=291 to ~915)
-│   ├── 729:16604 — Grande-Photo-Actu (x=121, 710×498)
-│   ├── 729:16605 — Tag "EVENTS" on large photo
-│   ├── 729:16612 — Date "11 FÉV. 2026" (large article)
-│   ├── 729:16622 — Grand Titre "Visite du Chef Thierry Marx" (Montserrat Bold 32px)
-│   ├── 729:16607 — Petite-photo-actu 1 (x=852, 223×154)
-│   ├── 729:16608 — Petite-photo-actu 2 (x=852, 223×154)
-│   ├── 729:16609 — Petite-photo-actu 3 (x=852, 223×154)
-│   ├── 729:16606/10/11 — Tags for small articles
-│   ├── 729:16613/14/15 — Dates for small articles
-│   └── 729:16623/24/25 — Titles for small articles (Montserrat Bold 20px)
+├── IMAGE GALLERY (y=220, h=498)
+│   ├── 729:16769 — Rectangle 25 (main photo, x=120, 574×498)
+│   ├── 729:16774 — Rectangle 42 (secondary photo, x=704, 410×498)
+│   └── 729:16775 — Rectangle 43 (tertiary photo, x=1124, 152×498)
 │
-├── ARTICLE GRID (y=922 to ~1970)
-│   ├── Row 1 (y=922)
-│   │   ├── 729:16633 — Card 1 image (x=121, 364×318)
-│   │   ├── 729:16635 — Card 2 image (x=542, 363×318)
-│   │   └── 729:16637 — Card 3 image (x=960, 364×318)
-│   ├── 729:16639/41/43 — Tags (row 1)
-│   ├── 729:16616/18/20 — Dates (row 1)
-│   ├── 729:16626/28/30 — Titles (row 1)
-│   ├── 729:16645/47/49 — Descriptions (row 1)
-│   │
-│   ├── Row 2 (y=1463)
-│   │   ├── 729:16634 — Card 1 image (x=121, 364×318)
-│   │   ├── 729:16636 — Card 2 image (x=542, 363×318)
-│   │   └── 729:16638 — Card 3 image (x=960, 364×318)
-│   ├── 729:16640/42/44 — Tags (row 2)
-│   ├── 729:16617/19/21 — Dates (row 2)
-│   ├── 729:16627/29/31 — Titles (row 2)
-│   └── 729:16646/48/50 — Descriptions (row 2)
+├── ARTICLE HEADER (y=741 to ~851)
+│   ├── 729:16770 — Tag "EVENTS" (turquoise-ocean, x=135, y=241 — overlaid on gallery)
+│   ├── 729:16771 — Date "11 FÉV. 2026" (x=122, y=741)
+│   ├── 729:16772 — Title "Visite du Chef Thierry Marx" (x=121, y=759, Montserrat Bold 32px)
+│   ├── 729:16776 — Arrow right button (x=1228, y=746, 50×50)
+│   └── 729:16779 — Arrow left button (x=1214, y=796, 50×50, rotated 180°)
 │
-└── 729:16632 — Footer (handled by PageLayout)
+├── ARTICLE BODY (y=852 to ~1207)
+│   ├── 729:16782 — Left column text (x=122, 552×355, Montserrat Regular 20px)
+│   └── 729:16783 — Right column text (x=724, 552×355, Montserrat Regular 20px)
+│
+└── 729:16773 — Footer (handled by PageLayout)
 ```

@@ -3,9 +3,10 @@ import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
 import Container from '../components/ui/Container.astro';
 import SectionHeading from '../components/ui/SectionHeading.astro';
-import Button from '../components/ui/Button.astro';
+import JobCard from '../components/ui/JobCard.astro';
 import heroImage from '../assets/images/carrieres/hero.png';
 import johanneSerriImage from '../assets/images/carrieres/john.png';
+import { jobListings } from '../data/jobs';
 ---
 
 <PageLayout
@@ -91,171 +92,19 @@ import johanneSerriImage from '../assets/images/carrieres/john.png';
 
   <!-- Job Listings Accordion -->
   <div id="job-accordion">
-    <!-- Job 1: Lieutenant de Pêche — Expanded by default -->
-    <div class="job-card bg-terre-laterite overflow-hidden" data-job="0" data-expanded="true">
-      <!-- Header bar (always visible) -->
-      <button
-        type="button"
-        class="w-full flex items-center justify-between px-6 md:px-16 lg:px-[101px] py-8 md:py-10 lg:py-[49px] cursor-pointer text-left"
-        aria-expanded="true"
-      >
-        <h3 class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white pr-4">
-          Lieutenant de Pêche (H/F) – Flotte Océan Indien
-        </h3>
-        <svg
-          class="job-chevron w-6 h-3.5 md:w-[34px] md:h-[20px] shrink-0 text-white transition-transform duration-300 rotate-180"
-          viewBox="0 0 34 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path d="M2 2L17 18L32 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-
-      <!-- Expandable content -->
-      <div class="job-content transition-[max-height] duration-300 ease-in-out overflow-hidden" style="max-height: 1000px;">
-        <!-- Divider -->
-        <div class="mx-6 md:mx-16 lg:mx-[101px] h-px bg-white/40" aria-hidden="true"></div>
-
-        <!-- Two-column content -->
-        <div class="px-6 md:px-16 lg:px-[101px] pt-6 pb-8 md:pt-8 md:pb-12 lg:pt-[24px] lg:pb-[69px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[65px]">
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-2">
-              Votre Mission&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Sous l'autorité du Capitaine, vous participez à la conduite du navire et aux opérations de pêche durable. Vous êtes le garant de la sécurité à bord et de l'application des protocoles de protection de la biodiversité (notamment les gestes de secours aux tortues marines en partenariat avec Kelonia).
-            </p>
-          </div>
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Pourquoi nous rejoindre&nbsp;?
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mb-4">
-              Une carrière de haut niveau sur des navires modernes sans quitter La Réunion.
-            </p>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Transmission&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Intégrez une équipe où l'expérience des anciens rencontre l'innovation technologique.
-            </p>
-          </div>
-        </div>
-
-        <!-- Apply button -->
-        <div class="px-6 md:px-16 lg:px-[101px] pb-8 md:pb-12 lg:pb-[69px]">
-          <Button variant="outline-light" href="#">Postuler à l'offre</Button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Job 2: Technicien de Maintenance — Collapsed -->
-    <div class="job-card bg-nuit-australe overflow-hidden" data-job="1" data-expanded="false">
-      <button
-        type="button"
-        class="w-full flex items-center justify-between px-6 md:px-16 lg:px-[101px] py-8 md:py-10 lg:py-[48px] cursor-pointer text-left"
-        aria-expanded="false"
-      >
-        <h3 class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white pr-4">
-          Technicien de Maintenance Industrielle (H/F) – Site de Transformation
-        </h3>
-        <svg
-          class="job-chevron w-6 h-3.5 md:w-[34px] md:h-[20px] shrink-0 text-white transition-transform duration-300"
-          viewBox="0 0 34 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path d="M2 2L17 18L32 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-
-      <div class="job-content transition-[max-height] duration-300 ease-in-out overflow-hidden" style="max-height: 0;">
-        <div class="mx-6 md:mx-16 lg:mx-[101px] h-px bg-white/40" aria-hidden="true"></div>
-        <div class="px-6 md:px-16 lg:px-[101px] pt-6 pb-8 md:pt-8 md:pb-12 lg:pt-[24px] lg:pb-[69px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[65px]">
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-2">
-              Votre Mission&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Au sein de notre site de transformation agroalimentaire, vous assurez la maintenance préventive et curative des équipements de production. Vous diagnostiquez les pannes, intervenez sur les lignes de conditionnement et contribuez à l'amélioration continue des installations.
-            </p>
-          </div>
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Pourquoi nous rejoindre&nbsp;?
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mb-4">
-              Un environnement technique moderne au c&oelig;ur de la filière halieutique réunionnaise.
-            </p>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Évolution&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Des perspectives d'évolution vers des postes de responsable maintenance ou ingénierie process.
-            </p>
-          </div>
-        </div>
-        <div class="px-6 md:px-16 lg:px-[101px] pb-8 md:pb-12 lg:pb-[69px]">
-          <Button variant="outline-light" href="#">Postuler à l'offre</Button>
-        </div>
-      </div>
-    </div>
-
-    <!-- Job 3: Chargé(e) de Qualité — Collapsed -->
-    <div class="job-card bg-ecume-poudree overflow-hidden" data-job="2" data-expanded="false">
-      <button
-        type="button"
-        class="w-full flex items-center justify-between px-6 md:px-16 lg:px-[101px] py-8 md:py-10 lg:py-[48px] cursor-pointer text-left"
-        aria-expanded="false"
-      >
-        <h3 class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white pr-4">
-          Chargé(e) de Qualité et Développement Durable (H/F) – RSE
-        </h3>
-        <svg
-          class="job-chevron w-6 h-3.5 md:w-[34px] md:h-[20px] shrink-0 text-white transition-transform duration-300"
-          viewBox="0 0 34 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <path d="M2 2L17 18L32 2" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
-      </button>
-
-      <div class="job-content transition-[max-height] duration-300 ease-in-out overflow-hidden" style="max-height: 0;">
-        <div class="mx-6 md:mx-16 lg:mx-[101px] h-px bg-white/40" aria-hidden="true"></div>
-        <div class="px-6 md:px-16 lg:px-[101px] pt-6 pb-8 md:pt-8 md:pb-12 lg:pt-[24px] lg:pb-[69px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[65px]">
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-2">
-              Votre Mission&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Vous pilotez la démarche qualité et les engagements RSE du groupe. Vous réalisez les audits internes, suivez les certifications (MSC, ISO) et coordonnez les actions de développement durable en lien avec notre politique environnementale.
-            </p>
-          </div>
-          <div>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Pourquoi nous rejoindre&nbsp;?
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mb-4">
-              Un rôle stratégique au c&oelig;ur de la transformation durable du groupe.
-            </p>
-            <p class="font-body font-bold text-sm md:text-base text-white mb-1">
-              Impact&nbsp;:
-            </p>
-            <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-white">
-              Contribuez directement à la protection de la biodiversité marine et au développement des filières locales.
-            </p>
-          </div>
-        </div>
-        <div class="px-6 md:px-16 lg:px-[101px] pb-8 md:pb-12 lg:pb-[69px]">
-          <Button variant="outline-light" href="#">Postuler à l'offre</Button>
-        </div>
-      </div>
-    </div>
+    {jobListings.map((job, i) => (
+      <JobCard
+        title={job.title}
+        bgColor={job.bgColor}
+        missionText={job.missionText}
+        benefitTitle={job.benefitTitle}
+        benefitText={job.benefitText}
+        extraTitle={job.extraTitle}
+        extraText={job.extraText}
+        defaultExpanded={job.defaultExpanded ?? false}
+        index={i}
+      />
+    ))}
   </div>
 
   <script>
