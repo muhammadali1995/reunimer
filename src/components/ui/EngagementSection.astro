@@ -28,6 +28,7 @@ const {
   bgColor = 'white',
   id,
   buttonHref = '#footer-contact-heading',
+  showButton = true,
   class: className = '',
 } = Astro.props;
 
@@ -44,7 +45,7 @@ const isImageLeft = imagePosition === 'left';
     !isImageLeft && 'lg:flex-row-reverse',
   ]}>
     <!-- Image column -->
-    <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[51.5%] shrink-0">
+    <div class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0">
       <Image
         src={imageSrc}
         alt={imageAlt}
@@ -55,22 +56,27 @@ const isImageLeft = imagePosition === 'left';
     </div>
 
     <!-- Text column -->
-    <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[100px] lg:px-[54px]">
-      <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+    <div class="flex-1 px-6 py-8 md:px-10 md:py-12 lg:py-[100px] lg:px-[54px]">
+      <h2 class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
         {title}
       </h2>
-      <p class="mt-5 md:mt-6 lg:mt-[37px] font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[1.461] text-bleu-abysse max-w-[445px]">
+      <p class="mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-base leading-[1.5] md:text-[17px] md:leading-[1.5] lg:text-xl lg:leading-[1.461] text-bleu-abysse max-w-[445px]">
         {bodyText}
       </p>
 
       <!-- Slot for partner logos, descriptions, key figures, etc. -->
       <slot />
 
-      <div class="mt-8 md:mt-10 lg:mt-[40px]">
-        <Button variant="outline-dark" href={buttonHref}>
-          En savoir plus
-        </Button>
-      </div>
+      {showButton && (
+        <div class="mt-6 md:mt-8 lg:mt-[40px]">
+          <Button
+            variant="outline-dark"
+            href={buttonHref}
+          >
+            En savoir plus
+          </Button>
+        </div>
+      )}
     </div>
   </div>
 </section>
