@@ -1,182 +1,155 @@
-# Carrières Page — Implementation Plan
+# Actualités Page — Implementation Plan
 
-**Figma source:** [Site-Reunimer / Carrières](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=18-147&m=dev)
-**Figma node:** `18:147` (frame "Carrières", 1440 × 4260)
+**Figma source:** [Site-Reunimer / Actualités](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=729-16602&m=dev)
+**Figma node:** `729:16602` (frame "Actualités", 1440 × 3462)
 
 ---
 
 ## Page Structure (top to bottom)
 
-| # | Section | Figma Node | Height | Background |
-|---|---------|-----------|--------|------------|
-| 1 | Hero (full-width photo strip) | `18:148` | 553px | Image |
-| 2 | Notre Marque Employeur | `443:2767` | 567px | White |
-| 3 | Mot de la RH (Johanne Serri) | `443:2774` | 649px | Image (grayscale) |
-| 4 | Nos Offres d'Emplois (header) | `443:2775` | 354px | White |
-| 5 | Job Listings (accordion) | inline nodes | ~724px | terre-laterite / nuit-australe / ecume-poudree |
-| 6 | Footer | `116:1675` | — | Already in PageLayout |
+| # | Section | Figma Node | Dimensions | Background |
+|---|---------|-----------|------------|------------|
+| 1 | Page Title "ACTUALITÉS" | `729:16603` | x=122, y=192, 397×89 | White |
+| 2 | Featured News (large photo + 3 small) | `729:16604` + `729:16607-09` | y=291 to ~915 | White |
+| 3 | Article Grid (2 rows × 3 cols) | `729:16633-38` | y=922 to ~1970 | White |
+| 4 | Footer | `729:16632` | — | Already in PageLayout |
 
 ---
 
-## Phase 1 — Page Setup & Hero Section
+## Phase 1 — Page Setup & Title
 
-**Goal:** Create `src/pages/carrieres.astro` with PageLayout + full-width hero image.
+**Goal:** Create `src/pages/actualites.astro` with PageLayout + page title.
 
 **Tasks:**
-- Create `src/pages/carrieres.astro` using `PageLayout` (title, description, ogImage)
-- Build hero: full-width background image (`visuel-carrieres`), 553px tall on desktop
-- The hero has NO text overlay — it's just the photo strip showing workers in different roles
-- Use `home-carriere.jpg` from `src/assets/images/carrieres/` (already exists) or export from Figma if needed
-- Hero is below the fixed navbar (PageLayout already handles the 92px spacer)
-- Responsive: reduce height proportionally on tablet/mobile, use `object-cover`
+- Create `src/pages/actualites.astro` using `PageLayout`
+- Page title: "ACTUALITÉS" — Zalando Sans Expanded Black 40px, uppercase, bleu-abysse
+- Use `SectionHeading` component
+- Title positioned at x=122, y=192 (relative to page top below navbar)
+- Content within `Container`
 
 **Figma specs:**
-- Frame 18:148: 1440×553, contains background image + header instance
-- Image fills entire frame with `object-cover`
+- Title (node 729:16603): x=122, y=192, 397×89, Zalando Sans 40px
 
 ---
 
-## Phase 2 — Notre Marque Employeur Section
+## Phase 2 — Featured News Section (Left: Large Article)
 
-**Goal:** Build the employer brand section with title + 2-column text.
+**Goal:** Build the large featured article on the left side.
 
 **Tasks:**
-- White background section, content within Container
-- Title: "Notre marque employeur" — use `SectionHeading` component (Zalando Sans 40px, uppercase)
-- Two-column text layout below title (gap-[63px] between columns)
-- Each column: Montserrat Regular 20px, line-height 1.461, bleu-abysse
-- Bold keywords within text: "donner du sens" (left column), "transmet" (right column)
-- Content area: 987px wide, centered with slight right offset (left padding ~247px from edge)
+- Large photo area: 710×498px, with `object-cover`, overflow hidden
+- Tag badge overlaid on top-left of image (e.g., "EVENTS" — turquoise-ocean bg)
+- Below image: date text + large title
+- Use existing `ArticleCard` component with `size="lg"`, or build custom if layout doesn't match
+- The large photo is a clickable link
 
-**Figma specs (node 443:2767):**
-- Top padding: 100px
-- Content wrapper (node 443:2773): 987px wide, flex-wrap, gap 43px vertical / 63px horizontal
-- Title (node 18:171): 922px wide, Zalando Sans Expanded Black 40px
-- Each text column (nodes 443:2768 & 443:2770): 462px wide, Montserrat Regular 20px
-
-**Responsive:**
-- Tablet: single column, reduce font to ~18px
-- Mobile: single column, reduce font to ~16px, full width
+**Figma specs:**
+- Grande-Photo-Actu (node 729:16604): x=121, y=291, 710×498
+- Tag (node 729:16605): "EVENTS", turquoise-ocean bg, Montserrat SemiBold 10px, px-[7px] py-[5px]
+- Date (node 729:16612): "11 FÉV. 2026", x=122, y=805
+- Grand Titre (node 729:16622): "Visite du Chef Thierry Marx", x=121, y=823, 525×92, Montserrat Bold 32px, bleu-abysse
 
 ---
 
-## Phase 3 — Mot de la RH Section
+## Phase 3 — Featured News Section (Right: 3 Small Articles)
 
-**Goal:** Build the HR director photo section with text overlay.
+**Goal:** Build the 3 small horizontal article cards in a right sidebar column.
 
 **Tasks:**
-- Full-width section with grayscale background image of Johanne Serri (649px tall)
-- The photo appears to have a grayscale/B&W treatment with slight grey tone
-- Text overlay positioned on the right side (~50% from left)
-- Text content:
-  - "Mot de la RH" (small white text, Montserrat Regular 15px) at top-right area
-  - Large gap (spacer area)
-  - "**Johanne Serri**" (Montserrat Bold 15px, white)
-  - "Responsable Ressource Humaine" (Montserrat Regular 13px, white)
-- Export the Johanne Serri photo from Figma (node `439:2764`) and save to `src/assets/images/carrieres/`
+- 3 small articles stacked vertically on the right side of the featured section
+- Each small article is a **horizontal layout**: thumbnail left (223×154) + text right (tag, date, title)
+- Gap between image and text: ~20px
+- Gap between small articles: ~18px vertical (463-291-154 = 18px)
+- Tags: "FILIÈRE", "FILIÈRE", "GROUPE" — turquoise-ocean bg
+- Dates: "11 FÉV. 2026" — Inter Medium 12px, brume-alize
+- Titles: Montserrat Bold 20px, bleu-abysse — e.g., "Reunimer en couverture du Leader Magazine", "La langouste pour la St-Valentin", "Un engagement durable"
 
-**Figma specs (node 443:2774):**
-- Full width: 1440×649
-- Image: grayscale photo, covers the full frame
-- Text block (node 441:2774): positioned at left=721px, top=179px, width=428px
-- "Mot de la RH" text at top, name/title at bottom of the text block
+**Figma specs:**
+- Petite-photo-actu 1 (node 729:16607): x=852, y=291, 223×154
+- Petite-photo-actu 2 (node 729:16608): x=852, y=463, 223×154
+- Petite-photo-actu 3 (node 729:16609): x=852, y=635, 223×154
+- Tags (nodes 729:16606/10/11): x=1095, turquoise-ocean
+- Dates: x=1095, y=323/495/667
+- Titles (nodes 729:16623/24/25): x=1094, y=342/514/686, 209×35, Montserrat Bold 20px
 
-**Responsive:**
-- Tablet: reduce height to ~450px, adjust text position
-- Mobile: reduce height to ~350px, center text or overlay at bottom with semi-transparent backdrop
+**Layout calculation:**
+- Left column (large photo): x=121, w=710, right edge = 831
+- Gap: 852 - 831 = 21px
+- Right column: x=852, total width = (1094+209) - 852 = 451px
+- Overall: flex row with ~21px gap
 
 ---
 
-## Phase 4 — Offres d'Emplois Header + Job Listings
+## Phase 4 — Article Grid (6 Cards)
 
-**Goal:** Build the job offers title section and the accordion job listings.
+**Goal:** Build the 3-column article card grid (2 rows, 6 cards total).
 
 **Tasks:**
+- 3-column grid layout with ~57px horizontal gap
+- 2 rows with ~34px vertical gap between description bottom and next row top
+- Each card structure:
+  1. Image placeholder (364×318px, bg #D9D9D9 or actual images)
+  2. Tag badge overlaid inside image (top-left, 14px from left, 19px from top)
+  3. Date: "11 FÉV. 2026" — Inter Medium 12px, brume-alize
+  4. Title: "Un engagement durable" — Montserrat Bold 20px, bleu-abysse, leading-none
+  5. Description excerpt: Inter Regular 16px, leading 1.4, bleu-abysse — "L'audace (nous ouvrons la voie)..."
+- Extend `ArticleCard` component to support `description` prop, OR build the description inline
 
-### 4a — Offres d'Emplois Header (node 443:2775)
-- White background, padding-top 94px
-- Title: "NOS OFFRES D'EMPLOIS" — Zalando Sans 40px, uppercase, bleu-abysse
-- Subtitle below (20px gap): Montserrat Regular 20px, bleu-abysse, max-width 672px
-  - "Ne choisissez plus entre ambition internationale et fierté locale : bâtissez votre avenir au coeur de l'océan Indien en rejoignant les talents de Reunimer."
-- Content left-aligned within Container (left padding ~247px = standard Container)
+**Figma specs:**
+- Card images (nodes 729:16633-38): 364×318 (or 363×318), bg #D9D9D9
+- Card positions: x = 121, 542, 960 (row 1 y=922, row 2 y=1463)
+- Horizontal gaps: ~57px (542-121-364), ~55px (960-542-363)
+- Tags (nodes 729:16639-44): positioned inside images
+- Dates (nodes 729:16616-21): Inter Medium 12px
+- Titles (nodes 729:16626-31): Montserrat Bold 20px, 364×35
+- Descriptions (nodes 729:16645-50): Inter Regular 16px, 363×110, leading 1.4
 
-### 4b — Job Listings Accordion
-Three job cards stacked vertically, each full-width with colored backgrounds:
-
-**Job 1 — EXPANDED (terre-laterite #A34C26, 476px)**
-- Title: "Lieutenant de Pêche (H/F) – Flotte Océan Indien" (Montserrat SemiBold 20px, white)
-- Chevron icon top-right (rotated 180° = pointing up = expanded state)
-- Divider line below title (white, 1px)
-- Two-column content below:
-  - Left column (487px): "**Votre Mission :**" (Inter Bold) + description (Inter Regular 16px)
-  - Right column (487px): "**Pourquoi nous rejoindre ?**" + text, "**Transmission :**" + text
-- "Postuler à l'offre" button (outline-light variant from Button component)
-- Content padding: left ~101px, top ~49px from title
-
-**Job 2 — COLLAPSED (nuit-australe #587682, 124px)**
-- Title: "Technicien de Maintenance Industrielle (H/F) – Site de Transformation"
-- Chevron icon right (pointing down = collapsed)
-- Title vertically centered
-
-**Job 3 — COLLAPSED (ecume-poudree #6EAEB5, 124px)**
-- Title: "Chargé(e) de Qualité et Développement Durable (H/F) – RSE"
-- Chevron icon right (pointing down = collapsed)
-- Title vertically centered
-
-### Accordion behavior (JavaScript):
-- Click a collapsed card → expand it (animate height), collapse the currently open card
-- Toggle chevron direction on expand/collapse
-- Only one card open at a time
-
-**Responsive:**
-- Tablet: reduce padding, single-column content for expanded job
-- Mobile: full-width, single-column, smaller font sizes, adequate tap targets
+**Existing components to use:**
+- `ArticleCard` — has image, tag, date, title. Missing: description excerpt. Either extend or add description as a slot/prop.
+- `Tag` — already matches exactly (turquoise-ocean variant)
 
 ---
 
-## Phase 5 — Responsive Design Pass
+## Phase 5 — Responsive Design
 
-**Goal:** Ensure all sections look great on tablet (768–1024px) and mobile (375–767px).
+**Goal:** Make all sections responsive for tablet (768–1024px) and mobile (375–767px).
 
 **Tasks:**
-- **Hero:** Scale height proportionally (md:h-[400px], h-[280px])
-- **Marque Employeur:** Stack columns vertically on mobile, reduce font sizes
-- **Mot de la RH:** Reduce height, reposition text overlay for smaller screens, add backdrop for readability
-- **Offres d'Emplois:** Adjust padding and font sizes
-- **Job Listings:** Single-column expanded content on mobile, ensure accordion tap targets are adequate (min 44px)
-- Test at 375px, 768px, 1024px, and 1440px breakpoints
-- Verify no horizontal overflow at any width
-- Ensure text readability and proper spacing at all sizes
+- **Featured section:** Stack large article above small articles on mobile; 2-column on tablet
+- **Small articles:** Stack vertically on mobile, keep horizontal thumbnail+text layout
+- **Article grid:** 2 columns on tablet, 1 column on mobile
+- **Typography:** Scale down proportionally at each breakpoint
+- **Spacing:** Reduce gaps and padding on smaller screens
+- **Images:** Maintain aspect ratios, use `object-cover`
+- Ensure min 44px tap targets, no horizontal overflow
 
 ---
 
 ## Phase 6 — Navbar Link & Final Polish
 
-**Goal:** Wire up the Carrières link in the navbar and finalize everything.
+**Goal:** Verify navigation and finalize.
 
 **Tasks:**
-- Verify `Navbar.astro` already has the Carrières link pointing to `/carrieres` (it does — line 68-70)
-- Confirm the `isActive()` function highlights Carrières when on `/carrieres`
-- Verify the Footer "Carrières" link also points to `/carrieres`
-- Check page loads correctly in dev server
-- Verify smooth page transitions and navigation
-- Cross-check final output against Figma screenshot for pixel-accuracy
-- Clean up any temporary code or comments
+- Verify `Navbar.astro` has Actualités link at `/actualites` (already exists — line 64-66)
+- Confirm `isActive()` highlights Actualités on the page
+- Verify Footer link
+- Cross-check against Figma screenshot
+- Clean up any placeholder content
 
 ---
 
 ## Rules
 
-1. **One phase at a time.** Do not start the next phase until the user reviews and approves the current phase.
-2. **Figma is the source of truth.** Always reference node-ids when extracting values. Use `get_design_context` and `get_screenshot` for each section.
-3. **Use existing components.** Always check `src/components/ui/` before building anything new. Use `Container`, `SectionWrapper`, `SectionHeading`, `Button`, etc.
-4. **Design tokens only.** Never hardcode colors or font sizes. Use Tailwind config values and CSS custom properties from `tokens.css`.
-5. **Pixel-perfect at desktop.** Match the exact Figma frame at 1440px width — spacings, paddings, gaps, font sizes.
-6. **Responsive is my responsibility.** Figma only provides desktop. I will create tablet (768-1024px) and mobile (375-767px) layouts following the patterns in CLAUDE.md.
-7. **Assets from Figma.** Export images from Figma and save to `src/assets/images/carrieres/`. Use Astro `<Image />` component — never raw `<img>` tags.
-8. **No GSAP yet.** Animations are added in a separate pass after all sections are built. Use CSS transitions (200-300ms ease) for hover/focus states only.
-9. **TypeScript props.** All components get proper TypeScript interfaces with defaults.
-10. **Ask when ambiguous.** If Figma values are unclear or conflicting, ask the user before guessing.
+1. **One phase at a time.** Do not start the next phase until the user reviews and approves.
+2. **Figma is the source of truth.** Always reference node-ids when extracting values.
+3. **Use existing components.** Reuse `ArticleCard`, `Tag`, `Container`, `SectionHeading`, etc.
+4. **Design tokens only.** Never hardcode colors or font sizes.
+5. **Pixel-perfect at desktop.** Match the exact Figma frame at 1440px.
+6. **Responsive is my responsibility.** Figma only provides desktop.
+7. **Assets from Figma.** Export images to `src/assets/images/actus/`. Use Astro `<Image />`.
+8. **No GSAP yet.** CSS transitions only (200-300ms ease) for hover/focus.
+9. **TypeScript props.** Interfaces with defaults on every component.
+10. **Ask when ambiguous.** Don't guess Figma values.
 
 ---
 
@@ -184,42 +157,51 @@ Three job cards stacked vertically, each full-width with colored backgrounds:
 
 | Asset | Source Node | Save To |
 |-------|-----------|---------|
-| Hero photo strip (workers) | `443:2766` | `src/assets/images/carrieres/visuel-carrieres.jpg` (or use existing `home-carriere.jpg`) |
-| Johanne Serri photo | `439:2764` | `src/assets/images/carrieres/johanne-serri.jpg` |
-| Chevron down icon (for accordion) | `441:2788` | SVG inline or `src/assets/icons/chevron-down.svg` |
+| Featured article photo (Chef Thierry Marx) | `I729:16604;729:16854` | `src/assets/images/actus/chef-thierry-marx.jpg` |
+| Small article photo 1 | `I729:16607;729:16859` | `src/assets/images/actus/article-1.jpg` |
+| Small article photo 2 | `I729:16608;729:16859` | `src/assets/images/actus/article-2.jpg` |
+| Small article photo 3 | `I729:16609;729:16859` | `src/assets/images/actus/article-3.jpg` |
+| Grid article images (6 cards) | Placeholders (#D9D9D9) | Use existing `article-4.jpg` or placeholders |
 
 ---
 
 ## Figma Node Reference
 
 ```
-18:147   — Carrières (full page frame)
-├── 18:148    — Hero (Frame 2, 1440×553)
-│   ├── 443:2766 — visuel-carrieres 1 (background image)
-│   └── 18:372   — Header instance (navbar, handled by PageLayout)
-├── 443:2767  — Marque Employeur (Frame 111, 1440×567)
-│   └── 443:2773 — Content wrapper (987×355, flex-wrap)
-│       ├── 18:171   — Title "Notre marque employeur"
-│       ├── 443:2768 — Left text column (462px)
-│       └── 443:2770 — Right text column (462px)
-├── 443:2774  — Mot de la RH (Frame 113, 1440×649)
-│   ├── 439:2764 — Photo Johanne Serri (background)
-│   └── 441:2774 — Text overlay (Mot de la RH + name)
-├── 443:2775  — Offres d'Emplois header (Frame 114, 1440×354)
-│   ├── 441:2777 — Title "Nos OFFRES D'EMPLOIS"
-│   └── 441:2785 — Subtitle text
-├── 441:2776  — Job 1 bg (terre-laterite, 1440×476)
-├── 441:2781  — Job 2 bg (nuit-australe, 1440×124)
-├── 441:2783  — Job 3 bg (ecume-poudree, 1440×124)
-├── 441:2779  — Job 1 title
-├── 441:2792  — Job 1 left content (Mission)
-├── 443:2776  — Job 1 right content (Pourquoi + Transmission)
-├── 441:2793  — "Postuler à l'offre" button
-├── 441:2796  — Divider line
-├── 441:2782  — Job 2 title
-├── 441:2784  — Job 3 title
-├── 441:2786  — Chevron (expanded, rotated 180°)
-├── 441:2788  — Chevron (collapsed)
-├── 441:2789  — Chevron (collapsed)
-└── 116:1675  — Footer (handled by PageLayout)
+729:16602 — Actualités (full page frame, 1440×3462)
+├── 729:16651 — Header instance (navbar, handled by PageLayout)
+├── 729:16603 — Title "Actualités" (x=122, y=192)
+│
+├── FEATURED SECTION (y=291 to ~915)
+│   ├── 729:16604 — Grande-Photo-Actu (x=121, 710×498)
+│   ├── 729:16605 — Tag "EVENTS" on large photo
+│   ├── 729:16612 — Date "11 FÉV. 2026" (large article)
+│   ├── 729:16622 — Grand Titre "Visite du Chef Thierry Marx" (Montserrat Bold 32px)
+│   ├── 729:16607 — Petite-photo-actu 1 (x=852, 223×154)
+│   ├── 729:16608 — Petite-photo-actu 2 (x=852, 223×154)
+│   ├── 729:16609 — Petite-photo-actu 3 (x=852, 223×154)
+│   ├── 729:16606/10/11 — Tags for small articles
+│   ├── 729:16613/14/15 — Dates for small articles
+│   └── 729:16623/24/25 — Titles for small articles (Montserrat Bold 20px)
+│
+├── ARTICLE GRID (y=922 to ~1970)
+│   ├── Row 1 (y=922)
+│   │   ├── 729:16633 — Card 1 image (x=121, 364×318)
+│   │   ├── 729:16635 — Card 2 image (x=542, 363×318)
+│   │   └── 729:16637 — Card 3 image (x=960, 364×318)
+│   ├── 729:16639/41/43 — Tags (row 1)
+│   ├── 729:16616/18/20 — Dates (row 1)
+│   ├── 729:16626/28/30 — Titles (row 1)
+│   ├── 729:16645/47/49 — Descriptions (row 1)
+│   │
+│   ├── Row 2 (y=1463)
+│   │   ├── 729:16634 — Card 1 image (x=121, 364×318)
+│   │   ├── 729:16636 — Card 2 image (x=542, 363×318)
+│   │   └── 729:16638 — Card 3 image (x=960, 364×318)
+│   ├── 729:16640/42/44 — Tags (row 2)
+│   ├── 729:16617/19/21 — Dates (row 2)
+│   ├── 729:16627/29/31 — Titles (row 2)
+│   └── 729:16646/48/50 — Descriptions (row 2)
+│
+└── 729:16632 — Footer (handled by PageLayout)
 ```
