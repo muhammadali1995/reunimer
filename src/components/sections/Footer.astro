@@ -65,44 +65,60 @@ const legalLinks = [
 ];
 ---
 
-<footer class="footer" aria-label="Pied de page">
-  <div class="footer__inner">
+<footer class="bg-bleu-abysse text-white" aria-label="Pied de page">
+  <div class="max-w-[1284px] mx-auto px-5 sm:px-10 min-[1440px]:px-0">
 
-    <!-- ─── 1. Contact Form ─── -->
-    <section class="footer__contact" aria-labelledby="footer-contact-heading">
-      <h2 id="footer-contact-heading" class="footer__contact-title">Contactez-nous</h2>
+    <!-- 1. Contact Form -->
+    <section class="flex flex-col items-center pt-[67px] pb-[109px]" aria-labelledby="footer-contact-heading">
+      <h2
+        id="footer-contact-heading"
+        class="font-display font-black text-[28px] leading-[1.2] sm:text-4xl lg:text-display-lg lg:leading-[44.5px] uppercase text-center text-white px-4 sm:px-6 lg:px-0 mb-10 sm:mb-[50px] lg:mb-[62px] lg:whitespace-nowrap"
+      >
+        Contactez-nous
+      </h2>
 
-      <form id="contact-form" class="footer__form" aria-label="Formulaire de contact" novalidate>
+      <form id="contact-form" class="w-[489px] max-w-full flex flex-col gap-[22px]" aria-label="Formulaire de contact" novalidate>
         <!-- Prénom -->
-        <div class="footer__field">
-          <label for="f-prenom">Prénom</label>
-          <input id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" required />
+        <div class="flex flex-col gap-3">
+          <label for="f-prenom" class="font-body text-sm leading-[14px] text-white">Prénom</label>
+          <input
+            id="f-prenom" name="prenom" type="text" placeholder="Tapez ici" required
+            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+          />
         </div>
         <!-- Nom -->
-        <div class="footer__field">
-          <label for="f-nom">Nom</label>
-          <input id="f-nom" name="nom" type="text" placeholder="Tapez ici" required />
+        <div class="flex flex-col gap-3">
+          <label for="f-nom" class="font-body text-sm leading-[14px] text-white">Nom</label>
+          <input
+            id="f-nom" name="nom" type="text" placeholder="Tapez ici" required
+            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+          />
         </div>
         <!-- Email -->
-        <div class="footer__field">
-          <label for="f-email">Email</label>
-          <input id="f-email" name="email" type="email" placeholder="Tapez ici" required />
+        <div class="flex flex-col gap-3">
+          <label for="f-email" class="font-body text-sm leading-[14px] text-white">Email</label>
+          <input
+            id="f-email" name="email" type="email" placeholder="Tapez ici" required
+            class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none"
+          />
         </div>
-        <!-- Motif (select) -->
-        <div class="footer__field">
-          <label for="f-motif">Motif</label>
-          <div class="footer__select-wrap">
-            <select id="f-motif" name="motif" required>
+        <!-- Motif -->
+        <div class="flex flex-col gap-3">
+          <label for="f-motif" class="font-body text-sm leading-[14px] text-white">Motif</label>
+          <div class="relative">
+            <select
+              id="f-motif" name="motif" required
+              class="w-full h-[39px] px-[15px] py-[10px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none appearance-none cursor-pointer transition-shadow focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)]"
+            >
               <option value="" disabled selected>Choisissez</option>
-              <option value="expertises">Expertises</option>
-              <option value="produits">Produits</option>
-              <option value="engagements-rse">Engagements RSE</option>
-              <option value="carrieres">Carrières</option>
-              <option value="autre">Autre</option>
+              <option value="expertises" class="bg-bleu-abysse text-white">Expertises</option>
+              <option value="produits" class="bg-bleu-abysse text-white">Produits</option>
+              <option value="engagements-rse" class="bg-bleu-abysse text-white">Engagements RSE</option>
+              <option value="carrieres" class="bg-bleu-abysse text-white">Carrières</option>
+              <option value="autre" class="bg-bleu-abysse text-white">Autre</option>
             </select>
-            <!-- chevron icon -->
             <svg
-              class="footer__select-chevron"
+              class="pointer-events-none absolute right-[15px] top-1/2 -translate-y-1/2 w-[14px] h-2 text-turquoise-ocean"
               viewBox="0 0 10.5 6.5"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -118,41 +134,65 @@ const legalLinks = [
             </svg>
           </div>
         </div>
-        <!-- Message (textarea) -->
-        <div class="footer__field">
-          <label for="f-message">Message</label>
-          <textarea id="f-message" name="message" placeholder="Tapez ici" required></textarea>
+        <!-- Message -->
+        <div class="flex flex-col gap-3">
+          <label for="f-message" class="font-body text-sm leading-[14px] text-white">Message</label>
+          <textarea
+            id="f-message" name="message" placeholder="Tapez ici" required
+            class="w-full h-[91px] px-[15px] py-[14px] border border-turquoise-ocean rounded-input bg-transparent font-body text-sm leading-[14px] text-turquoise-ocean outline-none transition-shadow placeholder:text-turquoise-ocean focus:shadow-[0_0_0_1px_var(--color-turquoise-ocean)] appearance-none resize-y"
+          ></textarea>
         </div>
         <!-- Submit -->
-        <button type="submit" class="footer__submit" id="contact-submit">Envoyer</button>
+        <button
+          type="submit"
+          id="contact-submit"
+          class="w-full h-[39px] px-[15px] py-[10px] bg-turquoise-ocean border-none rounded-input font-body text-sm leading-[14px] text-white cursor-pointer transition-opacity hover:opacity-85 disabled:opacity-60 disabled:cursor-not-allowed"
+        >
+          Envoyer
+        </button>
         <!-- Feedback -->
-        <p id="contact-feedback" class="footer__feedback" aria-live="polite" hidden></p>
+        <p id="contact-feedback" class="font-body text-[13px] leading-[1.4] text-center rounded-input px-[14px] py-[10px] hidden" aria-live="polite"></p>
       </form>
     </section>
 
-    <!-- ─── Divider ─── -->
-    <div class="footer__hr" aria-hidden="true"></div>
+    <!-- Divider -->
+    <div class="h-px bg-white/30" aria-hidden="true"></div>
 
-    <!-- ─── 2. Site Plan ─── -->
-    <section class="footer__sitemap" aria-labelledby="footer-sitemap-heading">
-      <h2 id="footer-sitemap-heading" class="footer__sitemap-label">Plan du site</h2>
+    <!-- 2. Site Plan -->
+    <section class="pt-[45px] pb-[90px] flex flex-col gap-8 lg:flex-row lg:gap-0" aria-labelledby="footer-sitemap-heading">
+      <h2
+        id="footer-sitemap-heading"
+        class="font-heading font-semibold text-xl tracking-[2.4px] uppercase text-white whitespace-nowrap shrink-0 lg:w-[289px] lg:pt-px"
+      >
+        Plan du site
+      </h2>
 
-      <nav class="footer__columns" aria-label="Plan du site">
+      <nav class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-8 gap-x-6 lg:gap-0 flex-1" aria-label="Plan du site">
         {sitePlan.map((col) => (
-          <div class="footer__col">
+          <div>
             {col.links.length > 0 ? (
               <>
-                <p class="footer__col-title">{col.title}</p>
-                <ul class="footer__col-links">
+                <p class="font-heading font-extrabold text-xs tracking-[1.44px] uppercase text-white mb-5 whitespace-nowrap">
+                  {col.title}
+                </p>
+                <ul class="list-none flex flex-col gap-[15px]">
                   {col.links.map((link) => (
                     <li>
-                      <a href={link.href} class="footer__col-link">{link.text}</a>
+                      <a
+                        href={link.href}
+                        class="font-heading font-semibold text-[10px] tracking-[1.2px] uppercase text-white no-underline whitespace-nowrap transition-colors hover:text-turquoise-ocean"
+                      >
+                        {link.text}
+                      </a>
                     </li>
                   ))}
                 </ul>
               </>
             ) : (
-              <a href={col.href ?? '#'} class="footer__col-title footer__col-title--link">
+              <a
+                href={col.href ?? '#'}
+                class="block font-heading font-extrabold text-xs tracking-[1.44px] uppercase text-white no-underline mb-5 whitespace-nowrap transition-colors hover:text-turquoise-ocean"
+              >
                 {col.title}
               </a>
             )}
@@ -161,56 +201,61 @@ const legalLinks = [
       </nav>
     </section>
 
-    <!-- ─── Divider ─── -->
-    <div class="footer__hr" aria-hidden="true"></div>
+    <!-- Divider -->
+    <div class="h-px bg-white/30" aria-hidden="true"></div>
 
-    <!-- ─── 3. Brand + Social ─── -->
-    <div class="footer__brand-row">
+    <!-- 3. Brand + Social -->
+    <div class="flex items-center justify-between pt-[51px] pb-[47px]">
       <a href="/" aria-label="Reunimer — accueil">
         <img
           src="/logos/reunimer-logo-footer.svg"
           alt="Reunimer"
           width="199"
           height="33"
-          class="footer__logo"
+          class="block w-[199px] h-[33px]"
         />
       </a>
-      <div class="footer__socials">
-        <a href="#" class="footer__social" aria-label="YouTube">
-          <img src="/icons/social-icon.svg" alt="" width="27" height="27" />
+      <div class="flex items-center gap-[30px]">
+        <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="YouTube">
+          <img src="/icons/social-icon.svg" alt="" width="27" height="27" class="w-full h-full" />
         </a>
-        <a href="#" class="footer__social" aria-label="LinkedIn">
-          <img src="/icons/linkedin.svg" alt="" width="27" height="27" />
+        <a href="#" class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label="LinkedIn">
+          <img src="/icons/linkedin.svg" alt="" width="27" height="27" class="w-full h-full" />
         </a>
       </div>
     </div>
 
-    <!-- ─── 4. Gradient strip ─── -->
+    <!-- 4. Gradient strip -->
     <img
       src="/icons/footer-certifications.svg"
       alt=""
       width="1284"
       height="7"
-      class="footer__strip"
+      class="block w-full h-[7px]"
       aria-hidden="true"
     />
 
-    <!-- ─── 5. Bottom row ─── -->
-    <div class="footer__bottom">
-      <div class="footer__addr">
+    <!-- 5. Bottom row -->
+    <div class="flex flex-col gap-6 pt-[39px] pb-[46px] sm:flex-row sm:flex-wrap sm:items-start sm:gap-x-10 sm:gap-y-8 lg:flex-nowrap lg:gap-0">
+      <div class="font-body text-[10px] leading-[14px] text-white lg:w-[289px] lg:shrink-0">
         <p>9 Rue Armagnac, 97420 Le Port, La Réunion</p>
         <p>0262 42 13 82 - info@reunimer.com</p>
       </div>
-      <div class="footer__company">
-        <p>Reunimer Holding SAS au capital de 2 906 383 €</p>
+      <div class="font-body text-[10px] leading-[14px] text-white lg:w-[338px] lg:shrink-0">
+        <p>Reunimer Holding SAS au capital de 2 906 383 &euro;</p>
         <p>SIRET : 52831457800014 - RCS : B 528 314 578</p>
       </div>
-      <nav class="footer__legal" aria-label="Liens légaux">
+      <nav class="flex items-center flex-wrap gap-4 lg:flex-1 lg:justify-end" aria-label="Liens légaux">
         {legalLinks.map((link, i) => (
           <>
-            <a href={link.href} class="footer__legal-link">{link.text}</a>
+            <a
+              href={link.href}
+              class="font-heading font-semibold text-[10px] tracking-[2.2px] uppercase text-white no-underline whitespace-nowrap transition-colors hover:text-turquoise-ocean"
+            >
+              {link.text}
+            </a>
             {i < legalLinks.length - 1 && (
-              <span class="footer__legal-sep" aria-hidden="true"></span>
+              <span class="block w-px h-5 bg-white/50 shrink-0" aria-hidden="true"></span>
             )}
           </>
         ))}
@@ -226,8 +271,18 @@ const legalLinks = [
 
   function showFeedback(msg: string, isError: boolean) {
     feedback.textContent = msg;
-    feedback.className   = 'footer__feedback ' + (isError ? 'footer__feedback--error' : 'footer__feedback--ok');
     feedback.hidden      = false;
+    // Reset classes then apply variant
+    feedback.classList.remove('hidden', 'bg-[rgba(10,151,166,0.15)]', 'text-[#6de3ec]', 'border', 'border-[rgba(10,151,166,0.4)]', 'bg-[rgba(163,76,38,0.2)]', 'text-[#f4a07a]', 'border-[rgba(163,76,38,0.4)]');
+    if (isError) {
+      feedback.style.background = 'rgba(163, 76, 38, 0.2)';
+      feedback.style.color = '#f4a07a';
+      feedback.style.border = '1px solid rgba(163, 76, 38, 0.4)';
+    } else {
+      feedback.style.background = 'rgba(10, 151, 166, 0.15)';
+      feedback.style.color = '#6de3ec';
+      feedback.style.border = '1px solid rgba(10, 151, 166, 0.4)';
+    }
   }
 
   form.addEventListener('submit', (e) => {
