@@ -50,6 +50,7 @@ export interface EngagementSectionProps {
   bgColor?: 'white' | 'gris-clair';
   id?: string;
   buttonHref?: string;
+  showButton?: boolean;
   class?: string;
 }
 
