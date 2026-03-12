@@ -1,0 +1,62 @@
+---
+/**
+ * Product catalogue card matching Figma product cards.
+ *
+ * Figma specs (e.g. node 729:16654):
+ * - Card: 1082 × 327px, rounded-[45px], overflow-hidden
+ * - Background: #DACBB4 fallback + product image (object-cover)
+ * - Name: Montserrat Medium ~35px, white, at x=39 y=108
+ * - Origin: Montserrat Bold ~23px, white, below name
+ * - Hover: white pill CTA appears below card (opacity transition)
+ */
+
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+
+interface Props {
+  name: string;
+  origin: string;
+  imageSrc: ImageMetadata;
+  imageAlt: string;
+  class?: string;
+}
+
+const {
+  name,
+  origin,
+  imageSrc,
+  imageAlt,
+  class: className = '',
+} = Astro.props;
+---
+
+<div class:list={['group relative', className]}>
+  <!-- Card with clipped corners -->
+  <div class="relative rounded-[20px] md:rounded-[30px] lg:rounded-[45px] overflow-hidden h-[200px] sm:h-[240px] md:h-[260px] lg:h-[327px] bg-[#DACBB4]">
+    <Image
+      src={imageSrc}
+      alt={imageAlt}
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[375, 768, 1082]}
+      sizes="(min-width: 1024px) 1082px, (min-width: 768px) 90vw, 100vw"
+      loading="lazy"
+    />
+
+    <!-- Text overlay -->
+    <div class="absolute left-5 bottom-5 sm:left-8 sm:bottom-6 md:left-8 md:bottom-auto md:top-[80px] lg:left-[39px] lg:top-[108px]">
+      <p class="font-heading font-medium text-[20px] leading-[1.461] sm:text-[24px] md:text-[28px] lg:text-[35px] text-white">
+        {name}
+      </p>
+      <p class="font-heading font-bold text-[14px] leading-[1.5] sm:text-[16px] md:text-[18px] lg:text-[23px] text-white">
+        {origin}
+      </p>
+    </div>
+  </div>
+
+  <!-- Hover CTA — appears below card -->
+  <div class="absolute top-full left-[3.7%] mt-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-focus-within:opacity-100 transition-opacity duration-300 z-10">
+    <Button variant="pill-light" href="#footer-contact-heading" class="whitespace-nowrap">
+      Contactez-nous pour en savoir plus
+    </Button>
+  </div>
+</div>

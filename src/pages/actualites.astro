@@ -1,0 +1,89 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import Tag from '../components/ui/Tag.astro';
+import ArticleCard from '../components/ui/ArticleCard.astro';
+import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHref } from '../data/articles';
+---
+
+<PageLayout
+  title="Actualités — Reunimer"
+  description="Retrouvez toutes les actualités du groupe Reunimer : événements, presse, engagements et vie du groupe."
+>
+  <!-- Page Title -->
+  <section class="bg-white py-10 md:pt-16 lg:pt-[100px]">
+    <Container>
+      <SectionHeading title="Actualités" />
+    </Container>
+  </section>
+
+  <!-- Featured News Section -->
+  <section class="bg-white pb-10 md:pb-16 lg:pb-[60px]">
+    <Container>
+      <div class="flex flex-col lg:flex-row lg:gap-[21px]">
+        <!-- Large Featured Article (Left) -->
+        <div class="lg:w-[710px] lg:flex-shrink-0">
+          <a href={getArticleHref(featuredLargeArticle.slug)} class="group block">
+            <!-- Featured Image -->
+            <div class="relative overflow-hidden aspect-[710/498]">
+              <Image
+                src={featuredLargeArticle.image}
+                alt={featuredLargeArticle.imageAlt}
+                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute top-[19px] left-[14px]">
+                <Tag color={featuredLargeArticle.tagColor}>{featuredLargeArticle.tag}</Tag>
+              </div>
+            </div>
+            <!-- Date & Title -->
+            <div class="mt-4">
+              <time class="font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
+                {featuredLargeArticle.date}
+              </time>
+              <h3 class="mt-[6px] font-heading font-bold text-xl md:text-heading-xl text-bleu-abysse group-hover:text-turquoise-ocean transition-colors leading-tight">
+                {featuredLargeArticle.title}
+              </h3>
+            </div>
+          </a>
+        </div>
+
+        <!-- Small Articles (Right) -->
+        <div class="flex-1 mt-8 lg:mt-0 flex flex-col gap-[18px]">
+          {featuredSmallArticles.map((article) => (
+            <ArticleCard
+              layout="horizontal"
+              tag={article.tag}
+              tagColor={article.tagColor}
+              date={article.date}
+              title={article.title}
+              image={article.image}
+              imageAlt={article.imageAlt}
+              href={getArticleHref(article.slug)}
+            />
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Article Grid -->
+  <section class="bg-white pb-16 md:pb-24 lg:pb-[120px]">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-x-[57px] lg:gap-y-[50px]">
+        {gridArticles.map((article) => (
+          <ArticleCard
+            tag={article.tag}
+            tagColor={article.tagColor}
+            date={article.date}
+            title={article.title}
+            description={article.description}
+            href={getArticleHref(article.slug)}
+          />
+        ))}
+      </div>
+    </Container>
+  </section>
+</PageLayout>

@@ -12,72 +12,32 @@
  * - Fixed at top
  */
 
+import { navLinks } from '../../data/navbar';
+import logoHeader from '../../assets/logos/reunimer-logo-header.svg';
+
 interface Props {
   currentPath?: string;
 }
 
 const { currentPath = Astro.url.pathname } = Astro.props;
 
-const navLinks = [
-  {
-    label: 'Groupe',
-    href: '/groupe',
-    children: [
-      { label: 'Notre Modèle intégré', href: '/groupe/modele-integre' },
-      { label: 'Le mot du président', href: '/groupe/mot-du-president' },
-      { label: 'Notre raison d\'être', href: '/groupe/raison-detre' },
-      { label: 'Notre histoire', href: '/groupe/histoire' },
-      { label: 'Nos implantations', href: '/groupe/implantations' },
-      { label: 'Nos filiales', href: '/groupe/filiales' },
-    ],
-  },
-  {
-    label: 'Expertises',
-    href: '/expertises',
-    children: [
-      { label: 'Pêche', href: '/expertises/peche' },
-      { label: 'Production', href: '/expertises/production' },
-      { label: 'Distribution', href: '/expertises/distribution' },
-      { label: 'Supports', href: '/expertises/supports' },
-      { label: 'RH', href: '/expertises/rh' },
-    ],
-  },
-  {
-    label: 'Produits',
-    href: '/produits',
-  },
-  {
-    label: 'Engagements RSE',
-    href: '/engagements-rse',
-    children: [
-      { label: 'Notre lien à la mer', href: '/engagements-rse/mer' },
-      { label: 'Notre lien à la terre', href: '/engagements-rse/terre' },
-      { label: 'Notre lien à l\'humain', href: '/engagements-rse/humain' },
-      { label: 'Notre lien à l\'énergie', href: '/engagements-rse/energie' },
-      { label: 'Notre lien à la santé', href: '/engagements-rse/sante' },
-      { label: 'Notre lien à la formation', href: '/engagements-rse/formation' },
-      { label: 'Notre lien au social', href: '/engagements-rse/social' },
-      { label: 'Notre lien aux filières', href: '/engagements-rse/filieres' },
-    ],
-  },
-  {
-    label: 'Actualités',
-    href: '/actualites',
-  },
-  {
-    label: 'Carrières',
-    href: '/carrieres',
-  },
-];
-
 function isActive(href: string): boolean {
   if (href === '/') return currentPath === '/';
   return currentPath.startsWith(href);
 }
+
+const searchIconPath = 'M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z';
+const chevronPath = 'M0.75 0.75L5.25 5.75L9.75 0.75';
+const checkPath = 'M3 8.5L6.5 12L13 4';
+const langOptionClasses = 'lang-option w-full flex items-center justify-between px-4 py-2 font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse hover:bg-gris-clair transition-colors cursor-pointer bg-transparent border-none';
+const languages = [
+  { code: 'fr', label: 'FR', default: true },
+  { code: 'en', label: 'EN', default: false },
+];
 ---
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 flex justify-center"
+  class="fixed top-11 left-0 right-0 z-50 flex justify-center"
   id="navbar"
 >
   <!-- Desktop bar -->
@@ -85,7 +45,7 @@ function isActive(href: string): boolean {
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
       <img
-        src="/logos/reunimer-logo-header.svg"
+        src={logoHeader.src}
         alt="Reunimer"
         width="199"
         height="33"
@@ -95,27 +55,28 @@ function isActive(href: string): boolean {
 
     <!-- Desktop nav -->
     <div class="hidden lg:flex items-center gap-8">
-      <div class="flex items-center gap-[34px]">
+      <div class="relative flex items-center gap-[34px]" id="desktop-nav-links">
         {navLinks.map((link) => (
-          <div class="nav-item group relative flex items-center h-[92px]">
+          <div
+            class="nav-item group relative flex items-center h-[92px]"
+            data-nav-item
+            data-active={isActive(link.href) ? 'true' : 'false'}
+          >
             <a
               href={link.href}
               class:list={[
-                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors',
+                'relative font-heading font-semibold text-xs tracking-[1.44px] uppercase whitespace-nowrap transition-colors flex items-center h-full hover:text-turquoise-ocean',
                 isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse',
               ]}
             >
               {link.label}
             </a>
-            <span
-              class:list={[
-                'absolute bottom-0 left-0 w-full h-[4px] bg-turquoise-ocean transition-opacity',
-                isActive(link.href) ? 'opacity-100' : 'opacity-0 group-hover:opacity-100',
-              ]}
-            />
 
             {link.children && (
-              <div class="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+              <div
+                class="absolute top-full left-0 opacity-0 invisible -translate-y-2 scale-y-95 origin-top transition-[opacity,transform,visibility] duration-300 ease-out z-50"
+                data-nav-dropdown
+              >
                 <div class="w-[269px] bg-white px-5 py-[17px] flex flex-col gap-[15px] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
                   {link.children.map((child, i) => (
                     <>
@@ -135,6 +96,11 @@ function isActive(href: string): boolean {
             )}
           </div>
         ))}
+        <span
+          id="desktop-nav-indicator"
+          class="pointer-events-none absolute bottom-0 left-0 h-[4px] bg-turquoise-ocean opacity-0 transition-[transform,width,opacity] duration-500 ease-out"
+          aria-hidden="true"
+        ></span>
       </div>
       <div class="flex items-center gap-8">
         <!-- Search -->
@@ -144,18 +110,43 @@ function isActive(href: string): boolean {
           aria-label="Rechercher"
         >
           <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
+            <path d={searchIconPath} fill="currentColor"/>
           </svg>
         </button>
 
         <!-- Language -->
-        <div class="flex items-center gap-1 shrink-0">
-          <span class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
-            FR
-          </span>
-          <svg class="w-[10px] h-[5px] text-brume-alize" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <div class="relative" id="lang-desktop">
+          <button
+            type="button"
+            class="flex items-center gap-1 shrink-0 cursor-pointer bg-transparent border-none p-0"
+            id="lang-desktop-btn"
+            aria-label="Choisir la langue"
+            aria-expanded="false"
+          >
+            <span class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse" id="lang-desktop-label">
+              FR
+            </span>
+            <svg class="w-[10px] h-[5px] text-brume-alize transition-transform duration-200" id="lang-desktop-chevron" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d={chevronPath} stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          <div
+            class="absolute top-full right-0 mt-2 w-[120px] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.08)] py-1 opacity-0 invisible transition-all duration-200 z-50 rounded"
+            id="lang-desktop-dropdown"
+          >
+            {languages.map((lang) => (
+              <button
+                type="button"
+                class={langOptionClasses}
+                data-lang={lang.code}
+              >
+                <span>{lang.label}</span>
+                <svg class:list={['lang-check w-3.5 h-3.5 text-turquoise-ocean', { hidden: !lang.default }]} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d={checkPath} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -223,14 +214,39 @@ function isActive(href: string): boolean {
         aria-label="Rechercher"
       >
         <svg class="w-5 h-5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
+          <path d={searchIconPath} fill="currentColor"/>
         </svg>
       </button>
-      <div class="inline-flex items-center gap-[7px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
-        <span>FR</span>
-        <svg class="w-[10px] h-[5px]" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+      <div class="relative" id="lang-mobile">
+        <button
+          type="button"
+          class="inline-flex items-center gap-[7px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse bg-transparent border-none p-0 cursor-pointer"
+          id="lang-mobile-btn"
+          aria-label="Choisir la langue"
+          aria-expanded="false"
+        >
+          <span id="lang-mobile-label">FR</span>
+          <svg class="w-[10px] h-[5px] transition-transform duration-200" id="lang-mobile-chevron" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d={chevronPath} stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <div
+          class="absolute bottom-full left-0 mb-2 w-[120px] bg-white shadow-[0_12px_30px_rgba(0,0,0,0.08)] py-1 opacity-0 invisible transition-all duration-200 z-50 rounded"
+          id="lang-mobile-dropdown"
+        >
+          {languages.map((lang) => (
+            <button
+              type="button"
+              class={langOptionClasses}
+              data-lang={lang.code}
+            >
+              <span>{lang.label}</span>
+              <svg class:list={['lang-check w-3.5 h-3.5 text-turquoise-ocean', { hidden: !lang.default }]} viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d={checkPath} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   </div>
@@ -285,24 +301,226 @@ function isActive(href: string): boolean {
     }
   });
 
-  // --- Desktop: hover opens dropdown, also change link text color ---
-  document.querySelectorAll('.nav-item').forEach((item) => {
-    const link = item.querySelector('a');
-    const dropdown = item.querySelector('[class*="group-hover"]');
-    if (!dropdown) return;
+  // --- Language dropdown ---
+  function initLangDropdown(id: string) {
+    const wrapper = document.getElementById(id);
+    const btnEl = document.getElementById(`${id}-btn`);
+    const dropdown = document.getElementById(`${id}-dropdown`);
+    const chevron = document.getElementById(`${id}-chevron`);
+    const label = document.getElementById(`${id}-label`);
+    if (!wrapper || !btnEl || !dropdown || !label) return;
 
-    item.addEventListener('mouseenter', () => {
-      link?.classList.add('text-turquoise-ocean');
-      link?.classList.remove('text-bleu-abysse');
-    });
-    item.addEventListener('mouseleave', () => {
-      if (!link?.getAttribute('class')?.includes('active-link')) {
-        const isActive = link?.querySelector('.opacity-100');
-        if (!isActive) {
-          link?.classList.remove('text-turquoise-ocean');
-          link?.classList.add('text-bleu-abysse');
-        }
+    let langOpen = false;
+
+    function toggle() {
+      langOpen = !langOpen;
+      btnEl!.setAttribute('aria-expanded', String(langOpen));
+      if (langOpen) {
+        dropdown!.classList.remove('opacity-0', 'invisible');
+        dropdown!.classList.add('opacity-100', 'visible');
+        chevron?.classList.add('rotate-180');
+      } else {
+        dropdown!.classList.add('opacity-0', 'invisible');
+        dropdown!.classList.remove('opacity-100', 'visible');
+        chevron?.classList.remove('rotate-180');
       }
+    }
+
+    function close() {
+      if (!langOpen) return;
+      langOpen = false;
+      btnEl!.setAttribute('aria-expanded', 'false');
+      dropdown!.classList.add('opacity-0', 'invisible');
+      dropdown!.classList.remove('opacity-100', 'visible');
+      chevron?.classList.remove('rotate-180');
+    }
+
+    btnEl.addEventListener('click', (e) => {
+      e.stopPropagation();
+      toggle();
     });
-  });
+
+    dropdown.querySelectorAll('.lang-option').forEach((opt) => {
+      opt.addEventListener('click', () => {
+        const lang = (opt as HTMLElement).dataset.lang?.toUpperCase() || 'FR';
+        label.textContent = lang;
+
+        // Update checks in this dropdown
+        dropdown!.querySelectorAll('.lang-check').forEach((check) => check.classList.add('hidden'));
+        opt.querySelector('.lang-check')?.classList.remove('hidden');
+
+        // Sync the other dropdown
+        const otherId = id === 'lang-desktop' ? 'lang-mobile' : 'lang-desktop';
+        const otherLabel = document.getElementById(`${otherId}-label`);
+        if (otherLabel) otherLabel.textContent = lang;
+        const otherDropdown = document.getElementById(`${otherId}-dropdown`);
+        otherDropdown?.querySelectorAll('.lang-option').forEach((o) => {
+          const check = o.querySelector('.lang-check');
+          if ((o as HTMLElement).dataset.lang === (opt as HTMLElement).dataset.lang) {
+            check?.classList.remove('hidden');
+          } else {
+            check?.classList.add('hidden');
+          }
+        });
+
+        close();
+      });
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!wrapper.contains(e.target as Node)) close();
+    });
+  }
+
+  initLangDropdown('lang-desktop');
+  initLangDropdown('lang-mobile');
+
+  // --- Desktop: dropdown reveals as cursor moves down ---
+  function initDesktopHoverDropdowns() {
+    const desktopItems = Array.from(document.querySelectorAll('.nav-item[data-nav-item]')) as HTMLElement[];
+
+    desktopItems.forEach((item) => {
+      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
+      if (!dropdown) return;
+
+      let hideTimer: number | undefined;
+      const REVEAL_THRESHOLD = 0.78;
+
+      const clearHideTimer = () => {
+        if (hideTimer) {
+          window.clearTimeout(hideTimer);
+          hideTimer = undefined;
+        }
+      };
+
+      const setRevealProgress = (progress: number) => {
+        clearHideTimer();
+
+        const clamped = Math.min(1, Math.max(0, progress));
+
+        if (clamped < REVEAL_THRESHOLD) {
+          dropdown.style.visibility = 'hidden';
+          dropdown.style.opacity = '0';
+          dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
+          dropdown.style.pointerEvents = 'none';
+          return;
+        }
+
+        dropdown.style.visibility = 'visible';
+        dropdown.style.opacity = '1';
+        dropdown.style.transform = 'translateY(0) scaleY(1)';
+        dropdown.style.pointerEvents = 'auto';
+      };
+
+      const revealFully = () => {
+        setRevealProgress(1);
+      };
+
+      const hideDropdown = () => {
+        clearHideTimer();
+        dropdown.style.opacity = '0';
+        dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
+        dropdown.style.pointerEvents = 'none';
+
+        hideTimer = window.setTimeout(() => {
+          dropdown.style.visibility = 'hidden';
+        }, 220);
+      };
+
+      item.addEventListener('mouseenter', (event) => {
+        const rect = item.getBoundingClientRect();
+        const pointerY = (event as MouseEvent).clientY;
+        const progress = (pointerY - (rect.top + 6)) / (rect.bottom - rect.top);
+        setRevealProgress(progress);
+      });
+
+      item.addEventListener('mousemove', (event) => {
+        const rect = item.getBoundingClientRect();
+        const pointerY = (event as MouseEvent).clientY;
+        const progress = (pointerY - (rect.top + 6)) / ((rect.bottom + 18) - (rect.top + 6));
+        setRevealProgress(progress);
+      });
+
+      item.addEventListener('mouseleave', (event) => {
+        const next = event.relatedTarget as Node | null;
+        if (next && dropdown.contains(next)) {
+          revealFully();
+          return;
+        }
+
+        hideDropdown();
+      });
+
+      dropdown.addEventListener('mouseenter', revealFully);
+      dropdown.addEventListener('mouseleave', hideDropdown);
+    });
+  }
+
+  initDesktopHoverDropdowns();
+
+  // --- Desktop: smooth sliding active indicator ---
+  const desktopNavLinks = document.getElementById('desktop-nav-links');
+  const desktopNavIndicator = document.getElementById('desktop-nav-indicator') as HTMLElement | null;
+
+  if (desktopNavLinks && desktopNavIndicator) {
+    const navItems = Array.from(desktopNavLinks.querySelectorAll('[data-nav-item]')) as HTMLElement[];
+    const activeItem = navItems.find((item) => item.dataset.active === 'true') ?? null;
+    let currentItem: HTMLElement | null = activeItem;
+
+    const moveIndicatorToItem = (item: HTMLElement | null, immediate = false) => {
+      if (!item) {
+        desktopNavIndicator.style.opacity = '0';
+        return;
+      }
+
+      const link = item.querySelector('a') as HTMLElement | null;
+      if (!link) return;
+
+      const containerRect = desktopNavLinks.getBoundingClientRect();
+      const linkRect = link.getBoundingClientRect();
+      const left = linkRect.left - containerRect.left;
+
+      if (immediate) {
+        const previousTransition = desktopNavIndicator.style.transition;
+        desktopNavIndicator.style.transition = 'none';
+        desktopNavIndicator.style.width = `${linkRect.width}px`;
+        desktopNavIndicator.style.transform = `translateX(${left}px)`;
+        desktopNavIndicator.style.opacity = '1';
+        requestAnimationFrame(() => {
+          desktopNavIndicator.style.transition = previousTransition;
+        });
+        return;
+      }
+
+      desktopNavIndicator.style.width = `${linkRect.width}px`;
+      desktopNavIndicator.style.transform = `translateX(${left}px)`;
+      desktopNavIndicator.style.opacity = '1';
+    };
+
+    if (activeItem) {
+      moveIndicatorToItem(activeItem, true);
+    }
+
+    navItems.forEach((item) => {
+      item.addEventListener('mouseenter', () => {
+        currentItem = item;
+        moveIndicatorToItem(item);
+      });
+
+      const link = item.querySelector('a');
+      link?.addEventListener('focus', () => {
+        currentItem = item;
+        moveIndicatorToItem(item);
+      });
+    });
+
+    desktopNavLinks.addEventListener('mouseleave', () => {
+      currentItem = activeItem;
+      moveIndicatorToItem(activeItem);
+    });
+
+    window.addEventListener('resize', () => {
+      moveIndicatorToItem(currentItem ?? activeItem, true);
+    });
+  }
 </script>

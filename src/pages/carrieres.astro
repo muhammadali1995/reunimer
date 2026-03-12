@@ -1,0 +1,146 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import Container from '../components/ui/Container.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
+import JobCard from '../components/ui/JobCard.astro';
+import heroImage from '../assets/images/carrieres/hero.png';
+import johanneSerriImage from '../assets/images/carrieres/john.png';
+import { jobListings } from '../data/jobs';
+---
+
+<PageLayout
+  title="Carrières — Reunimer"
+  description="Rejoignez les talents de Reunimer : découvrez nos offres d'emploi et notre marque employeur au cœur de l'océan Indien."
+>
+  <section class="relative w-full h-[280px] sm:h-[340px] md:h-[400px] lg:h-[553px] -mt-[92px] overflow-hidden">
+    <Image
+      src={heroImage}
+      alt="Les métiers de Reunimer : pêche, production, distribution, maintenance et management"
+      class="w-full h-full object-cover"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+  </section>
+
+  <section class="bg-white pt-12 pb-16 md:pt-20 md:pb-24 lg:pt-[100px] lg:pb-[112px]">
+    <Container>
+      <div class="max-w-[987px]">
+        <SectionHeading title="Notre marque employeur" />
+
+        <div class="mt-8 md:mt-10 lg:mt-[43px] grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[63px]">
+          <p class="font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl text-bleu-abysse">
+            En 2026, Reunimer s'affirme comme le pilier de la réussite au c&oelig;ur de l'océan Indien, prouvant qu'il est possible de bâtir une carrière d'envergure internationale sans quitter sa terre natale. Notre marque employeur repose sur une promesse forte&nbsp;: <strong class="font-semibold">donner du sens</strong> à votre métier à travers la valorisation des compétences locales et une politique salariale attractive.
+          </p>
+          <p class="font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl text-bleu-abysse">
+            Chez nous, l'héritage de l'expérience se <strong class="font-semibold">transmet</strong> naturellement aux jeunes talents, créant un cycle de partage où chaque collaborateur peut évoluer et s'accomplir. Rejoindre Reunimer, c'est choisir la fierté de l'ancrage local tout en bénéficiant de perspectives de carrière ambitieuses et durables.
+          </p>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <section class="relative w-full h-[350px] md:h-[500px] lg:h-[649px] overflow-hidden bg-brume-alize">
+    <Image
+      src={johanneSerriImage}
+      alt="Johanne Serri, Responsable Ressource Humaine chez Reunimer"
+      class="absolute inset-0 top-0 w-full h-auto grayscale"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+
+    <div class="absolute inset-0">
+      <div class="flex flex-col justify-end h-full p-6 md:hidden">
+        <div class="bg-black/40 backdrop-blur-sm rounded-lg p-4">
+          <p class="font-heading font-normal text-sm leading-[1.461] text-white mb-6">
+            Mot de la RH
+          </p>
+          <p class="font-heading font-bold text-sm leading-[1.461] text-white">
+            Johanne Serri
+          </p>
+          <p class="font-heading font-normal text-xs leading-[1.461] text-white">
+            Responsable Ressource Humaine
+          </p>
+        </div>
+      </div>
+
+      <div class="hidden md:flex flex-col justify-between absolute top-0 bottom-0 left-1/2 lg:left-[50.07%] right-0 pt-[20%] pb-[16%] lg:pt-[179px] lg:pb-[121px] px-10 lg:pl-0 lg:pr-0 lg:w-[428px]">
+        <p class="font-heading font-normal text-[15px] leading-[1.461] text-white">
+          Mot de la RH
+        </p>
+        <div>
+          <p class="font-heading font-bold text-[15px] leading-[1.461] text-white">
+            Johanne Serri
+          </p>
+          <p class="font-heading font-normal text-[13px] leading-[1.461] text-white">
+            Responsable Ressource Humaine
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nos Offres d'Emplois Header -->
+  <section class="bg-white pt-12 pb-10 md:pt-16 md:pb-12 lg:pt-[94px] lg:pb-[103px]">
+    <Container>
+      <SectionHeading title="Nos offres d'emplois" />
+      <p class="mt-6 md:mt-8 lg:mt-[70px] font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl text-bleu-abysse max-w-[672px]">
+        Ne choisissez plus entre ambition internationale et fierté locale&nbsp;: bâtissez votre avenir au c&oelig;ur de l'océan Indien en rejoignant les talents de Reunimer.
+      </p>
+    </Container>
+  </section>
+
+  <!-- Job Listings Accordion -->
+  <div id="job-accordion">
+    {jobListings.map((job, i) => (
+      <JobCard
+        title={job.title}
+        bgColor={job.bgColor}
+        missionText={job.missionText}
+        benefitTitle={job.benefitTitle}
+        benefitText={job.benefitText}
+        extraTitle={job.extraTitle}
+        extraText={job.extraText}
+        defaultExpanded={job.defaultExpanded ?? false}
+        index={i}
+      />
+    ))}
+  </div>
+
+  <script>
+    // Job accordion: only one expanded at a time
+    const accordion = document.getElementById('job-accordion');
+    if (accordion) {
+      const cards = accordion.querySelectorAll('.job-card');
+
+      cards.forEach((card) => {
+        const btn = card.querySelector('button');
+        const content = card.querySelector('.job-content') as HTMLElement;
+        const chevron = card.querySelector('.job-chevron');
+
+        btn?.addEventListener('click', () => {
+          const isExpanded = card.getAttribute('data-expanded') === 'true';
+
+          // Collapse all cards
+          cards.forEach((c) => {
+            const cContent = c.querySelector('.job-content') as HTMLElement;
+            const cChevron = c.querySelector('.job-chevron');
+            const cBtn = c.querySelector('button');
+            c.setAttribute('data-expanded', 'false');
+            if (cContent) cContent.style.maxHeight = '0';
+            cChevron?.classList.remove('rotate-180');
+            cBtn?.setAttribute('aria-expanded', 'false');
+          });
+
+          // If it wasn't expanded, expand this one
+          if (!isExpanded) {
+            card.setAttribute('data-expanded', 'true');
+            if (content) content.style.maxHeight = content.scrollHeight + 'px';
+            chevron?.classList.add('rotate-180');
+            btn?.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+    }
+  </script>
+</PageLayout>

@@ -1,0 +1,21 @@
+---
+import { Image } from 'astro:assets';
+import PageLayout from '../layouts/PageLayout.astro';
+import heroImage from '../assets/images/groupe/hero.png';
+---
+
+<PageLayout
+  title="Le Groupe — Reunimer"
+  description="Découvrez le groupe Reunimer : un modèle intégré de l'océan à l'assiette, nos valeurs, notre histoire et nos filiales."
+>
+  <!-- Hero Triptych Section -->
+  <section class="relative -mt-[92px] h-[400px] sm:h-[500px] md:h-[650px] lg:h-[860px] overflow-hidden">
+    <Image
+      src={heroImage}
+      alt="Le groupe Reunimer — de l'océan à l'assiette, en trois images : pêche, transformation et gastronomie"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+  </section>
+</PageLayout>

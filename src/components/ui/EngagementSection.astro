@@ -1,0 +1,76 @@
+---
+/**
+ * Engagement section — alternating two-column layout.
+ *
+ * Figma pattern (e.g. "Notre lien à la Mer" node area around 729:16418):
+ * - Section: full-width, ~785px tall at desktop
+ * - Image column: ~742px (51.5%) width, full height, object-cover
+ * - Text column: ~698px (48.5%), starts at x≈797 (image-left) or x≈153 (image-right)
+ * - Title: Montserrat SemiBold 32px, lh 39px
+ * - Body: Montserrat Regular 20px, lh 29.2px (1.461), max-w ~445px
+ * - "EN SAVOIR PLUS" button: outline-dark, 190×53
+ * - Gap between image and text: ~54px
+ * - Text top padding: ~94–116px from section top
+ */
+
+import { Image } from 'astro:assets';
+import Button from './Button.astro';
+import type { EngagementSectionProps } from '../../types';
+
+type Props = EngagementSectionProps;
+
+const {
+  title,
+  bodyText,
+  imageSrc,
+  imageAlt,
+  imagePosition = 'left',
+  bgColor = 'white',
+  id,
+  buttonHref = '#footer-contact-heading',
+  class: className = '',
+} = Astro.props;
+
+const bgClass = bgColor === 'gris-clair' ? 'bg-gris-clair' : 'bg-white';
+const isImageLeft = imagePosition === 'left';
+---
+
+<section
+  id={id}
+  class:list={[bgClass, 'relative overflow-hidden scroll-mt-[135px]', className]}
+>
+  <div class:list={[
+    'flex flex-col lg:flex-row lg:min-h-[785px]',
+    !isImageLeft && 'lg:flex-row-reverse',
+  ]}>
+    <!-- Image column -->
+    <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[51.5%] shrink-0">
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        class="w-full h-full object-cover"
+        widths={[375, 768, 1024, 1440]}
+        sizes="(min-width: 1024px) 742px, 100vw"
+      />
+    </div>
+
+    <!-- Text column -->
+    <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[100px] lg:px-[54px]">
+      <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+        {title}
+      </h2>
+      <p class="mt-5 md:mt-6 lg:mt-[37px] font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[1.461] text-bleu-abysse max-w-[445px]">
+        {bodyText}
+      </p>
+
+      <!-- Slot for partner logos, descriptions, key figures, etc. -->
+      <slot />
+
+      <div class="mt-8 md:mt-10 lg:mt-[40px]">
+        <Button variant="outline-dark" href={buttonHref}>
+          En savoir plus
+        </Button>
+      </div>
+    </div>
+  </div>
+</section>

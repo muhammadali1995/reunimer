@@ -1,0 +1,117 @@
+---
+import type { GetStaticPaths } from 'astro';
+import { Image } from 'astro:assets';
+import PageLayout from '../../layouts/PageLayout.astro';
+import Container from '../../components/ui/Container.astro';
+import Tag from '../../components/ui/Tag.astro';
+import { articles, articleDetails, getArticleHref } from '../../data/articles';
+
+export const getStaticPaths: GetStaticPaths = () => {
+  return Object.keys(articleDetails).map((slug) => ({
+    params: { slug },
+  }));
+};
+
+const { slug }:any = Astro.params;
+const article = articles.find((a) => a.slug === slug)!;
+const detail = articleDetails[slug]!;
+
+// Compute prev/next articles (all articles that have detail pages)
+const detailSlugs = Object.keys(articleDetails);
+const currentIndex = detailSlugs.indexOf(slug);
+const prevSlug = currentIndex > 0 ? detailSlugs[currentIndex - 1] : null;
+const nextSlug = currentIndex < detailSlugs.length - 1 ? detailSlugs[currentIndex + 1] : null;
+
+const navArrows = [
+  { href: prevSlug ? getArticleHref(prevSlug) : '/actualites', label: 'Article précédent', path: 'M10 3L5 8L10 13' },
+  { href: nextSlug ? getArticleHref(nextSlug) : '/actualites', label: 'Article suivant', path: 'M6 3L11 8L6 13' },
+];
+---
+
+<PageLayout
+  title={`${article.title} — Reunimer`}
+  description={`Découvrez : ${article.title}`}
+>
+  <!-- Image Gallery -->
+  <section class="bg-white pt-10 md:pt-16 lg:pt-[128px]">
+    <Container>
+      <div class="flex flex-col md:flex-row gap-[10px]">
+        <!-- Main Photo -->
+        <div class="relative overflow-hidden md:w-[574px] md:flex-shrink-0 aspect-[574/498]">
+          <Image
+            src={detail.gallery[0].image}
+            alt={detail.gallery[0].alt}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+          <div class="absolute top-[21px] left-[15px]">
+            <Tag color={article.tagColor}>{article.tag}</Tag>
+          </div>
+        </div>
+        <!-- Secondary Photo -->
+        <div class="relative overflow-hidden md:w-[410px] md:flex-shrink-0 aspect-[410/498] hidden md:block">
+          <Image
+            src={detail.gallery[1].image}
+            alt={detail.gallery[1].alt}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+        <!-- Tertiary Photo (narrow) -->
+        <div class="relative overflow-hidden md:flex-1 aspect-[152/498] hidden lg:block">
+          <Image
+            src={detail.gallery[2].image}
+            alt={detail.gallery[2].alt}
+            class="absolute inset-0 w-full h-full object-cover"
+            loading="eager"
+          />
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Article Header -->
+  <section class="bg-white pt-4 md:pt-6 lg:pt-[23px]">
+    <Container>
+      <div class="flex items-end justify-between">
+        <!-- Date & Title -->
+        <div>
+          <time class="font-body font-medium text-label-sm leading-none text-brume-alize uppercase">
+            {article.date}
+          </time>
+          <h1 class="mt-[6px] font-heading font-bold text-2xl md:text-heading-xl text-bleu-abysse leading-tight max-w-[525px]">
+            {article.title}
+          </h1>
+        </div>
+
+        <!-- Navigation Arrows -->
+        <div class="flex items-center gap-3">
+          {navArrows.map((arrow) => (
+            <a
+              href={arrow.href}
+              class="flex items-center justify-center w-[50px] h-[50px] rounded-full bg-turquoise-ocean text-white transition-colors duration-200 border border-transparent hover:bg-white hover:text-bleu-abysse hover:border-turquoise-ocean"
+              aria-label={arrow.label}
+            >
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d={arrow.path} stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          ))}
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- Article Body -->
+  <section class="bg-white pt-8 md:pt-10 lg:pt-[41px] pb-16 md:pb-24 lg:pb-[120px]">
+    <Container>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-[50px] max-w-[1154px]">
+        {detail.body.map((paragraph) => (
+          <p class="font-heading font-normal text-base md:text-[20px] md:leading-[1.461] text-bleu-abysse">
+            {paragraph}
+          </p>
+        ))}
+      </div>
+    </Container>
+  </section>
+</PageLayout>
