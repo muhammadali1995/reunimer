@@ -1,16 +1,14 @@
 ---
 /**
- * Navbar matching Figma "Header" (node 18:272) with all variants.
+ * Navbar matching Figma "Header" (node 18:272).
  *
  * Figma specs:
  * - Container: 1360px wide, h-[92px], bg-white, px-[26px] py-[28px]
  * - Logo: 199×33px
  * - Nav links: Montserrat SemiBold 12px, tracking 1.44px, uppercase, bleu-abysse, gap-[34px]
- * - Hover state: text turns turquoise-ocean + 3px turquoise underline bar
- * - Dropdown: white bg, w-[269px], px-[20px] py-[17px], links separated by 1px lines, gap-[15px]
- * - Dropdown links: Montserrat SemiBold 12px, tracking 1.44px, uppercase, bleu-abysse
- * - Search icon: 14×14px
- * - Lang selector: "FR" + chevron
+ * - Hover: text turquoise-ocean + 4px turquoise underline bar
+ * - Dropdown: white bg, w-[269px], px-[20px] py-[17px], gap-[15px]
+ * - Search icon: 14×14px, Lang selector: "FR" + chevron
  * - Fixed at top
  */
 
@@ -83,7 +81,7 @@ function isActive(href: string): boolean {
   id="navbar"
 >
   <!-- Desktop bar -->
-  <div class="navbar-inner bg-white w-full max-w-[1360px] h-[92px] flex items-center justify-between">
+  <div class="bg-white w-full max-w-[1360px] h-[92px] flex items-center justify-between px-4 sm:px-6 lg:px-[26px]">
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
       <img
@@ -96,8 +94,8 @@ function isActive(href: string): boolean {
     </a>
 
     <!-- Desktop nav -->
-    <div class="hidden lg:flex items-center gap-[32px]">
-      <div class="navbar__links">
+    <div class="hidden lg:flex items-center gap-8">
+      <div class="flex items-center gap-[34px]">
         {navLinks.map((link) => (
           <div class="nav-item group relative flex items-center h-[92px]">
             <a
@@ -109,7 +107,6 @@ function isActive(href: string): boolean {
             >
               {link.label}
             </a>
-            {/* Turquoise underline bar — 4px tall, full link width, flush at bottom of 92px header */}
             <span
               class:list={[
                 'absolute bottom-0 left-0 w-full h-[4px] bg-turquoise-ocean transition-opacity',
@@ -117,20 +114,19 @@ function isActive(href: string): boolean {
               ]}
             />
 
-            {/* Dropdown */}
             {link.children && (
-              <div class="nav-dropdown absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
-                <div class="nav-dropdown__panel">
+              <div class="absolute top-full left-0 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div class="w-[269px] bg-white px-5 py-[17px] flex flex-col gap-[15px] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
                   {link.children.map((child, i) => (
                     <>
                       <a
                         href={child.href}
-                        class="nav-dropdown__link"
+                        class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse whitespace-nowrap transition-colors hover:text-turquoise-ocean"
                       >
                         {child.label}
                       </a>
                       {i < link.children!.length - 1 && (
-                        <div class="nav-dropdown__divider" aria-hidden="true"></div>
+                        <div class="w-full h-px bg-brume-alize" aria-hidden="true" />
                       )}
                     </>
                   ))}
@@ -140,7 +136,7 @@ function isActive(href: string): boolean {
           </div>
         ))}
       </div>
-      <div class="navbar__actions">
+      <div class="flex items-center gap-8">
         <!-- Search -->
         <button
           type="button"
@@ -181,34 +177,34 @@ function isActive(href: string): boolean {
 
 <!-- Mobile menu overlay -->
 <div
-  class="mobile-menu fixed inset-0 z-40 bg-white translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
+  class="fixed inset-0 z-40 bg-white translate-x-full transition-transform duration-300 ease-in-out lg:hidden"
   id="mobile-menu"
 >
-  <div class="mobile-menu__wrapper">
-    <nav class="mobile-menu__links" aria-label="Navigation principale">
+  <div class="h-full pt-[92px] px-6 pb-10 flex flex-col gap-[34px] overflow-y-auto w-full">
+    <nav class="flex flex-col gap-5" aria-label="Navigation principale">
       {navLinks.map((link) => (
-        <div class="mobile-menu__item">
+        <div class="flex flex-col gap-3">
           <a
             href={link.href}
             class:list={[
-              'mobile-menu__link',
-              isActive(link.href) ? 'mobile-menu__link--active' : '',
+              'font-heading font-semibold text-xs tracking-[1.44px] uppercase block w-full transition-colors no-underline',
+              isActive(link.href) ? 'text-turquoise-ocean' : 'text-bleu-abysse hover:text-turquoise-ocean',
             ]}
           >
             {link.label}
           </a>
           {link.children && (
-            <div class="mobile-submenu" data-parent={link.label}>
+            <div class="mobile-submenu ml-[22px] mt-[7px] flex flex-col gap-[15px] overflow-hidden max-h-0 transition-[max-height] duration-300 pb-3" data-parent={link.label}>
               {link.children.map((child, i) => (
                 <>
                   <a
                     href={child.href}
-                    class="nav-dropdown__link mobile-submenu__link"
+                    class="font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse whitespace-nowrap transition-colors hover:text-turquoise-ocean block w-full leading-[1.15]"
                   >
                     {child.label}
                   </a>
                   {i < link.children!.length - 1 && (
-                    <div class="mobile-submenu__divider" aria-hidden="true"></div>
+                    <div class="w-full h-px bg-brume-alize" aria-hidden="true" />
                   )}
                 </>
               ))}
@@ -218,33 +214,22 @@ function isActive(href: string): boolean {
       ))}
     </nav>
 
-    <hr class="mobile-menu__divider" />
+    <hr class="w-full border-none border-t border-gris-clair" />
 
-    <div class="mobile-menu__actions">
+    <div class="flex items-center gap-[22px]">
       <button
         type="button"
-        class="mobile-menu__search-btn"
+        class="bg-transparent border-none p-0 text-bleu-abysse cursor-pointer transition-colors inline-flex items-center justify-center hover:text-turquoise-ocean"
         aria-label="Rechercher"
       >
-        <svg class="mobile-menu__icon" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <svg class="w-5 h-5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M13.8362 13.0122L10.3572 9.53312C12.3981 7.03708 12.029 3.35942 9.53297 1.31855C7.03725 -0.722317 3.35937 -0.353212 1.31853 2.14282C-0.722306 4.63886 -0.353207 8.31652 2.14279 10.3574C4.29264 12.1152 7.3834 12.1152 9.53324 10.3574L13.0122 13.8364C13.2436 14.0599 13.6127 14.0536 13.8365 13.8222C14.0545 13.5963 14.0545 13.2384 13.8365 13.0124L13.8362 13.0122ZM5.84717 10.5101C3.27194 10.5101 1.18439 8.42253 1.18439 5.84726C1.18439 3.27199 3.27222 1.18468 5.84717 1.18468C8.42212 1.18468 10.5099 3.27227 10.5099 5.84753C10.5069 8.42143 8.4213 10.5074 5.84717 10.5104V10.5101Z" fill="currentColor"/>
         </svg>
       </button>
-      <div class="mobile-menu__lang">
-        <span class="mobile-menu__lang-label">FR</span>
-        <svg
-          class="mobile-menu__lang-icon"
-          viewBox="0 0 10.5 6.5"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M0.75 0.75L5.25 5.75L9.75 0.75"
-            stroke="currentColor"
-            stroke-width="1.5"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-          />
+      <div class="inline-flex items-center gap-[7px] font-heading font-semibold text-xs tracking-[1.44px] uppercase text-bleu-abysse">
+        <span>FR</span>
+        <svg class="w-[10px] h-[5px]" viewBox="0 0 10.5 6.5" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0.75 0.75L5.25 5.75L9.75 0.75" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </div>
     </div>
@@ -290,30 +275,27 @@ function isActive(href: string): boolean {
     const parent = link.nextElementSibling;
     if (parent?.classList.contains('mobile-submenu')) {
       link.addEventListener('click', (e) => {
-        // If submenu exists, toggle it instead of navigating on first click
-        if (parent.style.maxHeight) {
-          parent.style.maxHeight = '';
+        if ((parent as HTMLElement).style.maxHeight) {
+          (parent as HTMLElement).style.maxHeight = '';
         } else {
           e.preventDefault();
-          parent.style.maxHeight = parent.scrollHeight + 'px';
+          (parent as HTMLElement).style.maxHeight = parent.scrollHeight + 'px';
         }
       });
     }
   });
 
-  // --- Desktop: hover opens dropdown, also make active link text color change ---
+  // --- Desktop: hover opens dropdown, also change link text color ---
   document.querySelectorAll('.nav-item').forEach((item) => {
     const link = item.querySelector('a');
-    const dropdown = item.querySelector('.nav-dropdown');
+    const dropdown = item.querySelector('[class*="group-hover"]');
     if (!dropdown) return;
 
-    // On hover, also change the link text to turquoise
     item.addEventListener('mouseenter', () => {
       link?.classList.add('text-turquoise-ocean');
       link?.classList.remove('text-bleu-abysse');
     });
     item.addEventListener('mouseleave', () => {
-      // Only revert if not the active link
       if (!link?.getAttribute('class')?.includes('active-link')) {
         const isActive = link?.querySelector('.opacity-100');
         if (!isActive) {
