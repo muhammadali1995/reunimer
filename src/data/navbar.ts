@@ -17,11 +17,11 @@ export const navLinks: NavLink[] = [
     label: 'Expertises',
     href: '/expertises',
     children: [
-      { label: 'Pêche', href: '/expertises/peche' },
-      { label: 'Production', href: '/expertises/production' },
-      { label: 'Distribution', href: '/expertises/distribution' },
-      { label: 'Supports', href: '/expertises/supports' },
-      { label: 'RH', href: '/expertises/rh' },
+      { label: 'Pêche', href: '/expertises#peche' },
+      { label: 'Production', href: '/expertises#transformation' },
+      { label: 'Distribution', href: '/expertises#distribution' },
+      { label: 'Supports', href: '/expertises#logistique' },
+      { label: 'RH', href: '/expertises#rh' },
     ],
   },
   {
