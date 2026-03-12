@@ -708,6 +708,22 @@ All changes are **non-breaking** — each phase produces identical visual output
 | ~~Medium~~ | ~~Phase 6 — Navbar data/types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
 | ~~Low~~ | ~~Phase 6b — Navbar SVG/markup dedup~~ | ~~Code quality~~ | ~~Low~~ | Done |
 | ~~Low~~ | ~~Phase 14 — UI component cleanup~~ | ~~Code quality~~ | ~~Low~~ | Done |
+| ~~Low~~ | ~~Phase 15 — Fix TypeScript errors~~ | ~~Code quality~~ | ~~Low~~ | Done |
+
+---
+
+### Phase 15 — Fix TypeScript Errors (Low Risk)
+
+**Goal:** Resolve all TypeScript errors in the project.
+
+**Issues Found:**
+
+1. **`src/pages/ui-preview.astro` — Missing required `href` prop on ArticleCard (3 errors)**
+   - Lines 102, 109, 114: `ArticleCard` is used without the `href` prop, which was made required in Phase 4b.
+   - Error: `Property 'href' is missing in type '...' but required in type 'Props'. [2322]`
+   - **Fix:** Add `href="/actualites"` (or any preview URL) to all 3 `ArticleCard` usages.
+
+**Estimated scope:** 1 file modified, 3 lines added
 
 ---
 

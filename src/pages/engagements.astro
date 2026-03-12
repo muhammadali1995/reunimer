@@ -10,6 +10,18 @@ import lienMerImg from '../assets/images/engagements/lien-mer.png';
 import logoKelonia from '../assets/images/engagements/logo-kelonia.png';
 import lienTerreImg from '../assets/images/engagements/lien-terre.png';
 import logoBondy from '../assets/images/engagements/logo-bondy.png';
+import lienFemmesHommesImg from '../assets/images/engagements/lien-femmes-hommes.png';
+import logoTogether from '../assets/images/engagements/logo-together.png';
+import lienEnergieImg from '../assets/images/engagements/lien-energie.png';
+import lienSanteImg from '../assets/images/engagements/lien-sante.png';
+
+const keyFiguresFemmesHommes = [
+  { value: 'XX', label: 'personnes impact\u00e9es' },
+  { value: 'XX', label: 'km de Littoral' },
+  { value: 'XX', label: 'p\u00eacheurs partenaires' },
+  { value: 'XX', label: '% de femmes' },
+  { value: 'XX', label: 'emplois indirects soutenus dans la fili\u00e8re' },
+];
 ---
 
 <PageLayout
@@ -141,4 +153,127 @@ import logoBondy from '../assets/images/engagements/logo-bondy.png';
       </p>
     </div>
   </EngagementSection>
+
+  <!-- Notre lien aux femmes et aux hommes -->
+  <section id="lien-femmes-hommes" class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]">
+    <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
+      <!-- Image column (LEFT) -->
+      <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[51.5%] shrink-0">
+        <Image
+          src={lienFemmesHommesImg}
+          alt="Inclusion et égalité — engagement de Reunimer envers ses collaborateurs"
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 742px, 100vw"
+        />
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[116px] lg:px-[60px]">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          Notre lien aux femmes<br class="hidden lg:block" /> et aux hommes
+        </h2>
+
+        <!-- Together logo -->
+        <div class="mt-6 md:mt-8 lg:mt-[43px]">
+          <Image
+            src={logoTogether}
+            alt="Logo Together — cellule de prévention des discriminations"
+            class="w-[150px] md:w-[175px] lg:w-[200px] h-auto"
+            widths={[150, 175, 200]}
+            sizes="200px"
+          />
+        </div>
+
+        <!-- Together description -->
+        <p class="mt-4 md:mt-5 lg:mt-[25px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[562px]">
+          Together est une cellule sp&eacute;cialis&eacute;e dans la prise en charge de situations de discrimination, de violences sexistes et sexuelles et de harc&egrave;lement moral fond&eacute; sur un crit&egrave;re de discrimination. Elle est g&eacute;r&eacute;e par une &eacute;quipe de deux psychologues et une actrice de la pr&eacute;vention.
+        </p>
+
+        <!-- Button -->
+        <div class="mt-5 md:mt-6 lg:mt-[25px]">
+          <Button variant="outline-dark" href="#footer-contact-heading">
+            En savoir plus
+          </Button>
+        </div>
+
+        <!-- Key Figures -->
+        <div class="mt-8 md:mt-10 lg:mt-[48px]">
+          <h3 class="font-body font-bold text-sm md:text-base lg:text-base lg:leading-[19.4px] text-bleu-abysse">
+            L&rsquo;impact socio-&eacute;conomique de Reunimer &agrave; Madagascar
+          </h3>
+          <div class="mt-4 lg:mt-[18px] max-w-[467px]">
+            {keyFiguresFemmesHommes.map((stat) => (
+              <div class="flex items-baseline justify-between gap-4 py-2 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
+                <span class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0">
+                  {stat.value}
+                </span>
+                <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse text-right">
+                  {stat.label}
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien à l'énergie -->
+  <section id="lien-energie" class="bg-white relative overflow-hidden scroll-mt-[135px]">
+    <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
+      <!-- Image column (RIGHT) -->
+      <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[54.2%] shrink-0">
+        <Image
+          src={lienEnergieImg}
+          alt="Panneaux photovolta&iuml;ques sur les sites de stockage Reunimer — transition &eacute;nerg&eacute;tique"
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 781px, 100vw"
+        />
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[177px] lg:px-[60px] lg:pl-[165px]">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          Notre lien &agrave; l&rsquo;&eacute;nergie
+        </h2>
+        <p class="mt-5 md:mt-6 lg:mt-[52px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+          Conscient de l&rsquo;empreinte &eacute;nerg&eacute;tique li&eacute;e &agrave; la cha&icirc;ne du froid et &agrave; la navigation, le groupe Reunimer place la transition &eacute;cologique au centre de sa strat&eacute;gie. En investissant dans des infrastructures performantes, comme l&rsquo;installation de panneaux photovolta&iuml;ques sur ses sites de stockage et l&rsquo;optimisation de la consommation de ses navires.
+        </p>
+        <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]">
+          Le groupe r&eacute;duit activement son bilan carbone. Cette qu&ecirc;te d&rsquo;efficacit&eacute; &eacute;nerg&eacute;tique permet de concilier imp&eacute;ratifs industriels et respect de l&rsquo;&eacute;cosyst&egrave;me fragile de La R&eacute;union.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Notre lien à la santé -->
+  <section id="lien-sante" class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]">
+    <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
+      <!-- Image column (LEFT) -->
+      <div class="relative w-full h-[300px] sm:h-[380px] md:h-[450px] lg:h-auto lg:w-[49.3%] shrink-0">
+        <Image
+          src={lienSanteImg}
+          alt="Produits de la mer frais — engagement sant&eacute; et bien manger de Reunimer"
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 710px, 100vw"
+        />
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-6 py-10 md:px-10 md:py-14 lg:py-[216px] lg:px-[88px]">
+        <h2 class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+          Notre lien &agrave; la sant&eacute;
+        </h2>
+        <p class="mt-4 md:mt-5 lg:mt-[17px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[496px]">
+          Convaincu que la sant&eacute; commence par l&rsquo;alimentation, le groupe Reunimer valorise le &laquo;&nbsp;bien manger&nbsp;&raquo; &agrave; travers des produits de la mer d&rsquo;une fra&icirc;cheur exemplaire. En privil&eacute;giant les circuits courts et une p&ecirc;che responsable dans l&rsquo;oc&eacute;an Indien, le groupe offre aux consommateurs une source de prot&eacute;ines nobles et d&rsquo;acides gras essentiels, indispensables &agrave; un &eacute;quilibre nutritionnel durable.
+        </p>
+        <p class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[496px]">
+          Pour Reunimer, promouvoir une consommation saine et transparente aujourd&rsquo;hui, c&rsquo;est investir directement dans la vitalit&eacute; des g&eacute;n&eacute;rations futures.
+        </p>
+      </div>
+    </div>
+  </section>
 </PageLayout>
