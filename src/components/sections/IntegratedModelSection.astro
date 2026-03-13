@@ -1,0 +1,81 @@
+---
+/**
+ * "De l'océan à l'assiette" — Integrated Model Section
+ *
+ * Figma node: 729:3164 (Frame 92, 1440 × 680, y=846)
+ * White bg, two-column layout:
+ *   Left: title + subtitle + body + CTA
+ *   Right: 5 colored expertise cards in grid
+ */
+
+import Button from '../ui/Button.astro';
+import SectionHeading from '../ui/SectionHeading.astro';
+import { expertiseCards } from '../../data/groupe';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'modele-integre' } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-[135px] bg-white py-16 md:py-24 lg:py-[120px]">
+  <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+    <div class="flex flex-col lg:flex-row lg:gap-[72px]">
+      <!-- Left column: text + CTA -->
+      <div class="lg:w-[393px] lg:shrink-0 mb-10 lg:mb-0">
+        <SectionHeading
+          title="De l'océan<br/>à l'assiette"
+          subtitle="Un modèle intégré : la signature d'une confiance absolue"
+        />
+
+        <p class="mt-6 font-body text-body-base text-[#636A6B] lg:w-[393px]">
+          Reunimer s'impose par un modèle intégré garantissant une autonomie totale, sans aucun intermédiaire. Cette maîtrise repose sur une triple expertise unique — sourcer à la racine, transformer avec talent et distribuer en direct — pour offrir une traçabilité absolue. Plus qu'une organisation, c'est une promesse de fiabilité et de transparence qui garantit l'excellence, de l'océan à l'assiette.
+        </p>
+
+        <div class="mt-10 lg:mt-12">
+          <Button variant="outline-dark" href="/expertises">
+            Découvrez nos expertises
+          </Button>
+        </div>
+      </div>
+
+      <!-- Right column: expertise cards grid -->
+      <div class="flex-1">
+        <!-- Top row: 3 cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {expertiseCards.filter(c => !c.fullWidth).map((card) => (
+            <div class:list={[
+              card.color,
+              'px-7 py-[38px] text-center text-white flex flex-col gap-2',
+            ]}>
+              <p class="font-display font-extrabold text-xl leading-[23px] uppercase">
+                {card.title}
+              </p>
+              <p class="font-heading font-normal text-base">
+                {card.description}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <!-- Full-width cards -->
+        <div class="mt-3 flex flex-col gap-3">
+          {expertiseCards.filter(c => c.fullWidth).map((card) => (
+            <div class:list={[
+              card.color,
+              'px-7 py-[38px] text-center text-white flex flex-col gap-2',
+            ]}>
+              <p class="font-display font-extrabold text-xl leading-[23px] uppercase">
+                {card.title}
+              </p>
+              <p class="font-heading font-normal text-base">
+                {card.description}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

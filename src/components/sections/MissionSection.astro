@@ -1,0 +1,84 @@
+---
+/**
+ * "Notre raison d'être" — Mission & Values Section
+ *
+ * Figma node: 729:3111 (Frame 116, 1440 × 973, y=2309)
+ * White bg, two-column layout:
+ *   Left (w=680): full-height image (raison-detre.jpg)
+ *   Right (x=720, w=456): title, mission text, 4 values
+ *
+ * Title (729:3114): Zalando Sans ExtraBold 40px, bleu-abysse, uppercase
+ * Mission (729:3115): Montserrat Regular 20px, bleu-abysse, w=456
+ * Values (729:3113): "Nos valeurs" header + 4 value blocks (Inter Bold/Regular 16px)
+ */
+
+import { Image } from "astro:assets";
+import raisonDetreImage from "../../assets/images/groupe/raison-detre.png";
+import { missionValues } from "../../data/groupe";
+
+interface Props {
+  id?: string;
+}
+
+const { id = "raison-detre" } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-[135px] bg-white overflow-hidden">
+  <div class="flex flex-col lg:flex-row lg:h-[973px] relative">
+    <!-- Left: image (z-10 so girl's hand overlaps text area) -->
+    <div
+      class="relative h-[400px] sm:h-[500px] lg:h-full lg:w-[680px] lg:shrink-0 z-10"
+    >
+      <Image
+        src={raisonDetreImage}
+        alt="Jeune fille dégustant une brochette de poisson sur la plage"
+        class="absolute inset-0 w-full h-full object-cover"
+        widths={[375, 680, 960]}
+        sizes="(min-width: 1024px) 680px, 100vw"
+      />
+    </div>
+
+    <!-- Right: text content -->
+    <div
+      class="px-5 py-12 md:px-10 lg:pl-[40px] lg:pr-0 lg:pt-[100px] lg:pb-[100px]"
+    >
+      <h2
+        class="font-display font-extrabold text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse"
+      >
+        Notre raison d'être
+      </h2>
+      <div class="lg:w-[456px]">
+        <p
+          class="mt-6 lg:mt-[69px] font-heading font-normal text-base md:text-heading-lg text-bleu-abysse"
+        >
+          Préserver et valoriser durablement les ressources marines de l'océan
+          Indien, en créant un impact positif pour les territoires et les
+          communautés qui en vivent.
+        </p>
+
+        <div class="mt-8 lg:mt-[38px]">
+          <p
+            class="font-heading font-semibold text-heading-lg text-bleu-abysse"
+          >
+            Nos valeurs
+          </p>
+
+          <div class="mt-4 flex flex-col gap-4">
+            {
+              missionValues.map((value) => (
+                <div>
+                  <p class="font-body font-bold text-body-base text-bleu-abysse">
+                    {value.title}
+                  </p>
+                  <p class="font-body font-normal text-body-base text-bleu-abysse leading-[1.4]">
+                    {value.text}
+                  </p>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,139 @@
+---
+/**
+ * "World Stats & Client Portfolio" Section (Phase 8)
+ *
+ * Figma nodes: 729:3157–729:3196 (y=8003–9338)
+ * Two visual areas:
+ *   1. Dark bg (bleu-abysse): "Une portée mondiale" + 71% stat + continent bar chart
+ *   2. White bg: "Un portefeuille client équilibré" + donut chart + legend
+ *
+ * Continent chart: 729:3184 (x=89, y=8132, w=582, h=213)
+ * Donut chart: 729:3194 (x=335, y=8796, w=283, h=305) — built with CSS conic-gradient
+ * Legend: 729:3186 (x=690, y=8800, w=420, h=322) — 7 rows
+ */
+
+import { continents, portfolio, colorHex } from '../../data/groupe';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'stats-monde' } = Astro.props;
+
+/* Build conic-gradient stops for the donut chart */
+function buildConicGradient() {
+  let angle = 0;
+  const stops: string[] = [];
+  for (const item of portfolio) {
+    const deg = (item.pct / 100) * 360;
+    const hex = colorHex[item.color];
+    stops.push(`${hex} ${angle}deg ${angle + deg}deg`);
+    angle += deg;
+  }
+  return `conic-gradient(${stops.join(', ')})`;
+}
+
+const conicGradient = buildConicGradient();
+---
+
+<section id={id} class="scroll-mt-[135px]">
+  <!-- Part 1: World Stats (dark bg, continues from Implantations) -->
+  <div class="bg-bleu-abysse pt-12 md:pt-16 lg:pt-20 pb-16 md:pb-24 lg:pb-[120px]">
+    <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+
+      <!-- Top row: title (left) + 71% stat (right) -->
+      <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 lg:gap-16">
+
+        <!-- Left: title -->
+        <div class="max-w-[365px]">
+          <p class="font-heading text-[24px] md:text-[32px] leading-[1.36] text-white">
+            <span class="font-bold">Une portée mondiale </span><br />
+            <span class="font-medium">sur les 5 continents</span>
+          </p>
+        </div>
+
+        <!-- Right: 71% stat -->
+        <div class="lg:max-w-[456px]">
+          <p class="font-display font-extrabold text-[32px] md:text-[48px] lg:text-[61px] lg:leading-[68px] uppercase text-white">
+            71%
+          </p>
+          <p class="mt-1 font-body font-normal text-sm md:text-body-base text-white leading-[1.4]">
+            de produits vendus en France<br />(Métropole et Réunion)
+          </p>
+        </div>
+      </div>
+
+      <!-- Continent distribution chart -->
+      <div class="mt-10 md:mt-12 lg:mt-16 max-w-[582px]">
+        <div class="flex flex-col gap-2.5">
+          {continents.map((c) => (
+            <div class="flex items-center gap-3">
+              <p class="font-body font-bold text-[13px] md:text-[15px] leading-[1.4] text-white text-right w-[120px] md:w-[150px] lg:w-[199px] shrink-0">
+                {c.name}
+              </p>
+              <span class="w-[2px] h-[20px] bg-turquoise-ocean shrink-0" />
+              <p class="font-body font-normal text-[13px] md:text-[15px] leading-[1.4] text-white">
+                {c.pct}%
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2: Client Portfolio (white bg) -->
+  <div class="bg-white py-16 md:py-24 lg:py-[120px]">
+    <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+
+      <!-- Chart + Legend row -->
+      <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
+
+        <!-- Donut chart (CSS conic-gradient) — perfect circle, thin ring -->
+        <div class="relative w-[240px] h-[240px] md:w-[283px] md:h-[283px] shrink-0 lg:ml-[150px]">
+          <div
+            class="w-full h-full rounded-full"
+            style={`background: ${conicGradient};`}
+          />
+          <!-- Inner white circle (donut hole) — ~70% diameter for thin ring -->
+          <div class="absolute inset-0 flex items-center justify-center">
+            <div class="w-[68%] h-[68%] rounded-full bg-white flex items-center justify-center">
+              <p class="font-display font-extrabold text-[20px] md:text-[24px] text-bleu-abysse uppercase leading-none">
+                106,1 M€
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Title + Legend -->
+        <div class="w-full max-w-[420px]">
+          <!-- Title: Montserrat SemiBold 20px + ExtraBold 20px, bleu-abysse -->
+          <p class="font-heading text-[18px] md:text-[20px] text-bleu-abysse tracking-[-1px] mb-6 lg:mb-8">
+            <span class="font-semibold">Un portefeuille client équilibré</span><br />
+            <span class="font-extrabold">(% sur volume total)</span>
+          </p>
+
+          <!-- Legend rows: label 14px Montserrat SemiBold + pct 20px Zalando ExtraBold -->
+          <div class="flex flex-col gap-[5px] w-full max-w-[353px]">
+            {portfolio.map((item) => (
+              <div class="flex items-baseline justify-between border-b border-gray-200 pb-[5px]">
+                <p
+                  class="font-heading font-semibold text-[14px] leading-[1.4]"
+                  style={`color: ${colorHex[item.color]};`}
+                >
+                  {item.label}
+                </p>
+                <p
+                  class="font-display font-extrabold text-[16px] md:text-[20px] leading-[1.2] uppercase text-right shrink-0 ml-4"
+                  style={`color: ${colorHex[item.color]};`}
+                >
+                  {item.pct}%
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

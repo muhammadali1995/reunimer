@@ -1,12 +1,20 @@
 ---
 import { Image } from 'astro:assets';
 import PageLayout from '../layouts/PageLayout.astro';
+import IntegratedModelSection from '../components/sections/IntegratedModelSection.astro';
+import GroupStatisticsSection from '../components/sections/GroupStatisticsSection.astro';
+import MissionSection from '../components/sections/MissionSection.astro';
+import HistorySection from '../components/sections/HistorySection.astro';
+import FilialesSection from '../components/sections/FilialesSection.astro';
+import ImplantationsSection from '../components/sections/ImplantationsSection.astro';
+import WorldStatsSection from '../components/sections/WorldStatsSection.astro';
 import heroImage from '../assets/images/groupe/hero.png';
+import { groupSeo } from '../data/groupe';
 ---
 
 <PageLayout
-  title="Le Groupe — Reunimer"
-  description="Découvrez le groupe Reunimer : un modèle intégré de l'océan à l'assiette, nos valeurs, notre histoire et nos filiales."
+  title={groupSeo.title}
+  description={groupSeo.description}
 >
   <!-- Hero Triptych Section -->
   <section class="relative -mt-[92px] h-[400px] sm:h-[500px] md:h-[650px] lg:h-[860px] overflow-hidden">
@@ -18,4 +26,25 @@ import heroImage from '../assets/images/groupe/hero.png';
       sizes="100vw"
     />
   </section>
+
+  <!-- Phase 2: Integrated Model -->
+  <IntegratedModelSection />
+
+  <!-- Phase 3: Statistics -->
+  <GroupStatisticsSection />
+
+  <!-- Phase 4: Raison d'Être -->
+  <MissionSection />
+
+  <!-- Phase 5: History -->
+  <HistorySection />
+
+  <!-- Phase 6: Filiales -->
+  <FilialesSection />
+
+  <!-- Phase 7: Implantations & Flux Commerciaux -->
+  <ImplantationsSection />
+
+  <!-- Phase 8: World Stats & Client Portfolio -->
+  <WorldStatsSection />
 </PageLayout>

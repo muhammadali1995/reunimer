@@ -4,7 +4,8 @@ import PageLayout from "../layouts/PageLayout.astro";
 import Container from "../components/ui/Container.astro";
 import heroImage from "../assets/images/expertise/hero.png";
 import heroImage2 from "../assets/images/expertise/hero-2.png";
-import pecheImage from "../assets/images/expertise/peche-thon.jpg";
+import fishIllustration from "../assets/images/expertise/fish-illustration.png";
+import pecheMadagascarImage from "../assets/images/expertise/peche-madagascar.png";
 import thonSeulImage from "../assets/images/expertise/thon-seul.png";
 import transformation1Image from "../assets/images/expertise/transformation-1.png";
 import transformation2Image from "../assets/images/expertise/transformation-2.png";
@@ -14,21 +15,35 @@ import distriApproImage from "../assets/images/expertise/distri-approvisionnemen
 import distriExpertiseImage from "../assets/images/expertise/distri-expertise.png";
 import distriServiceImage from "../assets/images/expertise/distri-service.png";
 import supportBgImage from "../assets/images/expertise/support-bg.png";
+import rhBgImage from "../assets/images/expertise/rh-background.png";
+import seafoodKorailLogo from "../assets/images/brands/seafood-korail.png";
+import redPremierLogo from "../assets/images/brands/red-premier.jpg";
 ---
 
 <PageLayout
   title="Nos Expertises — Reunimer"
   description="Découvrez les expertises du groupe Reunimer : pêche, production, distribution, supports et ressources humaines."
 >
-  <!-- Hero Section -->
-  <div class="relative">
+  <!-- Blended ocean background wrapper -->
+  <div class="relative overflow-x-hidden">
+    <!-- Bottom layer: underwater ocean -->
     <Image
-      src={heroImage}
-      alt="Expertise Reunimer : une vue de l'océan, symbole de notre savoir-faire maritime"
-      class="absolute h-auto left-0 w-full top-0 min-h-screen"
+      src={heroImage2}
+      alt="Fond sous-marin — l'expertise océanique de Reunimer"
+      class="absolute inset-0 w-full h-full object-cover"
       widths={[375, 768, 1024, 1440]}
       sizes="100vw"
     />
+    <!-- Top layer: boat on surface — fades to reveal underwater via CSS mask -->
+    <Image
+      src={heroImage}
+      alt="Expertise Reunimer : une vue de l'océan, symbole de notre savoir-faire maritime"
+      class="absolute inset-0 w-full h-full object-cover object-top [mask-image:linear-gradient(to_bottom,black_30%,transparent_70%)] [-webkit-mask-image:linear-gradient(to_bottom,black_30%,transparent_70%)]"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+
+    <!-- Hero Section -->
     <section
       class="-mt-[92px] relative z-20 h-[400px] sm:h-[500px] md:h-[600px] lg:h-[700px] overflow-hidden"
     >
@@ -49,26 +64,78 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
       </div>
     </section>
 
-    <!-- Pêche Expertise Section -->
-    <section
-      id="peche"
-      class="relative overflow-hidden py-16 md:py-24 lg:py-[120px]"
-    >
-      <!-- Background image -->
-      <Image
-        src={pecheImage}
-        alt="Banc de thons dans l'océan — expertise pêche de Reunimer"
-        class="absolute inset-0 w-full h-full object-cover"
-        widths={[375, 768, 1024, 1440]}
-        sizes="100vw"
-      />
-      <div class="absolute inset-0 bg-black/50"></div>
+    <!-- Filières Bar -->
+    <div class="relative z-20 flex items-end max-w-[1198px] mx-auto w-[calc(100%-40px)] md:w-[calc(100%-80px)] lg:w-full">
+      <div
+        class="flex-1 flex items-center justify-center bg-terre-laterite h-[36px] md:h-[42px] lg:h-[47px]"
+      >
+        <span
+          class="font-heading font-semibold text-[8px] md:text-[10px] lg:text-xs text-white uppercase tracking-[1.44px]"
+          >Pêche</span
+        >
+      </div>
+      <div
+        class="flex-1 flex items-center justify-center bg-lagon-mayotte h-[24px] md:h-[26px] lg:h-[29px]"
+      >
+        <span
+          class="font-heading font-semibold text-[8px] md:text-[10px] lg:text-xs text-white uppercase tracking-[1.44px]"
+          >Transformation</span
+        >
+      </div>
+      <div
+        class="flex-1 flex items-center justify-center bg-sable-corail h-[24px] md:h-[26px] lg:h-[29px]"
+      >
+        <span
+          class="font-heading font-semibold text-[8px] md:text-[10px] lg:text-xs text-white uppercase tracking-[1.44px]"
+          >Distribution</span
+        >
+      </div>
+      <div
+        class="flex-1 flex items-center justify-center bg-brume-alize h-[24px] md:h-[26px] lg:h-[29px]"
+      >
+        <span
+          class="font-heading font-semibold text-[8px] md:text-[10px] lg:text-xs text-white uppercase tracking-[1.44px]"
+          >Logistique</span
+        >
+      </div>
+      <div
+        class="flex-1 flex items-center justify-center bg-ecume-poudree h-[24px] md:h-[26px] lg:h-[29px]"
+      >
+        <span
+          class="font-heading font-semibold text-[8px] md:text-[10px] lg:text-xs text-white uppercase tracking-[1.44px]"
+          >RH</span
+        >
+      </div>
+    </div>
 
-      <Container class="relative z-10">
-        <!-- Intro text -->
-        <div class="lg:ml-[41%]">
+    <!-- Pêche Section -->
+    <section id="peche" class="relative scroll-mt-[135px]">
+      <!-- Overlay for text readability over blended ocean background -->
+      <div class="absolute inset-0 bg-black/30"></div>
+
+      <!-- Fish illustration (extends beyond left edge at desktop) -->
+      <div class="hidden lg:block absolute left-[-172px] top-[245px] w-[735px] h-[279px] z-[1]">
+        <Image
+          src={fishIllustration}
+          alt="Banc de thons — illustration pêche"
+          class="w-full h-full object-contain"
+          widths={[735]}
+          sizes="735px"
+        />
+      </div>
+
+      <Container class="relative z-10 pt-16 md:pt-24 lg:pt-[159px] pb-16 md:pb-24 lg:pb-[120px]">
+        <div class="lg:ml-[41.3%]">
+          <!-- Section title -->
+          <h2
+            class="font-display font-black text-[28px] leading-[34px] md:text-[36px] md:leading-[40px] lg:text-[40px] lg:leading-[44.5px] uppercase text-white max-w-[710px]"
+          >
+            Une pêche responsable
+          </h2>
+
+          <!-- Intro text -->
           <p
-            class="font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[1.461] text-white max-w-[701px]"
+            class="font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[1.461] text-white max-w-[701px] mt-8 md:mt-12 lg:mt-[42px]"
           >
             Reunimer maîtrise l'amont pour sécuriser l'aval. En accédant
             directement à la ressource, le Groupe garantit une matière première
@@ -82,9 +149,10 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
           >
             Une puissance de pêche hauturière et australe
           </h3>
+          <div class="w-full max-w-[710px] h-px bg-white/40 mt-4 lg:mt-[17px]"></div>
 
           <!-- La Réunion Stats -->
-          <div class="mt-8 md:mt-10 lg:mt-[63px]">
+          <div class="mt-8 md:mt-10 lg:mt-[33px]">
             <div
               class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[56px]"
             >
@@ -103,7 +171,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >17</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >longliners de 13 et 25 m</span
                     >
                   </div>
@@ -117,7 +185,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >1</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >palangrier de 68 m</span
                     >
                   </div>
@@ -135,7 +203,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >130</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >marins pêcheurs</span
                     >
                   </div>
@@ -149,7 +217,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >1800</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >tonnes de poissons pélagiques pêchés</span
                     >
                   </div>
@@ -159,20 +227,19 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
             </div>
           </div>
 
-          <!-- Subsection: Un modèle de collecte artisanale -->
+          <!-- Subsection: Un modèle de collecte artisanale et de mareyage -->
           <h3
             class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white tracking-[-1px] mt-12 md:mt-16 lg:mt-[100px] max-w-[710px]"
           >
             Un modèle de collecte artisanale et de mareyage
           </h3>
+          <div class="w-full max-w-[710px] h-px bg-white/40 mt-4 lg:mt-[17px]"></div>
 
-          <!-- Madagascar Stats -->
-          <div class="mt-8 md:mt-10 lg:mt-[63px]">
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[56px]"
-            >
-              <!-- Left column -->
-              <div class="flex flex-col gap-[18px]">
+          <!-- Madagascar Stats + Image -->
+          <div class="mt-8 md:mt-10 lg:mt-[33px]">
+            <div class="flex flex-col lg:flex-row lg:gap-[54px]">
+              <!-- Left: stats -->
+              <div class="flex flex-col gap-[18px] lg:w-[326px] lg:shrink-0">
                 <p
                   class="font-body font-bold text-base leading-[1.4] text-white"
                 >
@@ -186,7 +253,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >XX</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >Nombre de collecteurs</span
                     >
                   </div>
@@ -200,16 +267,12 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >86</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >bateaux / pirogues de pêche artisanale</span
                     >
                   </div>
                   <div class="w-full h-px bg-white/40"></div>
                 </div>
-              </div>
-
-              <!-- Right column -->
-              <div class="flex flex-col gap-3 md:mt-[36px]">
                 <!-- Stat row: 5400 km -->
                 <div class="flex flex-col gap-3">
                   <div class="flex items-end justify-between text-white">
@@ -218,23 +281,32 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >5400</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >km de littoral d'activité</span
                     >
                   </div>
                   <div class="w-full h-px bg-white/40"></div>
                 </div>
               </div>
+
+              <!-- Right: Madagascar image -->
+              <div class="mt-6 lg:mt-0 lg:w-[330px] lg:h-[235px] rounded-[5px] overflow-hidden">
+                <Image
+                  src={pecheMadagascarImage}
+                  alt="Pêche artisanale à Madagascar"
+                  class="w-full h-full object-cover"
+                  widths={[330, 660]}
+                  sizes="(max-width: 1024px) 100vw, 330px"
+                />
+              </div>
             </div>
           </div>
 
-          <!-- Boulogne-sur-Mer Stats -->
-          <div class="mt-10 md:mt-14 lg:mt-[100px]">
-            <div
-              class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[56px]"
-            >
-              <!-- Left column -->
-              <div class="flex flex-col gap-[18px]">
+          <!-- Boulogne-sur-Mer Stats + Image -->
+          <div class="mt-10 md:mt-14 lg:mt-[62px]">
+            <div class="flex flex-col lg:flex-row lg:gap-[54px]">
+              <!-- Left: stats -->
+              <div class="flex flex-col gap-[18px] lg:w-[326px] lg:shrink-0">
                 <p
                   class="font-body font-bold text-base leading-[1.4] text-white"
                 >
@@ -248,7 +320,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >23</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >années d'expertise dans le mareyage</span
                     >
                   </div>
@@ -262,16 +334,12 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >8</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >bateaux ou barques de pêche artisanale</span
                     >
                   </div>
                   <div class="w-full h-px bg-white/40"></div>
                 </div>
-              </div>
-
-              <!-- Right column -->
-              <div class="flex flex-col gap-3 md:mt-[36px]">
                 <!-- Stat row: XX tonnes -->
                 <div class="flex flex-col gap-3">
                   <div class="flex items-end justify-between text-white">
@@ -280,11 +348,126 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                       >XX</span
                     >
                     <span
-                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                      class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                       >tonnes de produits de la mer achetés</span
                     >
                   </div>
                   <div class="w-full h-px bg-white/40"></div>
+                </div>
+              </div>
+
+              <!-- Right: Boulogne image placeholder -->
+              <div class="mt-6 lg:mt-0 lg:w-[330px] lg:h-[247px] rounded-[5px] overflow-hidden bg-brume-alize/30">
+                <!-- TODO: Replace with actual Boulogne image (Figma 729:16339) -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Légine subtitle -->
+          <p
+            class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white tracking-[-1px] mt-12 md:mt-16 lg:mt-[80px] max-w-[710px]"
+          >
+            Reunimer sur le marché de la pêche à la légine dans les TAAF
+          </p>
+
+          <!-- Pie Charts: Légine Quotas -->
+          <div class="flex flex-col sm:flex-row gap-8 lg:gap-[49px] mt-8 md:mt-10 lg:mt-[57px]">
+            <!-- Chart 1: 2024/25 — 91% / 9% -->
+            <div class="relative pt-7 pb-7">
+              <div class="relative w-[180px] h-[180px] md:w-[200px] md:h-[200px] lg:w-[234px] lg:h-[234px]">
+                <svg viewBox="0 0 234 234" class="w-full h-full">
+                  <!-- Background: bleu-abysse full circle -->
+                  <circle cx="117" cy="117" r="90" fill="none" stroke="#002C41" stroke-width="27" />
+                  <!-- Foreground: terre-laterite 91% arc, gap centered at top -->
+                  <circle cx="117" cy="117" r="90" fill="none" stroke="#A34C26" stroke-width="27"
+                    stroke-dasharray="514.59 50.89" stroke-dashoffset="-25.45"
+                    transform="rotate(-90 117 117)" />
+                </svg>
+                <!-- Center text -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="font-heading font-semibold text-[24px] md:text-[28px] lg:text-[32px] text-white leading-tight">5542 T</span>
+                  <span class="font-body font-normal text-xs md:text-sm lg:text-base text-white">2024/25</span>
+                </div>
+              </div>
+              <!-- Top percentage (bleu-abysse slice) -->
+              <p class="absolute top-0 left-1/2 -translate-x-1/2 font-body font-bold text-xs md:text-sm lg:text-base text-bleu-abysse">9%</p>
+              <!-- Bottom percentage (terre-laterite slice) -->
+              <p class="absolute bottom-0 left-1/2 -translate-x-1/2 font-body font-bold text-xs md:text-sm lg:text-base text-white">91%</p>
+            </div>
+
+            <!-- Chart 2: 2025/26 — 89% / 11% -->
+            <div class="relative pt-7 pb-7">
+              <div class="relative w-[180px] h-[180px] md:w-[200px] md:h-[200px] lg:w-[234px] lg:h-[234px]">
+                <svg viewBox="0 0 234 234" class="w-full h-full">
+                  <!-- Background: bleu-abysse full circle -->
+                  <circle cx="117" cy="117" r="90" fill="none" stroke="#002C41" stroke-width="27" />
+                  <!-- Foreground: terre-laterite 89% arc, gap centered at top -->
+                  <circle cx="117" cy="117" r="90" fill="none" stroke="#A34C26" stroke-width="27"
+                    stroke-dasharray="503.28 62.2" stroke-dashoffset="-31.1"
+                    transform="rotate(-90 117 117)" />
+                </svg>
+                <!-- Center text -->
+                <div class="absolute inset-0 flex flex-col items-center justify-center">
+                  <span class="font-heading font-semibold text-[24px] md:text-[28px] lg:text-[32px] text-white leading-tight">4780 T</span>
+                  <span class="font-body font-normal text-xs md:text-sm lg:text-base text-white">2025/26</span>
+                </div>
+              </div>
+              <!-- Top percentage (bleu-abysse slice) -->
+              <p class="absolute top-0 left-1/2 -translate-x-1/2 font-body font-bold text-xs md:text-sm lg:text-base text-bleu-abysse">11%</p>
+              <!-- Bottom percentage (terre-laterite slice) -->
+              <p class="absolute bottom-0 left-1/2 -translate-x-1/2 font-body font-bold text-xs md:text-sm lg:text-base text-white">89%</p>
+            </div>
+          </div>
+
+          <!-- Certifications -->
+          <div class="mt-12 md:mt-16 lg:mt-[83px]">
+            <h3
+              class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white tracking-[-1px] max-w-[467px]"
+            >
+              Une exigence de durabilité certifiée
+            </h3>
+            <div class="w-full max-w-[710px] h-px bg-white/40 mt-4 lg:mt-[46px]"></div>
+
+            <p
+              class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mt-4 lg:mt-[21px] max-w-[543px]"
+            >
+              Notre stratégie repose sur la sélectivité des espèces et le respect
+              rigoureux des quotas et des saisons. Cet engagement est validé par
+              des certifications internationales de référence :
+            </p>
+
+            <!-- Logos and certification list -->
+            <div
+              class="mt-8 md:mt-10 lg:mt-[108px] flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-[80px] items-start"
+            >
+              <!-- MSC logo + dates -->
+              <div class="flex items-start gap-6 lg:gap-[32px]">
+                <img
+                  src="/icons/logo-msc.svg"
+                  alt="Label MSC — Marine Stewardship Council"
+                  class="w-[80px] md:w-[109px] h-auto"
+                />
+                <div
+                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-white"
+                >
+                  <p>Espadon (2016)</p>
+                  <p>Légine (2025)</p>
+                  <p>Thon Germon (2026)</p>
+                </div>
+              </div>
+
+              <!-- Ecolabel logo + dates -->
+              <div class="flex items-start gap-6 lg:gap-[32px]">
+                <img
+                  src="/icons/logo-ecolabel.svg"
+                  alt="Label Écolabel — certification durable"
+                  class="w-[100px] md:w-[146px] h-auto"
+                />
+                <div
+                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-white"
+                >
+                  <p>Légine (2022)</p>
+                  <p>Grenadier (2025)</p>
                 </div>
               </div>
             </div>
@@ -292,81 +475,6 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
         </div>
       </Container>
     </section>
-  </div>
-  <section id="peche" class="relative py-16 md:py-24 lg:py-[120px]">
-    <Image
-      src={heroImage2}
-      alt="Expertise Reunimer : une vue de l'océan, symbole de notre savoir-faire maritime"
-      class="absolute h-auto left-0 w-full bottom-0"
-      widths={[375, 768, 1024, 1440]}
-      sizes="100vw"
-    />
-    <Container class="relative z-10">
-      <!-- Intro text -->
-      <div class="lg:ml-[41%]">
-        <!-- Légine subtitle -->
-        <p
-          class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white tracking-[-1px] mt-12 md:mt-16 lg:mt-[100px] max-w-[710px]"
-        >
-          Reunimer sur le marché de la pêche à la légine dans les TAAF
-        </p>
-
-        <!-- Certifications -->
-        <div class="mt-12 md:mt-16 lg:mt-[100px]">
-          <h3
-            class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white tracking-[-1px] max-w-[467px]"
-          >
-            Une exigence de durabilité certifiée
-          </h3>
-          <div class="w-full max-w-[710px] h-px bg-white/40 mt-4 lg:mt-[46px]">
-          </div>
-
-          <p
-            class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mt-4 lg:mt-[21px] max-w-[543px]"
-          >
-            Notre stratégie repose sur la sélectivité des espèces et le respect
-            rigoureux des quotas et des saisons. Cet engagement est validé par
-            des certifications internationales de référence :
-          </p>
-
-          <!-- Logos and certification list -->
-          <div
-            class="mt-8 md:mt-10 lg:mt-[108px] flex flex-col md:flex-row gap-8 md:gap-10 lg:gap-[80px] items-start"
-          >
-            <!-- MSC logo + first column -->
-            <div class="flex items-start gap-6 lg:gap-[50px]">
-              <img
-                src="/icons/logo-msc.svg"
-                alt="Label MSC — Marine Stewardship Council"
-                class="w-[80px] md:w-[109px] h-auto"
-              />
-              <div
-                class="font-body font-normal text-sm md:text-base leading-[1.4] text-white"
-              >
-                <p>Espadon (2016)</p>
-                <p>Légine (2025)</p>
-                <p>Thon Germon (2026)</p>
-              </div>
-            </div>
-
-            <!-- Ecolabel logo + second column -->
-            <div class="flex items-start gap-6 lg:gap-[50px]">
-              <img
-                src="/icons/logo-ecolabel.svg"
-                alt="Label Écolabel — certification durable"
-                class="w-[100px] md:w-[146px] h-auto"
-              />
-              <div
-                class="font-body font-normal text-sm md:text-base leading-[1.4] text-white"
-              >
-                <p>Légine (2022)</p>
-                <p>Grenadier (2025)</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Container>
 
     <!-- Tuna solo image (transition to next section) -->
     <div class="relative z-10 mt-12 md:mt-16 lg:mt-[120px]">
@@ -380,10 +488,10 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
         />
       </Container>
     </div>
-  </section>
+  </div>
 
   <!-- Transformation Section: "Une production experte" -->
-  <section id="transformation" class="relative overflow-hidden">
+  <section id="transformation" class="relative overflow-hidden scroll-mt-[135px]">
     <!-- Section title on gradient bg -->
     <div
       class="relative bg-gradient-to-b from-white to-[#ccc] py-12 md:py-16 lg:py-[16px]"
@@ -501,7 +609,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
   </section>
 
   <!-- Quality & Safety Section -->
-  <section id="qualite" class="bg-white py-16 md:py-24 lg:py-[120px]">
+  <section id="qualite" class="bg-white py-16 md:py-24 lg:py-[120px] scroll-mt-[135px]">
     <Container>
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
         <!-- Left column: Engagement descriptions -->
@@ -554,7 +662,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                   >550</span
                 >
                 <span
-                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                   >test Eurofins*</span
                 >
               </div>
@@ -567,7 +675,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                   >4210</span
                 >
                 <span
-                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                  class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                   >test en autocontrôle*</span
                 >
               </div>
@@ -632,7 +740,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >1800</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits traités</span
                   >
                 </div>
@@ -645,7 +753,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits transformés</span
                   >
                 </div>
@@ -658,7 +766,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >40</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >Professionnels en production et qualité</span
                   >
                 </div>
@@ -680,7 +788,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits traités</span
                   >
                 </div>
@@ -693,7 +801,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits transformés</span
                   >
                 </div>
@@ -706,7 +814,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >emplois en usine</span
                   >
                 </div>
@@ -728,7 +836,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits traités</span
                   >
                 </div>
@@ -741,7 +849,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >XX</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >tonnes de produits transformés</span
                   >
                 </div>
@@ -754,7 +862,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
                     >40</span
                   >
                   <span
-                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[181px]"
+                    class="font-body font-normal text-sm md:text-base leading-[1.4] text-right w-[140px] md:w-[181px]"
                     >emplois en usine</span
                   >
                 </div>
@@ -768,7 +876,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
   </section>
 
   <!-- Distribution Section -->
-  <section id="distribution" class="relative overflow-hidden">
+  <section id="distribution" class="relative overflow-hidden scroll-mt-[135px]">
     <!-- Magazine cover imagery area -->
     <div
       class="relative bg-bleu-abysse py-16 md:py-24 lg:py-[120px] overflow-hidden"
@@ -813,7 +921,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
 
         <!-- 3 Distribution Cards -->
         <div
-          class="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12 lg:mt-[80px]"
+          class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 mt-12 lg:mt-[80px]"
         >
           <!-- Card: Approvisionnement -->
           <div class="flex flex-col">
@@ -907,41 +1015,340 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
     </div>
   </section>
 
+  <!-- Nos marques commerciales Section -->
+  <div class="h-[10px] md:h-[14px] lg:h-[18px] bg-sable-corail"></div>
+  <section class="bg-white py-16 md:py-24 lg:py-[120px]">
+    <Container>
+      <div class="flex flex-col lg:flex-row lg:gap-[80px]">
+        <!-- Brands list -->
+        <div class="flex flex-col gap-10 md:gap-12 lg:gap-[60px]">
+          <!-- Le Pêcheur Créole (image not yet exported) -->
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 lg:gap-[40px]">
+            <div class="w-[160px] md:w-[180px] lg:w-[200px] shrink-0 flex items-center justify-center">
+              <div class="w-full h-[120px] bg-gris-clair rounded flex items-center justify-center text-brume-alize text-sm">Le Pêcheur Créole</div>
+            </div>
+            <div>
+              <h3 class="font-heading font-semibold text-lg md:text-xl lg:text-2xl text-bleu-abysse mb-2">
+                Nos marques commerciales
+              </h3>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse max-w-[500px]">
+                Int occulparum et ipsum num amus dia conest, quia volum
+                harum vendis aut et labor sit harum alique sus as dolorunditae
+                rem simillcipsa dolor aut quatur rehenec.
+              </p>
+              <a href="#" class="font-heading font-semibold text-sm md:text-base text-bleu-abysse underline mt-3 inline-block">
+                En savoir plus sur Le Pêcheur Créole &gt;&gt;
+              </a>
+            </div>
+          </div>
+
+          <!-- SeaFood Korail -->
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 lg:gap-[40px]">
+            <div class="w-[160px] md:w-[180px] lg:w-[200px] shrink-0 flex items-center justify-center">
+              <Image src={seafoodKorailLogo} alt="SeaFood Korail" class="max-w-full h-auto" />
+            </div>
+            <div>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse max-w-[500px]">
+                Int occulparum et ipsum num amus dia conest, quia volum
+                harum vendis aut et labor sit harum alique sus as dolorunditae
+                rem simillcipsa dolor aut quatur rehenec.
+              </p>
+              <a href="#" class="font-heading font-semibold text-sm md:text-base text-bleu-abysse underline mt-3 inline-block">
+                En savoir plus sur SeaFood Korail &gt;&gt;
+              </a>
+            </div>
+          </div>
+
+          <!-- Red Premier -->
+          <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 lg:gap-[40px]">
+            <div class="w-[160px] md:w-[180px] lg:w-[200px] shrink-0 flex items-center justify-center">
+              <Image src={redPremierLogo} alt="Red Premier" class="max-w-full h-auto" />
+            </div>
+            <div>
+              <p class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse max-w-[500px]">
+                Int occulparum et ipsum num amus dia conest, quia volum
+                harum vendis aut et labor sit harum alique sus as dolorunditae
+                rem simillcipsa dolor aut quatur rehenec.
+              </p>
+              <a href="#" class="font-heading font-semibold text-sm md:text-base text-bleu-abysse underline mt-3 inline-block">
+                En savoir plus sur Red Premier &gt;&gt;
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
   <!-- Logistique & Supports Section -->
   <section
     id="logistique"
-    class="relative overflow-hidden min-h-[400px] md:min-h-[600px] lg:min-h-[800px]"
+    class="relative overflow-hidden min-h-[400px] md:min-h-[600px] lg:min-h-[800px] scroll-mt-[135px]"
   >
-    <!-- Black background -->
-    <div class="absolute inset-0 bg-black"></div>
-    <!-- Background image with opacity -->
+    <!-- Background image -->
     <Image
       src={supportBgImage}
       alt="Expertise logistique et supports — maintenance de la flotte Reunimer"
-      class="absolute inset-0 w-full h-full object-cover opacity-50"
+      class="absolute inset-0 w-full h-full object-cover"
       widths={[375, 768, 1024, 1440]}
       sizes="100vw"
     />
 
-    <Container class="relative z-10 py-16 md:py-24 lg:py-[120px]">
-      <div class="lg:max-w-[709px]">
-        <h2
-          class="font-display font-black text-[28px] leading-[34px] md:text-[36px] md:leading-[40px] lg:text-[40px] lg:leading-[44.5px] uppercase text-white"
-        >
-          LOGISTIQUE &amp; SUPPORTS&nbsp;:<br />
-          LA FORCE INVISIBLE
-        </h2>
+    <Container class="relative z-10 pt-[400px] md:pt-[550px] lg:pt-[720px] pb-16 md:pb-24 lg:pb-[120px]">
+      <!-- Title -->
+      <h2
+        class="font-display font-black text-[28px] leading-[34px] md:text-[36px] md:leading-[40px] lg:text-[40px] lg:leading-[44.5px] uppercase text-white max-w-[709px]"
+      >
+        LOGISTIQUE &amp; SUPPORTS&nbsp;:<br />
+        LA FORCE INVISIBLE
+      </h2>
 
-        <p
-          class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mt-8 md:mt-12 lg:mt-[80px] max-w-[382px]"
-        >
-          Grâce à une précision d'intervention rigoureuse et une expertise en
-          maintenance intégrée, nous insufflons l'énergie nécessaire à la
-          disponibilité de notre flotte et de nos outils industriels. Cette
-          maîtrise technique assure une fiabilité exemplaire de nos équipements,
-          permettant au Groupe de rester dans un mouvement perpétuel et d'aller
-          toujours plus loin dans ses ambitions.
-        </p>
+      <!-- Intro paragraph -->
+      <p
+        class="font-body font-normal text-sm md:text-base lg:text-base leading-[1.4] text-white mt-6 md:mt-8 lg:mt-[40px] max-w-[660px]"
+      >
+        Derrière chaque produit livré se cache une organisation millimétrée,
+        véritable colonne vertébrale du Groupe. La division «&nbsp;Logistique
+        &amp; Supports&nbsp;» est l'énergie interne qui propulse Reunimer,
+        transformant les défis techniques en leviers de performance
+        pour garantir une continuité parfaite entre l'océan et la terre.
+      </p>
+
+      <!-- Two-column text blocks -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[80px] mt-10 md:mt-14 lg:mt-[60px]">
+        <!-- Left column -->
+        <div class="max-w-[500px]">
+          <h3
+            class="font-heading font-semibold text-base md:text-lg lg:text-xl leading-[1.3] text-white"
+          >
+            L'excellence technique pour<br />
+            une performance constante
+          </h3>
+          <p
+            class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mt-4 lg:mt-[16px]"
+          >
+            Grâce à une précision d'intervention rigoureuse et une expertise en
+            maintenance intégrée, nous insufflons l'énergie nécessaire à la
+            disponibilité de notre flotte et de nos outils industriels. Cette
+            maîtrise technique assure une fiabilité exemplaire de nos équipements,
+            permettant au Groupe de rester dans un mouvement perpétuel et d'aller
+            toujours plus loin dans ses ambitions.
+          </p>
+        </div>
+
+        <!-- Right column -->
+        <div class="max-w-[500px]">
+          <h3
+            class="font-heading font-semibold text-base md:text-lg lg:text-xl leading-[1.3] text-white"
+          >
+            Fluidité et sécurité&nbsp;:<br />
+            Une maîtrise sans accroc
+          </h3>
+          <p
+            class="font-body font-normal text-sm md:text-base leading-[1.4] text-white mt-4 lg:mt-[16px]"
+          >
+            Notre logistique est pensée pour la performance&nbsp;: elle
+            assure la fluidité totale des flux, du quai jusqu'au client
+            final, dans le respect strict de la chaîne du froid. La
+            sécurité est au cœur de cet engagement, avec une
+            prévention rigoureuse des risques matériels et
+            humains. En maîtrisant ces piliers, Reunimer garantit
+            une efficacité opérationnelle totale, transformant
+            chaque défi logistique en un levier de réussite
+            durable.
+          </p>
+        </div>
+      </div>
+
+      <!-- Stats section -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-10 lg:gap-[80px] mt-10 md:mt-14 lg:mt-[60px]">
+        <!-- À la Réunion -->
+        <div>
+          <p class="font-heading font-semibold text-sm md:text-base text-white mb-4 lg:mb-6">
+            À la Réunion
+          </p>
+          <div class="space-y-4 lg:space-y-5">
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">25</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">Emplois en logistique<br />et maintenance</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">32</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">véhicules</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">1300</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">emplacements palettes</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- À Madagascar -->
+        <div>
+          <p class="font-heading font-semibold text-sm md:text-base text-white mb-4 lg:mb-6">
+            À Madagascar
+          </p>
+          <div class="space-y-4 lg:space-y-5">
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">XX</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">Emplois en logistique<br />et maintenance</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">XX</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">véhicules</span>
+            </div>
+            <div class="flex items-baseline justify-between">
+              <span class="font-display font-black text-[32px] md:text-[40px] lg:text-[48px] leading-none text-white">XX</span>
+              <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-right w-[140px] md:w-[181px]">emplacements palettes</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <!-- RSE & RH Section -->
+  <section
+    id="rh"
+    class="relative overflow-hidden min-h-[600px] md:min-h-[800px] lg:h-[1212px] scroll-mt-[135px]"
+  >
+    <!-- Background image -->
+    <Image
+      src={rhBgImage}
+      alt="Politique ressources humaines — marins pêcheurs Reunimer"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[375, 768, 1024, 1440]}
+      sizes="100vw"
+    />
+
+    <Container class="relative z-10 py-16 md:py-24 lg:py-0">
+      <div class="lg:pl-[45px]">
+        <!-- Top area: Title + intro -->
+        <div class="max-w-[934px] lg:pt-[115px]">
+          <h2
+            class="font-display font-black text-[28px] leading-[34px] md:text-[36px] md:leading-[40px] lg:text-[40px] lg:leading-[44.5px] uppercase text-ecume-poudree"
+          >
+            NOTRE POLITIQUE<br />
+            RESSOURCES HUMAINES
+          </h2>
+
+          <p
+            class="font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[1.461] text-bleu-abysse mt-4 lg:mt-[20px]"
+          >
+            Petit texte d'introduction sur la politique RH.
+          </p>
+        </div>
+
+        <!-- Bottom area: "La même chance pour tous" + donut charts -->
+        <div class="mt-24 md:mt-40 lg:mt-[459px] max-w-[710px]">
+          <p
+            class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white"
+          >
+            La même chance pour tous
+          </p>
+          <div class="w-full max-w-[522px] h-px bg-white/40 mt-4 lg:mt-[22px]">
+          </div>
+
+          <!-- Donut Charts -->
+          <div
+            class="flex flex-col sm:flex-row gap-8 md:gap-10 lg:gap-[67px] mt-10 lg:mt-[62px]"
+          >
+            <!-- Chart 1: Proportion Hommes/femmes -->
+            <div class="relative">
+              <div class="relative w-[180px] h-[180px] md:w-[210px] md:h-[210px] lg:w-[234px] lg:h-[234px]">
+                <!-- SVG Donut Chart -->
+                <svg viewBox="0 0 234 234" class="w-full h-full">
+                  <!-- Track (white) -->
+                  <circle
+                    cx="117"
+                    cy="117"
+                    r="100"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="34"
+                  />
+                  <!-- Filled arc (ecume-poudree) — ~70% fill, gap at upper-right -->
+                  <circle
+                    cx="117"
+                    cy="117"
+                    r="100"
+                    fill="none"
+                    stroke="#6EAEB5"
+                    stroke-width="34"
+                    stroke-dasharray="440 628"
+                    stroke-dashoffset="-52"
+                    stroke-linecap="butt"
+                  />
+                </svg>
+                <!-- Center label -->
+                <p
+                  class="absolute left-1/2 -translate-x-1/2 lg:top-[96px] top-[70px] w-[140px] md:w-[160px] lg:w-[175px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-white text-center"
+                >
+                  Proportion<br />Hommes/femmes
+                </p>
+                <!-- Bottom-left X% — inside colored ring -->
+                <p
+                  class="absolute lg:left-[32.5px] lg:-translate-x-1/2 lg:top-[155px] left-[5%] top-[66%] w-[50px] md:w-[60px] lg:w-[67px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-white text-center"
+                >
+                  X%
+                </p>
+              </div>
+              <!-- Right-side X% — inside white ring gap -->
+              <p
+                class="absolute lg:left-[204px] lg:top-[96px] left-[82%] top-[38%] w-[48px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-bleu-abysse"
+              >
+                X%
+              </p>
+            </div>
+
+            <!-- Chart 2: Proportion -de 30 ans / +de 30 ans -->
+            <div class="relative">
+              <div class="relative w-[180px] h-[180px] md:w-[210px] md:h-[210px] lg:w-[234px] lg:h-[234px]">
+                <svg viewBox="0 0 234 234" class="w-full h-full">
+                  <!-- Track (white) -->
+                  <circle
+                    cx="117"
+                    cy="117"
+                    r="100"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="34"
+                  />
+                  <!-- Filled arc (ecume-poudree) — ~70% fill, gap at upper-right -->
+                  <circle
+                    cx="117"
+                    cy="117"
+                    r="100"
+                    fill="none"
+                    stroke="#6EAEB5"
+                    stroke-width="34"
+                    stroke-dasharray="440 628"
+                    stroke-dashoffset="-52"
+                    stroke-linecap="butt"
+                  />
+                </svg>
+                <!-- Center label -->
+                <p
+                  class="absolute left-1/2 -translate-x-1/2 lg:top-[84px] top-[58px] w-[140px] md:w-[160px] lg:w-[175px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-white text-center"
+                >
+                  Proportion<br />- de 30 ans<br />/+ de 30 ans
+                </p>
+                <!-- Bottom-left X% — inside colored ring -->
+                <p
+                  class="absolute lg:left-[32.5px] lg:-translate-x-1/2 lg:top-[155px] left-[5%] top-[66%] w-[50px] md:w-[60px] lg:w-[67px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-white text-center"
+                >
+                  X%
+                </p>
+              </div>
+              <!-- Right-side X% — inside white ring gap -->
+              <p
+                class="absolute lg:left-[204px] lg:top-[96px] left-[82%] top-[38%] w-[48px] font-body font-bold text-xs md:text-sm lg:text-base leading-[1.4] text-bleu-abysse"
+              >
+                X%
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </Container>
   </section>

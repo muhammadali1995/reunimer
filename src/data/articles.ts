@@ -1,6 +1,10 @@
 import type { Article, ArticleDetail } from '../types/articles';
 
 import articlePlaceholder from '../assets/images/actus/article-4.jpg';
+import actuChefMarx from '../assets/images/actus/actu-chef-thierry-marx.png';
+import actuLeaderMag from '../assets/images/actus/actu-leader-magazine.png';
+import actuLangouste from '../assets/images/actus/actu-langouste-st-valentin.png';
+import actuEngagement from '../assets/images/actus/actu-engagement-durable.png';
 
 export const articles: Article[] = [
   // Featured large
@@ -10,8 +14,8 @@ export const articles: Article[] = [
     tagColor: 'turquoise-ocean',
     date: '11 FÉV. 2026',
     title: 'Visite du Chef Thierry Marx',
-    image: articlePlaceholder,
-    imageAlt: 'Visite du Chef Thierry Marx',
+    image: actuChefMarx,
+    imageAlt: 'Visite du Chef Thierry Marx chez Reunimer',
     featured: 'large',
   },
   // Featured small
@@ -21,7 +25,7 @@ export const articles: Article[] = [
     tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Reunimer en couverture du Leader Magazine',
-    image: articlePlaceholder,
+    image: actuLeaderMag,
     imageAlt: 'Reunimer en couverture du Leader Magazine',
     featured: 'small',
   },
@@ -31,7 +35,7 @@ export const articles: Article[] = [
     tagColor: 'sable-corail',
     date: '11 FÉV. 2026',
     title: 'La langouste pour la St-Valentin',
-    image: articlePlaceholder,
+    image: actuLangouste,
     imageAlt: 'La langouste pour la St-Valentin',
     featured: 'small',
   },
@@ -41,7 +45,7 @@ export const articles: Article[] = [
     tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
-    image: articlePlaceholder,
+    image: actuEngagement,
     imageAlt: 'Un engagement durable',
     featured: 'small',
   },

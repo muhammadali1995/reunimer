@@ -709,6 +709,13 @@ All changes are **non-breaking** — each phase produces identical visual output
 | ~~Low~~ | ~~Phase 6b — Navbar SVG/markup dedup~~ | ~~Code quality~~ | ~~Low~~ | Done |
 | ~~Low~~ | ~~Phase 14 — UI component cleanup~~ | ~~Code quality~~ | ~~Low~~ | Done |
 | ~~Low~~ | ~~Phase 15 — Fix TypeScript errors~~ | ~~Code quality~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 16 — Groupe types extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 17 — Groupe data extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Low~~ | ~~Phase 18 — SubsidiaryCard component~~ | ~~Code quality~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 19 — Implantations types/data extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Medium~~ | ~~Phase 20 — WorldStats types/data extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~High~~ | ~~Phase 21 — Home page types/data extraction~~ | ~~Maintainability~~ | ~~Low~~ | Done |
+| ~~Low~~ | ~~Phase 22 — Home page minor code quality~~ | ~~Code quality~~ | ~~Low~~ | Done |
 
 ---
 
@@ -724,6 +731,261 @@ All changes are **non-breaking** — each phase produces identical visual output
    - **Fix:** Add `href="/actualites"` (or any preview URL) to all 3 `ArticleCard` usages.
 
 **Estimated scope:** 1 file modified, 3 lines added
+
+---
+
+### Phase 16 — Groupe Page: Types Extraction (Low Risk)
+
+**Goal:** Move inline interfaces and type definitions from groupe section components to `src/types/groupe.ts`.
+
+**Issues Found:**
+
+44. **IntegratedModelSection** — `cards` array has inline shape `{ title, description, color, fullWidth? }` with no exported type.
+45. **GroupStatisticsSection** — `stats` array has inline shape `{ number, description }` with no exported type.
+46. **MissionSection** — `values` array has inline shape `{ title, text }` with no exported type.
+47. **HistorySection** — `milestones` array has inline shape `{ year, description }` with no exported type.
+48. **FilialesSection** — subsidiary data uses `ImageMetadata` but has no exported `Subsidiary` or `Region` type.
+
+**Tasks:**
+1. Create `src/types/groupe.ts` with:
+   ```ts
+   export interface ExpertiseCard {
+     title: string;
+     description: string;
+     color: string;
+     fullWidth?: boolean;
+   }
+
+   export interface GroupStat {
+     number: string;
+     description: string;
+   }
+
+   export interface ValueItem {
+     title: string;
+     text: string;
+   }
+
+   export interface Milestone {
+     year: string;
+     description: string;
+   }
+
+   export interface Subsidiary {
+     name: string;
+     label: string;
+     logo: ImageMetadata;
+   }
+
+   export interface FilialRegion {
+     name: string;
+     subsidiaries: Subsidiary[];
+   }
+   ```
+2. Update `src/types/index.ts` to re-export from `groupe.ts`
+3. Import types in each section component
+
+**Estimated scope:** 1 new file, 1 modified, 5 components updated (type imports only)
+
+---
+
+### Phase 17 — Groupe Page: Data Extraction (Low Risk)
+
+**Goal:** Move all inline data arrays from groupe section components to `src/data/groupe.ts`, matching the engagements/navbar/articles pattern.
+
+**Issues Found:**
+
+49. **IntegratedModelSection** — `cards` array (5 items, lines 20–48) hardcoded in component frontmatter.
+50. **GroupStatisticsSection** — `stats` array (3 items, lines 21–25) hardcoded in component frontmatter.
+51. **MissionSection** — `values` array (4 items, lines 24–41) hardcoded in component frontmatter.
+52. **HistorySection** — `milestones` array (4 items, lines 26–43) hardcoded in component frontmatter.
+53. **FilialesSection** — 10 logo imports + 3 region arrays (lines 26–35 imports, implicit in template) hardcoded in component frontmatter. This is the most impactful extraction — 10 dynamic imports + complex region structure.
+
+**Tasks:**
+1. Create `src/data/groupe.ts` with:
+   - `expertiseCards: ExpertiseCard[]`
+   - `groupStats: GroupStat[]`
+   - `missionValues: ValueItem[]`
+   - `historyMilestones: Milestone[]`
+   - `filialeRegions: FilialRegion[]` (includes logo imports)
+   - `groupSeo: { title: string; description: string }` (move from `groupe.astro`)
+2. Update each section component to import data from `../../data/groupe`
+3. Remove inline data arrays from component frontmatter
+4. **Verify:** All sections render identically
+
+**Estimated scope:** 1 new file, 5 components modified, page file simplified
+
+---
+
+### Phase 18 — Groupe Page: Reusable Subsidiary Logo Card (Low Risk)
+
+**Goal:** Extract the repeated logo card markup in FilialesSection into a reusable component.
+
+**Issues Found:**
+
+54. **FilialesSection** — The logo card pattern (bordered box + image + label) is repeated 10 times with identical markup (~6 lines each). Each instance has the same structure: `div.border.border-bleu-abysse` > `Image` + `p.font-body.font-bold`. This is the same pattern as the Figma "Bouton-*" component instances.
+
+**Tasks:**
+1. Create `src/components/ui/SubsidiaryCard.astro` with props:
+   - `logo: ImageMetadata` — company logo image
+   - `name: string` — company name (for alt text)
+   - `label: string` — activity description below logo
+2. Replace all 10 inline logo card blocks in `FilialesSection` with `<SubsidiaryCard />`
+3. **Verify:** Filiales section renders identically
+
+**Estimated scope:** 1 new file, 1 file modified, ~50 lines reduced from FilialesSection
+
+---
+
+### Phase 19 — ImplantationsSection: Types & Data Extraction (Low Risk)
+
+**Goal:** Move inline pin data and types from `ImplantationsSection.astro` to shared data/types files.
+
+**Issues Found:**
+
+55. **ImplantationsSection** — `reunionPins` (2 items), `madagascarPins` (4 items), `francePins` (2 items), and `worldPins` (3 items) arrays are all hardcoded in component frontmatter (lines 26–48). No exported type interfaces exist.
+56. **ImplantationsSection** — Two distinct pin shapes exist: regional pins have `{ name, desc, top, left }` with tooltips, while world pins have only `{ top, left }`. These should be separate interfaces.
+
+**Types to create** (add to `src/types/groupe.ts`):
+```ts
+export interface MapPin {
+  name: string;
+  desc: string;
+  top: string;
+  left: string;
+}
+
+export interface WorldPin {
+  top: string;
+  left: string;
+}
+```
+
+**Data to extract** (add to `src/data/groupe.ts`):
+- `reunionPins: MapPin[]` — 2 items
+- `madagascarPins: MapPin[]` — 4 items
+- `francePins: MapPin[]` — 2 items
+- `worldPins: WorldPin[]` — 3 items
+
+**Tasks:**
+1. Add `MapPin` and `WorldPin` interfaces to `src/types/groupe.ts`
+2. Re-export new types from `src/types/index.ts`
+3. Move all 4 pin arrays to `src/data/groupe.ts`
+4. Update `ImplantationsSection.astro` to import data and types
+5. **Verify:** Section renders identically, tooltips and GSAP animations still work
+
+**Estimated scope:** 3 files modified (types, data, component)
+
+---
+
+### Phase 20 — WorldStatsSection: Types & Data Extraction (Low Risk)
+
+**Goal:** Move inline chart data and types from `WorldStatsSection.astro` to shared data/types files.
+
+**Issues Found:**
+
+57. **WorldStatsSection** — `continents` array (7 items, lines 21–29) with shape `{ name, pct }` hardcoded in component frontmatter.
+58. **WorldStatsSection** — `portfolio` array (7 items, lines 31–39) with shape `{ label, pct, color }` hardcoded in component frontmatter.
+59. **WorldStatsSection** — `colorHex` map (lines 42–50) maps semantic color names to hex values. This duplicates the design token values from `tokens.css` / `tailwind.config.mjs` — needed for inline `style=` attributes where Tailwind classes can't be used (conic-gradient, dynamic colors).
+
+**Types to create** (add to `src/types/groupe.ts`):
+```ts
+export interface ContinentStat {
+  name: string;
+  pct: number;
+}
+
+export interface PortfolioItem {
+  label: string;
+  pct: number;
+  color: string;
+}
+```
+
+**Data to extract** (add to `src/data/groupe.ts`):
+- `continents: ContinentStat[]` — 7 items
+- `portfolio: PortfolioItem[]` — 7 items
+- `colorHex: Record<string, string>` — 7 color mappings
+
+**Note:** The `buildConicGradient()` function (lines 53–63) is rendering logic and should stay in the component — it transforms data into CSS, not data itself.
+
+**Tasks:**
+1. Add `ContinentStat` and `PortfolioItem` interfaces to `src/types/groupe.ts`
+2. Re-export new types from `src/types/index.ts`
+3. Move `continents`, `portfolio`, and `colorHex` to `src/data/groupe.ts`
+4. Update `WorldStatsSection.astro` to import data and types
+5. `buildConicGradient()` stays in the component (uses imported `portfolio` + `colorHex`)
+6. **Verify:** Both chart sections render identically
+
+**Estimated scope:** 3 files modified (types, data, component)
+
+---
+
+### Phase 21 — Home Page: Types & Data Extraction (Low Risk)
+
+**Goal:** Move inline data arrays and image imports from `index.astro` to shared data/types files, following the established pattern.
+
+**Issues Found:**
+
+60. **index.astro** — `filialeLogos` array (5 items, lines 29–35) with logo imports (src, alt, width, height) hardcoded in page frontmatter. No exported type.
+61. **index.astro** — `expertiseCards` array (5 items, lines 37–73) with image imports, descriptions, colors, and hrefs hardcoded in page frontmatter. Similar to groupe's `expertiseCards` but with different descriptions, images, and `href` fields. No exported type.
+62. **index.astro** — 4 featured `ArticleCard` calls (lines 274–319) with inline data (title, date, tag, image, href) that duplicates content already in `src/data/articles.ts`. The data file exports `featuredLargeArticle` and `featuredSmallArticles` but the home page doesn't use them.
+
+**Types to create** (new file `src/types/home.ts`):
+```ts
+import type { ImageMetadata } from 'astro';
+
+export interface FilialeLogoItem {
+  src: ImageMetadata;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+export interface HomeExpertiseCard {
+  title: string;
+  description: string;
+  image: ImageMetadata;
+  color: string;
+  href: string;
+}
+```
+
+**Data to extract** (new file `src/data/home.ts`):
+- `filialeLogos: FilialeLogoItem[]` — 5 items (move 5 SVG logo imports here)
+- `homeExpertiseCards: HomeExpertiseCard[]` — 5 items (move 5 expertise image imports here)
+
+**Article data reuse:**
+- Update `src/data/articles.ts` to use real article images instead of placeholder
+- Import `featuredLargeArticle` and `featuredSmallArticles` in home page from data file
+- Remove ~4 article image imports from index.astro
+
+**Tasks:**
+1. Create `src/types/home.ts` with `FilialeLogoItem` and `HomeExpertiseCard` interfaces
+2. Re-export from `src/types/index.ts`
+3. Create `src/data/home.ts` with `filialeLogos` and `homeExpertiseCards` (move image imports)
+4. Update `src/data/articles.ts` — replace placeholder images with real article images for featured articles
+5. Update `src/pages/index.astro` — import from data files, remove inline data arrays and image imports
+6. **Verify:** Home page renders identically
+
+**Estimated scope:** 2 new files (types, data), 2 modified (articles data, index page). Page reduced by ~95 lines.
+
+---
+
+### Phase 22 — Home Page: Minor Code Quality Fixes (Low Risk)
+
+**Goal:** Fix minor code style issues on the home page.
+
+**Issues Found:**
+
+63. **index.astro** (line 247) — Filiale logo carousel uses inline `style={`width: ${logo.width}px;`}` on each `<img>`, bypassing Tailwind. Move to CSS custom property or Tailwind arbitrary value.
+64. **index.astro** (lines 87–91, 241–248) — Uses raw `<img>` tags for SVG logos. Acceptable for SVGs (no WebP benefit), but inconsistent with project rules. **Low priority — leave as-is.**
+
+**Tasks:**
+1. Replace inline `style` width on logos with CSS custom property pattern: `style={`--logo-w: ${logo.width}px`}` + Tailwind class `w-[var(--logo-w)]`
+2. **Verify:** Logo carousel renders identically
+
+**Estimated scope:** 1 file modified, ~5 lines changed. Low priority.
 
 ---
 

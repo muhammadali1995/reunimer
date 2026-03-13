@@ -89,4 +89,64 @@ export function createScrollTimeline({
   return timeline;
 }
 
+/**
+ * Staggered scroll entrance — elements fade up one by one when scrolled into view.
+ * @param {string|Element} trigger - ScrollTrigger trigger element
+ * @param {string|Element[]} targets - Elements to animate
+ * @param {object} options
+ */
+export function staggeredEntrance(trigger, targets, options = {}) {
+  const {
+    start = 'top 80%',
+    stagger = 0.15,
+    duration = 0.7,
+    y = 40,
+    ease = 'power2.out',
+  } = options;
+
+  gsap.set(targets, { autoAlpha: 0, y });
+
+  const tl = gsap.timeline();
+  tl.to(targets, { autoAlpha: 1, y: 0, duration, ease, stagger });
+
+  ScrollTrigger.create({ trigger, start, once: true, animation: tl });
+
+  return tl;
+}
+
+/**
+ * Panel hover animation — slides a panel from a resting yPercent to 0 on hover.
+ * Also fades in inner reveal elements (separator, description, button).
+ * @param {Element} card - The hoverable card element
+ * @param {Element} panel - The sliding panel element
+ * @param {string|Element[]} revealEls - Elements inside the panel to fade in
+ * @param {object} options
+ */
+export function setupPanelHover(card, panel, revealEls, options = {}) {
+  const {
+    restY = 87.5,
+    duration = 0.35,
+    ease = 'power2.out',
+  } = options;
+
+  gsap.set(panel, { yPercent: restY });
+  gsap.set(revealEls, { autoAlpha: 0 });
+
+  let hoverTl = null;
+
+  card.addEventListener('mouseenter', () => {
+    if (hoverTl) hoverTl.kill();
+    hoverTl = gsap.timeline();
+    hoverTl.to(panel, { yPercent: 0, duration, ease });
+    hoverTl.to(revealEls, { autoAlpha: 1, duration: 0.25, ease, stagger: 0.06 }, '-=0.15');
+  });
+
+  card.addEventListener('mouseleave', () => {
+    if (hoverTl) hoverTl.kill();
+    hoverTl = gsap.timeline();
+    hoverTl.to(revealEls, { autoAlpha: 0, duration: 0.15, ease: 'power2.in' });
+    hoverTl.to(panel, { yPercent: restY, duration, ease: 'power2.in' }, '-=0.1');
+  });
+}
+
 export { gsap, ScrollTrigger };
