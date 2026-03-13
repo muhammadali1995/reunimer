@@ -1,0 +1,56 @@
+---
+/**
+ * "Le groupe en quelques chiffres" — Statistics Section
+ *
+ * Figma node: 729:3087 (Rectangle 19, y=1540, 1440 × 769)
+ * gris-clair bg (#F6F6F6), centered title, 3 stat rows with separator lines
+ * Decorative quote marks (Montserrat Medium 96px, white) overlapping above/below
+ *
+ * Stats container: 729:3088 (w=893, centered)
+ * Numbers: Zalando Sans Expanded Black ~82px, bleu-abysse
+ * Descriptions: Inter Regular ~24px, bleu-abysse, right-aligned
+ * Separators: 1px bleu-abysse lines
+ */
+
+import { groupStats } from '../../data/groupe';
+
+interface Props {
+  id?: string;
+}
+
+const { id } = Astro.props;
+---
+
+<section id={id} class="relative bg-gris-clair py-16 md:py-24 lg:py-[100px] overflow-hidden">
+  <!-- Decorative quote marks -->
+  <span class="absolute top-0 right-[20%] font-heading font-medium text-[96px] leading-none text-white select-none pointer-events-none hidden lg:block" aria-hidden="true">
+    &ldquo;
+  </span>
+  <span class="absolute bottom-0 right-[10%] font-heading font-medium text-[96px] leading-none text-white select-none pointer-events-none hidden lg:block" aria-hidden="true">
+    &rdquo;
+  </span>
+
+  <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+    <!-- Title -->
+    <h2 class="font-display font-black text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse text-center mb-12 lg:mb-16">
+      Le groupe en quelques chiffres
+    </h2>
+
+    <!-- Stats -->
+    <div class="mx-auto max-w-[893px] flex flex-col gap-6 lg:gap-[37px]">
+      {groupStats.map((stat, i) => (
+        <div>
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 sm:gap-4">
+            <p class="font-display font-black text-[40px] leading-[1.1] md:text-[60px] lg:text-[82px] lg:leading-[91px] uppercase text-bleu-abysse">
+              {stat.number}
+            </p>
+            <p class="font-body font-normal text-base md:text-xl lg:text-[24px] lg:leading-[1.4] text-bleu-abysse sm:text-right">
+              {stat.description}
+            </p>
+          </div>
+          <div class="mt-4 lg:mt-6 h-px bg-bleu-abysse w-full" />
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

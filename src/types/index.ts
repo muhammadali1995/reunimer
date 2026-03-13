@@ -58,3 +58,19 @@ export interface EngagementSectionProps {
 export type TagColor = 'bleu-abysse' | 'turquoise-ocean' | 'sable-corail';
 export type ArticleLayout = 'vertical' | 'horizontal';
 export type ArticleSize = 'sm' | 'lg';
+
+// Groupe page
+export type {
+  ExpertiseCard,
+  GroupStat,
+  ValueItem,
+  Milestone,
+  Subsidiary,
+  FilialRegion,
+  MapPin,
+  WorldPin,
+  ContinentStat,
+  PortfolioItem,
+} from './groupe';
+
+export type { FilialeLogoItem, HomeExpertiseCard } from './home';

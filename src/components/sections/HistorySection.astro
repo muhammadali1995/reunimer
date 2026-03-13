@@ -1,0 +1,109 @@
+---
+/**
+ * "Notre histoire" — History Header + Timeline Section
+ *
+ * Figma nodes:
+ *   729:3236 — Divider bar (y=3282, h=30)
+ *   729:3160 — Header (y=3308, h=373, bg image pecheur-malgache, grayscale)
+ *   729:3097 — Timeline (y=3681, h=493, bleu-abysse bg)
+ *
+ * Header: grayscale background image with "Notre histoire" title
+ * Timeline: horizontal line with 4 milestone dots (1996, 1998, 2000, 2002)
+ *   Year: Zalando Sans ExtraBold 32px, white
+ *   Description: Inter Regular 16px, white, ~242px wide
+ *   Nav arrows at right for scrolling
+ */
+
+import { Image } from 'astro:assets';
+import pecheurImage from '../../assets/images/groupe/pecheur-malgache.png';
+import { historyMilestones } from '../../data/groupe';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'histoire' } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-[135px]">
+  <!-- Divider bar -->
+  <div class="h-[30px] bg-bleu-abysse"></div>
+
+  <!-- History Header with background image -->
+  <div class="relative h-[280px] md:h-[340px] lg:h-[373px] overflow-hidden">
+    <Image
+      src={pecheurImage}
+      alt="Pêcheur malgache souriant avec une corde sur l'épaule"
+      class="absolute inset-0 w-full -mt-20 object-center grayscale scale-x-[-1]"
+      widths={[375, 768, 1440]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-black/20"></div>
+    <div class="relative h-full mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0 flex items-center">
+      <h2 class="font-display font-extrabold text-[28px] leading-[34px] md:text-display-lg uppercase text-white">
+        Notre histoire
+      </h2>
+    </div>
+  </div>
+
+  <!-- Timeline -->
+  <div class="bg-bleu-abysse py-12 md:py-16 lg:py-20 overflow-x-auto">
+    <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+      <!-- Timeline container -->
+      <div class="relative min-w-[700px] lg:min-w-0">
+        <!-- Milestones -->
+        <div class="relative">
+          <!-- Years row -->
+          <div class="grid grid-cols-4">
+            {historyMilestones.map((milestone) => (
+              <div class="pr-4 lg:pr-8">
+                <p class="font-display font-extrabold text-[24px] md:text-[32px] uppercase text-white">
+                  {milestone.year}
+                </p>
+                <!-- Vertical tick + Dot -->
+                <div class="mt-1">
+                  <div class="w-px h-[20px] bg-white/40 ml-[5px]"></div>
+                  <div class="w-[11px] h-[11px] rounded-full bg-white"></div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <!-- Continuous horizontal line spanning full width -->
+          <div class="h-px bg-white/40 -mt-[5px]"></div>
+
+          <!-- Descriptions row -->
+          <div class="grid grid-cols-4 mt-4">
+            {historyMilestones.map((milestone) => (
+              <div class="pr-4 lg:pr-8">
+                <p class="font-body font-normal text-sm md:text-body-base text-white leading-[1.4] max-w-[255px]">
+                  {milestone.description}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <!-- Navigation arrows -->
+      <div class="flex justify-end mt-8 gap-3">
+        <button
+          class="w-[50px] h-[50px] rounded-full border border-white rounded-[3px] flex items-center justify-center text-white hover:bg-turquoise-ocean hover:border-turquoise-ocean transition-colors duration-200 cursor-pointer"
+          aria-label="Précédent"
+        >
+          <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
+            <path d="M9.25 15.25L1.25 8.25L9.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+        <button
+          class="w-[50px] h-[50px] rounded-full border border-white rounded-[3px] flex items-center justify-center text-white hover:bg-turquoise-ocean hover:border-turquoise-ocean transition-colors duration-200 cursor-pointer"
+          aria-label="Suivant"
+        >
+          <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
+            <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

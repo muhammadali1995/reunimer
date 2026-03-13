@@ -11,8 +11,12 @@
 ## Requested Animation Types
 
 1. **Smooth appear with z-index from 0 → 1**
-2. **Fade in from left → right, one by one**
-3. **Fade in from bottom → top, one by one**
+2. **Fade in from left → right, one by one** *(starts just outside the container’s left edge)*
+3. **Fade in from bottom → top, one by one** *(starts just outside the container’s bottom edge)*
+
+4. **Fade in from right → left, one by one**
+
+> Implementation note: This new animation is used for the RSE section’s text stack, where each item starts with `opacity: 0` and a positive `x` offset before animating back to `x: 0` so the copy appears to slide in from the right edge.
 
 > Implementation note: `z-index` is not truly interpolated visually in browsers. We will create a smooth “depth appear” effect by animating `opacity` + slight transform while switching `zIndex` from `0` to `1` at the right timing.
 

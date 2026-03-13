@@ -1,0 +1,66 @@
+---
+/**
+ * "Nos filiales" — Subsidiaries Section
+ *
+ * Figma nodes: 729:3200–729:3235 (y=4260–5964)
+ * White bg, centered title (x=522, w=397)
+ * Region headers (x=345, w=751) — left-of-center alignment
+ * Logo rows (x=199, w=1053): 3-col with 32px gap, each logo ~330×190
+ * Label text below logo (y+204, Inter Bold 16px, centered within column)
+ *
+ * Layout per region:
+ *   À la Réunion: row of 3 + centered single below
+ *   À Madagascar: 2 logos centered
+ *   En France Métro: row of 3 + centered single below
+ */
+
+import SubsidiaryCard from '../ui/SubsidiaryCard.astro';
+import { filialeRegions } from '../../data/groupe';
+
+interface Props {
+  id?: string;
+}
+
+const { id = 'filiales' } = Astro.props;
+---
+
+<section id={id} class="scroll-mt-[135px] bg-white py-16 md:py-24 lg:py-[120px]">
+  <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
+    <!-- Title -->
+    <h2 class="font-display font-black text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse text-center mb-12 lg:mb-16">
+      Nos filiales
+    </h2>
+
+    <!-- Content container matching Figma x=199, w=1053 -->
+    <div class="max-w-[1053px] mx-auto flex flex-col gap-10 lg:gap-14">
+      {filialeRegions.map((region) => (
+        <div>
+          <p class="font-heading font-semibold text-heading-lg text-bleu-abysse mb-6 lg:mb-8">
+            {region.name}
+          </p>
+
+          {region.gridRow.length > 0 && (
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-6">
+              {region.gridRow.map((sub) => (
+                <SubsidiaryCard subsidiary={sub} />
+              ))}
+            </div>
+          )}
+
+          {region.centeredRow.length > 0 && (
+            <div class:list={[
+              "flex flex-col sm:flex-row gap-6 sm:gap-8 justify-center",
+              region.gridRow.length > 0 && "mt-6",
+            ]}>
+              {region.centeredRow.map((sub) => (
+                <div class="w-full sm:w-[330px]">
+                  <SubsidiaryCard subsidiary={sub} />
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
