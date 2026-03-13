@@ -7,6 +7,7 @@ export const ANIMATION_TYPES = {
   APPEAR_Z: 1,
   FADE_LEFT: 2,
   FADE_UP: 3,
+  FADE_RIGHT: 4,
 };
 
 export function isReducedMotionPreferred() {
@@ -20,11 +21,16 @@ export function setAnimationInitial(target, type) {
   }
 
   if (type === ANIMATION_TYPES.FADE_LEFT) {
-    gsap.set(target, { autoAlpha: 0, x: -28 });
+    gsap.set(target, { autoAlpha: 0, x: '-100%' });
     return;
   }
 
-  gsap.set(target, { autoAlpha: 0, y: 28 });
+  if (type === ANIMATION_TYPES.FADE_RIGHT) {
+    gsap.set(target, { autoAlpha: 0, x: 28 });
+    return;
+  }
+
+  gsap.set(target, { autoAlpha: 0, y: '100%' });
 }
 
 export function setAnimationFinal(target, type) {
@@ -34,6 +40,11 @@ export function setAnimationFinal(target, type) {
   }
 
   if (type === ANIMATION_TYPES.FADE_LEFT) {
+    gsap.set(target, { autoAlpha: 1, x: 0 });
+    return;
+  }
+
+  if (type === ANIMATION_TYPES.FADE_RIGHT) {
     gsap.set(target, { autoAlpha: 1, x: 0 });
     return;
   }
@@ -59,7 +70,7 @@ export function toAnimation(target, type, options = {}) {
       gsap.set(target, { zIndex: 1 });
       if (onStart) onStart();
     };
-  } else if (type === ANIMATION_TYPES.FADE_LEFT) {
+  } else if (type === ANIMATION_TYPES.FADE_LEFT || type === ANIMATION_TYPES.FADE_RIGHT) {
     animationVars.x = 0;
     if (onStart) animationVars.onStart = onStart;
   } else {

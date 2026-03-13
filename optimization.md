@@ -440,6 +440,26 @@ The hero `<Image>` uses `class="w-full h-auto"` inside a fixed-height container.
 
 ---
 
+### 44. Homepage — Expertises Section Reimplements `ExpertiseCard`
+
+**File:** `src/pages/index.astro` (lines 90–146)
+
+The expertises section maps `homeExpertiseCards` (already defined in `src/data/home.ts`) but recreates the card markup that `src/components/ui/ExpertiseCard.astro` already owns: background image + slide-up panel + CTA. That duplication keeps layout, hover logic, and spacing spread across two places and means any future change to the card style must be mirrored manually on the homepage.
+
+**Fix:** Import `ExpertiseCard` and feed it each `homeExpertiseCard`. Let the component handle the panel structure, button, and color classes while the page stays data-driven. This also ensures the typed `HomeExpertiseCard` data is the single source of truth.
+
+---
+
+### 45. Homepage — Section Headings Repeated Instead of Using `SectionHeading`
+
+**File:** `src/pages/index.astro` (sections around lines 90–227 and 267–292)
+
+Every major homepage block (`Nos expertises`, `Actualités`, `Nos filiales`, `Rejoignez la team Reunimer`) hand-codes an `<h2>` with the same typography plus optional `<p>` subtitle. The `SectionHeading` component already encapsulates that pattern (and is used elsewhere on the site), so the homepage is duplicating styling and text structure.
+
+**Fix:** Use `SectionHeading` for those blocks. Pass the section title/subtitle, alignment, and `light` flag when needed to keep typography consistent and reduce the surface area of inlined markup.
+
+---
+
 ## Implementation Plan (continued)
 
 (Issues 34–39 are addressed in Phases 6 and 6b. Issues 40–43 in Phase 14.)

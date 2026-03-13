@@ -11,6 +11,7 @@ import homeCarriere from '../assets/images/home/home-carriere.png';
 import ArticleCard from '../components/ui/ArticleCard.astro';
 import Container from '../components/ui/Container.astro';
 import Button from '../components/ui/Button.astro';
+import SectionHeading from '../components/ui/SectionHeading.astro';
 import { filialeLogos, homeExpertiseCards } from '../data/home';
 import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 ---
@@ -121,7 +122,7 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 						data-panel
 						class:list={[
 							card.color,
-							'absolute inset-x-0 bottom-0 h-full flex flex-col px-[25px] pt-[30px] pb-[25px]',
+							'absolute inset-x-0 bottom-0 h-full flex flex-col px-[25px] pt-[15px] pb-[25px]',
 						]}
 					>
 						<h3 class="font-heading font-medium text-2xl md:text-[32px] text-white leading-[1.461]">
@@ -144,9 +145,9 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 	</section>
 
 	<!-- RSE Engagement Section -->
-	<section class="bg-gris-clair relative overflow-hidden py-12 md:py-16 lg:py-0 lg:h-[752px]">
+	<section id="rse-section" class="bg-gris-clair relative overflow-hidden py-12 md:py-16 lg:py-0 lg:h-[752px]">
 		<!-- Silhouette Image -->
-		<div class="relative mx-auto max-w-[300px] md:max-w-[340px] lg:max-w-none lg:absolute lg:left-[5%] lg:top-[29px] lg:bottom-0 lg:w-[34.28%] mb-10 lg:mb-0">
+		<div data-anim="3" class="relative mx-auto max-w-[300px] md:max-w-[340px] lg:max-w-none lg:absolute lg:left-[5%] lg:top-[29px] lg:bottom-0 lg:w-[34.28%] mb-10 lg:mb-0">
 			<Image
 				src={rseSilhouette}
 				alt="Collage en silhouette humaine — équipe Reunimer"
@@ -157,17 +158,17 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 		</div>
 
 		<!-- Text Content -->
-		<div class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[31.38%] lg:left-[42.11%] lg:right-[7.27%]">
+		<div data-anim="4" class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[31.38%] lg:left-[42.11%] lg:right-[7.27%]">
 			<h2 class="font-display text-[28px] md:text-[32px] lg:text-display-lg uppercase text-bleu-abysse leading-[1.1] lg:leading-[44.5px] mb-6 lg:mb-0">
 				Un engagement humain et environnemental porteur d'avenir
 			</h2>
 		</div>
-		<div class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[53.59%] lg:left-[42.11%] lg:right-[20.29%]">
+		<div data-anim="4" class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[53.59%] lg:left-[42.11%] lg:right-[20.29%]">
 			<p class="font-heading font-normal text-lg lg:text-heading-lg text-bleu-abysse leading-[1.461] mb-8 lg:mb-0">
 				Chez Reunimer, nous croyons que la performance durable naît de l'équilibre entre le respect de la nature et l'épanouissement des hommes...
 			</p>
 		</div>
-		<div class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[71.68%] lg:left-[42.11%]">
+		<div data-anim="4" class="px-5 md:px-10 lg:px-0 lg:absolute lg:top-[71.68%] lg:left-[42.11%]">
 			<Button variant="outline-dark" href="/engagements">
 				Découvrez notre engagement
 			</Button>
@@ -180,9 +181,7 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 			<div class="flex flex-col lg:flex-row lg:items-center lg:h-[288px] gap-8 lg:gap-0">
 				<!-- Left: Title + Button -->
 				<div class="lg:w-[35%] lg:shrink-0 flex flex-col gap-6 lg:pt-[61px] lg:pb-[88px]">
-					<h2 class="font-display text-[32px] lg:text-display-lg uppercase text-bleu-abysse leading-[44.5px]">
-						Nos filiales
-					</h2>
+					<SectionHeading title="Nos filiales" align="center" />
 					<div class="w-fit">
 						<Button variant="outline-dark" href="/groupe">
 							Découvrez nos filiales
@@ -210,13 +209,13 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 	</section>
 
 	<!-- Actualités Section -->
-	<section class="bg-gris-clair py-12 md:py-16 lg:py-0 lg:h-[832px]">
+	<section id="actualites-section" class="bg-gris-clair py-12 md:py-16 lg:py-0 lg:h-[832px]">
 		<Container>
 			<!-- Header: Title + Button -->
 			<div class="flex flex-col md:flex-row md:items-start md:justify-between lg:pt-[87px] mb-8 lg:mb-10 gap-4 md:gap-0">
-				<h2 class="font-display text-[32px] lg:text-display-lg uppercase text-bleu-abysse leading-[44.5px]">
-					Actualités
-				</h2>
+				<div class="md:flex-1">
+					<SectionHeading title="Actualités" />
+				</div>
 				<div class="shrink-0">
 					<Button variant="outline-dark" href="/actualites">
 						Découvrez toutes les actus
@@ -261,9 +260,9 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 	</section>
 
 	<!-- Team / Carrières Section -->
-	<section class="bg-[#D9D9D9] relative overflow-hidden py-12 md:py-16 lg:py-0 lg:h-[650px]">
+	<section id="team-section" class="relative overflow-hidden py-12 md:py-16 lg:py-0 lg:h-[650px]">
 		<!-- Team Photo -->
-		<div class="relative mx-auto max-w-[400px] md:max-w-[500px] lg:max-w-none lg:absolute lg:left-[77px] lg:top-0 lg:w-[643px] lg:h-[668px] overflow-hidden mb-10 lg:mb-0">
+		<div data-anim="3" class="relative mx-auto max-w-[400px] md:max-w-[500px] lg:max-w-none lg:absolute lg:left-[77px] lg:top-0 lg:w-[643px] lg:h-[668px] overflow-hidden mb-10 lg:mb-0">
 			<Image
 				src={homeCarriere}
 				alt="Deux collaborateurs Reunimer en tenue professionnelle"
@@ -275,15 +274,17 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 
 		<!-- Text Content -->
 		<div class="px-5 md:px-10 lg:px-0 lg:absolute lg:left-[757px] lg:top-[226px] lg:w-[552px] max-w-[550px]">
-			<h2 class="font-display text-[28px] md:text-[32px] lg:text-display-lg uppercase text-bleu-abysse leading-[1.1] lg:leading-[44.5px] mb-6">
+			<h2 data-anim="4" class="font-display text-[28px] md:text-[32px] lg:text-display-lg uppercase text-bleu-abysse leading-[1.1] lg:leading-[44.5px] mb-6">
 				Rejoignez la team Reunimer
 			</h2>
-			<p class="font-heading font-normal text-lg lg:text-heading-lg text-bleu-abysse leading-[1.461] mb-8 lg:w-[421px]">
+			<p data-anim="4" class="font-heading font-normal text-lg lg:text-heading-lg text-bleu-abysse leading-[1.461] mb-8 lg:w-[421px]">
 				Chez Reunimer, nous mettons l'humain au centre de la chaîne de valeurs.
 			</p>
-			<Button variant="outline-dark" href="/carrieres">
-				Découvrez nos offres d'emploi
-			</Button>
+			<div data-anim="4">
+				<Button variant="outline-dark" href="/carrieres">
+					Découvrez nos offres d'emploi
+				</Button>
+			</div>
 		</div>
 	</section>
 </PageLayout>
@@ -298,52 +299,134 @@ import { featuredLargeArticle, featuredSmallArticles } from '../data/articles';
 	}
 </style>
 
-<script>
-	import {
-		ANIMATION_TYPES,
-		isReducedMotionPreferred,
-		setAnimationInitial,
-		toAnimation,
-		createScrollTimeline,
-	} from '../scripts/animation.js';
+	<script>
+		import {
+			gsap,
+			ANIMATION_TYPES,
+			isReducedMotionPreferred,
+			setAnimationInitial,
+			toAnimation,
+			createScrollTimeline,
+		} from '../scripts/animation.js';
 
-	function initGroupeAnimations() {
-		const section = document.getElementById('groupe-section');
-		if (!section || isReducedMotionPreferred()) return;
+		function initGroupeAnimations() {
+			const section = document.getElementById('groupe-section');
+			if (!section || isReducedMotionPreferred()) return;
 
-		const animEls = section.querySelectorAll('[data-anim]');
-		const typeMap = {
-			'1': ANIMATION_TYPES.APPEAR_Z,
-			'2': ANIMATION_TYPES.FADE_LEFT,
-			'3': ANIMATION_TYPES.FADE_UP,
-		};
+			const animEls = section.querySelectorAll('[data-anim]');
+			const typeMap = {
+				'1': ANIMATION_TYPES.APPEAR_Z,
+				'2': ANIMATION_TYPES.FADE_LEFT,
+				'3': ANIMATION_TYPES.FADE_UP,
+			};
 
-		// Set initial hidden states
-		animEls.forEach((el) => {
-			const type = typeMap[el.dataset.anim];
-			if (type) setAnimationInitial(el, type);
+			// Set initial hidden states
+			animEls.forEach((el) => {
+				const type = typeMap[el.dataset.anim];
+				if (type) setAnimationInitial(el, type);
+			});
+
+			// Create scroll-triggered timeline
+			const tl = createScrollTimeline({ trigger: section, start: 'top 75%' });
+
+			// Title — APPEAR_Z
+			const title = section.querySelector('[data-anim="1"]');
+			if (title) tl.add(toAnimation(title, ANIMATION_TYPES.APPEAR_Z));
+
+			// Description + Button — FADE_LEFT (staggered)
+			const fadeLeftEls = section.querySelectorAll('[data-anim="2"]');
+			if (fadeLeftEls.length) tl.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.15 }), '-=0.4');
+
+			// Images — FADE_UP (staggered)
+			const images = section.querySelectorAll('[data-anim="3"]');
+			if (images.length) tl.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.15 }), '-=0.4');
+
+		}
+
+		function initRseAnimations() {
+			const section = document.getElementById('rse-section');
+			if (!section || isReducedMotionPreferred()) return;
+
+			const animEls = section.querySelectorAll('[data-anim]');
+			const typeMap = {
+				'3': ANIMATION_TYPES.FADE_UP,
+				'4': ANIMATION_TYPES.FADE_RIGHT,
+			};
+
+			animEls.forEach((el) => {
+				const type = typeMap[el.dataset.anim];
+				if (type) setAnimationInitial(el, type);
+			});
+
+			const tl = createScrollTimeline({ trigger: section, start: 'top 75%' });
+
+			const image = section.querySelector('[data-anim="3"]');
+			if (image) {
+				tl.add(toAnimation(image, ANIMATION_TYPES.FADE_UP));
+			}
+
+			const textEls = section.querySelectorAll('[data-anim="4"]');
+			if (textEls.length) {
+				tl.add(
+					toAnimation(textEls, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.15 }),
+					'-=0.3'
+				);
+			}
+		}
+
+		function initActualitesAnimations() {
+			const section = document.getElementById('actualites-section');
+			if (!section || isReducedMotionPreferred()) return;
+
+			gsap.set(section, { autoAlpha: 0 });
+
+			const tl = createScrollTimeline({ trigger: section, start: 'top 75%' });
+			tl.to(section, { autoAlpha: 1, duration: 1.8, ease: 'power2.inOut' });
+		}
+
+		function initTeamAnimations() {
+			const section = document.getElementById('team-section');
+			if (!section || isReducedMotionPreferred()) return;
+
+			const animEls = section.querySelectorAll('[data-anim]');
+			const typeMap = {
+				'3': ANIMATION_TYPES.FADE_UP,
+				'4': ANIMATION_TYPES.FADE_RIGHT,
+			};
+
+			animEls.forEach((el) => {
+				const type = typeMap[el.dataset.anim];
+				if (type) setAnimationInitial(el, type);
+			});
+
+			const tl = createScrollTimeline({ trigger: section, start: 'top 75%' });
+
+			const image = section.querySelector('[data-anim="3"]');
+			if (image) {
+				tl.add(toAnimation(image, ANIMATION_TYPES.FADE_UP));
+			}
+
+			const textEls = section.querySelectorAll('[data-anim="4"]');
+			if (textEls.length) {
+				tl.add(
+					toAnimation(textEls, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.15 }),
+					'-=0.3'
+				);
+			}
+		}
+
+		initGroupeAnimations();
+		initRseAnimations();
+		initActualitesAnimations();
+		initTeamAnimations();
+
+		document.addEventListener('astro:after-swap', () => {
+			initGroupeAnimations();
+			initRseAnimations();
+			initActualitesAnimations();
+			initTeamAnimations();
 		});
-
-		// Create scroll-triggered timeline
-		const tl = createScrollTimeline({ trigger: section, start: 'top 75%' });
-
-		// Title — APPEAR_Z
-		const title = section.querySelector('[data-anim="1"]');
-		if (title) tl.add(toAnimation(title, ANIMATION_TYPES.APPEAR_Z));
-
-		// Description + Button — FADE_LEFT (staggered)
-		const fadeLeftEls = section.querySelectorAll('[data-anim="2"]');
-		if (fadeLeftEls.length) tl.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.15 }), '-=0.4');
-
-		// Images — FADE_UP (staggered)
-		const images = section.querySelectorAll('[data-anim="3"]');
-		if (images.length) tl.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.15 }), '-=0.4');
-
-	}
-
-	initGroupeAnimations();
-	document.addEventListener('astro:after-swap', initGroupeAnimations);
-</script>
+	</script>
 
 <script>
 	import { setupPanelHover, isReducedMotionPreferred } from '../scripts/animation.js';
