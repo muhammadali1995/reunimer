@@ -18,6 +18,7 @@ import supportBgImage from "../assets/images/expertise/support-bg.png";
 import rhBgImage from "../assets/images/expertise/rh-background.png";
 import seafoodKorailLogo from "../assets/images/brands/seafood-korail.png";
 import redPremierLogo from "../assets/images/brands/red-premier.jpg";
+import lecrol from "../assets/images/brands/lecrol.png";
 ---
 
 <PageLayout
@@ -919,14 +920,26 @@ import redPremierLogo from "../assets/images/brands/red-premier.jpg";
           entre la ressource et le marché.
         </p>
 
+        <!-- Section promise title -->
+        <h3
+          class="font-heading font-medium text-[32px] leading-[40px] text-white text-center mt-10 lg:mt-[60px]"
+        >
+          La promesse de la filiale distribution de Reunimer
+        </h3>
+
         <!-- 3 Distribution Cards -->
         <div
           class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 lg:gap-8 mt-12 lg:mt-[80px]"
         >
           <!-- Card: Approvisionnement -->
-          <div class="flex flex-col">
+          <div class="flex flex-col items-center text-center gap-4">
+            <h3
+              class="font-heading font-semibold text-[20px] leading-[1.461] text-white tracking-[-1px]"
+            >
+              Approvisionnement
+            </h3>
             <div
-              class="relative h-[250px] md:h-[280px] lg:h-[351px] rounded-[10px] overflow-hidden"
+              class="relative h-[250px] md:h-[280px] lg:h-[351px] w-full rounded-[10px] overflow-hidden bg-white"
             >
               <Image
                 src={distriApproImage}
@@ -935,28 +948,25 @@ import redPremierLogo from "../assets/images/brands/red-premier.jpg";
                 widths={[375, 500]}
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <!-- Sable-corail bar at bottom -->
-              <div
-                class="absolute bottom-0 left-0 right-0 h-[120px] md:h-[140px] lg:h-[156px] bg-sable-corail"
-              >
-              </div>
             </div>
-            <h3
-              class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white text-center tracking-[-1px] mt-6 lg:mt-8"
-            >
-              Approvisionnement
-            </h3>
             <p
-              class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
+              class="font-body font-normal text-[16px] leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
             >
-              Une origine garantie et une traçabilité totale.
+              Une origine garantie
+              <br />
+              et une traçabilité totale.
             </p>
           </div>
 
           <!-- Card: Expertise -->
-          <div class="flex flex-col">
+          <div class="flex flex-col items-center text-center gap-4">
+            <h3
+              class="font-heading font-semibold text-[20px] leading-[1.461] text-white tracking-[-1px]"
+            >
+              Expertise
+            </h3>
             <div
-              class="relative h-[250px] md:h-[280px] lg:h-[351px] rounded-[10px] overflow-hidden"
+              class="relative h-[250px] md:h-[280px] lg:h-[351px] w-full rounded-[10px] overflow-hidden bg-white"
             >
               <Image
                 src={distriExpertiseImage}
@@ -965,27 +975,25 @@ import redPremierLogo from "../assets/images/brands/red-premier.jpg";
                 widths={[375, 500]}
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div
-                class="absolute bottom-0 left-0 right-0 h-[120px] md:h-[140px] lg:h-[156px] bg-sable-corail"
-              >
-              </div>
             </div>
-            <h3
-              class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white text-center tracking-[-1px] mt-6 lg:mt-8"
-            >
-              Expertise
-            </h3>
             <p
-              class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
+              class="font-body font-normal text-[16px] leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
             >
-              Un conseil métier pour chaque typologie de client.
+              Un conseil métier pour
+              <br />
+              chaque typologie de client.
             </p>
           </div>
 
           <!-- Card: Service -->
-          <div class="flex flex-col">
+          <div class="flex flex-col items-center text-center gap-4">
+            <h3
+              class="font-heading font-semibold text-[20px] leading-[1.461] text-white tracking-[-1px]"
+            >
+              Service
+            </h3>
             <div
-              class="relative h-[250px] md:h-[280px] lg:h-[351px] rounded-[10px] overflow-hidden"
+              class="relative h-[250px] md:h-[280px] lg:h-[351px] w-full rounded-[10px] overflow-hidden bg-white"
             >
               <Image
                 src={distriServiceImage}
@@ -994,20 +1002,13 @@ import redPremierLogo from "../assets/images/brands/red-premier.jpg";
                 widths={[375, 500]}
                 sizes="(max-width: 768px) 100vw, 33vw"
               />
-              <div
-                class="absolute bottom-0 left-0 right-0 h-[120px] md:h-[140px] lg:h-[156px] bg-sable-corail"
-              >
-              </div>
             </div>
-            <h3
-              class="font-heading font-semibold text-base md:text-lg lg:text-xl text-white text-center tracking-[-1px] mt-6 lg:mt-8"
-            >
-              Service
-            </h3>
             <p
-              class="font-body font-normal text-sm md:text-base leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
+              class="font-body font-normal text-[16px] leading-[1.4] text-white text-center mt-3 mx-auto max-w-[285px]"
             >
-              Une réactivité logistique et commerciale exemplaire.
+              Une réactivité logistique et
+              <br />
+              commerciale exemplaire.
             </p>
           </div>
         </div>
@@ -1025,7 +1026,7 @@ import redPremierLogo from "../assets/images/brands/red-premier.jpg";
           <!-- Le Pêcheur Créole (image not yet exported) -->
           <div class="flex flex-col md:flex-row items-center md:items-start gap-6 md:gap-8 lg:gap-[40px]">
             <div class="w-[160px] md:w-[180px] lg:w-[200px] shrink-0 flex items-center justify-center">
-              <div class="w-full h-[120px] bg-gris-clair rounded flex items-center justify-center text-brume-alize text-sm">Le Pêcheur Créole</div>
+              <Image src={lecrol} alt="SeaFood Korail" class="max-w-full h-auto" />
             </div>
             <div>
               <h3 class="font-heading font-semibold text-lg md:text-xl lg:text-2xl text-bleu-abysse mb-2">

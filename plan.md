@@ -4,6 +4,24 @@
 **Figma node:** `729:16024` (frame "Expertise", 1440 × ~14528)
 **Route:** `/expertises`
 
+## Immediate small phases (distribution section)
+
+### Phase 0 — Audit Figma vs current build
+- Re-review the distribution portion of the frame (nodes `729:16272`‑`729:16288`) and log visual gaps: missing promise subheading, card titles sitting under the images, fonts that don’t match Montserrat 32/20, the missing white card panels, and the multi-line descriptions detailed in Figma.
+- Capture those differences here so the following steps can focus precisely on the fixes we need to ship first.
+
+### Phase 1 — Heading & copy alignment
+- Replace the placeholder promise text with a Montserrat 32px/40px line that matches `729:16272` and ensures the typography is white, centered, and spaced as in the mockup.
+- Keep the paragraph copy under the gold `Une distribution maîtrisée` title but verify it remains within the 790px width the mockup uses.
+
+### Phase 2 — Card layout refinement
+- Move each card title above the photo, keep the text white, Montserrat SemiBold 20px, and apply the precise tracking from `729:16277`‑`729:16287`.
+- Wrap each image in a white rounded panel (mirroring nodes `729:16274`‑`729:16276`) and keep the sable-corail footer bar while splitting the copy into two lines per the Figma descriptions (`729:16278`, `729:16283`, `729:16288`).
+
+### Phase 3 — Validation
+- Preview the distribution section to ensure the cards render with visible photos, white text, and matching spacing at desktop.
+- Once satisfied, mark this block as aligned and proceed to the remaining sections outlined below.
+
 ---
 
 ## Page Structure (top to bottom)
