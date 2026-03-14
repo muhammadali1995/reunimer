@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import ExpertisesStatGroupList from './ExpertisesStatGroupList.astro';
+import {
+  expertisesSupportBackground,
+  supportColumns,
+  supportIntro,
+  supportStats,
+} from '../../../data/expertises';
+---
+
+<section class="relative overflow-hidden bg-[#08131d] py-16 text-white md:py-[92px]">
+  <Image
+    src={expertisesSupportBackground}
+    alt="Infrastructure logistique Reunimer"
+    class="absolute inset-0 h-full w-full object-cover object-[center_34%]"
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,21,32,0.08)_0%,rgba(7,21,32,0.22)_18%,rgba(4,11,18,0.72)_52%,rgba(2,6,10,0.96)_100%)]"></div>
+  <div class="absolute inset-x-0 top-0 h-[180px] bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0)_100%)]"></div>
+  <Container class="relative">
+    <div class="mx-auto max-w-[742px] pt-[240px] md:pt-[380px]">
+      <div class="max-w-[590px]">
+        <h2 class="max-w-[520px] font-display text-[28px] font-black uppercase leading-[0.98] tracking-[-0.02em] text-white md:text-[42px]">
+          Logistique &amp; supports :
+          <br />
+          la force invisible
+        </h2>
+        <p class="mt-5 max-w-[520px] font-body text-[11px] leading-[1.55] text-white/76 md:text-[12px]">
+          {supportIntro}
+        </p>
+      </div>
+
+      <div class="mt-8 grid gap-5 md:mt-9 md:grid-cols-2 md:gap-8">
+        {supportColumns.map((column) => (
+          <div class="max-w-[330px]">
+            <h3 class="font-body text-[10px] font-semibold leading-[1.35] text-white md:text-[11px]">
+              {column.title}
+            </h3>
+            <p class="mt-2 font-body text-[10px] leading-[1.42] text-white/74 md:text-[11px]">
+              {column.body}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 md:mt-12">
+        <ExpertisesStatGroupList
+          groups={supportStats}
+          groupLabelClass="font-body text-[9px] font-bold uppercase tracking-[0.12em] text-white/86 md:text-[10px]"
+          groupSpacingClass="grid gap-8 md:grid-cols-2 md:gap-12"
+          itemsWrapperClass="mt-3 space-y-3"
+          dividerClass="border-b border-white/22 pb-[6px]"
+          rowClass="grid grid-cols-[minmax(72px,96px)_1fr] items-end gap-4"
+          valueClass="font-display text-[30px] font-black leading-none text-white md:text-[38px]"
+          labelClass="justify-self-end text-right font-body text-[10px] leading-[1.25] text-white/82 md:max-w-[170px] md:text-[11px]"
+        />
+      </div>
+    </div>
+  </Container>
+</section>

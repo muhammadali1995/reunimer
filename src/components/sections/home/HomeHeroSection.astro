@@ -1,0 +1,22 @@
+---
+import { Image } from 'astro:assets';
+import heroImage from '../../../assets/images/home/hero-home.png';
+import wordmark from '../../../assets/logos/reunimer-wordmark.svg';
+---
+
+<section class="relative -mt-[92px] h-[500px] overflow-hidden md:h-[700px] lg:h-[860px]">
+  <Image
+    src={heroImage}
+    alt="Vue aérienne de l'océan"
+    class="absolute inset-0 h-full w-full object-cover"
+    widths={[768, 1024, 1440, 1920]}
+    sizes="100vw"
+  />
+  <div class="absolute inset-0 flex items-center justify-center">
+    <img
+      src={wordmark.src}
+      alt="REUNIMER"
+      class="h-auto w-[300px] md:w-[420px] lg:w-[540px]"
+    />
+  </div>
+</section>
