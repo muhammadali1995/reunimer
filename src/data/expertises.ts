@@ -22,6 +22,7 @@ import supportBackground from '../assets/images/expertise/support-bg.png';
 import transformationPrimaryImage from '../assets/images/expertise/transformation-1.png';
 import transformationSecondaryImage from '../assets/images/expertise/transformation-2.png';
 import smokeImage from '../assets/images/expertise/smoke.png';
+import meatImage from '../assets/images/expertise/meat.png';
 import pecheurCreoleLogo from '../assets/logos/le-pecheur-creole.png';
 import seafoodKorailLogo from '../assets/images/brands/seafood-korail.png';
 import redPremierLogo from '../assets/images/brands/red-premier.jpg';
@@ -35,6 +36,7 @@ export const expertisesTunaImage = tunaSingleImage;
 export const expertisesTransformationPrimaryImage = transformationPrimaryImage;
 export const expertisesTransformationSecondaryImage = transformationSecondaryImage;
 export const expertisesSmokeImage = smokeImage;
+export const expertisesMeatImage = meatImage;
 export const expertisesDistributionMagazineCover = distributionMagazineCover;
 export const expertisesSupportBackground = supportBackground;
 export const expertisesRhBackground = rhBackground;
@@ -87,6 +89,22 @@ export const supportStats: ExpertiseStatGroup[] = [
   { location: 'À Madagascar', items: [{ value: 'XX', label: 'Emplois en logistique et maintenance' }, { value: 'XX', label: 'véhicules' }, { value: 'XX', label: 'emplacements palettes' }] },
 ];
 
+export const supportIntro =
+  "Derrière chaque produit livré se cache une organisation millimétrée, pensée pour garantir les qualités des flux logistiques, la fiabilité de la maintenance et le bon fonctionnement des plateformes qui garantissent une continuité parfaite entre l'océan et la terre.";
+
+export const supportColumns = [
+  {
+    title: 'Une colonne backup pour nos permanences',
+    body:
+      "Grâce à son système d'information logistique, à sa maîtrise de la maintenance et à l'appui de ses équipes terrain, Reunimer fluidifie les approvisionnements, sécurise la chaîne logistique, suit les stocks au plus juste et fiabilise chaque livraison.",
+  },
+  {
+    title: 'Fluidité et réactivité',
+    body:
+      "Du magasin à la chambre froide, chaque opération est pensée pour limiter les ruptures, absorber les pics d'activité et rendre les flux plus lisibles. Le support logistique agit comme un réseau discret, rigoureux et réactif, indispensable au quotidien des métiers du groupe.",
+  },
+] as const;
+
 export const distributionCards: DistributionCard[] = [
   { title: 'Approvisionnement', description: 'Une origine garantie et une traçabilité totale.', image: distributionSupplyImage, alt: "Conteneur logistique pour l'approvisionnement", imageClass: 'object-[center_18%]' },
   { title: 'Expertise', description: 'Un conseil métier pour chaque typologie de client.', image: distributionExpertiseImage, alt: 'Équipe Reunimer en échange métier', imageClass: 'object-[center_20%]' },
@@ -94,12 +112,33 @@ export const distributionCards: DistributionCard[] = [
 ];
 
 export const brandRows: BrandRow[] = [
-  { name: 'Le Pêcheur Créole', logo: pecheurCreoleLogo, logoAlt: 'Logo Le Pêcheur Créole', body: 'Une marque pensée pour le quotidien réunionnais, avec des produits de la mer accessibles, identifiables et adaptés aux habitudes de consommation locales.' },
-  { name: 'SeaFood Korail', logo: seafoodKorailLogo, logoAlt: 'Logo SeaFood Korail', body: 'Une signature tournée vers les marchés professionnels et export, portée par la régularité d’approvisionnement, la traçabilité et la qualité de préparation.' },
-  { name: 'Red Premier', logo: redPremierLogo, logoAlt: 'Logo Red Premier', body: 'Une gamme à forte valeur ajoutée qui traduit le savoir-faire industriel de Reunimer dans des références premium, prêtes à convaincre les circuits exigeants.' },
+  {
+    name: 'Le Pêcheur Créole',
+    logo: pecheurCreoleLogo,
+    logoAlt: 'Logo Le Pêcheur Créole',
+    body: 'Une marque pensée pour le quotidien réunionnais, avec des produits de la mer accessibles, identifiables et adaptés aux habitudes de consommation locales.',
+    linkLabel: 'En savoir plus sur Le Pêcheur Créole >>',
+    linkHref: '#',
+  },
+  {
+    name: 'SeaFood Korail',
+    logo: seafoodKorailLogo,
+    logoAlt: 'Logo SeaFood Korail',
+    body: 'Une signature tournée vers les marchés professionnels et export, portée par la régularité d’approvisionnement, la traçabilité et la qualité de préparation.',
+    linkLabel: 'En savoir plus sur SeaFood Korail >>',
+    linkHref: '#',
+  },
+  {
+    name: 'Red Premier',
+    logo: redPremierLogo,
+    logoAlt: 'Logo Red Premier',
+    body: 'Une gamme à forte valeur ajoutée qui traduit le savoir-faire industriel de Reunimer dans des références premium, prêtes à convaincre les circuits exigeants.',
+    linkLabel: 'En savoir plus sur Red Premier >>',
+    linkHref: '#',
+  },
 ];
 
 export const rhDonuts: RhDonut[] = [
-  { lines: ['Proportion', 'Hommes/femmes'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[66px] md:top-[72px]' },
-  { lines: ['Proportion', '- de 30 ans', '/+ de 30 ans'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[58px] md:top-[60px]' },
+  { lines: ['Proportion', 'Hommes/femmes'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[50%]' },
+  { lines: ['Proportion', '- de 30 ans', '/+ de 30 ans'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[50%]' },
 ];

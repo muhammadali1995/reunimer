@@ -1,73 +1,112 @@
 ---
-import Container from '../../ui/Container.astro';
-import ExpertisesSectionHeader from './ExpertisesSectionHeader.astro';
-import ExpertisesStatGroupList from './ExpertisesStatGroupList.astro';
-import { productionStats } from '../../../data/expertises';
+import Container from "../../ui/Container.astro";
+import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro";
+import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
+import { productionStats } from "../../../data/expertises";
 ---
 
-<section class="relative overflow-hidden bg-[#f6f6f4] py-16 text-bleu-abysse md:py-[96px]">
-  <div class="absolute inset-x-0 top-0 h-[220px] bg-[radial-gradient(circle_at_24%_10%,rgba(255,255,255,0.9),rgba(255,255,255,0)_55%),radial-gradient(circle_at_70%_0%,rgba(255,255,255,0.75),rgba(255,255,255,0)_44%)] opacity-90"></div>
+<section
+  class="relative -mt-[500px] z-20 overflow-hidden bg-white py-16 text-bleu-abysse md:py-[92px]"
+>
+  <div
+    class="absolute inset-x-0 top-0 h-[220px] bg-[radial-gradient(circle_at_24%_10%,rgba(255,255,255,0.9),rgba(255,255,255,0)_55%),radial-gradient(circle_at_70%_0%,rgba(255,255,255,0.75),rgba(255,255,255,0)_44%)] opacity-90"
+  >
+  </div>
   <Container class="relative">
-    <div class="grid gap-12 md:grid-cols-[0.9fr_1.1fr] md:gap-[70px]">
+    <div
+      class="mx-auto max-w-[980px] grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-[46px]"
+    >
       <div>
         <ExpertisesSectionHeader
           title="Securite et excellence : nos engagements cles"
-          class="max-w-[420px]"
-          titleClass="max-w-[420px] font-heading text-[1.125rem] font-semibold leading-[1.35] md:text-[1.18rem]"
-          dividerClass="mt-4 h-px w-full bg-bleu-abysse/25"
+          class="max-w-[308px]"
+          titleClass="max-w-[308px] font-heading text-[12px] font-semibold leading-[1.28] md:text-[13px]"
+          dividerClass="mt-3 h-px w-full bg-bleu-abysse/25"
         />
 
-        <div class="mt-6">
-          <p class="font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-bleu-abysse/72">
+        <div class="mt-5">
+          <p
+            class="font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
+          >
             Standards de classe mondiale
           </p>
-          <div class="mt-4 flex items-start gap-4">
-            <div class="flex h-[78px] w-[90px] items-center justify-center rounded-[4px] border border-bleu-abysse/18 bg-white">
-              <img src="/icons/logo-haccp.svg" alt="Logo HACCP" class="h-[58px] w-[58px] object-contain" />
-            </div>
-            <div class="flex h-[78px] w-[90px] items-center justify-center rounded-[4px] border border-bleu-abysse/18 bg-white">
-              <img src="/icons/logo-socotec.svg" alt="Logo Socotec" class="h-[58px] w-[58px] object-contain" />
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-8">
-          <div class="h-px w-full bg-bleu-abysse/18"></div>
-          <p class="mt-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-bleu-abysse/72">
-            Controle permanent
-          </p>
-          <div class="mt-4 overflow-hidden rounded-[4px] bg-white shadow-[0_18px_44px_rgba(0,0,0,0.08)]">
+          <div class="mt-3 flex items-start gap-3">
             <img
-              src="/images/quality-lab.jpg"
-              alt="Controle qualite en laboratoire"
-              class="h-[190px] w-full object-cover"
+              src="/icons/logo-haccp.svg"
+              alt="Logo HACCP"
+              class="max-w-28"
+            />
+            <img
+              src="/icons/logo-socotec.png"
+              alt="Logo Socotec"
+              class="max-w-28"
             />
           </div>
-          <div class="mt-4 flex items-start justify-between gap-4">
-            <div>
-              <p class="font-display text-[2rem] font-black leading-none text-bleu-abysse">550</p>
-              <p class="mt-1 font-body text-[0.72rem] text-bleu-abysse/72">test Eurofins</p>
-            </div>
-            <p class="pt-3 font-body text-[0.72rem] text-bleu-abysse/72">eurofins</p>
-          </div>
-          <div class="mt-4">
-            <p class="font-display text-[2rem] font-black leading-none text-bleu-abysse">4210</p>
-            <p class="mt-1 font-body text-[0.72rem] text-bleu-abysse/72">test et autocontrles</p>
-            <p class="mt-2 font-body text-[0.72rem] text-bleu-abysse/72">
-              *Pour tout le groupe Reunimer en moyenne dans l'annee.
-            </p>
-          </div>
         </div>
 
-        <div class="mt-8">
-          <div class="h-px w-full bg-bleu-abysse/18"></div>
-          <p class="mt-4 font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-bleu-abysse/72">
+        <div class="mt-7 max-w-[260px]">
+          <div class="h-px w-full bg-bleu-abysse/20"></div>
+          <p
+            class="mt-3 font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
+          >
+            Controle permanent
+          </p>
+
+          <div class="mt-4 border-b border-bleu-abysse/32 pb-[6px]">
+            <div class="flex items-start justify-between gap-4">
+              <p
+                class="font-display text-[22px] font-black leading-none text-bleu-abysse md:text-[25px]"
+              >
+                550
+              </p>
+              <img
+                src="/images/eurofins.png"
+                alt="Logo Eurofins"
+                class="h-[18px] w-auto object-contain"
+              />
+            </div>
+            <p
+              class="mt-[4px] text-right font-body text-[9px] leading-none text-bleu-abysse/82"
+            >
+              test Eurofins*
+            </p>
+          </div>
+
+          <div class="mt-3 border-b border-bleu-abysse/32 pb-[6px]">
+            <div class="flex items-end justify-between gap-4">
+              <p
+                class="font-display text-[22px] font-black leading-none text-bleu-abysse md:text-[25px]"
+              >
+                4210
+              </p>
+              <p
+                class="text-right font-body text-[9px] leading-none text-bleu-abysse/82"
+              >
+                test en autocontrole*
+              </p>
+            </div>
+          </div>
+
+          <p
+            class="mt-3 font-body text-[8px] leading-[1.25] text-bleu-abysse/82"
+          >
+            *Pour tout le groupe Reunimer en moyenne dans l'annee.
+          </p>
+
+          <div class="mt-6 h-px w-full bg-bleu-abysse/20"></div>
+          <p
+            class="mt-4 font-body text-[12px] font-bold leading-none text-bleu-abysse"
+          >
             Innovation &amp; RSE
           </p>
-          <p class="mt-3 max-w-[350px] font-body text-[0.75rem] leading-[1.42] text-bleu-abysse/82">
-            Vers le zero dechet: Parce que maitriser la filiere signifie aussi respecter la ressource dans son
-            integralite, Reunimer innove dans la valorisation des coproduits. Cette demarche transforme chaque
-            lot en levier d'economie circulaire, minimisant notre empreinte environnementale.
+          <p
+            class="mt-3 max-w-[258px] font-body text-[12px] leading-[1.45] text-bleu-abysse/82"
+          >
+            Vers le zero dechet: Parce que maitriser la filiere signifie aussi
+            respecter la ressource dans son integralite, Reunimer innove dans la
+            valorisation des co-produits. Cette demarche transforme chaque etape
+            de la production en un levier d'economie circulaire, minimisant notre
+            empreinte environnementale.
           </p>
         </div>
       </div>
@@ -75,20 +114,20 @@ import { productionStats } from '../../../data/expertises';
       <div>
         <ExpertisesSectionHeader
           title="Un outil industriel agile et complementaire"
-          class="max-w-[420px]"
-          titleClass="max-w-[420px] font-heading text-[1.125rem] font-semibold leading-[1.35] md:text-[1.18rem]"
-          dividerClass="mt-4 h-px w-full bg-bleu-abysse/25"
+          class="max-w-[308px]"
+          titleClass="max-w-[308px] font-heading text-[12px] font-semibold leading-[1.28] md:text-[13px]"
+          dividerClass="mt-3 h-px w-full bg-bleu-abysse/25"
         />
-        <div class="mt-8">
+        <div class="mt-5 max-w-[392px]">
           <ExpertisesStatGroupList
             groups={productionStats}
-            groupLabelClass="font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-bleu-abysse/72"
-            groupSpacingClass="space-y-8"
-            itemsWrapperClass="mt-3 space-y-4"
-            dividerClass="border-b border-bleu-abysse/18 pb-3"
-            rowClass="flex items-end justify-between gap-6"
-            valueClass="font-display text-[2.25rem] font-black leading-none text-bleu-abysse"
-            labelClass="max-w-[220px] text-right font-body text-[0.78rem] leading-[1.35] text-bleu-abysse/78"
+            groupLabelClass="font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
+            groupSpacingClass="space-y-7"
+            itemsWrapperClass="mt-2 space-y-3"
+            dividerClass="border-b border-bleu-abysse/18 pb-2"
+            rowClass="flex items-end justify-between gap-4"
+            valueClass="font-display text-[34px] font-black leading-none text-bleu-abysse"
+            labelClass="max-w-[188px] text-right font-body text-[9px] leading-[1.25] text-bleu-abysse/78"
           />
         </div>
       </div>

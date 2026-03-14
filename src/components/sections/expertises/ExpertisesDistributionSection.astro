@@ -7,46 +7,64 @@ import {
 } from '../../../data/expertises';
 ---
 
-<section class="bg-white py-16 text-bleu-abysse md:py-[110px]">
-  <Container>
-    <div class="grid gap-10 md:grid-cols-[0.85fr_1.15fr] md:items-start md:gap-[68px]">
-      <div>
-        <h2 class="font-display text-display-lg font-black leading-[1.02] text-bleu-abysse">
-          Une distribution active sur tous les circuits
-        </h2>
-        <p class="mt-6 max-w-[360px] font-heading text-heading-lg leading-[1.46] text-bleu-abysse/88">
-          Grande distribution, restauration, maree, circuits specialises et clients professionnels: Reunimer
-          construit une reponse commerciale adaptee a chaque usage.
-        </p>
-        <div class="mt-8 overflow-hidden rounded-[8px] bg-brume-alize/18 shadow-[0_20px_48px_rgba(0,0,0,0.08)]">
-          <Image
-            src={expertisesDistributionMagazineCover}
-            alt="Univers editorial et commercial Reunimer"
-            class="h-[420px] w-full object-cover object-top"
-            widths={[720, 1000]}
-            sizes="(min-width: 768px) 430px, 100vw"
-          />
-        </div>
+<section class=" bg-bleu-abysse mt-96 text-bleu-abysse">
+  <div class="mx-auto w-[280px] md:w-[504px]">
+        <Image
+          src={expertisesDistributionMagazineCover}
+          alt="Assiette gastronomique illustree pour l'activite distribution"
+          class="w-full -translate-y-1/2"
+          widths={[560, 900, 1200]}
+          sizes="(min-width: 768px) 504px, 280px"
+        />
       </div>
-      <div class="grid gap-6 md:grid-cols-3 md:gap-5">
-        {distributionCards.map((card) => (
-          <article class="overflow-hidden rounded-[8px] bg-white shadow-[0_20px_48px_rgba(0,0,0,0.08)] ring-1 ring-bleu-abysse/8">
-            <div class="relative h-[250px] overflow-hidden bg-brume-alize/20">
-              <Image
-                src={card.image}
-                alt={card.alt}
-                class:list={['h-full w-full object-cover', card.imageClass]}
-                widths={[480, 720]}
-                sizes="(min-width: 768px) 280px, 100vw"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="font-heading text-heading-lg font-semibold text-bleu-abysse">{card.title}</h3>
-              <p class="mt-3 font-body text-body-base leading-[1.5] text-bleu-abysse/76">{card.description}</p>
-            </div>
-          </article>
-        ))}
+  <div class="relative -mt-40 overflow-hidden">
+    <div class="relative mx-auto w-full max-w-[1680px] px-5 md:px-8">
+
+      <div class="mx-auto max-w-[949px] text-center">
+        <h2 class="font-display text-[30px] font-black uppercase leading-[0.97] text-[#ac8652] md:text-[40px] md:leading-[44.5px]">
+          Une distribution maîtrisée
+        </h2>
       </div>
     </div>
-  </Container>
+
+    <div class="relative w-screen left-1/2 -translate-x-1/2 px-5 pb-14 text-white mt-6 md:pb-[86px]">
+      <Container class="max-w-[1680px] px-5 md:px-8">
+        <div class="mx-auto max-w-[1120px] text-center">
+          <p class="mx-auto max-w-[790px] font-heading text-[15px] font-normal leading-[1.46] text-white md:text-[20px]">
+            Pour Reunimer, une filière responsable commence par la capacité à nourrir son propre territoire. Grâce à
+            une présence stratégique en Océan Indien (Réunion, Madagascar, Maurice) et en France métropolitaine, le
+            Groupe assure un lien direct, réactif et performant entre la ressource et le marché.
+          </p>
+
+          <p class="mt-7 font-heading text-[18px] font-medium leading-[1.46] text-white md:mt-[38px] md:text-[32px]">
+            La promesse de la filiale distribution de Reunimer
+          </p>
+
+          <div class="mt-10 grid gap-6 md:mt-[34px] md:grid-cols-3 md:gap-[28px] xl:gap-[34px]">
+            {distributionCards.map((card) => (
+              <article class="text-center">
+                <h3 class="font-heading text-[16px] font-semibold leading-none tracking-[-0.04em] text-white md:text-[20px]">
+                  {card.title}
+                </h3>
+                <div class="mx-auto mt-[14px] w-full max-w-[280px] overflow-hidden rounded-[10px] border border-white/18 bg-white/10 shadow-[0_18px_30px_rgba(0,0,0,0.24)] md:max-w-none">
+                  <div class="relative aspect-square overflow-hidden">
+                    <Image
+                      src={card.image}
+                      alt={card.alt}
+                      class:list={['h-full w-full object-cover', card.imageClass]}
+                      widths={[480, 720]}
+                      sizes="(min-width: 1280px) 320px, (min-width: 768px) 30vw, 280px"
+                    />
+                  </div>
+                </div>
+                <p class="mx-auto mt-3 max-w-[220px] font-body text-[13px] leading-[1.4] text-white md:max-w-[285px] md:text-[16px]">
+                  {card.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </div>
+  </div>
 </section>

@@ -2,40 +2,60 @@
 import { Image } from 'astro:assets';
 import Container from '../../ui/Container.astro';
 import ExpertisesStatGroupList from './ExpertisesStatGroupList.astro';
-import { expertisesSupportBackground, supportStats } from '../../../data/expertises';
+import {
+  expertisesSupportBackground,
+  supportColumns,
+  supportIntro,
+  supportStats,
+} from '../../../data/expertises';
 ---
 
-<section class="relative overflow-hidden bg-[#082033] py-16 text-white md:py-[110px]">
+<section class="relative overflow-hidden bg-[#08131d] py-16 text-white md:py-[92px]">
   <Image
     src={expertisesSupportBackground}
     alt="Infrastructure logistique Reunimer"
-    class="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+    class="absolute inset-0 h-full w-full object-cover object-[center_34%]"
     widths={[768, 1280, 1920]}
     sizes="100vw"
   />
-  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,16,28,0.36)_0%,rgba(4,16,28,0.4)_28%,rgba(4,16,28,0.78)_100%)]"></div>
-  <div class="absolute inset-x-0 top-0 h-[220px] bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0)_100%)]"></div>
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,21,32,0.08)_0%,rgba(7,21,32,0.22)_18%,rgba(4,11,18,0.72)_52%,rgba(2,6,10,0.96)_100%)]"></div>
+  <div class="absolute inset-x-0 top-0 h-[180px] bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0)_100%)]"></div>
   <Container class="relative">
-    <div class="grid gap-10 md:grid-cols-[0.92fr_1.08fr] md:gap-[80px]">
-      <div>
-        <h2 class="font-display text-display-lg font-black leading-[1.02] text-white">
-          Logistique et supports
+    <div class="mx-auto max-w-[742px] pt-[240px] md:pt-[380px]">
+      <div class="max-w-[590px]">
+        <h2 class="max-w-[520px] font-display text-[28px] font-black uppercase leading-[0.98] tracking-[-0.02em] text-white md:text-[42px]">
+          Logistique &amp; supports :
+          <br />
+          la force invisible
         </h2>
-        <p class="mt-6 max-w-[420px] font-heading text-heading-lg leading-[1.46] text-white/88">
-          Derriere chaque flux, Reunimer aligne transport, entreposage, maintenance et coordination operationnelle
-          pour maintenir la disponibilite produit du quai jusqu'au client.
+        <p class="mt-5 max-w-[520px] font-body text-[11px] leading-[1.55] text-white/76 md:text-[12px]">
+          {supportIntro}
         </p>
       </div>
-      <div class="space-y-8">
+
+      <div class="mt-8 grid gap-5 md:mt-9 md:grid-cols-2 md:gap-8">
+        {supportColumns.map((column) => (
+          <div class="max-w-[330px]">
+            <h3 class="font-body text-[10px] font-semibold leading-[1.35] text-white md:text-[11px]">
+              {column.title}
+            </h3>
+            <p class="mt-2 font-body text-[10px] leading-[1.42] text-white/74 md:text-[11px]">
+              {column.body}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <div class="mt-10 md:mt-12">
         <ExpertisesStatGroupList
           groups={supportStats}
-          groupLabelClass="font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/80"
-          groupSpacingClass="space-y-8"
-          itemsWrapperClass="mt-3 space-y-4"
-          dividerClass="border-b border-white/24 pb-3"
-          rowClass="flex items-end justify-between gap-6"
-          valueClass="font-display text-[2.25rem] font-black leading-none text-white"
-          labelClass="max-w-[220px] text-right font-body text-[0.78rem] leading-[1.35] text-white/82"
+          groupLabelClass="font-body text-[9px] font-bold uppercase tracking-[0.12em] text-white/86 md:text-[10px]"
+          groupSpacingClass="grid gap-8 md:grid-cols-2 md:gap-12"
+          itemsWrapperClass="mt-3 space-y-3"
+          dividerClass="border-b border-white/22 pb-[6px]"
+          rowClass="grid grid-cols-[minmax(72px,96px)_1fr] items-end gap-4"
+          valueClass="font-display text-[30px] font-black leading-none text-white md:text-[38px]"
+          labelClass="justify-self-end text-right font-body text-[10px] leading-[1.25] text-white/82 md:max-w-[170px] md:text-[11px]"
         />
       </div>
     </div>

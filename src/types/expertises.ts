@@ -36,6 +36,8 @@ export interface BrandRow {
   logo: ImageMetadata;
   logoAlt: string;
   body: string;
+  linkLabel: string;
+  linkHref: string;
 }
 
 export interface RhDonut {
