@@ -1,0 +1,55 @@
+---
+import { Image } from 'astro:assets';
+import { homeExpertiseCards } from '../../../data/home';
+---
+
+<section class="bg-white py-12 md:py-16 lg:relative lg:h-[902px] lg:py-0">
+  <div class="mb-8 text-center lg:absolute lg:inset-x-0 lg:top-[88px] lg:mb-0">
+    <h2 class="font-display text-[32px] uppercase leading-[44.5px] text-bleu-abysse lg:text-display-lg">
+      Nos expertises
+    </h2>
+    <p class="mt-2 font-heading text-lg font-normal leading-[1.461] text-bleu-abysse lg:text-heading-lg">
+      Nos expertises dans la chaîne de valeurs intégrée.
+    </p>
+  </div>
+
+  <div class="flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 md:gap-4 md:px-10 lg:absolute lg:inset-x-[35px] lg:top-[245px] lg:bottom-[41px] lg:gap-0 lg:overflow-visible lg:px-0">
+    {homeExpertiseCards.map((card) => (
+      <a
+        href={card.href}
+        data-expertise-card
+        class="relative h-[380px] w-[240px] flex-none snap-start overflow-hidden rounded-sm md:h-[520px] md:w-[280px] lg:h-full lg:w-auto lg:flex-1 lg:rounded-none"
+      >
+        <Image
+          src={card.image}
+          alt={card.title}
+          class="absolute inset-0 h-full w-full object-cover"
+          widths={[300, 600]}
+          sizes="(max-width: 1024px) 260px, 274px"
+        />
+
+        <div
+          data-panel
+          class:list={[
+            card.color,
+            'absolute inset-x-0 bottom-0 flex h-full flex-col px-[25px] pt-[15px] pb-[25px]',
+          ]}
+        >
+          <h3 class="font-heading text-2xl font-medium leading-[1.461] text-white md:text-[32px]">
+            {card.title}
+          </h3>
+          <hr data-reveal class="mt-4 mb-5 border-white/50" />
+          <p data-reveal class="font-heading text-base font-normal leading-[1.461] text-white/90 md:text-lg">
+            {card.description}
+          </p>
+          <div data-reveal class="mt-auto">
+            <span class="inline-flex items-center gap-2 border border-white px-5 py-2.5 font-display text-xs uppercase tracking-wider text-white md:text-sm">
+              En savoir plus
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
+            </span>
+          </div>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

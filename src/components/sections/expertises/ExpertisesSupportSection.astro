@@ -1,0 +1,43 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import ExpertisesStatGroupList from './ExpertisesStatGroupList.astro';
+import { expertisesSupportBackground, supportStats } from '../../../data/expertises';
+---
+
+<section class="relative overflow-hidden bg-[#082033] py-16 text-white md:py-[110px]">
+  <Image
+    src={expertisesSupportBackground}
+    alt="Infrastructure logistique Reunimer"
+    class="absolute inset-0 h-full w-full object-cover object-[center_35%]"
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(5,16,28,0.36)_0%,rgba(4,16,28,0.4)_28%,rgba(4,16,28,0.78)_100%)]"></div>
+  <div class="absolute inset-x-0 top-0 h-[220px] bg-[linear-gradient(180deg,rgba(255,255,255,0.16),rgba(255,255,255,0)_100%)]"></div>
+  <Container class="relative">
+    <div class="grid gap-10 md:grid-cols-[0.92fr_1.08fr] md:gap-[80px]">
+      <div>
+        <h2 class="font-display text-display-lg font-black leading-[1.02] text-white">
+          Logistique et supports
+        </h2>
+        <p class="mt-6 max-w-[420px] font-heading text-heading-lg leading-[1.46] text-white/88">
+          Derriere chaque flux, Reunimer aligne transport, entreposage, maintenance et coordination operationnelle
+          pour maintenir la disponibilite produit du quai jusqu'au client.
+        </p>
+      </div>
+      <div class="space-y-8">
+        <ExpertisesStatGroupList
+          groups={supportStats}
+          groupLabelClass="font-body text-[0.72rem] font-bold uppercase tracking-[0.08em] text-white/80"
+          groupSpacingClass="space-y-8"
+          itemsWrapperClass="mt-3 space-y-4"
+          dividerClass="border-b border-white/24 pb-3"
+          rowClass="flex items-end justify-between gap-6"
+          valueClass="font-display text-[2.25rem] font-black leading-none text-white"
+          labelClass="max-w-[220px] text-right font-body text-[0.78rem] leading-[1.35] text-white/82"
+        />
+      </div>
+    </div>
+  </Container>
+</section>

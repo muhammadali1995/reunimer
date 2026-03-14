@@ -1,0 +1,31 @@
+---
+import { Image } from 'astro:assets';
+import { homeTeamSection } from '../../../data/home';
+import Button from '../../ui/Button.astro';
+---
+
+<section id="team-section" class="relative overflow-hidden py-12 md:py-16 lg:h-[650px] lg:py-0">
+  <div data-anim="3" class="relative mx-auto mb-10 max-w-[400px] overflow-hidden md:max-w-[500px] lg:absolute lg:left-[77px] lg:top-0 lg:mb-0 lg:h-[668px] lg:w-[643px] lg:max-w-none">
+    <Image
+      src={homeTeamSection.image.src}
+      alt={homeTeamSection.image.alt}
+      class="h-full w-full object-cover object-top"
+      widths={homeTeamSection.image.widths}
+      sizes={homeTeamSection.image.sizes}
+    />
+  </div>
+
+  <div class="max-w-[550px] px-5 md:px-10 lg:absolute lg:left-[757px] lg:top-[226px] lg:w-[552px] lg:px-0">
+    <h2 data-anim="4" class="mb-6 font-display text-[28px] uppercase leading-[1.1] text-bleu-abysse md:text-[32px] lg:text-display-lg lg:leading-[44.5px]">
+      {homeTeamSection.title}
+    </h2>
+    <p data-anim="4" class="mb-8 font-heading text-lg font-normal leading-[1.461] text-bleu-abysse lg:w-[421px] lg:text-heading-lg">
+      {homeTeamSection.body}
+    </p>
+    <div data-anim="4">
+      <Button variant="outline-dark" href={homeTeamSection.cta.href}>
+        {homeTeamSection.cta.label}
+      </Button>
+    </div>
+  </div>
+</section>

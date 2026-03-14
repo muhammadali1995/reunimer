@@ -28,6 +28,7 @@ export default {
       },
       fontSize: {
         'display-lg': ['40px', { lineHeight: '44.5px', letterSpacing: '0' }],
+        'heading-2xl': ['32px', { lineHeight: '40px', letterSpacing: '0' }],
         'heading-xl': ['32px', { lineHeight: '1.461', letterSpacing: '0' }],
         'heading-lg': ['20px', { lineHeight: '1.461', letterSpacing: '0' }],
         'heading-md': ['16px', { lineHeight: '1.4', letterSpacing: '0' }],

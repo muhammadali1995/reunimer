@@ -1,0 +1,53 @@
+---
+import ArticleCard from '../../ui/ArticleCard.astro';
+import Container from '../../ui/Container.astro';
+import Button from '../../ui/Button.astro';
+import SectionHeading from '../../ui/SectionHeading.astro';
+import { homeActualitesSection } from '../../../data/home';
+import { featuredLargeArticle, featuredSmallArticles } from '../../../data/articles';
+---
+
+<section id="actualites-section" class="bg-gris-clair py-12 md:py-16 lg:h-[832px] lg:py-0">
+  <Container>
+    <div class="mb-8 flex flex-col gap-4 md:flex-row md:items-start md:justify-between md:gap-0 lg:pt-[87px] lg:mb-10">
+      <div class="md:flex-1">
+        <SectionHeading title={homeActualitesSection.title} />
+      </div>
+      <div class="shrink-0">
+        <Button variant="outline-dark" href={homeActualitesSection.cta.href}>
+          {homeActualitesSection.cta.label}
+        </Button>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-6 lg:flex-row lg:gap-8">
+      <div class="lg:w-[57%]">
+        <ArticleCard
+          title={featuredLargeArticle.title}
+          date={featuredLargeArticle.date}
+          tag={featuredLargeArticle.tag}
+          tagColor={featuredLargeArticle.tagColor}
+          image={featuredLargeArticle.image}
+          imageAlt={featuredLargeArticle.imageAlt}
+          href="/actualites"
+          size="lg"
+        />
+      </div>
+
+      <div class="flex flex-col gap-6 lg:w-[43%] lg:gap-5">
+        {featuredSmallArticles.map((article) => (
+          <ArticleCard
+            title={article.title}
+            date={article.date}
+            tag={article.tag}
+            tagColor={article.tagColor}
+            image={article.image}
+            imageAlt={article.imageAlt}
+            href="/actualites"
+            layout="horizontal"
+          />
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

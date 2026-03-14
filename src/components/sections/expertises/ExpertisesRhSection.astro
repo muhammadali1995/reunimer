@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import { expertisesRhBackground, rhDonuts } from '../../../data/expertises';
+---
+
+<section class="relative overflow-hidden bg-[#eef1f2] py-16 text-bleu-abysse md:py-[110px]">
+  <Image
+    src={expertisesRhBackground}
+    alt="Collaborateurs Reunimer"
+    class="absolute inset-0 h-full w-full object-cover object-[center_25%] opacity-88"
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(239,242,243,0.74)_0%,rgba(239,242,243,0.62)_28%,rgba(239,242,243,0.92)_100%)]"></div>
+  <Container class="relative">
+    <div class="grid gap-10 md:grid-cols-[1fr_0.95fr] md:items-end md:gap-[70px]">
+      <div>
+        <h2 class="font-display text-display-lg font-black leading-[1.02] text-bleu-abysse">
+          Ressources humaines
+        </h2>
+        <p class="mt-6 max-w-[470px] font-heading text-heading-lg leading-[1.46] text-bleu-abysse/88">
+          Le groupe s'appuie sur des equipes expertes, engagees sur le terrain industriel, maritime et logistique.
+          La transmission des savoir-faire et la stabilite des collectifs structurent sa croissance.
+        </p>
+      </div>
+      <div class="grid gap-6 sm:grid-cols-2">
+        {rhDonuts.map((donut) => (
+          <div class="rounded-[8px] bg-white/72 p-6 shadow-[0_20px_48px_rgba(0,0,0,0.08)] backdrop-blur-[2px]">
+            <div class="relative mx-auto h-[210px] w-[210px]">
+              <svg viewBox="0 0 210 210" class="h-full w-full">
+                <circle cx="105" cy="105" r="70" fill="none" stroke="#d8e0e3" stroke-width="26"></circle>
+                <circle
+                  cx="105"
+                  cy="105"
+                  r="70"
+                  fill="none"
+                  stroke="#103651"
+                  stroke-width="26"
+                  stroke-dasharray="220 220"
+                  stroke-dashoffset="22"
+                  transform="rotate(-90 105 105)"
+                ></circle>
+                <circle
+                  cx="105"
+                  cy="105"
+                  r="70"
+                  fill="none"
+                  stroke="#9e4f2d"
+                  stroke-width="26"
+                  stroke-dasharray="220 220"
+                  stroke-dashoffset="-154"
+                  transform="rotate(-90 105 105)"
+                ></circle>
+              </svg>
+              <div class:list={['absolute inset-x-0 text-center', donut.centerTop]}>
+                {donut.lines.map((line) => (
+                  <p class="font-body text-[0.74rem] leading-[1.2] text-bleu-abysse/80">{line}</p>
+                ))}
+              </div>
+              <div class="absolute bottom-[42px] left-[30px] text-center">
+                <p class="font-display text-[1.65rem] font-black leading-none text-bleu-abysse">{donut.leftValue}</p>
+              </div>
+              <div class="absolute bottom-[42px] right-[30px] text-center">
+                <p class="font-display text-[1.65rem] font-black leading-none text-bleu-abysse">{donut.rightValue}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

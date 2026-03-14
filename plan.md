@@ -1,384 +1,414 @@
-# Expertises Page — Implementation Plan
+# Expertises Page — Remaining Work Plan
 
-**Figma source:** [Site-Reunimer / Expertise](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=729-16024&m=dev)
-**Figma node:** `729:16024` (frame "Expertise", 1440 × ~14528)
-**Route:** `/expertises`
-
-## Immediate small phases (distribution section)
-
-### Phase 0 — Audit Figma vs current build
-- Re-review the distribution portion of the frame (nodes `729:16272`‑`729:16288`) and log visual gaps: missing promise subheading, card titles sitting under the images, fonts that don’t match Montserrat 32/20, the missing white card panels, and the multi-line descriptions detailed in Figma.
-- Capture those differences here so the following steps can focus precisely on the fixes we need to ship first.
-
-### Phase 1 — Heading & copy alignment
-- Replace the placeholder promise text with a Montserrat 32px/40px line that matches `729:16272` and ensures the typography is white, centered, and spaced as in the mockup.
-- Keep the paragraph copy under the gold `Une distribution maîtrisée` title but verify it remains within the 790px width the mockup uses.
-
-### Phase 2 — Card layout refinement
-- Move each card title above the photo, keep the text white, Montserrat SemiBold 20px, and apply the precise tracking from `729:16277`‑`729:16287`.
-- Wrap each image in a white rounded panel (mirroring nodes `729:16274`‑`729:16276`) and keep the sable-corail footer bar while splitting the copy into two lines per the Figma descriptions (`729:16278`, `729:16283`, `729:16288`).
-
-### Phase 3 — Validation
-- Preview the distribution section to ensure the cards render with visible photos, white text, and matching spacing at desktop.
-- Once satisfied, mark this block as aligned and proceed to the remaining sections outlined below.
+**Figma source:** [Site-Reunimer / Expertise](https://www.figma.com/design/YZpOkEQoNYBuvDtjgt59Tm/Site-Reunimer?node-id=729-16024&m=dev)  
+**Figma node:** `729:16024`  
+**Route:** `/expertises`  
+**Primary implementation file:** `src/pages/expertises.astro`
 
 ---
 
-## Page Structure (top to bottom)
+## Current Status
 
-| # | Section | Y range | Key Figma Nodes | Background |
-|---|---------|---------|-----------------|------------|
-| 1 | Navbar | top | — | Already in PageLayout |
-| 2 | Hero | 0–700 | `729:16034`, `729:16040` | Dark ocean image (Gemini_Generated_Image), overlay |
-| 3 | Pêche Expertise | 700–2800 | `729:16035`–`729:16063` | Banc de thon image, dark overlay |
-| 4 | Certifications | 2800–3800 | `729:16065`–`729:16171` | Image bg + certification logos |
-| 5 | Transformation | 3800–6400 | `729:16033`, `729:16174`, `729:16194`–`729:16204` | Gradient white→#ccc, product images |
-| 6 | Quality & Safety | 6400–7500 | `729:16236`–`729:16265` | Light bg, stats, zero-déchet |
-| 7 | Distribution | 7500–10200 | `729:16031`–`729:16032`, `729:16272`–`729:16288` | Magazine imagery → dark bg → 3 cards |
-| 8 | Logistique & Supports | 10200–11900 | `729:16025`–`729:16029`, `729:16175`, `729:16289` | Dark bg, support imagery |
-| 9 | RSE & RH | 11900–13115 | `729:16176`–`729:16192` | Background image, stats percentages |
-| 10 | Footer | 13115+ | — | Already in PageLayout |
+The `/expertises` page has been rebuilt into the correct high-level Figma section stack and now roughly follows the desktop frame:
 
----
+1. Hero
+2. Pêche
+3. Certifications
+4. Transformation
+5. Quality & Safety
+6. Distribution
+7. Brands
+8. Logistique & Supports
+9. RH
 
-## Phase 1 — Page Setup & Hero Section
+The repo build is unblocked and `npm run build` succeeds.
 
-**Goal:** Set up the expertises page with `PageLayout` and build the hero section with the "noS expertiseS" title overlay on a dark ocean background image.
+The page is **not** pixel-perfect yet.
 
-**Tasks:**
-- Replace the stub content in `src/pages/expertises.astro` with proper page structure
-- Build hero section: full-width dark ocean image background (h=~700px)
-- Title "noS expertiseS" — Zalando Sans Expanded Black 40px, uppercase, white, positioned left side at y=250
-- The hero image covers the full width, extends from top to ~2560px (parallax-ready)
-- Content area positioned using Container for proper centering
+### What is already done
 
-**Figma specs:**
-- Hero bg image (node 729:16034): `Gemini_Generated_Image_gvt8gigvt8gigvt8 1`, 1440×2560, extends from y=-2 to y=2558
-- Title (node 729:16040): x=calc(29.17%-198px), y=250, Zalando Sans Expanded Black 40px, uppercase, white
-- Overall page bg: white
+- Page structure is in place and no longer a stub.
+- Major section order and rough desktop heights exist.
+- Desktop spacing has been tightened section by section.
+- The hero uses local/Figma-derived assets instead of a pure synthetic background.
+- Screenshot-based review loops have already been done for:
+  - hero
+  - pêche
+  - certifications
+  - transformation
+  - quality & safety
+  - distribution
+  - logistique
+  - RH
 
-**Assets needed:**
-- `hero-expertises.jpg` — already exists in `src/assets/images/expertise/`
+### What is still wrong
 
----
-
-## Phase 2 — Pêche Expertise Section
-
-**Goal:** Build the fishing expertise section with intro text, location-based statistics (La Réunion, Boulogne-sur-Mer, Madagascar), and subsection titles.
-
-**Tasks:**
-- Dark background section with tuna school image overlay (y=715, 2658px tall)
-- Intro paragraph: "Reunimer maîtrise l'amont pour sécuriser l'aval..." — Montserrat Regular 20px, white, w=701px, at left=calc(41.67%+8px), y=1185
-- Subsection title: "Une puissance de pêche hauturière et australe" — Montserrat SemiBold 20px, white
-- **Stats component (BarreChiffres pattern):** number + description rows separated by thin white lines
-  - **La Réunion** (y=1450): 17 longliners, 1 palangrier 68m, 130 marins pêcheurs, 1800 tonnes
-  - Stats split into two columns: left col w=326px, right col w=328px at calc(66.67%+30px)
-- Subsection title: "Un modèle de collecte artisanale et de mareyage" — same style
-- **Boulogne-sur-Mer** (y=2084): 23 années d'expertise, XX bateaux, XX tonnes
-- **Madagascar** stats below
-- "Reunimer sur le marché de la pêche à la légine dans les TAAF" — Montserrat SemiBold 20px
-
-**Figma specs:**
-- Background: node `729:16035` (BANC DE THON 1), y=715, 1440×2658
-- Stats numbers: Zalando Sans Expanded Black 40px, uppercase
-- Stats descriptions: Inter Regular 16px, text-right, w=181px
-- Location headers: Inter Bold 16px
-- Separator lines: thin white horizontal lines (1px)
-
-**Assets needed:**
-- `peche-thon.jpg` — already exists in `src/assets/images/expertise/`
+- Several sections still rely on placeholder masses rather than the actual Figma imagery/logo compositions.
+- The hero composition is still not matching Figma closely enough.
+- Many sections are structurally close but still visually approximate because asset substitution is incomplete.
+- Desktop positioning is closer, but not yet at exact-frame precision.
+- Responsive/mobile has not been properly finished.
 
 ---
 
-## Phase 3 — Certifications Section
+## Main Remaining Problem
 
-**Goal:** Build the "Une exigence de durabilité certifiée" section with certification logos and timeline.
+The biggest remaining gap is no longer “page structure.”  
+It is **asset fidelity + final desktop composition**.
 
-**Tasks:**
-- Background image section (node 729:16028): y=2802, 1440×439
-- Title: "Une exigence de durabilité certifiée" — positioned prominently
-- Description paragraph: "Notre stratégie repose sur la sélectivité des espèces..."
-- Certification timeline with logos and dates:
-  - Espadon (2016)
-  - Légine (2025)
-  - Thon Germon (2026)
-  - Légine (2022) — different certification
-  - Grenadier (2025)
-- Certification logos: Eurofins, ISO 50001, Ecolabel, etc.
+That means the next passes should prioritize:
 
-**Figma specs:**
-- Title (node 729:16065/729:16066): "Une exigence de durabilité certifiée"
-- Description (node 729:16068): Montserrat Regular, bleu-abysse or white
-- Certification entries at y=2950–3215 area
-- Logo images: Eurofins, ISO 50001, Ecolabel, Téléchargement
+1. replacing placeholder or approximate imagery with real Figma assets
+2. re-checking each section after the asset swap
+3. only then doing final spacing and responsive cleanup
 
-**Assets needed:**
-- Background image for certifications section
-- Certification logos (Eurofins, ISO, Ecolabel) — export from Figma nodes
+Further pure spacing-only passes without better assets will have diminishing returns.
 
 ---
 
-## Phase 4 — Transformation Section
+## Remaining Work, In Order
 
-**Goal:** Build the "Une production experte" section with production facilities, statistics, and product imagery.
+## Phase A — Hero Finalization
 
-**Tasks:**
-- Gradient background from white to #ccc (y=3796, 1605px tall)
-- Section title: "Une production experte" — Zalando Sans Expanded Black 40px, text-[#2d7890] (lagon-mayotte), centered
-- Production description: "Spécialisées dans le gradage et la découpe de précision..."
-- Two sub-areas:
-  - "unités de première transformation" (y=4308) with imagery
-  - "atelier de seconde transformation" (y=5560) with description
-- Product images: Transformation 1, Transformation 2, Smoke (fish smoking imagery)
-- Statistics per location:
-  - **À la Réunion**: 1800 tonnes traités, XX transformés, 40 professionnels
-  - **À Boulogne-sur-Mer**: XX tonnes traités, XX transformés, 40 emplois
-  - **À Madagascar**: XX tonnes traités, XX transformés, XX emplois
-- Test stats: 550 test Eurofins*, 4210 test autocontrôle*
+**Status:** In progress, not complete.
 
-**Figma specs:**
-- Title (node 729:16174): centered, text-[#2d7890], y=3812
-- Description (node 729:16194/729:16195): y=4016–4344
-- Image nodes: TRANSFORMATION 1, TRANSFORMATION 2, SMOKE, Frame 6
-- Stats: Zalando Sans 40px numbers + Inter 16px descriptions
-- Location headers: Inter Bold 16px
+### Current state
 
-**Assets needed:**
-- Transformation product images (export from Figma)
-- Smoke/fumaison image
+- Hero title position is closer than the original build.
+- Hero currently uses a layered ocean/ship composition.
+- The resulting desktop render is still too dark and still does not match the Figma hero read.
 
----
+### Remaining tasks
 
-## Phase 5 — Quality & Safety Section
+- Rebuild the hero composition against Figma node `729:16034`.
+- Verify whether the exact intended hero is:
+  - a single full-frame ship image, or
+  - a blended ship + underwater composition.
+- Use only the exact asset/crop strategy that matches the Figma frame.
+- Reposition the title `noS expertiseS` to match the actual frame placement precisely.
+- Re-check navbar overlap, top image read, and lower gradient transition into the pêche section.
 
-**Goal:** Build the "Sécurité et excellence" and "Vers le zéro déchet" sections.
+### Definition of done
 
-**Tasks:**
-- Title: "Sécurité et excellence : nos engagements clés" (node 729:16236/729:16204)
-- Three engagement columns:
-  - "Standards de classe mondiale" (node 729:16239/729:16240)
-  - "Contrôle permanent" (node 729:16241)
-  - "Innovation & RSE" (node 729:16242)
-- Subtitle: "Un outil industriel agile et complémentaire" (node 729:16270)
-- Separator line at y=6476
-- "Vers le «zéro déchet»" section (node 729:16244): paragraph about circular economy and co-product valorization
-- Footnote: "*Pour tout le groupe Reunimer en moyenne dans l'année." (node 729:16243)
-
-**Figma specs:**
-- Section title: centered, Zalando Sans Expanded
-- Columns: side-by-side layout
-- Text: Montserrat / Inter, white or dark depending on bg
-- Separator: horizontal line (node 729:16271 area)
+- Boat/ocean read matches the Figma desktop frame at a glance.
+- Title placement is no longer approximate.
+- Transition into the pêche block feels continuous rather than layered artificially.
 
 ---
 
-## Phase 6 — Distribution Section
+## Phase B — Pêche Asset Pass
 
-**Goal:** Build the "Une distribution maîtrisée" section with magazine imagery and 3 distribution cards.
+**Status:** Layout mostly in place, assets incomplete.
 
-**Tasks:**
-- Magazine/publication spread imagery:
-  - RUNIMER_COUVERTURE_JANV26 (two large magazine cover images)
-  - Shadow effect: `shadow-[28px_34px_31.7px_0px_rgba(0,0,0,0.41)]`
-- Title: "Une distribution maîtrisée" — Zalando Sans Expanded Black 40px, text-[#ac8652] (sable-corail), centered, y=8301
-- Description: "Pour Reunimer, une filière responsable commence..." — Montserrat Regular 20px, centered, white, w=790px
-- Dark background (#02070a) at y=8654, 605px tall
-- Three distribution cards at y=8692 (rounded-[10px], w=345px each, h=351px):
-  - **Approvisionnement** (DISTRI 3B image): "Une origine garantie et une traçabilité totale."
-  - **Expertise** (DISTRI 2 image): "Un conseil métier pour chaque typologie de client."
-  - **Service** (DISTRI 1 image): "Une réactivité logistique et commerciale exemplaire."
-- Each card: rounded image on top + sable-corail (#ac8652) colored bar at bottom (156px)
-- Card titles: Montserrat SemiBold 20px, white, centered
-- Card descriptions: Inter Regular 16px, white, centered
+### Current state
 
-**Figma specs:**
-- Title (node 729:16272): centered, text-[#ac8652], y=8301
-- Description (node 729:16273): centered, text-white, y=8376, w=790px
-- Cards: nodes 729:16274, 729:16279, 729:16284 — each 345×351, rounded-[10px]
-- Card titles: nodes 729:16277, 729:16282, 729:16287
-- Card descriptions: nodes 729:16278, 729:16283, 729:16288
-- Background: nodes 729:16030 (dark bg)
+- Copy and section structure are present.
+- Stats groups are close in layout.
+- Madagascar and Boulogne image areas are still placeholders or approximations.
+- The section still lacks the exact visual power of the Figma fishing chapter.
 
-**Assets needed:**
-- Magazine cover images (RUNIMER_COUVERTURE)
-- Distribution card images (DISTRI 1, DISTRI 2, DISTRI 3B)
+### Remaining tasks
 
----
+- Use actual fishing imagery for:
+  - tuna school / background
+  - Madagascar image block
+  - Boulogne image block
+- Re-check exact offsets for:
+  - intro paragraph
+  - subsection titles
+  - stat rows
+  - quota donuts
+- Validate the two donut charts against the Figma proportions and label positions.
+- Confirm the left fish illustration / overlay treatment is either accurate or should be replaced with the true asset.
 
-## Phase 7 — Logistique & Supports Section
+### Definition of done
 
-**Goal:** Build the "LOGISTIQUE & SUPPORTS : LA FORCE INVISIBLE" section with dark background and support imagery.
-
-**Tasks:**
-- Dark section with background image (EXPERTISE_SUPPORT 1, y=10212, 1691px tall)
-- Black overlay on top of the background
-- Title: "LOGISTIQUE & SUPPORTS :" / "LA FORCE INVISIBLE" — Zalando Sans Expanded Black 40px, white, uppercase, y=10851
-- Description paragraph: "Grâce à une précision d'intervention rigoureuse et une expertise en maintenance intégrée..." — Inter Regular 16px, white, w=382px, y=11244
-- Support imagery (SUPPORT 2 background, y=10213)
-
-**Figma specs:**
-- Background container (node 729:16025): y=10212, h=1691, overflow-clip
-- Black bg (node 729:16026): full coverage
-- Support image (node 729:16027): EXPERTISE_SUPPORT 1, extends beyond boundaries
-- Title (node 729:16175): x=calc(25%-10px), y=10851, w=709px
-- Description (node 729:16289): x=calc(25%-9px), y=11244, w=382px
-
-**Assets needed:**
-- Support/logistique background image (export from Figma)
+- Pêche reads like a single designed chapter, not a dark section with floating stats.
+- The three location blocks and donut stats align visually to the Figma frame.
 
 ---
 
-## Phase 8 — RSE & RH Section
+## Phase C — Certifications Asset Pass
 
-**Goal:** Build the "La même chance pour tous" RH section with stats and HR policy text.
+**Status:** Structural approximation exists, still visually weak.
 
-**Tasks:**
-- Background image section (node 729:16176): y=11903, h=1212
-- Title: "La même chance pour tous" — positioned prominently
-- "NOTRE POLITIQUE RESSOURCES HUMAINES" — subtitle
-- "Petit texte d'introduction sur la politique RH." — intro text
-- HR description: "Le Groupe cultive une force de travail animée par l'esprit d'ensemble..."
-- Percentage stats (4 items):
-  - X% Proportion Hommes/femmes
-  - X% (another stat)
-  - X% Proportion -de 30 ans / +de 30 ans
-  - X% (another stat)
-- Stats displayed as circular or visual percentage indicators
+### Current state
 
-**Figma specs:**
-- Background (node 729:16176): y=11903, 1468×1212, overflow-clip
-- Title at y=712 / y=11903 area (white text)
-- Stats (nodes 729:16182, 729:16185, 729:16188): X% with labels
-- Policy text (node 729:16191/729:16192): NOTRE POLITIQUE RESSOURCES HUMAINES
+- The title/copy row is in place.
+- The certification band has been reshaped structurally.
+- Logos and background still read as placeholders.
 
-**Assets needed:**
-- RH background image — `rh-background.png` already exists
+### Remaining tasks
 
----
+- Export and wire the actual certification assets:
+  - Eurofins
+  - ISO 50001
+  - Ecolabel
+  - any other visible certification graphics in the frame
+- Replace the current band background approximation with the actual background/image treatment from Figma node `729:16028`.
+- Rebuild the exact row spacing for the dates:
+  - left certification list
+  - right certification list
+- Replace the large “thon” placeholder block with the correct visual asset and exact size.
 
-## Phase 9 — Responsive Design
+### Definition of done
 
-**Goal:** Make all sections responsive for tablet and mobile.
-
-**Tasks:**
-- **Hero:** Scale title, adjust image height
-- **Pêche stats:** Stack columns vertically on mobile, reduce to single column
-- **Certifications:** Wrap logos, stack timeline vertically
-- **Transformation:** Stack image/text layouts, single column stats
-- **Quality/Safety:** Stack 3 columns vertically on mobile
-- **Distribution:** 3 cards → 2+1 on tablet → single column on mobile
-- **Logistique:** Adjust text widths, scale imagery
-- **RSE/RH:** Stack stats, adjust percentages layout
-- Typography: scale down ~10-15% tablet, ~20% mobile
-- Min 44px tap targets
-- No horizontal overflow at any breakpoint
+- Certifications no longer look like a temporary layout.
+- Logos, dates, and the large image sit in the same visual hierarchy as Figma.
 
 ---
 
-## Phase 10 — Polish & Final Verification
+## Phase D — Transformation Asset Pass
 
-**Goal:** Final visual comparison, navigation verification, and cleanup.
+**Status:** Layout is present, imagery still placeholder-driven.
 
-**Tasks:**
-- Verify navbar highlights "Expertises" on this page
-- Ensure all internal links work (`/expertises`)
-- Cross-check each section against Figma screenshots
-- Clean up placeholder content (replace XX values if real data provided)
-- Check all images load correctly
-- Verify smooth scrolling between sections if applicable
+### Current state
 
----
+- Title and high-level split are implemented.
+- The two production sub-blocks exist.
+- Large image areas still approximate the intended photography.
 
-## Rules
+### Remaining tasks
 
-1. **One phase at a time.** Do not start the next phase until the user reviews and approves.
-2. **Figma is the source of truth.** Always reference node-ids when extracting values.
-3. **Use existing components.** Reuse `Container`, `SectionWrapper`, `SectionHeading`, `Button`, etc.
-4. **Design tokens only.** Never hardcode colors or font sizes.
-5. **Pixel-perfect at desktop.** Match the exact Figma frame at 1440px.
-6. **Responsive is my responsibility.** Figma only provides desktop.
-7. **Assets from Figma.** Export images to `src/assets/images/expertise/`. Use Astro `<Image />`.
-8. **No GSAP yet.** CSS transitions only (200-300ms ease) for hover/focus.
-9. **TypeScript props.** Interfaces with defaults on every component.
-10. **Ask when ambiguous.** Don't guess Figma values.
+- Wire actual Figma exports for:
+  - `TRANSFORMATION 1`
+  - `TRANSFORMATION 2`
+  - `SMOKE`
+- Confirm whether the second large visual should visually overlap or bridge into the lower content as in Figma.
+- Tighten the positions of:
+  - `6` / `unités de première transformation`
+  - `1` / `atelier de seconde transformation`
+- Verify the section height and white-to-grey gradient transition against the desktop frame.
 
----
+### Definition of done
 
-## Existing Assets (in `src/assets/images/expertise/`)
-
-| Asset | Status |
-|-------|--------|
-| `hero-expertises.jpg` | Available |
-| `peche-thon.jpg` | Available |
-| `carte-peche.jpg` | Available |
-| `carte-distribution.jpg` | Available |
-| `rh-background.png` | Available |
-
-## Assets to Export from Figma
-
-| Asset | Source Node | Save To |
-|-------|-----------|---------|
-| Transformation images | TRANSFORMATION 1/2, SMOKE | `src/assets/images/expertise/transformation-*.jpg` |
-| Distribution card images | DISTRI 1/2/3B | `src/assets/images/expertise/distri-*.jpg` |
-| Magazine covers | RUNIMER_COUVERTURE_JANV26 | `src/assets/images/expertise/magazine-cover.jpg` |
-| Certification logos | Various | `src/assets/images/expertise/logo-*.png` |
-| Support background | EXPERTISE_SUPPORT 1 | `src/assets/images/expertise/support-bg.jpg` |
-| Certifications bg | Rectangle 52 | `src/assets/images/expertise/certifications-bg.jpg` |
+- Transformation reads like a premium product/industrial chapter, not a layout scaffold.
+- Image scale and text anchoring match the Figma balance.
 
 ---
 
-## Figma Node Reference (Summary)
+## Phase E — Quality & Safety Finalization
 
-```
-729:16024 — Expertise (full page frame, 1440 × ~14528)
-├── 729:16034 — Hero bg (Gemini ocean image, y=-2, h=2560)
-├── 729:16040 — Title "noS expertiseS" (y=250)
-│
-├── PÊCHE SECTION (y=715–2800)
-│   ├── 729:16035 — BANC DE THON bg (y=715, h=2658)
-│   ├── 729:16036 — Intro text (y=1185)
-│   ├── 729:16041 — Stats La Réunion (y=1450)
-│   ├── 729:16046/047 — Stats components (y=1490-1565)
-│   ├── 729:16048 — Stats Boulogne (y=2084)
-│   ├── 729:16054 — Stats Madagascar (y=1787)
-│   └── 729:16037 — Légine subtitle (y=2412)
-│
-├── CERTIFICATIONS (y=2800–3800)
-│   ├── 729:16028 — Background (y=2802, h=439)
-│   ├── 729:16065/066 — Title (y=2786)
-│   ├── 729:16068 — Description + logos (y=2853)
-│   └── 729:16121/171 — Logo/timeline elements (y=2950-3215)
-│
-├── TRANSFORMATION (y=3800–6400)
-│   ├── 729:16033 — Gradient bg (y=3796, h=1605)
-│   ├── 729:16174 — Title "Une production experte" (y=3812, lagon-mayotte)
-│   ├── 729:16194-203 — Sub-areas, images, stats
-│   └── 729:16258-265 — Location stats (La Réunion, Boulogne, Madagascar)
-│
-├── QUALITY & SAFETY (y=6400–7500)
-│   ├── 729:16236 — Title (y=6431)
-│   ├── 729:16239-242 — Three columns
-│   ├── 729:16270 — Subtitle (y=6431)
-│   └── 729:16244 — Zéro déchet (y=7365)
-│
-├── DISTRIBUTION (y=7500–10200)
-│   ├── 729:16031/032 — Magazine covers
-│   ├── 729:16272 — Title (y=8301, sable-corail)
-│   ├── 729:16273 — Description (y=8376)
-│   ├── 729:16030 — Dark bg (y=8654, h=605)
-│   └── 729:16274/279/284 — 3 distribution cards (y=8692)
-│
-├── LOGISTIQUE & SUPPORTS (y=10200–11900)
-│   ├── 729:16025-027 — Dark bg + support imagery
-│   ├── 729:16175 — Title (y=10851)
-│   └── 729:16289 — Description (y=11244)
-│
-├── RSE & RH (y=11900–13115)
-│   ├── 729:16176 — Background (y=11903, h=1212)
-│   ├── 729:16177 — "La même chance pour tous" (y=712)
-│   ├── 729:16182/185/188 — Stats X%
-│   └── 729:16191/192 — NOTRE POLITIQUE RH
-│
-├── Header (navbar, handled by PageLayout)
-└── Footer (node at y=13115, handled by PageLayout)
-```
+**Status:** Structure is okay; content styling still approximate.
+
+### Current state
+
+- Two-column composition exists.
+- Left engagement stack and right stats block are readable.
+- Left visual/logo area still feels temporary.
+
+### Remaining tasks
+
+- Replace left-side placeholder visual with the actual supporting imagery.
+- Replace temporary certification/logo placeholders with real files if they belong in this section.
+- Re-check the exact visual distinction between:
+  - `Sécurité et excellence : nos engagements clés`
+  - `Un outil industriel agile et complémentaire`
+- Tighten the zero-waste paragraph block and footnote placement.
+
+### Definition of done
+
+- Left and right halves feel intentionally paired.
+- This section reads as a finished information design panel.
+
+---
+
+## Phase F — Distribution Asset Pass
+
+**Status:** Improved structurally, still one of the most asset-dependent sections.
+
+### Current state
+
+- Title/copy/promise hierarchy is present.
+- Dark stage and three-card composition are in place.
+- Magazine spread and cards still need exact visual assets to match Figma.
+
+### Remaining tasks
+
+- Replace the magazine/background placeholders with the actual Figma exports for:
+  - `RUNIMER_COUVERTURE_JANV26 1`
+  - `RUNIMER_COUVERTURE_JANV26 2`
+- Replace all three card images with the final correct exports:
+  - `DISTRI 3B`
+  - `DISTRI 2`
+  - `DISTRI 1`
+- Validate exact card layout:
+  - card title placement
+  - image block height
+  - sable-corail footer bar
+  - description line breaks
+- Confirm whether card image framing needs crop adjustments to match Figma precisely.
+
+### Definition of done
+
+- Distribution reads much closer to the Figma “editorial spread + cards” composition.
+- The section no longer feels placeholder-heavy.
+
+---
+
+## Phase G — Brands Section Review
+
+**Status:** Present, but not part of the strongest validated flow yet.
+
+### Current state
+
+- A brands block exists after distribution.
+- It is visually simpler than the rest of the page and likely still under-refined.
+
+### Remaining tasks
+
+- Confirm this section is actually part of the intended Figma page flow and not over/under-built.
+- Validate title, logo stack, body copy, and link spacing against the desktop frame.
+- Replace temporary logo placeholders if any remain.
+
+### Definition of done
+
+- The brands section no longer feels like an inserted appendix.
+
+---
+
+## Phase H — Logistique & Supports Asset Pass
+
+**Status:** Structurally stabilized, visually still one of the weakest matches.
+
+### Current state
+
+- Section height and text structure are in place.
+- Visual background treatment is still not close enough to the Figma section.
+
+### Remaining tasks
+
+- Replace placeholder/approximate background with the actual support imagery:
+  - `EXPERTISE_SUPPORT 1`
+  - `SUPPORT 2`
+- Rebuild the exact layering:
+  - dark background
+  - support imagery
+  - black overlay
+- Re-check exact title and intro positions relative to the imagery.
+- Confirm left/right copy block widths and bottom stats spacing.
+
+### Definition of done
+
+- Logistique & Supports reads as a designed hero-like chapter instead of a dark text block.
+
+---
+
+## Phase I — RH Finalization
+
+**Status:** Structurally close, imagery/stat styling still approximate.
+
+### Current state
+
+- The RH chapter now has a stable desktop-height section.
+- Employer-brand text, policy heading, and donut charts are present.
+- The visual atmosphere and final stat styling still need refinement.
+
+### Remaining tasks
+
+- Replace/confirm the RH background image treatment against node `729:16176`.
+- Tighten the upper copy block and heading spacing.
+- Validate the donut charts:
+  - ring thickness
+  - percentage positions
+  - label centering
+- Confirm whether additional percentage/stat items are missing compared with Figma.
+
+### Definition of done
+
+- RH no longer feels like a rough final section.
+- The page ending reads intentional and finished.
+
+---
+
+## Phase J — Responsive Pass
+
+**Status:** Not done.
+
+### Required work
+
+- Make the page genuinely usable on tablet and mobile.
+- Remove desktop-only assumptions from the current fixed-height sections.
+- Review all sections for:
+  - stacked layouts
+  - text wrapping
+  - image crop behavior
+  - no horizontal overflow
+  - readable type sizes
+  - stable section order
+
+### Minimum breakpoints to validate
+
+- mobile narrow
+- mobile wide
+- tablet portrait
+- tablet landscape
+- desktop 1440
+
+### Definition of done
+
+- No broken sections on mobile/tablet.
+- No horizontal scroll.
+- No unreadably dense or oversized blocks.
+
+---
+
+## Phase K — Final Visual QA
+
+**Status:** Not done.
+
+### Required work
+
+- Cross-check every desktop section against the Figma frame.
+- Review the page top-to-bottom after final assets are in place.
+- Verify:
+  - title positions
+  - section boundary rhythm
+  - copy line breaks
+  - color accuracy
+  - card sizes
+  - stats alignment
+  - image crop accuracy
+- Rebuild any section that still clearly reads as approximation.
+
+### Definition of done
+
+- Desktop page looks intentionally consistent and close to the Figma frame.
+- Remaining differences are minor, not structural.
+
+---
+
+## Concrete Next Step
+
+The most efficient next action is:
+
+1. **Finish the hero composition only**
+
+Reason:
+- The hero is still visibly off.
+- It influences the entire first impression of the page.
+- Current asset substitution proved the main issue is composition, not simply the file path.
+
+After that:
+
+2. **Pêche asset pass**
+3. **Distribution asset pass**
+4. **Logistique asset pass**
+5. **Responsive pass**
+6. **Final QA**
+
+---
+
+## Current Files To Touch
+
+- `src/pages/expertises.astro`
+- `src/assets/images/expertise/*`
+- `astro.config.mjs` only if build/tooling issues recur
+
+---
+
+## Notes
+
+- The repo build currently works.
+- The page has improved materially, but it is still in a “structured approximation” state.
+- The remaining work should now be driven by **asset fidelity and exact desktop composition**, not by more broad scaffolding changes.

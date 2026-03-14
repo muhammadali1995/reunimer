@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import { homeRseSection } from '../../../data/home';
+import Button from '../../ui/Button.astro';
+---
+
+<section id="rse-section" class="relative overflow-hidden bg-gris-clair py-12 md:py-16 lg:h-[752px] lg:py-0">
+  <div data-anim="3" class="relative mx-auto mb-10 max-w-[300px] md:max-w-[340px] lg:absolute lg:left-[5%] lg:top-[29px] lg:bottom-0 lg:mb-0 lg:w-[34.28%] lg:max-w-none">
+    <Image
+      src={homeRseSection.image.src}
+      alt={homeRseSection.image.alt}
+      class="h-full w-full object-cover object-top"
+      widths={homeRseSection.image.widths}
+      sizes={homeRseSection.image.sizes}
+    />
+  </div>
+
+  <div data-anim="4" class="px-5 md:px-10 lg:absolute lg:top-[31.38%] lg:left-[42.11%] lg:right-[7.27%] lg:px-0">
+    <h2 class="mb-6 font-display text-[28px] uppercase leading-[1.1] text-bleu-abysse md:text-[32px] lg:mb-0 lg:text-display-lg lg:leading-[44.5px]">
+      {homeRseSection.title}
+    </h2>
+  </div>
+  <div data-anim="4" class="px-5 md:px-10 lg:absolute lg:top-[53.59%] lg:left-[42.11%] lg:right-[20.29%] lg:px-0">
+    <p class="mb-8 font-heading text-lg font-normal leading-[1.461] text-bleu-abysse lg:mb-0 lg:text-heading-lg">
+      {homeRseSection.body}
+    </p>
+  </div>
+  <div data-anim="4" class="px-5 md:px-10 lg:absolute lg:top-[71.68%] lg:left-[42.11%] lg:px-0">
+    <Button variant="outline-dark" href={homeRseSection.cta.href}>
+      {homeRseSection.cta.label}
+    </Button>
+  </div>
+</section>

@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import { brandRows } from '../../../data/expertises';
+---
+
+<section class="bg-white py-16 text-bleu-abysse md:py-[96px]">
+  <Container>
+    <div class="mx-auto max-w-[760px]">
+      <h2 class="text-center font-heading text-heading-lg font-semibold text-bleu-abysse">
+        Nos marques commerciales
+      </h2>
+      <div class="mx-auto mt-4 h-px w-full max-w-[520px] bg-bleu-abysse/20"></div>
+      <div class="mt-10 space-y-10">
+        {brandRows.map((brand) => (
+          <div class="mx-auto grid max-w-[520px] items-center gap-5 md:grid-cols-[130px_1fr] md:gap-8">
+            <div class="flex justify-center md:justify-start">
+              <Image
+                src={brand.logo}
+                alt={brand.logoAlt}
+                class="max-h-[72px] w-auto max-w-[120px] object-contain"
+                widths={[180, 240]}
+                sizes="120px"
+              />
+            </div>
+            <div>
+              <p class="font-body text-[0.78rem] font-bold leading-[1.35] text-bleu-abysse">{brand.name}</p>
+              <p class="mt-2 font-body text-[0.74rem] leading-[1.45] text-bleu-abysse/78">{brand.body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

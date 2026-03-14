@@ -1,0 +1,62 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import {
+  expertisesSmokeImage,
+  expertisesTransformationPrimaryImage,
+  expertisesTransformationSecondaryImage,
+} from '../../../data/expertises';
+---
+
+<section class="bg-white py-16 text-bleu-abysse md:py-[110px]">
+  <Container>
+    <div class="grid gap-10 md:grid-cols-[1.08fr_0.92fr] md:items-start md:gap-[68px]">
+      <div>
+        <p class="font-heading text-heading-lg font-semibold">Une transformation de precision</p>
+        <div class="mt-5 h-px w-full bg-bleu-abysse/20"></div>
+        <p class="mt-6 max-w-[620px] font-heading text-heading-lg leading-[1.46] text-bleu-abysse/90">
+          Reunimer transforme, prepare et conditionne les produits de la mer au plus pres des exigences des
+          circuits professionnels. Chaque site articule savoir-faire industriel, regularite d'execution et
+          adaptation aux attentes du marche.
+        </p>
+        <div class="mt-8 grid gap-5 sm:grid-cols-2">
+          <div class="relative h-[280px] overflow-hidden rounded-[8px] bg-brume-alize/20">
+            <Image
+              src={expertisesTransformationPrimaryImage}
+              alt="Ligne de transformation Reunimer"
+              class="h-full w-full object-cover"
+              widths={[640, 900]}
+              sizes="(min-width: 768px) 420px, 100vw"
+            />
+          </div>
+          <div class="relative h-[280px] overflow-hidden rounded-[8px] bg-brume-alize/20">
+            <Image
+              src={expertisesTransformationSecondaryImage}
+              alt="Preparation des produits de la mer"
+              class="h-full w-full object-cover object-[center_45%]"
+              widths={[640, 900]}
+              sizes="(min-width: 768px) 320px, 100vw"
+            />
+          </div>
+        </div>
+      </div>
+      <div class="relative overflow-hidden rounded-[8px] bg-[#040915] text-white shadow-[0_24px_64px_rgba(0,0,0,0.18)]">
+        <Image
+          src={expertisesSmokeImage}
+          alt="Produit fume Reunimer"
+          class="absolute inset-0 h-full w-full object-contain object-[center_top] opacity-100"
+          widths={[768, 1200]}
+          sizes="(min-width: 768px) 520px, 100vw"
+        />
+        <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,18,29,0.18)_0%,rgba(4,18,29,0.54)_54%,rgba(4,18,29,0.92)_100%)]"></div>
+        <div class="relative flex min-h-[360px] flex-col justify-end p-8 md:min-h-[520px] md:p-10">
+          <p class="font-heading text-heading-lg font-semibold">Transformation, fumaison et finitions</p>
+          <p class="mt-4 max-w-[430px] font-body text-body-base leading-[1.5] text-white/88">
+            Portions, filets, decoupes, recettes et presentations premium sont developpes avec la meme exigence
+            de fraicheur, de tracabilite et de constance qualitative.
+          </p>
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>
