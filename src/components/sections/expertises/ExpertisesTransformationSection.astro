@@ -9,7 +9,7 @@ import Container from "../../ui/Container.astro";
 ---
 
 <section
-  class="bg-white pt-16  mt-32 bg-[linear-gradient(180deg,_#FFFFFF_0%,_#CCCCCC_100%)] text-bleu-abysse md:pt-[110px]"
+  class="mt-20 bg-white bg-[linear-gradient(180deg,_#FFFFFF_0%,_#CCCCCC_100%)] pt-16 text-bleu-abysse md:mt-24 md:pt-20 xl:mt-32 xl:pt-[110px]"
 >
   <Container>
     <div class="mx-auto max-w-[1140px]">
@@ -54,12 +54,12 @@ import Container from "../../ui/Container.astro";
         </div>
 
         <div
-          class="relative min-h-[320px] overflow-hidden rounded-[8px] md:min-h-[520px]"
+          class="relative min-h-[320px] overflow-hidden rounded-[8px] md:min-h-[420px] xl:min-h-[520px]"
         >
           <Image
             src={expertisesMeatImage}
             alt="Produit fume Reunimer"
-            class="max-w-[724px]"
+            class="h-full w-full object-cover"
             widths={[768, 1200]}
             sizes="(min-width: 768px) 760px, 100vw"
           />
@@ -72,7 +72,7 @@ import Container from "../../ui/Container.astro";
     alt="Produit fume Reunimer"
     class="h-auto w-screen object-contain z-20 relative"
   />
-  <div class="relative z-0 -my-[30%]">
+  <div class="relative z-0 -mt-16 md:-mt-24 xl:-my-[30%]">
     <Image
       src={expertisesTransformationSecondaryImage}
       alt="Saumon fumé et tranches dressées"
@@ -81,8 +81,8 @@ import Container from "../../ui/Container.astro";
       sizes="(min-width: 768px) 680px, 100vw"
     />
     <Container>
-      <div class="mx-auto  py-[500px] z-10 bg-black text-white max-w-[1140px]">
-        <div class="mx-auto mt-[72px] max-w-[980px]">
+      <div class="mx-auto max-w-[1140px] bg-black py-[220px] text-white md:py-[300px] xl:py-[500px]">
+        <div class="mx-auto mt-12 max-w-[980px] xl:mt-[72px]">
           <div
             class="grid relative z-20 items-center gap-8 md:grid-cols-[minmax(0,1fr)_260px] md:gap-[42px]"
           >

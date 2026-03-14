@@ -21,10 +21,10 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
 
 <section class="text-white">
   <Container
-    class="relative min-h-0 py-16 md:min-h-[2385px] md:pt-[111px] md:pb-0"
+    class="relative min-h-0 py-16 md:pt-20 xl:min-h-[2385px] xl:pt-[111px] xl:pb-0"
   >
     <div
-      class="flex flex-wrap gap-2 md:w-[1198px] md:flex-nowrap md:items-start md:gap-0"
+      class="flex flex-wrap gap-2 xl:w-[1198px] xl:flex-nowrap xl:items-start xl:gap-0"
     >
       {
         expertisesHeroTabs.map((tab) => (
@@ -48,7 +48,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
       widths={[768, 1024]}
       sizes="704px"
     />
-    <div class="mx-auto max-w-[710px] mt-36 md:ml-[530px]">
+    <div class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-36 xl:ml-[530px]">
       <h2
         class="font-display text-display-lg font-black leading-[44.5px] text-white"
       >
@@ -317,7 +317,9 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
     <Image
       src={expertisesTunaImage}
       alt="Illustration de thons"
-      class="max-w-[1000px] mt-28 mx-auto translate-y-1/2"
+      class="mx-auto mt-16 w-full max-w-[1000px] xl:mt-28 xl:translate-y-1/2"
+      widths={[768, 1200, 1600]}
+      sizes="(min-width: 1280px) 1000px, 100vw"
     />
   </Container>
 </section>
