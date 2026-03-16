@@ -75,7 +75,7 @@ const languages = [
 
             {link.children && (
               <div
-                class="absolute top-full left-0 opacity-0 invisible -translate-y-2 scale-y-95 origin-top transition-[opacity,transform,visibility] duration-300 ease-out z-50"
+                class="absolute top-full left-0 opacity-0 invisible -translate-y-2 scale-y-95 origin-top pointer-events-none transition-[opacity,transform,visibility] duration-200 ease-out z-50 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-y-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:scale-y-100 group-focus-within:pointer-events-auto"
                 data-nav-dropdown
               >
                 <div class="w-[269px] bg-white px-5 py-[17px] flex flex-col gap-[15px] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
@@ -375,89 +375,6 @@ const languages = [
 
   initLangDropdown('lang-desktop');
   initLangDropdown('lang-mobile');
-
-  // --- Desktop: dropdown reveals as cursor moves down ---
-  function initDesktopHoverDropdowns() {
-    const desktopItems = Array.from(document.querySelectorAll('.nav-item[data-nav-item]')) as HTMLElement[];
-
-    desktopItems.forEach((item) => {
-      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
-      if (!dropdown) return;
-
-      let hideTimer: number | undefined;
-      const REVEAL_THRESHOLD = 0.78;
-
-      const clearHideTimer = () => {
-        if (hideTimer) {
-          window.clearTimeout(hideTimer);
-          hideTimer = undefined;
-        }
-      };
-
-      const setRevealProgress = (progress: number) => {
-        clearHideTimer();
-
-        const clamped = Math.min(1, Math.max(0, progress));
-
-        if (clamped < REVEAL_THRESHOLD) {
-          dropdown.style.visibility = 'hidden';
-          dropdown.style.opacity = '0';
-          dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
-          dropdown.style.pointerEvents = 'none';
-          return;
-        }
-
-        dropdown.style.visibility = 'visible';
-        dropdown.style.opacity = '1';
-        dropdown.style.transform = 'translateY(0) scaleY(1)';
-        dropdown.style.pointerEvents = 'auto';
-      };
-
-      const revealFully = () => {
-        setRevealProgress(1);
-      };
-
-      const hideDropdown = () => {
-        clearHideTimer();
-        dropdown.style.opacity = '0';
-        dropdown.style.transform = 'translateY(-8px) scaleY(0.95)';
-        dropdown.style.pointerEvents = 'none';
-
-        hideTimer = window.setTimeout(() => {
-          dropdown.style.visibility = 'hidden';
-        }, 220);
-      };
-
-      item.addEventListener('mouseenter', (event) => {
-        const rect = item.getBoundingClientRect();
-        const pointerY = (event as MouseEvent).clientY;
-        const progress = (pointerY - (rect.top + 6)) / (rect.bottom - rect.top);
-        setRevealProgress(progress);
-      });
-
-      item.addEventListener('mousemove', (event) => {
-        const rect = item.getBoundingClientRect();
-        const pointerY = (event as MouseEvent).clientY;
-        const progress = (pointerY - (rect.top + 6)) / ((rect.bottom + 18) - (rect.top + 6));
-        setRevealProgress(progress);
-      });
-
-      item.addEventListener('mouseleave', (event) => {
-        const next = event.relatedTarget as Node | null;
-        if (next && dropdown.contains(next)) {
-          revealFully();
-          return;
-        }
-
-        hideDropdown();
-      });
-
-      dropdown.addEventListener('mouseenter', revealFully);
-      dropdown.addEventListener('mouseleave', hideDropdown);
-    });
-  }
-
-  initDesktopHoverDropdowns();
 
   // --- Desktop: smooth sliding active indicator ---
   const desktopNavLinks = document.getElementById('desktop-nav-links');
