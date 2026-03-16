@@ -13,6 +13,7 @@ const astroLegacyEntrypoint = fileURLToPath(
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://reunimer.re',
   vite: {
     plugins: [tailwindcss()],
     resolve: {

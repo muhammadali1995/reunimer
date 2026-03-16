@@ -12,6 +12,7 @@
  * - Fixed at top
  */
 
+import { Image } from 'astro:assets';
 import { navLinks } from '../../data/navbar';
 import logoHeader from '../../assets/logos/reunimer-logo-header.svg';
 
@@ -44,11 +45,11 @@ const languages = [
   <div class="bg-white w-full max-w-[1360px] h-[92px] flex items-center justify-between px-4 sm:px-6 lg:px-[26px]">
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
-      <img
-        src={logoHeader.src}
+      <Image
+        src={logoHeader}
         alt="Reunimer"
-        width="199"
-        height="33"
+        width={199}
+        height={33}
         class="h-[33px] w-[199px]"
       />
     </a>
