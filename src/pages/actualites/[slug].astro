@@ -12,7 +12,7 @@ export const getStaticPaths: GetStaticPaths = () => {
   }));
 };
 
-const { slug }:any = Astro.params;
+const { slug } = Astro.params as { slug: string };
 const article = articles.find((a) => a.slug === slug)!;
 const detail = articleDetails[slug]!;
 

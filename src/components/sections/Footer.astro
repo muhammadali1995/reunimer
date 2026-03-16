@@ -15,6 +15,7 @@
  *  7. Bottom row      pt-39 pb-46   (y=1346→1413)
  */
 
+import { Image } from 'astro:assets';
 import { sitePlan, legalLinks, socialLinks } from '../../data/footer';
 import logoFooter from '../../assets/logos/reunimer-logo-footer.svg';
 import certifications from '../../assets/icons/footer-certifications.svg';
@@ -165,31 +166,30 @@ const labelClasses = 'font-body text-sm leading-[14px] text-white';
     <!-- 3. Brand + Social -->
     <div class="flex items-center justify-between pt-[51px] pb-[47px]">
       <a href="/" aria-label="Reunimer — accueil">
-        <img
-          src={logoFooter.src}
+        <Image
+          src={logoFooter}
           alt="Reunimer"
-          width="199"
-          height="33"
+          width={199}
+          height={33}
           class="block w-[199px] h-[33px]"
         />
       </a>
       <div class="flex items-center gap-[30px]">
         {socialLinks.map((link) => (
           <a href={link.href} class="block w-[27px] h-[27px] transition-opacity hover:opacity-80" aria-label={link.label}>
-            <img src={link.icon.src} alt="" width="27" height="27" class="w-full h-full" />
+            <Image src={link.icon} alt="" width={27} height={27} class="w-full h-full" />
           </a>
         ))}
       </div>
     </div>
 
     <!-- 4. Gradient strip -->
-    <img
-      src={certifications.src}
+    <Image
+      src={certifications}
       alt=""
-      width="1284"
-      height="7"
+      width={1284}
+      height={7}
       class="block w-full h-[7px]"
-      aria-hidden="true"
     />
 
     <!-- 5. Bottom row -->
@@ -254,7 +254,7 @@ const labelClasses = 'font-body text-sm leading-[14px] text-white';
     }
 
     const data = Object.fromEntries(new FormData(form));
-    console.log('Form data:', data);
+    // TODO: send data to backend API
     showFeedback('Votre message a bien été envoyé. Nous vous répondrons rapidement.', false);
     form.reset();
   });

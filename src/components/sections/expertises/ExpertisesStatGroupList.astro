@@ -1,0 +1,47 @@
+---
+import type { ExpertiseStatGroup, ExpertiseStatItem } from '../../../types/expertises';
+
+interface Props {
+  groups?: ExpertiseStatGroup[];
+  items?: ExpertiseStatItem[];
+  groupLabelClass?: string;
+  groupSpacingClass?: string;
+  itemsWrapperClass?: string;
+  rowClass?: string;
+  valueClass?: string;
+  labelClass?: string;
+  dividerClass?: string;
+}
+
+const {
+  groups = [],
+  items = [],
+  groupLabelClass = 'font-body text-[0.72rem] font-bold uppercase tracking-[0.08em]',
+  groupSpacingClass = 'space-y-8',
+  itemsWrapperClass = 'mt-3 space-y-4',
+  rowClass = 'flex items-end justify-between gap-6',
+  valueClass = 'font-display text-[2.25rem] font-black leading-none',
+  labelClass = 'max-w-[220px] text-right font-body text-[0.78rem] leading-[1.35]',
+  dividerClass = 'border-b pb-3',
+} = Astro.props as Props;
+
+const normalizedGroups = groups.length > 0 ? groups : [{ location: '', items }];
+---
+
+<div class={groupSpacingClass}>
+  {normalizedGroups.map((group) => (
+    <div>
+      {group.location && <p class={groupLabelClass}>{group.location}</p>}
+      <div class={group.location ? itemsWrapperClass : 'space-y-4'}>
+        {group.items.map((item) => (
+          <div class={dividerClass}>
+            <div class={rowClass}>
+              <span class={valueClass}>{item.value}</span>
+              <span class={labelClass}>{item.label}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  ))}
+</div>

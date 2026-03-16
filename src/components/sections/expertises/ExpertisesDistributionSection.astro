@@ -1,0 +1,70 @@
+---
+import { Image } from 'astro:assets';
+import Container from '../../ui/Container.astro';
+import {
+  distributionCards,
+  expertisesDistributionMagazineCover,
+} from '../../../data/expertises';
+---
+
+<section class="mt-20 bg-bleu-abysse text-bleu-abysse md:mt-24 xl:mt-96">
+  <div class="mx-auto w-[280px] md:w-[504px]">
+        <Image
+          src={expertisesDistributionMagazineCover}
+          alt="Assiette gastronomique illustree pour l'activite distribution"
+          class="w-full -translate-y-1/2"
+          widths={[560, 900, 1200]}
+          sizes="(min-width: 768px) 504px, 280px"
+        />
+      </div>
+  <div class="relative -mt-40 overflow-hidden">
+    <div class="relative mx-auto w-full max-w-[1680px] px-5 md:px-8">
+
+      <div class="mx-auto max-w-[949px] text-center">
+        <h2 class="font-display text-[30px] font-black uppercase leading-[0.97] text-[#ac8652] md:text-[40px] md:leading-[44.5px]">
+          Une distribution maîtrisée
+        </h2>
+      </div>
+    </div>
+
+    <div class="relative w-screen left-1/2 -translate-x-1/2 px-5 pb-14 text-white mt-6 md:pb-[86px]">
+      <Container class="max-w-[1680px] px-5 md:px-8">
+        <div class="mx-auto max-w-[1120px] text-center">
+          <p class="mx-auto max-w-[790px] font-heading text-[15px] font-normal leading-[1.46] text-white md:text-[20px]">
+            Pour Reunimer, une filière responsable commence par la capacité à nourrir son propre territoire. Grâce à
+            une présence stratégique en Océan Indien (Réunion, Madagascar, Maurice) et en France métropolitaine, le
+            Groupe assure un lien direct, réactif et performant entre la ressource et le marché.
+          </p>
+
+          <p class="mt-7 font-heading text-[18px] font-medium leading-[1.46] text-white md:mt-[38px] md:text-[32px]">
+            La promesse de la filiale distribution de Reunimer
+          </p>
+
+          <div class="mt-10 grid gap-6 md:mt-[34px] md:grid-cols-3 md:gap-[28px] xl:gap-[34px]">
+            {distributionCards.map((card) => (
+              <article class="text-center">
+                <h3 class="font-heading text-[16px] font-semibold leading-none tracking-[-0.04em] text-white md:text-[20px]">
+                  {card.title}
+                </h3>
+                <div class="mx-auto mt-[14px] w-full max-w-[280px] overflow-hidden rounded-[10px] border border-white/18 bg-white/10 shadow-[0_18px_30px_rgba(0,0,0,0.24)] md:max-w-none">
+                  <div class="relative aspect-square overflow-hidden">
+                    <Image
+                      src={card.image}
+                      alt={card.alt}
+                      class:list={['h-full w-full object-cover', card.imageClass]}
+                      widths={[480, 720]}
+                      sizes="(min-width: 1280px) 320px, (min-width: 768px) 30vw, 280px"
+                    />
+                  </div>
+                </div>
+                <p class="mx-auto mt-3 max-w-[220px] font-body text-[13px] leading-[1.4] text-white md:max-w-[285px] md:text-[16px]">
+                  {card.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </Container>
+    </div>
+  </div>
+</section>
