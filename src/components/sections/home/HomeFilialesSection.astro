@@ -19,8 +19,8 @@ const marqueeLogos = [...filialeLogos, ...filialeLogos];
         </div>
       </div>
 
-      <div class="overflow-hidden lg:ml-auto lg:flex-1">
-        <div class="animate-scroll flex items-center gap-10 md:gap-[66px]">
+      <div class="overflow-hidden lg:ml-auto lg:flex-1" data-filiales-marquee>
+        <div class="flex items-center gap-10 md:gap-[66px]" data-filiales-track>
           {marqueeLogos.map((logo) => (
             <img
               src={logo.src.src}
@@ -36,3 +36,45 @@ const marqueeLogos = [...filialeLogos, ...filialeLogos];
     </div>
   </Container>
 </section>
+
+<script>
+  import { gsap } from 'gsap';
+
+  const marqueeTweens = new WeakMap();
+
+  function initFilialesMarquee() {
+    const marquees = document.querySelectorAll('[data-filiales-marquee]');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    marquees.forEach((marquee) => {
+      const track = marquee.querySelector('[data-filiales-track]');
+      if (!(track instanceof HTMLElement) || !(marquee instanceof HTMLElement)) return;
+
+      marqueeTweens.get(track)?.kill();
+      gsap.set(track, { clearProps: 'transform' });
+
+      if (prefersReducedMotion) return;
+
+      const loopDistance = track.scrollWidth / 2;
+      if (!loopDistance) return;
+
+      const tween = gsap.to(track, {
+        x: -loopDistance,
+        duration: 22,
+        ease: 'none',
+        repeat: -1,
+      });
+
+      marqueeTweens.set(track, tween);
+    });
+  }
+
+  document.addEventListener('astro:page-load', initFilialesMarquee);
+  window.addEventListener('resize', initFilialesMarquee);
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initFilialesMarquee, { once: true });
+  } else {
+    initFilialesMarquee();
+  }
+</script>
