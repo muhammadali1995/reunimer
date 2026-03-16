@@ -1,0 +1,26 @@
+---
+import { Image } from "astro:assets";
+import { expertisesHeroImage } from "../../../data/expertises";
+import Container from "../../ui/Container.astro";
+---
+
+<section
+  class="relative -mt-[92px] overflow-hidden bg-[#02101a] pt-[92px] text-white"
+>
+  <Image
+    src={expertisesHeroImage}
+    alt="Navire Reunimer en mer"
+    class="absolute inset-0 h-full w-full object-cover object-[center_top]"
+    widths={[768, 1024, 1440, 1920]}
+    sizes="100vw"
+    loading="eager"
+    fetchpriority="high"
+  />
+  <Container class="relative z-20 h-[720px] md:h-[988px]">
+    <h1
+      class="absolute left-6 top-[180px] max-w-[260px] text-[2rem] leading-[1.05] text-white md:left-[222px] md:top-[250px] md:max-w-[447px] md:font-display md:text-display-lg md:font-black md:leading-[44.5px]"
+    >
+      noS expertiseS
+    </h1>
+  </Container>
+</section>

@@ -1,0 +1,40 @@
+---
+import { Image } from 'astro:assets';
+import { homeGroupeSection } from '../../../data/home';
+import Container from '../../ui/Container.astro';
+import Button from '../../ui/Button.astro';
+---
+
+<section id="groupe-section" class="bg-gris-clair">
+  <Container>
+    <div class="flex flex-col py-12 md:py-16 lg:h-[572px] lg:flex-row lg:py-0">
+      <div class="mb-10 lg:mb-0 lg:w-[38%] lg:shrink-0 lg:pr-8 lg:pt-[104px]">
+        <h2 data-anim="1" class="mb-6 font-display text-[32px] uppercase leading-[1.1] text-bleu-abysse lg:text-display-lg lg:leading-[44.5px]">
+          {homeGroupeSection.title}
+        </h2>
+        <p data-anim="2" class="mb-8 font-heading text-lg font-normal leading-[1.461] text-bleu-abysse lg:text-heading-lg">
+          {homeGroupeSection.body}
+        </p>
+        <div data-anim="2">
+          <Button variant="outline-dark" href={homeGroupeSection.cta.href}>
+            {homeGroupeSection.cta.label}
+          </Button>
+        </div>
+      </div>
+
+      <div class="flex h-[250px] gap-2 md:h-[350px] lg:ml-auto lg:h-auto lg:w-[58%] lg:py-[60px]">
+        {homeGroupeSection.images.map((image) => (
+          <div data-anim="3" class="flex-1 overflow-hidden">
+            <Image
+              src={image.src}
+              alt={image.alt}
+              class="h-full w-full object-cover"
+              widths={image.widths}
+              sizes={image.sizes}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

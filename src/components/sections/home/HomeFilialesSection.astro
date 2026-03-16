@@ -1,0 +1,38 @@
+---
+import Container from '../../ui/Container.astro';
+import Button from '../../ui/Button.astro';
+import SectionHeading from '../../ui/SectionHeading.astro';
+import { filialeLogos, homeFilialesSection } from '../../../data/home';
+
+const marqueeLogos = [...filialeLogos, ...filialeLogos];
+---
+
+<section class="overflow-hidden bg-white py-12 md:py-16 lg:h-[288px] lg:py-0">
+  <Container>
+    <div class="flex flex-col gap-8 lg:h-[288px] lg:flex-row lg:items-center lg:gap-0">
+      <div class="flex flex-col gap-6 lg:w-[35%] lg:shrink-0 lg:pt-[61px] lg:pb-[88px]">
+        <SectionHeading title={homeFilialesSection.title} align="center" />
+        <div class="w-fit">
+          <Button variant="outline-dark" href={homeFilialesSection.cta.href}>
+            {homeFilialesSection.cta.label}
+          </Button>
+        </div>
+      </div>
+
+      <div class="overflow-hidden lg:ml-auto lg:flex-1">
+        <div class="animate-scroll flex items-center gap-10 md:gap-[66px]">
+          {marqueeLogos.map((logo) => (
+            <img
+              src={logo.src.src}
+              alt={logo.alt}
+              width={logo.width}
+              height={logo.height}
+              class="h-auto max-h-[50px] w-[var(--logo-w)] shrink-0 md:max-h-[70px] lg:max-h-none"
+              style={`--logo-w: ${logo.width}px;`}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  </Container>
+</section>

@@ -1,0 +1,123 @@
+---
+import { Image } from "astro:assets";
+import {
+  expertisesMeatImage,
+  expertisesSmokeImage,
+  expertisesTransformationSecondaryImage,
+} from "../../../data/expertises";
+import Container from "../../ui/Container.astro";
+---
+
+<section
+  class="mt-20 bg-white bg-[linear-gradient(180deg,_#FFFFFF_0%,_#CCCCCC_100%)] pt-16 text-bleu-abysse md:mt-24 md:pt-20 xl:mt-32 xl:pt-[110px]"
+>
+  <Container>
+    <div class="mx-auto max-w-[1140px]">
+      <div class="mx-auto mt-[18px] max-w-[560px] text-center">
+        <h2
+          class="font-display text-[22px] font-black uppercase leading-[0.96] tracking-[-0.01em] text-lagon-mayotte md:text-[30px]"
+        >
+          Une production experte
+        </h2>
+        <p
+          class="mx-auto mt-3 max-w-[500px] font-body text-[10px] leading-[1.45] text-bleu-abysse/78 md:text-[11px]"
+        >
+          La maîtrise de la transformation est le prolongement naturel de notre
+          expertise en mer. Grâce à un outil industriel performant et une
+          synergie totale avec nos activités de pêche, Reunimer valorise la
+          matière première pour répondre aux standards internationaux les plus
+          exigeants.
+        </p>
+      </div>
+
+      <div
+        class="relative mt-[56px] grid items-center gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:gap-[48px]"
+      >
+        <div class="max-w-[280px] md:pl-[28px]">
+          <p
+            class="font-display text-[52px] font-black leading-none text-bleu-abysse md:text-[64px]"
+          >
+            6
+          </p>
+          <p
+            class="mt-2 font-body text-[12px] font-bold leading-[1.3] text-bleu-abysse md:text-[13px]"
+          >
+            unités de première transformation spécialisées
+          </p>
+          <p
+            class="mt-2 font-body text-[11px] leading-[1.35] text-bleu-abysse/70 md:text-[12px]"
+          >
+            dans la surgélation, l’élaboration de filets, le traitement du thon,
+            ainsi que la fumaison, avec un savoir-faire structuré pour plusieurs
+            marchés et usages.
+          </p>
+        </div>
+
+        <div
+          class="relative min-h-[320px] overflow-hidden rounded-[8px] md:min-h-[420px] xl:min-h-[520px]"
+        >
+          <Image
+            src={expertisesMeatImage}
+            alt="Produit fume Reunimer"
+            class="h-full w-full object-cover"
+            widths={[768, 1200]}
+            sizes="(min-width: 768px) 760px, 100vw"
+          />
+        </div>
+      </div>
+    </div>
+  </Container>
+  <Image
+    src={expertisesSmokeImage}
+    alt="Produit fume Reunimer"
+    class="h-auto w-screen object-contain z-20 relative"
+  />
+  <div class="relative z-0 -mt-16 md:-mt-24 xl:-my-[30%]">
+    <Image
+      src={expertisesTransformationSecondaryImage}
+      alt="Saumon fumé et tranches dressées"
+      class="h-full z-0 w-full object-cover absolute object-[28%_54%]"
+      widths={[768, 1200, 1600]}
+      sizes="(min-width: 768px) 680px, 100vw"
+    />
+    <Container>
+      <div class="mx-auto max-w-[1140px] bg-black py-[220px] text-white md:py-[300px] xl:py-[500px]">
+        <div class="mx-auto mt-12 max-w-[980px] xl:mt-[72px]">
+          <div
+            class="grid relative z-20 items-center gap-8 md:grid-cols-[minmax(0,1fr)_260px] md:gap-[42px]"
+          >
+            <div
+              class="relative overflow-hidden rounded-[8px] bg-[#14171c] shadow-[0_24px_56px_rgba(0,0,0,0.14)]"
+            >
+            </div>
+
+            <div class="max-w-[240px] md:max-w-[260px]">
+              <p
+                class="font-display text-[42px] font-black leading-none md:text-[56px]"
+              >
+                1
+              </p>
+              <p
+                class="mt-1 font-body text-[10px] font-bold leading-[1.2] md:text-[11px]"
+              >
+                atelier de seconde transformation
+              </p>
+              <p
+                class="mt-3 font-body text-[9px] leading-[1.35] md:text-[10px]"
+              >
+                Dédié à la fumaison du saumon, cet atelier élabore des
+                spécialités à forte valeur ajoutée, associant précision
+                technique et finitions au service des consommateurs.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </div>
+  <Image
+    src={expertisesSmokeImage}
+    alt="Produit fume Reunimer"
+    class="h-auto w-screen object-contain z-20 relative"
+  />
+</section>
