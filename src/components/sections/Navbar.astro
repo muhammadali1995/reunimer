@@ -75,7 +75,7 @@ const languages = [
 
             {link.children && (
               <div
-                class="absolute top-full left-0 opacity-0 invisible -translate-y-2 scale-y-95 origin-top pointer-events-none transition-[opacity,transform,visibility] duration-200 ease-out z-50 group-hover:opacity-100 group-hover:visible group-hover:translate-y-0 group-hover:scale-y-100 group-hover:pointer-events-auto group-focus-within:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:scale-y-100 group-focus-within:pointer-events-auto"
+                class="absolute top-full left-0 opacity-0 invisible origin-top pointer-events-none z-50"
                 data-nav-dropdown
               >
                 <div class="w-[269px] bg-white px-5 py-[17px] flex flex-col gap-[15px] shadow-[0_12px_30px_rgba(0,0,0,0.08)]">
@@ -257,6 +257,8 @@ const languages = [
 <div class="h-[92px]"></div>
 
 <script>
+  import { gsap } from 'gsap';
+
   // --- Mobile menu ---
   const btn = document.getElementById('mobile-menu-btn');
   const menu = document.getElementById('mobile-menu');
@@ -375,6 +377,71 @@ const languages = [
 
   initLangDropdown('lang-desktop');
   initLangDropdown('lang-mobile');
+
+  // --- Desktop dropdowns ---
+  const desktopDropdownItems = Array.from(document.querySelectorAll('[data-nav-item]')) as HTMLElement[];
+
+  if (desktopDropdownItems.length) {
+    const desktopDropdownStates = new WeakMap<HTMLElement, boolean>();
+
+    const showDesktopDropdown = (item: HTMLElement) => {
+      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
+      if (!dropdown || desktopDropdownStates.get(item)) return;
+
+      desktopDropdownStates.set(item, true);
+      dropdown.classList.remove('invisible', 'pointer-events-none');
+      dropdown.classList.add('visible', 'pointer-events-auto');
+      gsap.killTweensOf(dropdown);
+      gsap.fromTo(
+        dropdown,
+        { autoAlpha: 0, scaleY: 0, y: -8, transformOrigin: 'top center' },
+        { autoAlpha: 1, scaleY: 1, y: 0, duration: 0.24, ease: 'power2.out' }
+      );
+    };
+
+    const hideDesktopDropdown = (item: HTMLElement) => {
+      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
+      if (!dropdown || !desktopDropdownStates.get(item)) return;
+
+      desktopDropdownStates.set(item, false);
+      gsap.killTweensOf(dropdown);
+      gsap.to(dropdown, {
+        autoAlpha: 0,
+        scaleY: 0,
+        y: -8,
+        duration: 0.2,
+        ease: 'power2.in',
+        transformOrigin: 'top center',
+        onComplete: () => {
+          if (desktopDropdownStates.get(item)) return;
+          dropdown.classList.add('invisible', 'pointer-events-none');
+          dropdown.classList.remove('visible', 'pointer-events-auto');
+        },
+      });
+    };
+
+    desktopDropdownItems.forEach((item) => {
+      const dropdown = item.querySelector('[data-nav-dropdown]') as HTMLElement | null;
+      if (!dropdown) return;
+
+      gsap.set(dropdown, {
+        autoAlpha: 0,
+        scaleY: 0,
+        y: -8,
+        transformOrigin: 'top center',
+      });
+
+      item.addEventListener('mouseenter', () => showDesktopDropdown(item));
+      item.addEventListener('mouseleave', () => hideDesktopDropdown(item));
+      item.addEventListener('focusin', () => showDesktopDropdown(item));
+      item.addEventListener('focusout', (event) => {
+        const nextFocused = event.relatedTarget as Node | null;
+        if (!nextFocused || !item.contains(nextFocused)) {
+          hideDesktopDropdown(item);
+        }
+      });
+    });
+  }
 
   // --- Desktop: smooth sliding active indicator ---
   const desktopNavLinks = document.getElementById('desktop-nav-links');
