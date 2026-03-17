@@ -19,9 +19,25 @@ interface Props {
 }
 
 const { id } = Astro.props;
+
+function parseStatNumber(value: string) {
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
+  if (!match) {
+    return { prefix: '', numericValue: 0, suffix: value, decimalPlaces: 0 };
+  }
+
+  const decimalPart = match[2].match(/[.,](\d+)$/u);
+
+  return {
+    prefix: match[1],
+    numericValue: Number(match[2].replace(',', '.')),
+    suffix: match[3],
+    decimalPlaces: decimalPart ? decimalPart[1].length : 0,
+  };
+}
 ---
 
-<section id={id} class="relative bg-gris-clair py-16 md:py-24 lg:py-[100px] overflow-hidden">
+<section id={id ?? 'group-statistics'} class="relative bg-gris-clair py-16 md:py-24 lg:py-[100px] overflow-hidden">
   <!-- Decorative quote marks -->
   <span class="absolute top-0 right-[20%] font-heading font-medium text-[96px] leading-none text-white select-none pointer-events-none hidden lg:block" aria-hidden="true">
     &ldquo;
@@ -32,25 +48,36 @@ const { id } = Astro.props;
 
   <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
     <!-- Title -->
-    <h2 class="font-display font-black text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse text-center mb-12 lg:mb-16">
+    <h2 data-anim="1" class="font-display font-black text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse text-center mb-12 lg:mb-16">
       Le groupe en quelques chiffres
     </h2>
 
     <!-- Stats -->
     <div class="mx-auto max-w-[893px] flex flex-col gap-6 lg:gap-[37px]">
-      {groupStats.map((stat, i) => (
+      {groupStats.map((stat) => {
+        const parsedNumber = parseStatNumber(stat.number);
+
+        return (
         <div>
           <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 sm:gap-4">
-            <p class="font-display font-black text-[40px] leading-[1.1] md:text-[60px] lg:text-[82px] lg:leading-[91px] uppercase text-bleu-abysse">
+            <p
+              data-anim="4"
+              data-count-value={parsedNumber.numericValue}
+              data-count-decimals={parsedNumber.decimalPlaces}
+              data-count-prefix={parsedNumber.prefix}
+              data-count-suffix={parsedNumber.suffix}
+              class="font-display font-black text-[40px] leading-[1.1] md:text-[60px] lg:text-[82px] lg:leading-[91px] uppercase text-bleu-abysse"
+            >
               {stat.number}
             </p>
-            <p class="font-body font-normal text-base md:text-xl lg:text-[24px] lg:leading-[1.4] text-bleu-abysse sm:text-right">
+            <p data-anim="1" class="font-body font-normal text-base md:text-xl lg:text-[24px] lg:leading-[1.4] text-bleu-abysse sm:text-right">
               {stat.description}
             </p>
           </div>
-          <div class="mt-4 lg:mt-6 h-px bg-bleu-abysse w-full" />
+          <div data-stat-line class="mt-4 lg:mt-6 h-px bg-bleu-abysse w-full" />
         </div>
-      ))}
+        );
+      })}
     </div>
   </div>
 </section>
