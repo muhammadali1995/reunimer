@@ -98,6 +98,16 @@ export const historyMilestones: Milestone[] = [
     description:
       'Création de Réunion Pélagique, consolidant les activités de pêche hauturière du groupe.',
   },
+  {
+    year: '2004',
+    description:
+      "Structuration des synergies entre pêche, transformation et distribution afin d'accompagner la montée en puissance du groupe sur ses marchés historiques.",
+  },
+  {
+    year: '2006',
+    description:
+      "Accélération du développement régional du groupe, avec de nouveaux relais opérationnels venant renforcer son modèle intégré dans l'océan Indien.",
+  },
 ];
 
 export const filialeRegions: FilialRegion[] = [

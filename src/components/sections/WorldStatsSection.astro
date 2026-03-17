@@ -20,6 +20,23 @@ interface Props {
 
 const { id = 'stats-monde' } = Astro.props;
 
+function parseCountValue(value: string) {
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
+  if (!match) {
+    return { prefix: '', numericValue: 0, suffix: value, decimals: 0 };
+  }
+
+  const rawNumber = match[2];
+  const fractionalPart = rawNumber.includes('.') ? rawNumber.split('.')[1] : rawNumber.split(',')[1];
+
+  return {
+    prefix: match[1],
+    numericValue: Number(rawNumber.replace(',', '.')),
+    suffix: match[3],
+    decimals: fractionalPart ? fractionalPart.length : 0,
+  };
+}
+
 /* Build conic-gradient stops for the donut chart */
 function buildConicGradient() {
   let angle = 0;
@@ -34,6 +51,8 @@ function buildConicGradient() {
 }
 
 const conicGradient = buildConicGradient();
+const worldSalesStat = parseCountValue('71%');
+const donutCenterStat = parseCountValue('106,1 M€');
 ---
 
 <section id={id} class="scroll-mt-[135px]">
@@ -45,7 +64,7 @@ const conicGradient = buildConicGradient();
       <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-10 lg:gap-16">
 
         <!-- Left: title -->
-        <div class="max-w-[365px]">
+        <div data-anim="1" class="max-w-[365px]">
           <p class="font-heading text-[24px] md:text-[32px] leading-[1.36] text-white">
             <span class="font-bold">Une portée mondiale </span><br />
             <span class="font-medium">sur les 5 continents</span>
@@ -53,8 +72,15 @@ const conicGradient = buildConicGradient();
         </div>
 
         <!-- Right: 71% stat -->
-        <div class="lg:max-w-[456px]">
-          <p class="font-display font-extrabold text-[32px] md:text-[48px] lg:text-[61px] lg:leading-[68px] uppercase text-white">
+        <div data-anim="1" class="lg:max-w-[456px]">
+          <p
+            data-anim="4"
+            data-count-value={worldSalesStat.numericValue}
+            data-count-prefix={worldSalesStat.prefix}
+            data-count-suffix={worldSalesStat.suffix}
+            data-count-decimals={worldSalesStat.decimals}
+            class="font-display font-extrabold text-[32px] md:text-[48px] lg:text-[61px] lg:leading-[68px] uppercase text-white"
+          >
             71%
           </p>
           <p class="mt-1 font-body font-normal text-sm md:text-body-base text-white leading-[1.4]">
@@ -66,17 +92,37 @@ const conicGradient = buildConicGradient();
       <!-- Continent distribution chart -->
       <div class="mt-10 md:mt-12 lg:mt-16 max-w-[582px]">
         <div class="flex flex-col gap-2.5">
-          {continents.map((c) => (
+          {continents.map((c) => {
+            const parsedPct = parseCountValue(`${c.pct}%`);
+
+            return (
             <div class="flex items-center gap-3">
-              <p class="font-body font-bold text-[13px] md:text-[15px] leading-[1.4] text-white text-right w-[120px] md:w-[150px] lg:w-[199px] shrink-0">
+              <p data-anim="1" class="font-body font-bold text-[13px] md:text-[15px] leading-[1.4] text-white text-right w-[120px] md:w-[150px] lg:w-[199px] shrink-0">
                 {c.name}
               </p>
-              <span class="w-[2px] h-[20px] bg-turquoise-ocean shrink-0" />
-              <p class="font-body font-normal text-[13px] md:text-[15px] leading-[1.4] text-white">
+              <div class="flex items-center gap-3 flex-1 min-w-0">
+                <span data-chart-line class="w-[2px] h-[20px] bg-turquoise-ocean shrink-0 origin-top" />
+                <div class="hidden sm:block h-[2px] flex-1 bg-white/15 overflow-hidden rounded-full">
+                  <div
+                    data-chart-bar
+                    class="h-full bg-turquoise-ocean origin-left"
+                    style={`width: ${c.pct}%;`}
+                  />
+                </div>
+              </div>
+              <p
+                data-anim="4"
+                data-count-value={parsedPct.numericValue}
+                data-count-prefix={parsedPct.prefix}
+                data-count-suffix={parsedPct.suffix}
+                data-count-decimals={parsedPct.decimals}
+                class="font-body font-normal text-[13px] md:text-[15px] leading-[1.4] text-white shrink-0"
+              >
                 {c.pct}%
               </p>
             </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -90,7 +136,11 @@ const conicGradient = buildConicGradient();
       <div class="flex flex-col lg:flex-row items-center lg:items-start gap-10 lg:gap-16">
 
         <!-- Donut chart (CSS conic-gradient) — perfect circle, thin ring -->
-        <div class="relative w-[240px] h-[240px] md:w-[283px] md:h-[283px] shrink-0 lg:ml-[150px]">
+        <div
+          data-donut-chart
+          data-donut-segments={JSON.stringify(portfolio.map((item) => ({ pct: item.pct, color: colorHex[item.color] })))}
+          class="relative w-[240px] h-[240px] md:w-[283px] md:h-[283px] shrink-0 lg:ml-[150px]"
+        >
           <div
             class="w-full h-full rounded-full"
             style={`background: ${conicGradient};`}
@@ -98,7 +148,14 @@ const conicGradient = buildConicGradient();
           <!-- Inner white circle (donut hole) — ~70% diameter for thin ring -->
           <div class="absolute inset-0 flex items-center justify-center">
             <div class="w-[68%] h-[68%] rounded-full bg-white flex items-center justify-center">
-              <p class="font-display font-extrabold text-[20px] md:text-[24px] text-bleu-abysse uppercase leading-none">
+              <p
+                data-anim="4"
+                data-count-value={donutCenterStat.numericValue}
+                data-count-prefix={donutCenterStat.prefix}
+                data-count-suffix={donutCenterStat.suffix}
+                data-count-decimals={donutCenterStat.decimals}
+                class="font-display font-extrabold text-[20px] md:text-[24px] text-bleu-abysse uppercase leading-none"
+              >
                 106,1 M€
               </p>
             </div>
@@ -108,29 +165,40 @@ const conicGradient = buildConicGradient();
         <!-- Title + Legend -->
         <div class="w-full max-w-[420px]">
           <!-- Title: Montserrat SemiBold 20px + ExtraBold 20px, bleu-abysse -->
-          <p class="font-heading text-[18px] md:text-[20px] text-bleu-abysse tracking-[-1px] mb-6 lg:mb-8">
+          <p data-anim="1" class="font-heading text-[18px] md:text-[20px] text-bleu-abysse tracking-[-1px] mb-6 lg:mb-8">
             <span class="font-semibold">Un portefeuille client équilibré</span><br />
             <span class="font-extrabold">(% sur volume total)</span>
           </p>
 
           <!-- Legend rows: label 14px Montserrat SemiBold + pct 20px Zalando ExtraBold -->
           <div class="flex flex-col gap-[5px] w-full max-w-[353px]">
-            {portfolio.map((item) => (
-              <div class="flex items-baseline justify-between border-b border-gray-200 pb-[5px]">
+            {portfolio.map((item) => {
+              const parsedPct = parseCountValue(`${item.pct}%`);
+
+              return (
+              <div data-legend-row class="relative flex items-baseline justify-between pb-[5px]">
                 <p
+                  data-anim="1"
                   class="font-heading font-semibold text-[14px] leading-[1.4]"
                   style={`color: ${colorHex[item.color]};`}
                 >
                   {item.label}
                 </p>
                 <p
+                  data-anim="4"
+                  data-count-value={parsedPct.numericValue}
+                  data-count-prefix={parsedPct.prefix}
+                  data-count-suffix={parsedPct.suffix}
+                  data-count-decimals={parsedPct.decimals}
                   class="font-display font-extrabold text-[16px] md:text-[20px] leading-[1.2] uppercase text-right shrink-0 ml-4"
                   style={`color: ${colorHex[item.color]};`}
                 >
                   {item.pct}%
                 </p>
+                <span data-legend-line class="absolute left-0 right-0 bottom-0 h-px bg-gray-200 origin-left" aria-hidden="true" />
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

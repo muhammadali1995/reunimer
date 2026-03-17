@@ -27,6 +27,7 @@ const { id = "raison-detre" } = Astro.props;
   <div class="flex flex-col lg:flex-row lg:h-[973px] relative">
     <!-- Left: image (z-10 so girl's hand overlaps text area) -->
     <div
+      data-anim="2"
       class="relative h-[400px] sm:h-[500px] lg:h-full lg:w-[680px] lg:shrink-0 z-10"
     >
       <Image
@@ -39,16 +40,18 @@ const { id = "raison-detre" } = Astro.props;
     </div>
 
     <!-- Right: text content -->
-    <div
-      class="px-5 py-12 md:px-10 lg:pl-[40px] lg:pr-0 lg:pt-[100px] lg:pb-[100px]"
-    >
+      <div
+        class="px-5 py-12 md:px-10 lg:pl-[40px] lg:pr-0 lg:pt-[100px] lg:pb-[100px]"
+      >
       <h2
+        data-anim="3"
         class="font-display font-extrabold text-[28px] leading-[34px] md:text-display-lg uppercase text-bleu-abysse"
       >
         Notre raison d'être
       </h2>
       <div class="lg:w-[456px]">
         <p
+          data-anim="3"
           class="mt-6 lg:mt-[69px] font-heading font-normal text-base md:text-heading-lg text-bleu-abysse"
         >
           Préserver et valoriser durablement les ressources marines de l'océan
@@ -56,7 +59,7 @@ const { id = "raison-detre" } = Astro.props;
           communautés qui en vivent.
         </p>
 
-        <div class="mt-8 lg:mt-[38px]">
+        <div data-anim="3" class="mt-8 lg:mt-[38px]">
           <p
             class="font-heading font-semibold text-heading-lg text-bleu-abysse"
           >
