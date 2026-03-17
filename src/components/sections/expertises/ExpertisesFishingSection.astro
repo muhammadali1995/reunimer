@@ -40,14 +40,16 @@ function parseStatValue(value: string) {
   >
     <div class="flex flex-col xl:flex-row xl:items-stretch">
       <div class="pointer-events-none hidden xl:flex xl:w-[530px] xl:shrink-0 xl:self-stretch">
-        <div class="sticky top-56 h-fit w-full">
-          <Image
-            src={expertisesFishIllustration}
-            alt="Illustration de thons"
-            class="relative left-[-36%] w-[704px] max-w-none opacity-90"
-            widths={[768, 1024]}
-            sizes="704px"
-          />
+        <div class="sticky top-56 h-fit w-full" data-fish-sticky>
+          <div class="relative">
+            <Image
+              src={expertisesFishIllustration}
+              alt="Illustration de thons"
+              class="relative left-[-36%] w-[704px] max-w-none opacity-90"
+              widths={[768, 1024]}
+              sizes="704px"
+            />
+          </div>
         </div>
       </div>
       <div class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-36 xl:ml-0 xl:flex-1">

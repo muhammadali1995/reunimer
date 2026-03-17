@@ -105,11 +105,11 @@ export const femmesHommesSection: EngagementHumanData = {
     "Together est une cellule spécialisée dans la prise en charge de situations de discrimination, de violences sexistes et sexuelles et de harcèlement moral fondé sur un critère de discrimination. Elle est gérée par une équipe de deux psychologues et une actrice de la prévention.",
   statsTitle: "L'impact socio-économique de Reunimer à Madagascar",
   stats: [
-    { value: 'XX', label: 'personnes impactées' },
-    { value: 'XX', label: 'km de Littoral' },
-    { value: 'XX', label: 'pêcheurs partenaires' },
-    { value: 'XX', label: '% de femmes' },
-    { value: 'XX', label: 'emplois indirects soutenus dans la filière' },
+    { value: '4200', label: 'personnes impactées' },
+    { value: '350', label: 'km de Littoral' },
+    { value: '860', label: 'pêcheurs partenaires' },
+    { value: '47', label: '% de femmes' },
+    { value: '1500', label: 'emplois indirects soutenus dans la filière' },
   ],
 };
 
