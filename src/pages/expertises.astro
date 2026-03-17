@@ -1,6 +1,7 @@
 ---
 import PageLayout from "../layouts/PageLayout.astro";
 import ExpertisesHeroSection from "../components/sections/expertises/ExpertisesHeroSection.astro";
+import ExpertisesStickyNav from "../components/sections/expertises/ExpertisesStickyNav.astro";
 import ExpertisesFishingSection from "../components/sections/expertises/ExpertisesFishingSection.astro";
 import ExpertisesTransformationSection from "../components/sections/expertises/ExpertisesTransformationSection.astro";
 import ExpertisesQualitySection from "../components/sections/expertises/ExpertisesQualitySection.astro";
@@ -17,6 +18,9 @@ import { Image } from "astro:assets";
   description="Découvrez les expertises du groupe Reunimer : pêche, transformation, distribution, logistique et ressources humaines."
 >
   <ExpertisesHeroSection />
+  <div class="sticky top-[92px] z-30 -mt-6 -mb-[47px] lg:top-[136px]">
+    <ExpertisesStickyNav />
+  </div>
   <div class="relative">
     <Image
       src={expertisesFishingBackground}
@@ -26,12 +30,29 @@ import { Image } from "astro:assets";
       sizes="100vw"
     />
 
-    <ExpertisesFishingSection />
+    <div id="peche" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+      <ExpertisesFishingSection />
+    </div>
   </div>
-  <ExpertisesTransformationSection />
+  <div id="transformation" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+    <ExpertisesTransformationSection />
+  </div>
   <ExpertisesQualitySection />
-  <ExpertisesDistributionSection />
+  <div id="distribution" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+    <ExpertisesDistributionSection />
+  </div>
   <ExpertisesBrandsSection />
-  <ExpertisesSupportSection />
-  <ExpertisesRhSection />
+  <div id="logistique" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+    <ExpertisesSupportSection />
+  </div>
+  <div id="rh" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+    <ExpertisesRhSection />
+  </div>
 </PageLayout>
+
+<script>
+  import { initExpertisesPage } from "../scripts/expertisesPage.js";
+
+  initExpertisesPage();
+  document.addEventListener('astro:after-swap', initExpertisesPage);
+</script>

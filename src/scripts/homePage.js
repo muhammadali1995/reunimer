@@ -74,6 +74,27 @@ function initActualitesAnimations() {
   timeline.to(section, { autoAlpha: 1, duration: 1.8, ease: 'power2.inOut' });
 }
 
+function initExpertisesAnimations() {
+  initSectionTimeline(
+    'expertises-section',
+    {
+      '1': ANIMATION_TYPES.APPEAR_Z,
+      '2': ANIMATION_TYPES.FADE_UP,
+    },
+    (section, timeline) => {
+      const introEls = section.querySelectorAll('[data-anim="1"]');
+      if (introEls.length) {
+        timeline.add(toAnimation(introEls, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.12 }));
+      }
+
+      const cards = section.querySelectorAll('[data-anim="2"]');
+      if (cards.length) {
+        timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.15 }), '-=0.35');
+      }
+    },
+  );
+}
+
 function initExpertiseHover() {
   if (isReducedMotionPreferred()) return;
 
@@ -91,5 +112,6 @@ export function initHomePage() {
   initSideImageSection('rse-section');
   initActualitesAnimations();
   initSideImageSection('team-section');
+  initExpertisesAnimations();
   initExpertiseHover();
 }

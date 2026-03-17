@@ -21,13 +21,13 @@ const { id = 'modele-integre' } = Astro.props;
 
 <section id={id} class="scroll-mt-[135px] bg-white py-16 md:py-24 lg:py-[120px]">
   <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
-    <div class="flex flex-col lg:flex-row lg:gap-[72px]">
-      <!-- Left column: text + CTA -->
-      <div class="lg:w-[393px] lg:shrink-0 mb-10 lg:mb-0">
-        <SectionHeading
-          title="De l'océan<br/>à l'assiette"
-          subtitle="Un modèle intégré : la signature d'une confiance absolue"
-        />
+      <div class="flex flex-col lg:flex-row lg:gap-[72px]">
+        <!-- Left column: text + CTA -->
+        <div data-anim="2" class="lg:w-[393px] lg:shrink-0 mb-10 lg:mb-0">
+          <SectionHeading
+            title="De l'océan<br/>à l'assiette"
+            subtitle="Un modèle intégré : la signature d'une confiance absolue"
+          />
 
         <p class="mt-6 font-body text-body-base text-[#636A6B] lg:w-[393px]">
           Reunimer s'impose par un modèle intégré garantissant une autonomie totale, sans aucun intermédiaire. Cette maîtrise repose sur une triple expertise unique — sourcer à la racine, transformer avec talent et distribuer en direct — pour offrir une traçabilité absolue. Plus qu'une organisation, c'est une promesse de fiabilité et de transparence qui garantit l'excellence, de l'océan à l'assiette.
@@ -38,12 +38,12 @@ const { id = 'modele-integre' } = Astro.props;
             Découvrez nos expertises
           </Button>
         </div>
-      </div>
+        </div>
 
-      <!-- Right column: expertise cards grid -->
-      <div class="flex-1">
-        <!-- Top row: 3 cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+        <!-- Right column: expertise cards grid -->
+        <div data-anim="3" class="flex-1">
+          <!-- Top row: 3 cards -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" data-stagger>
           {expertiseCards.filter(c => !c.fullWidth).map((card) => (
             <div class:list={[
               card.color,

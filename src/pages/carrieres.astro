@@ -92,10 +92,13 @@ import { jobListings } from '../data/jobs';
 
   <!-- Job Listings Accordion -->
   <div id="job-accordion">
-    {jobListings.map((job, i) => (
+    {jobListings.map((job, i) => {
+      const jobColors = ['bg-terre-laterite', 'bg-nuit-australe', 'bg-ecume-poudree', 'bg-lagon-mayotte', 'bg-sable-corail'];
+      const cycleBg = jobColors[i % jobColors.length];
+      return (
       <JobCard
         title={job.title}
-        bgColor={job.bgColor}
+        bgColor={cycleBg}
         missionText={job.missionText}
         benefitTitle={job.benefitTitle}
         benefitText={job.benefitText}
@@ -104,7 +107,7 @@ import { jobListings } from '../data/jobs';
         defaultExpanded={job.defaultExpanded ?? false}
         index={i}
       />
-    ))}
+    )})}
   </div>
 
   <script>

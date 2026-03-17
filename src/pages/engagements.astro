@@ -18,6 +18,18 @@ import {
   socialSection,
   filieresSection,
 } from "../data/engagements";
+
+function parseCountValue(value: string) {
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
+  if (!match) return null;
+  const decimalPart = match[2].match(/[.,](\d+)$/u);
+  return {
+    prefix: match[1],
+    numericValue: Number(match[2].replace(',', '.')),
+    suffix: match[3],
+    decimals: decimalPart ? decimalPart[1].length : 0,
+  };
+}
 ---
 
 <PageLayout
@@ -45,6 +57,7 @@ import {
           class="absolute inset-x-0 bottom-0 px-5 pb-8 pt-20 text-left sm:px-6 sm:pb-10 md:px-10 md:max-w-[640px] lg:max-w-none lg:inset-auto lg:bottom-auto lg:px-0 lg:pb-0 lg:pt-0 lg:text-left lg:top-[297px] lg:left-[49.65%] lg:w-[559px]"
         >
           <h1
+            data-anim="2"
             class="max-w-[260px] font-display font-black text-[24px] leading-[1.02] sm:max-w-[340px] sm:text-[28px] md:max-w-[420px] md:text-[34px] lg:max-w-none lg:text-[40px] lg:leading-[44.5px] uppercase text-white drop-shadow-[0_4px_16.2px_rgba(0,0,0,0.51)]"
           >
             <span class="lg:hidden">
@@ -56,6 +69,7 @@ import {
             </span>
           </h1>
           <p
+            data-anim="2"
             class="mt-3 max-w-[320px] font-heading font-normal text-[13px] leading-[1.45] sm:mt-4 sm:max-w-[420px] sm:text-sm md:mt-5 md:max-w-[520px] md:text-base lg:mt-[20px] lg:max-w-[659px] lg:text-xl lg:leading-[1.461] text-white"
           >
             {engagementsHero.description}
@@ -243,16 +257,24 @@ import {
           </h3>
           <div class="mt-4 lg:mt-[18px] max-w-[467px]">
             {
-              femmesHommesSection.stats.map((stat) => (
+              femmesHommesSection.stats.map((stat) => {
+                const parsed = parseCountValue(stat.value);
+                return (
                 <div class="flex items-baseline justify-between gap-4 py-3 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
-                  <span class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0">
+                  <span
+                    class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0"
+                    data-count-value={parsed ? parsed.numericValue : undefined}
+                    data-count-decimals={parsed ? parsed.decimals : undefined}
+                    data-count-prefix={parsed ? parsed.prefix : undefined}
+                    data-count-suffix={parsed ? parsed.suffix : undefined}
+                  >
                     {stat.value}
                   </span>
                   <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse text-right max-w-[220px] sm:max-w-none">
                     {stat.label}
                   </span>
                 </div>
-              ))
+              )})
             }
           </div>
         </div>
@@ -425,16 +447,24 @@ import {
               class="mt-5 lg:mt-[25px] grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-6"
             >
               {
-                socialSection.stats.map((stat) => (
+                socialSection.stats.map((stat) => {
+                  const parsed = parseCountValue(stat.value);
+                  return (
                   <div class="flex flex-col gap-2">
-                    <span class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse">
+                    <span
+                      class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse"
+                      data-count-value={parsed ? parsed.numericValue : undefined}
+                      data-count-decimals={parsed ? parsed.decimals : undefined}
+                      data-count-prefix={parsed ? parsed.prefix : undefined}
+                      data-count-suffix={parsed ? parsed.suffix : undefined}
+                    >
                       {stat.value}
                     </span>
                     <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse">
                       {stat.label}
                     </span>
                   </div>
-                ))
+                  )})
               }
             </div>
           </div>
@@ -529,3 +559,10 @@ import {
     </div>
   </section>
 </PageLayout>
+
+<script>
+  import { initEngagementsPage } from "../scripts/engagementsPage.js";
+
+  initEngagementsPage();
+  document.addEventListener('astro:after-swap', initEngagementsPage);
+</script>

@@ -10,7 +10,7 @@ import {
 } from '../../../data/expertises';
 ---
 
-<section class="relative overflow-hidden bg-[#08131d] py-16 text-white md:py-[92px]">
+<section id="support-section" class="relative overflow-hidden bg-[#08131d] py-16 text-white md:py-[92px]">
   <Image
     src={expertisesSupportBackground}
     alt="Infrastructure logistique Reunimer"
@@ -23,12 +23,12 @@ import {
   <Container class="relative">
     <div class="mx-auto max-w-[742px] pt-[240px] md:pt-[380px]">
       <div class="max-w-[590px]">
-        <h2 class="max-w-[520px] font-display text-[28px] font-black uppercase leading-[0.98] tracking-[-0.02em] text-white md:text-[42px]">
+        <h2 data-anim="1" class="max-w-[520px] font-display text-[28px] font-black uppercase leading-[0.98] tracking-[-0.02em] text-white md:text-[42px]">
           Logistique &amp; supports :
           <br />
           la force invisible
         </h2>
-        <p class="mt-5 max-w-[520px] font-body text-[11px] leading-[1.55] text-white/76 md:text-[12px]">
+        <p data-anim="1" class="mt-5 max-w-[520px] font-body text-[11px] leading-[1.55] text-white/76 md:text-[12px]">
           {supportIntro}
         </p>
       </div>
@@ -36,10 +36,10 @@ import {
       <div class="mt-8 grid gap-5 md:mt-9 md:grid-cols-2 md:gap-8">
         {supportColumns.map((column) => (
           <div class="max-w-[330px]">
-            <h3 class="font-body text-[10px] font-semibold leading-[1.35] text-white md:text-[11px]">
+            <h3 data-anim="1" class="font-body text-[10px] font-semibold leading-[1.35] text-white md:text-[11px]">
               {column.title}
             </h3>
-            <p class="mt-2 font-body text-[10px] leading-[1.42] text-white/74 md:text-[11px]">
+            <p data-anim="1" class="mt-2 font-body text-[10px] leading-[1.42] text-white/74 md:text-[11px]">
               {column.body}
             </p>
           </div>
@@ -52,10 +52,13 @@ import {
           groupLabelClass="font-body text-[9px] font-bold uppercase tracking-[0.12em] text-white/86 md:text-[10px]"
           groupSpacingClass="grid gap-8 md:grid-cols-2 md:gap-12"
           itemsWrapperClass="mt-3 space-y-3"
-          dividerClass="border-b border-white/22 pb-[6px]"
+          dividerClass="pb-[6px]"
           rowClass="grid grid-cols-[minmax(72px,96px)_1fr] items-end gap-4"
           valueClass="font-display text-[30px] font-black leading-none text-white md:text-[38px]"
           labelClass="justify-self-end text-right font-body text-[10px] leading-[1.25] text-white/82 md:max-w-[170px] md:text-[11px]"
+          groupLabelAnim="1"
+          valueAnim="4"
+          labelAnim="1"
         />
       </div>
     </div>
