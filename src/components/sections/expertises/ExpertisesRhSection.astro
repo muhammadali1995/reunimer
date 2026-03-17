@@ -21,7 +21,7 @@ const rightLabel = polarToCartesian(90);
 const leftLabel = polarToCartesian(240);
 ---
 
-<section class="text-bleu-abysse">
+<section id="rh-section" class="text-bleu-abysse">
   <div class="relative mx-auto w-full max-w-[1440px] overflow-hidden bg-[#062f4b] xl:h-[1212px]">
     <Image
       src={expertisesRhBackground}
@@ -32,21 +32,21 @@ const leftLabel = polarToCartesian(240);
     />
     <div class="relative z-10 min-h-[760px] px-7 pb-14 pt-12 md:px-10 md:pb-16 xl:min-h-[1212px] xl:px-0 xl:pb-0 xl:pt-0">
       <div class="max-w-[min(33rem,100%)]">
-        <h2 class="font-display text-[24px] font-black uppercase leading-[0.95] tracking-[-0.02em] text-ecume-poudree md:text-[40px] md:leading-[44.5px] xl:absolute xl:left-[87px] xl:top-[115px] xl:w-[934px]">
+        <h2 data-anim="1" class="font-display text-[24px] font-black uppercase leading-[0.95] tracking-[-0.02em] text-ecume-poudree md:text-[40px] md:leading-[44.5px] xl:absolute xl:left-[87px] xl:top-[115px] xl:w-[934px]">
           Notre politique
           <br />
           ressources humaines
         </h2>
-        <p class="mt-4 max-w-[26rem] font-heading text-[14px] leading-[1.45] text-[#002c41] md:text-[20px] md:leading-[1.461] xl:absolute xl:left-[87px] xl:top-[224px] xl:mt-0 xl:max-w-none">
+        <p data-anim="1" class="mt-4 max-w-[26rem] font-heading text-[14px] leading-[1.45] text-[#002c41] md:text-[20px] md:leading-[1.461] xl:absolute xl:left-[87px] xl:top-[224px] xl:mt-0 xl:max-w-none">
           Petit texte d’introduction sur la politique RH.
         </p>
       </div>
 
       <div class="mt-12 max-w-[34rem] xl:absolute xl:left-[127px] xl:top-[444px] xl:mt-0 xl:max-w-none">
-        <p class="font-heading text-[18px] font-semibold leading-[1.25] text-white md:text-[20px] md:leading-[normal] xl:w-[471px]">
+        <p data-anim="1" class="font-heading text-[18px] font-semibold leading-[1.25] text-white md:text-[20px] md:leading-[normal] xl:w-[471px]">
           Une marque employeur fondée sur le talent et le collectif fort de 1013 collaborateurs
         </p>
-        <p class="mt-4 font-body text-[13px] leading-[1.45] text-white/92 md:mt-[17px] md:text-[16px] md:leading-[1.4] xl:w-[562px]">
+        <p data-anim="1" class="mt-4 font-body text-[13px] leading-[1.45] text-white/92 md:mt-[17px] md:text-[16px] md:leading-[1.4] xl:w-[562px]">
           Le Groupe cultive une force de travail animée par l’esprit d’ensemble. Notre ambition RH est de placer la
           bienveillance et l’éthique au coeur de nos métiers. En valorisant chaque talent et en favorisant la
           transmission des savoir-faire aux générations futures, Reunimer s’affirme comme un employeur de référence en
@@ -56,7 +56,7 @@ const leftLabel = polarToCartesian(240);
 
       <div class="mt-10 max-w-[46rem] xl:absolute xl:left-[142px] xl:top-[712px] xl:mt-0">
         <div class="max-w-[44.5rem]">
-          <h3 class="font-heading text-[18px] font-semibold leading-[1.2] text-white md:text-[20px]">
+          <h3 data-anim="1" class="font-heading text-[18px] font-semibold leading-[1.2] text-white md:text-[20px]">
             La même chance pour tous
           </h3>
           <div class="mt-4 h-px w-full max-w-[522px] bg-white/75 md:mt-[14px]"></div>
@@ -64,10 +64,11 @@ const leftLabel = polarToCartesian(240);
 
         <div class="mt-8 flex flex-wrap gap-8 md:mt-[62px] md:gap-[67px]">
           {rhDonuts.map((donut) => (
-            <div class="relative h-[160px] w-[160px] md:h-[234px] md:w-[234px]">
+            <div data-rh-donut class="relative h-[160px] w-[160px] md:h-[234px] md:w-[234px]">
               <svg viewBox="0 0 234 234" class="h-full w-full">
                 <circle cx="117" cy="117" r={radius} fill="none" stroke="#FFFFFF" stroke-width="33.314" />
                 <circle
+                  data-rh-donut-arc
                   cx="117"
                   cy="117"
                   r={radius}
@@ -79,27 +80,33 @@ const leftLabel = polarToCartesian(240);
                   transform="rotate(-90 117 117)"
                 />
                 <text
+                  data-rh-count="true"
+                  data-count-value={donut.rightValue.replace('%', '')}
+                  data-count-suffix="%"
                   x={rightLabel.x}
                   y={rightLabel.y}
                   text-anchor="middle"
                   dominant-baseline="middle"
                   class="font-body text-[11px] font-bold leading-none fill-white md:text-[16px]"
                 >
-                  {donut.rightValue}
+                  0%
                 </text>
                 <text
+                  data-rh-count="true"
+                  data-count-value={donut.leftValue.replace('%', '')}
+                  data-count-suffix="%"
                   x={leftLabel.x}
                   y={leftLabel.y}
                   text-anchor="middle"
                   dominant-baseline="middle"
                   class="font-body text-[11px] font-bold leading-none fill-bleu-abysse md:text-[16px]"
                 >
-                  {donut.leftValue}
+                  0%
                 </text>
               </svg>
-              <div class="absolute inset-[26%] flex flex-col items-center justify-center text-center">
+              <div data-rh-donut-center class="absolute inset-[26%] flex flex-col items-center justify-center text-center">
                 {donut.lines.map((line) => (
-                  <p class="font-body text-[10px] font-bold leading-[1.08] text-white md:text-[16px]">
+                  <p data-anim="1" class="font-body text-[10px] font-bold leading-[1.08] text-white md:text-[16px]">
                     {line}
                   </p>
                 ))}

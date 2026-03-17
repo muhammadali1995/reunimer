@@ -21,6 +21,7 @@ export interface ExpertiseQuota {
 export interface ExpertiseHeroTab {
   label: string;
   className: string;
+  href: string;
 }
 
 export interface DistributionCard {
