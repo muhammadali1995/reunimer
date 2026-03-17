@@ -4,13 +4,13 @@ import Container from '../../ui/Container.astro';
 import { brandRows } from '../../../data/expertises';
 ---
 
-<section class="relative bg-white py-16 text-bleu-abysse md:py-[96px]">
+<section id="brands-section" class="relative bg-white py-16 text-bleu-abysse md:py-[96px]">
   <div class="absolute inset-x-0 top-0 h-[22px] bg-sable-corail"></div>
   <Container>
     <div class="mx-auto max-w-[840px]">
       <div class="space-y-10">
         {brandRows.map((brand, index) => (
-          <div class="mx-auto grid max-w-[620px] items-center gap-5 md:grid-cols-[148px_1fr] md:gap-[26px]">
+          <div data-brand-card class="mx-auto grid max-w-[620px] items-center gap-5 md:grid-cols-[148px_1fr] md:gap-[26px]">
             <div class="flex justify-center md:justify-start">
               <Image
                 src={brand.logo}

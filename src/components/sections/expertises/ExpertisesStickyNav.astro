@@ -1,0 +1,33 @@
+---
+import Container from "../../ui/Container.astro";
+import { expertisesHeroTabs } from "../../../data/expertises";
+---
+
+<div class="py-3">
+  <Container>
+    <nav aria-label="Navigation des expertises">
+      <div class="flex flex-wrap gap-2 xl:w-[1198px] xl:flex-nowrap xl:items-start xl:gap-0">
+        {
+          expertisesHeroTabs.map((tab, index) => (
+            <a
+              href={tab.href}
+              data-expertise-tab
+              data-target={tab.href.slice(1)}
+              data-active={index === 0 ? "true" : "false"}
+              aria-current={index === 0 ? "true" : "false"}
+              class:list={[
+                "relative flex h-[40px] min-w-[112px] flex-1 items-center justify-center px-3 text-center transition-[transform,height,padding] duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:flex-none",
+                index === 0 ? "md:h-[47px] md:items-start md:pt-[15px]" : "md:h-[29px] md:items-start md:pt-[7px]",
+                tab.className,
+              ]}
+            >
+              <span class="font-heading text-label-sm font-semibold uppercase tracking-label text-white">
+                {tab.label}
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </nav>
+  </Container>
+</div>
