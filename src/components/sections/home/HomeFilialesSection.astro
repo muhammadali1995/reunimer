@@ -60,12 +60,15 @@ const marqueeLogos = [...filialeLogos, ...filialeLogos];
 
       const tween = gsap.to(track, {
         x: -loopDistance,
-        duration: 22,
+        duration: 40,
         ease: 'none',
         repeat: -1,
       });
 
       marqueeTweens.set(track, tween);
+
+      marquee.addEventListener('mouseenter', () => gsap.to(tween, { timeScale: 0.3, duration: 0.5 }));
+      marquee.addEventListener('mouseleave', () => gsap.to(tween, { timeScale: 1, duration: 0.5 }));
     });
   }
 

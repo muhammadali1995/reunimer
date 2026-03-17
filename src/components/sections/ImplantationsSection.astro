@@ -22,6 +22,36 @@ interface Props {
 }
 
 const { id = 'implantations' } = Astro.props;
+
+// Route data: destinations for each world pin (coordinates in 1340×779 viewBox)
+// Pin 0 - France (648.5, 293.5), Pin 1 - Madagascar (820.5, 573.5), Pin 2 - Réunion (854.5, 579.5)
+const pinOrigins = [
+  { x: 648.5, y: 293.5 },
+  { x: 820.5, y: 573.5 },
+  { x: 854.5, y: 579.5 },
+];
+const pinDestinations = [
+  // France → various destinations
+  [[408, 424], [410, 435], [853, 574], [813, 542], [861, 570], [853, 510], [1124, 586], [981, 343]],
+  // Madagascar → 3 destinations
+  [[1120, 605], [1276, 714], [1160, 330]],
+  // Réunion → 8 destinations
+  [[697, 296], [1082, 399], [979, 345], [1044, 489], [1040, 475], [1056, 441], [289, 323], [299, 229]],
+];
+
+// Compute quadratic bezier curves with globe-like upward arc
+function computeRoute(px: number, py: number, dx: number, dy: number): string {
+  const midX = (px + dx) / 2;
+  const midY = (py + dy) / 2;
+  const dist = Math.sqrt((dx - px) ** 2 + (dy - py) ** 2);
+  const ctrlX = midX;
+  const ctrlY = midY - dist * 0.15;
+  return `M${px},${py} Q${ctrlX},${ctrlY} ${dx},${dy}`;
+}
+
+const routeGroups = pinOrigins.map((pin, i) => ({
+  paths: pinDestinations[i].map(([dx, dy]) => computeRoute(pin.x, pin.y, dx, dy)),
+}));
 ---
 
 <section id={id} class="scroll-mt-[135px] bg-bleu-abysse">
@@ -39,7 +69,7 @@ const { id = 'implantations' } = Astro.props;
       </p>
 
       <!-- Regional Maps -->
-      <div class="mt-12 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 lg:gap-12">
+      <div class="mt-12 md:mt-16 lg:mt-20 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-8 lg:gap-12" data-stagger>
 
         <!-- La Réunion -->
         <div class="flex flex-col items-center">
@@ -145,11 +175,30 @@ const { id = 'implantations' } = Astro.props;
           <img
             src={pin.fluxImage}
             alt=""
-            class="world-flux-overlay absolute inset-0 w-full h-full object-cover opacity-0 pointer-events-none"
+            class="world-flux-overlay absolute inset-0 w-full h-full object-cover pointer-events-none"
+            style="clip-path: circle(0% at 50% 50%);"
             data-flux-index={i}
             loading="lazy"
           />
         ))}
+
+        <!-- Animated route lines (drawing animation on hover) -->
+        <svg class="absolute inset-0 w-full h-full pointer-events-none z-[6]" viewBox="0 0 1340 779" preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+          {routeGroups.map((group, gi) => (
+            <g data-route-group={gi} style="opacity:0">
+              {group.paths.map((d) => (
+                <path
+                  d={d}
+                  fill="none"
+                  stroke="white"
+                  stroke-width="1.2"
+                  opacity="0.7"
+                  data-route-path
+                />
+              ))}
+            </g>
+          ))}
+        </svg>
 
         <!-- Pins -->
         {worldPins.map((pin, i) => (
@@ -247,7 +296,7 @@ const { id = 'implantations' } = Astro.props;
       gsap.set(tooltip, { opacity: 0, y: 4, visibility: 'hidden' });
     });
 
-    // --- World map pins (glow + flux overlay on hover) ---
+    // --- World map pins (glow + route drawing + flux overlay on hover) ---
     const worldMapPins = document.querySelectorAll('.world-map-pin');
     const fluxOverlays = document.querySelectorAll('.world-flux-overlay');
 
@@ -272,21 +321,73 @@ const { id = 'implantations' } = Astro.props;
       pin.insertBefore(steadyRing, ring);
       gsap.set(steadyRing, { opacity: 0.3 });
 
-      // Find matching flux overlay
+      // Find matching flux overlay and route group
       const pinIndex = (pin as HTMLElement).dataset.pinIndex;
       const overlay = document.querySelector(`.world-flux-overlay[data-flux-index="${pinIndex}"]`) as HTMLElement;
+      const routeGroup = document.querySelector(`[data-route-group="${pinIndex}"]`) as SVGGElement;
 
       if (!overlay) return;
 
       const pinEl = pin as HTMLElement;
 
-      pinEl.addEventListener('mouseenter', () => {
-        // Hide all other overlays
-        fluxOverlays.forEach((o) => gsap.to(o, { opacity: 0, duration: 0.2 }));
-        // Show this overlay
-        gsap.to(overlay, { opacity: 1, duration: 0.4, ease: 'power2.out' });
+      // Pin position as clip-path origin (percentage-based)
+      const pinLeft = pinEl.style.left;
+      const pinTop = pinEl.style.top;
 
-        // Hide other world pins (dots + glow)
+      // Set initial clip-path for overlay
+      overlay.style.clipPath = `circle(0% at ${pinLeft} ${pinTop})`;
+      overlay.style.opacity = '1';
+
+      // Set initial state for route paths (hidden via stroke-dashoffset)
+      const routePaths = routeGroup?.querySelectorAll('[data-route-path]') as NodeListOf<SVGPathElement>;
+      if (routePaths) {
+        routePaths.forEach((path) => {
+          const length = path.getTotalLength();
+          path.style.strokeDasharray = `${length}`;
+          path.style.strokeDashoffset = `${length}`;
+        });
+      }
+
+      pinEl.addEventListener('mouseenter', () => {
+        // Reset all other overlays and route groups
+        fluxOverlays.forEach((o) => {
+          const el = o as HTMLElement;
+          if (el !== overlay) {
+            gsap.to(el, {
+              clipPath: `circle(0% at ${el.dataset.clipOriginLeft || '50%'} ${el.dataset.clipOriginTop || '50%'})`,
+              duration: 0.3,
+              ease: 'power2.in',
+            });
+          }
+        });
+        document.querySelectorAll('[data-route-group]').forEach((g) => {
+          if (g !== routeGroup) {
+            gsap.to(g, { opacity: 0, duration: 0.2 });
+          }
+        });
+
+        // Animate route lines drawing from pin to destinations
+        if (routeGroup && routePaths) {
+          gsap.set(routeGroup, { opacity: 1 });
+          routePaths.forEach((path, i) => {
+            gsap.to(path, {
+              strokeDashoffset: 0,
+              duration: 1,
+              ease: 'power2.inOut',
+              delay: i * 0.06,
+            });
+          });
+        }
+
+        // Reveal flux overlay (labels) with slight delay so lines draw first
+        gsap.to(overlay, {
+          clipPath: `circle(150% at ${pinLeft} ${pinTop})`,
+          duration: 0.8,
+          ease: 'power2.out',
+          delay: 0.3,
+        });
+
+        // Hide other world pins
         worldMapPins.forEach((otherPin) => {
           if (otherPin !== pin) {
             gsap.to(otherPin, { opacity: 0, duration: 0.25, ease: 'power2.out' });
@@ -295,7 +396,25 @@ const { id = 'implantations' } = Astro.props;
       });
 
       pinEl.addEventListener('mouseleave', () => {
-        gsap.to(overlay, { opacity: 0, duration: 0.3, ease: 'power2.in' });
+        // Collapse overlay
+        gsap.to(overlay, {
+          clipPath: `circle(0% at ${pinLeft} ${pinTop})`,
+          duration: 0.4,
+          ease: 'power2.in',
+        });
+
+        // Un-draw route lines
+        if (routeGroup && routePaths) {
+          routePaths.forEach((path) => {
+            const length = path.getTotalLength();
+            gsap.to(path, {
+              strokeDashoffset: length,
+              duration: 0.4,
+              ease: 'power2.in',
+            });
+          });
+          gsap.to(routeGroup, { opacity: 0, delay: 0.4, duration: 0.1 });
+        }
 
         // Restore other world pins
         worldMapPins.forEach((otherPin) => {
@@ -304,14 +423,22 @@ const { id = 'implantations' } = Astro.props;
           }
         });
       });
+
+      // Store origin for other overlays to reference during reset
+      overlay.dataset.clipOriginLeft = pinLeft;
+      overlay.dataset.clipOriginTop = pinTop;
     });
   }
 
-  // Run on page load and Astro view transitions
-  document.addEventListener('astro:page-load', initMapPins);
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initMapPins);
-  } else {
+  function initImplantations() {
     initMapPins();
+  }
+
+  // Run on page load and Astro view transitions
+  document.addEventListener('astro:page-load', initImplantations);
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initImplantations);
+  } else {
+    initImplantations();
   }
 </script>

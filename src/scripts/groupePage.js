@@ -248,16 +248,16 @@ function animateActiveHistorySlide(swiper) {
   if (year) {
     gsap.fromTo(
       year,
-      { autoAlpha: 0, x: 22 },
-      { autoAlpha: 1, x: 0, duration: 0.45, ease: 'power2.out', overwrite: true },
+      { autoAlpha: 0, x: 30 },
+      { autoAlpha: 1, x: 0, duration: 0.55, ease: 'power3.out', overwrite: true },
     );
   }
 
   if (copy) {
     gsap.fromTo(
       copy,
-      { autoAlpha: 0, x: 22 },
-      { autoAlpha: 1, x: 0, duration: 0.5, ease: 'power2.out', delay: 0.08, overwrite: true },
+      { autoAlpha: 0, x: 30 },
+      { autoAlpha: 1, x: 0, duration: 0.55, ease: 'power3.out', delay: 0.12, overwrite: true },
     );
   }
 }
@@ -289,10 +289,11 @@ function initHistoryAnimations() {
 
   const swiper = new Swiper(slider, {
     modules: [Navigation],
-    speed: 900,
+    speed: 700,
     spaceBetween: 0,
     slidesPerView: 1.08,
     watchOverflow: true,
+    grabCursor: true,
     navigation: {
       prevEl: prevButton,
       nextEl: nextButton,

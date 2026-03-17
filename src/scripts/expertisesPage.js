@@ -153,6 +153,7 @@ function initFishingSectionAnimations() {
   initCountsOnView(quotaCountItems, {
     triggerResolver: (element) => element.closest('[data-quota-donut]') || element,
   });
+
 }
 
 function initRhSectionAnimations() {
@@ -383,15 +384,28 @@ export function initExpertisesPage() {
 
   if (!tabs.length) return;
 
+  const isMd = () => window.innerWidth >= 768;
+
   const setActiveTab = (targetId) => {
     tabs.forEach((tab) => {
       const isActive = tab.dataset.target === targetId;
       tab.dataset.active = String(isActive);
       tab.setAttribute('aria-current', isActive ? 'page' : 'false');
-      tab.classList.toggle('md:h-[47px]', isActive);
-      tab.classList.toggle('md:pt-[15px]', isActive);
-      tab.classList.toggle('md:h-[29px]', !isActive);
-      tab.classList.toggle('md:pt-[7px]', !isActive);
+
+      if (isMd()) {
+        gsap.to(tab, {
+          height: isActive ? 47 : 29,
+          paddingTop: isActive ? 15 : 7,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: true,
+        });
+      } else {
+        tab.classList.toggle('md:h-[47px]', isActive);
+        tab.classList.toggle('md:pt-[15px]', isActive);
+        tab.classList.toggle('md:h-[29px]', !isActive);
+        tab.classList.toggle('md:pt-[7px]', !isActive);
+      }
     });
   };
 

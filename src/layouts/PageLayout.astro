@@ -18,3 +18,10 @@ const { title, description, ogImage } = Astro.props;
 
   <Footer />
 </BaseLayout>
+
+<script>
+  import { initGlobalAnimations } from '../scripts/globalAnimations.js';
+
+  initGlobalAnimations();
+  document.addEventListener('astro:after-swap', initGlobalAnimations);
+</script>

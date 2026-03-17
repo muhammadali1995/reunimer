@@ -163,9 +163,9 @@ export const francePins: MapPin[] = [
 
 // ImplantationsSection — World map pins (fluxImage shown on hover)
 export const worldPins: WorldPin[] = [
-  { top: '38%', left: '48.5%', fluxImage: '/images/groupe/flux-france.png' },
-  { top: '73.5%', left: '61.1%', fluxImage: '/images/groupe/flux-madagascar.png' },
-  { top: '74.2%', left: '63.8%', fluxImage: '/images/groupe/flux-reunion.png' },
+  { top: '38%', left: '48.5%', fluxImage: '/images/groupe/flux-france.svg' },
+  { top: '73.5%', left: '61.1%', fluxImage: '/images/groupe/flux-madagascar.svg' },
+  { top: '74.2%', left: '63.8%', fluxImage: '/images/groupe/flux-reunion.svg' },
 ];
 
 // WorldStatsSection — Continent distribution

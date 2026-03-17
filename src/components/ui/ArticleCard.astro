@@ -54,7 +54,7 @@ const isHorizontal = layout === 'horizontal';
 
 {isHorizontal ? (
   <a href={href} class:list={['group flex flex-row gap-5', className]}>
-    <div class="relative overflow-hidden w-[223px] h-[154px] flex-shrink-0">
+    <div class="relative overflow-hidden w-[223px] h-[154px] flex-shrink-0" data-ken-burns>
       {image ? (
         <Image
           src={image}
@@ -79,7 +79,7 @@ const isHorizontal = layout === 'horizontal';
 ) : (
   <a href={href} class:list={['group block', className]}>
     <!-- Image -->
-    <div class:list={['relative overflow-hidden', isLarge ? 'aspect-[710/498]' : 'aspect-[364/318]']}>
+    <div class:list={['relative overflow-hidden', isLarge ? 'aspect-[710/498]' : 'aspect-[364/318]']} data-ken-burns>
       {image ? (
         <Image
           src={image}
