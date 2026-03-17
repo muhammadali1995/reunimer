@@ -3,6 +3,7 @@ interface Props {
   title: string;
   dividerClass?: string;
   titleClass?: string;
+  titleAnim?: string;
   body?: string;
   bodyClass?: string;
   class?: string;
@@ -12,6 +13,7 @@ const {
   title,
   dividerClass = 'mt-4 h-px w-full bg-current/20',
   titleClass = 'font-heading text-heading-lg font-semibold',
+  titleAnim,
   body,
   bodyClass = 'mt-6 font-heading text-heading-lg leading-[1.46]',
   class: className = '',
@@ -19,7 +21,7 @@ const {
 ---
 
 <div class={className}>
-  <h2 class={titleClass}>{title}</h2>
+  <h2 data-anim={titleAnim} class={titleClass}>{title}</h2>
   <div class={dividerClass}></div>
   {body && <p class={bodyClass}>{body}</p>}
 </div>

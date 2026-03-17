@@ -6,7 +6,6 @@ import {
   certificationRightColumn,
   expertisesBoulogneImage,
   expertisesFishIllustration,
-  expertisesHeroTabs,
   expertisesMadagascarImage,
   expertisesTunaImage,
   fishingCatchStats,
@@ -17,44 +16,51 @@ import {
 import Container from "../../ui/Container.astro";
 import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro";
 import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
+
+function parseStatValue(value: string) {
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
+  if (!match) {
+    return null;
+  }
+
+  const decimalPart = match[2].match(/[.,](\d+)$/u);
+
+  return {
+    prefix: match[1],
+    numericValue: Number(match[2].replace(',', '.')),
+    suffix: match[3],
+    decimalPlaces: decimalPart ? decimalPart[1].length : 0,
+  };
+}
 ---
 
-<section class="text-white">
+<section id="peche-section" class="overflow-visible text-white">
   <Container
-    class="relative min-h-0 py-16 md:pt-20 xl:min-h-[2385px] xl:pt-[111px] xl:pb-0"
+    class="relative pb-[300px]! min-h-0 py-16 md:pt-20 xl:min-h-[2385px] xl:pt-[111px] xl:pb-0"
   >
-    <div
-      class="flex flex-wrap gap-2 xl:w-[1198px] xl:flex-nowrap xl:items-start xl:gap-0"
-    >
-      {
-        expertisesHeroTabs.map((tab) => (
-          <div
-            class:list={[
-              "relative flex h-[40px] min-w-[112px] flex-1 items-center justify-center px-3 md:flex-none md:items-start",
-              tab.className,
-            ]}
-          >
-            <span class="font-heading text-label-sm font-semibold uppercase tracking-label text-white">
-              {tab.label}
-            </span>
+    <div class="flex flex-col xl:flex-row xl:items-stretch">
+      <div class="pointer-events-none hidden xl:flex xl:w-[530px] xl:shrink-0 xl:self-stretch">
+        <div class="sticky top-56 h-fit w-full" data-fish-sticky>
+          <div class="relative">
+            <Image
+              src={expertisesFishIllustration}
+              alt="Illustration de thons"
+              class="relative left-[-36%] w-[704px] max-w-none opacity-90"
+              widths={[768, 1024]}
+              sizes="704px"
+            />
           </div>
-        ))
-      }
-    </div>
-    <Image
-      src={expertisesFishIllustration}
-      alt="Illustration de thons"
-      class="pointer-events-none absolute -left-1/3 top-1/10 hidden w-[704px] opacity-90 xl:block"
-      widths={[768, 1024]}
-      sizes="704px"
-    />
-    <div class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-36 xl:ml-[530px]">
+        </div>
+      </div>
+      <div class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-36 xl:ml-0 xl:flex-1">
       <h2
+        data-anim="1"
         class="font-display uppercase text-display-lg font-black leading-[44.5px] text-white"
       >
         Une pêche responsable
       </h2>
       <p
+        data-anim="1"
         class="mt-[37px] max-w-[701px] font-heading text-heading-lg font-normal leading-[1.461] text-white"
       >
         Reunimer maîtrise l'amont pour sécuriser l'aval. En accédant directement
@@ -67,12 +73,14 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
           title="Une puissance de pêche hauturière et australe"
           titleClass="font-heading text-heading-lg font-semibold text-white"
           dividerClass="mt-[17px] h-px w-full bg-white/40"
+          titleAnim="1"
         />
         <div
           class="mt-[33px] grid gap-10 md:grid-cols-[326px_328px] md:gap-[56px]"
         >
           <div class="flex flex-col gap-[18px]">
             <p
+              data-anim="1"
               class="font-body text-body-base font-bold leading-[1.4] text-white"
             >
               {fishingFleetStats[0].location}
@@ -81,10 +89,12 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
               items={fishingFleetStats[0].items}
               groupSpacingClass="space-y-0"
               itemsWrapperClass="space-y-[18px]"
-              dividerClass="border-b border-white/24 pb-3"
+              dividerClass="pb-3"
               rowClass="flex items-end justify-between gap-6"
               valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
               labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+              valueAnim="4"
+              labelAnim="1"
             />
           </div>
           <div class="pt-0 md:pt-[40px]">
@@ -92,10 +102,12 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
               items={fishingCatchStats}
               groupSpacingClass="space-y-0"
               itemsWrapperClass="space-y-[18px]"
-              dividerClass="border-b border-white/24 pb-3"
+              dividerClass="pb-3"
               rowClass="flex items-end justify-between gap-6"
               valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
               labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+              valueAnim="4"
+              labelAnim="1"
             />
           </div>
         </div>
@@ -105,6 +117,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
           title="Un modèle de collecte artisanale et de mareyage"
           titleClass="font-heading text-heading-lg font-semibold text-white"
           dividerClass="mt-[17px] h-px w-full bg-white/40"
+          titleAnim="1"
         />
         <div
           class="mt-[45px] grid gap-8 lg:grid-cols-[326px_330px] lg:gap-[50px]"
@@ -113,6 +126,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
             class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
           >
             <p
+              data-anim="1"
               class="font-body text-body-base font-bold leading-[1.4] text-white"
             >
               À Madagascar
@@ -122,10 +136,12 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                 items={madagascarStats}
                 groupSpacingClass="space-y-0"
                 itemsWrapperClass="space-y-[18px]"
-                dividerClass="border-b border-white/24 pb-3"
+                dividerClass="pb-3"
                 rowClass="flex items-end justify-between gap-4"
                 valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
                 labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                valueAnim="4"
+                labelAnim="1"
               />
             </div>
           </div>
@@ -151,6 +167,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
             class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
           >
             <p
+              data-anim="1"
               class="font-body text-body-base font-bold leading-[1.4] text-white"
             >
               À Boulogne-sur-Mer
@@ -160,10 +177,12 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                 items={boulogneStats}
                 groupSpacingClass="space-y-0"
                 itemsWrapperClass="space-y-[18px]"
-                dividerClass="border-b border-white/24 pb-3"
+                dividerClass="pb-3"
                 rowClass="flex items-end justify-between gap-4"
                 valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
                 labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                valueAnim="4"
+                labelAnim="1"
               />
             </div>
           </div>
@@ -183,6 +202,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
           </div>
         </div>
         <p
+          data-anim="1"
           class="mt-[74px] font-heading text-heading-lg font-semibold text-white"
         >
           Reunimer sur le marché de la pêche à la légine dans les TAAF
@@ -190,6 +210,9 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
         <div class="mt-[33px] flex flex-wrap gap-8 pl-0 md:gap-[49px]">
           {
             fishingQuotas.map((quota) => {
+              const parsedTop = parseStatValue(quota.top);
+              const parsedBottom = parseStatValue(quota.bottom);
+              const parsedTotal = parseStatValue(quota.total);
               const center = 117;
               const radius = 100;
               const labelRadius = radius;
@@ -209,7 +232,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
               const bottomLabel = polarToCartesian(180);
 
               return (
-                <div class="relative h-[190px] w-[190px] md:h-[234px] md:w-[234px]">
+                <div data-quota-donut class="relative h-[190px] w-[190px] md:h-[234px] md:w-[234px]">
                   <svg viewBox="0 0 234 234" class="h-full w-full">
                     <circle
                       cx="117"
@@ -220,6 +243,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                       stroke-width="28"
                     />
                     <circle
+                      data-quota-donut-arc
                       cx="117"
                       cy="117"
                       r={radius}
@@ -231,6 +255,11 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                       transform="rotate(-90 117 117)"
                     />
                     <text
+                      data-quota-count={parsedTop ? 'true' : undefined}
+                      data-count-value={parsedTop ? parsedTop.numericValue : undefined}
+                      data-count-decimals={parsedTop ? parsedTop.decimalPlaces : undefined}
+                      data-count-prefix={parsedTop ? parsedTop.prefix : undefined}
+                      data-count-suffix={parsedTop ? parsedTop.suffix : undefined}
                       x={topLabel.x}
                       y={topLabel.y}
                       text-anchor="middle"
@@ -240,6 +269,11 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                       {quota.top}
                     </text>
                     <text
+                      data-quota-count={parsedBottom ? 'true' : undefined}
+                      data-count-value={parsedBottom ? parsedBottom.numericValue : undefined}
+                      data-count-decimals={parsedBottom ? parsedBottom.decimalPlaces : undefined}
+                      data-count-prefix={parsedBottom ? parsedBottom.prefix : undefined}
+                      data-count-suffix={parsedBottom ? parsedBottom.suffix : undefined}
                       x={bottomLabel.x}
                       y={bottomLabel.y}
                       text-anchor="middle"
@@ -249,8 +283,15 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                       {quota.bottom}
                     </text>
                   </svg>
-                  <div class="absolute inset-0 flex flex-col items-center justify-center">
-                    <span class="whitespace-nowrap font-heading text-[34px] font-semibold leading-none text-white md:text-heading-2xl">
+                  <div data-quota-donut-center class="absolute inset-0 flex flex-col items-center justify-center">
+                    <span
+                      data-quota-count={parsedTotal ? 'true' : undefined}
+                      data-count-value={parsedTotal ? parsedTotal.numericValue : undefined}
+                      data-count-decimals={parsedTotal ? parsedTotal.decimalPlaces : undefined}
+                      data-count-prefix={parsedTotal ? parsedTotal.prefix : undefined}
+                      data-count-suffix={parsedTotal ? parsedTotal.suffix : undefined}
+                      class="whitespace-nowrap font-heading text-[34px] font-semibold leading-none text-white md:text-heading-2xl"
+                    >
                       {quota.total}
                     </span>
                     <span class="mt-2 font-body text-body-base font-normal leading-none text-white">
@@ -264,13 +305,15 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
         </div>
         <div class="mt-[76px] max-w-[710px]">
           <ExpertisesSectionHeader
-            title="Une exigence de durabilité certifiée"
-            titleClass="font-heading text-heading-lg font-semibold text-white"
-            dividerClass="mt-[17px] h-px w-full bg-white/40"
-          />
-          <p
-            class="mt-[21px] max-w-[543px] font-body text-body-sm font-normal leading-[1.4] text-white md:text-body-base"
-          >
+          title="Une exigence de durabilité certifiée"
+          titleClass="font-heading text-heading-lg font-semibold text-white"
+          dividerClass="mt-[17px] h-px w-full bg-white/40"
+          titleAnim="1"
+        />
+        <p
+          data-anim="1"
+          class="mt-[21px] max-w-[543px] font-body text-body-sm font-normal leading-[1.4] text-white md:text-body-base"
+        >
             Notre stratégie repose sur la sélectivité des espèces et le respect
             rigoureux des quotas et des saisons. Cet engagement est validé par
             des certifications internationales de référence :
@@ -289,6 +332,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                 />
               </div>
               <div
+                data-anim="1"
                 class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
               >
                 {certificationLeftColumn.map((item) => <p>{item}</p>)}
@@ -305,11 +349,12 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
                 />
               </div>
               <div
+                data-anim="1"
                 class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
               >
                 {certificationRightColumn.map((item) => <p>{item}</p>)}
               </div>
-            </div>
+              </div>
           </div>
         </div>
       </div>
@@ -317,7 +362,7 @@ import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
     <Image
       src={expertisesTunaImage}
       alt="Illustration de thons"
-      class="mx-auto mt-16 w-full max-w-[1000px] xl:mt-28 xl:translate-y-1/2"
+      class="absolute bottom-0 left-1/2 mt-[100px] w-full max-w-[1000px] -translate-x-1/2 translate-y-1/2"
       widths={[768, 1200, 1600]}
       sizes="(min-width: 1280px) 1000px, 100vw"
     />

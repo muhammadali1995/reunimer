@@ -6,6 +6,7 @@ import { productionStats } from "../../../data/expertises";
 ---
 
 <section
+  id="quality-section"
   class="relative z-20 overflow-hidden bg-white py-16 text-bleu-abysse md:py-[92px] xl:-mt-[500px]"
 >
   <div
@@ -22,10 +23,12 @@ import { productionStats } from "../../../data/expertises";
           class="max-w-[308px]"
           titleClass="max-w-[308px] font-heading text-[12px] font-semibold leading-[1.28] md:text-[13px]"
           dividerClass="mt-3 h-px w-full bg-bleu-abysse/25"
+          titleAnim="1"
         />
 
         <div class="mt-5">
           <p
+            data-anim="1"
             class="font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
           >
             Standards de classe mondiale
@@ -47,6 +50,7 @@ import { productionStats } from "../../../data/expertises";
         <div class="mt-7 max-w-[260px]">
           <div class="h-px w-full bg-bleu-abysse/20"></div>
           <p
+            data-anim="1"
             class="mt-3 font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
           >
             Controle permanent
@@ -55,9 +59,11 @@ import { productionStats } from "../../../data/expertises";
           <div class="mt-4 border-b border-bleu-abysse/32 pb-[6px]">
             <div class="flex items-start justify-between gap-4">
               <p
+                data-anim="4"
+                data-count-value="550"
                 class="font-display text-[22px] font-black leading-none text-bleu-abysse md:text-[25px]"
               >
-                550
+                0
               </p>
               <img
                 src="/images/eurofins.png"
@@ -65,21 +71,25 @@ import { productionStats } from "../../../data/expertises";
                 class="h-[18px] w-auto object-contain"
               />
             </div>
-            <p
-              class="mt-[4px] text-right font-body text-[9px] leading-none text-bleu-abysse/82"
-            >
-              test Eurofins*
+              <p
+                data-anim="1"
+                class="mt-[4px] text-right font-body text-[9px] leading-none text-bleu-abysse/82"
+              >
+                test Eurofins*
             </p>
           </div>
 
           <div class="mt-3 border-b border-bleu-abysse/32 pb-[6px]">
             <div class="flex items-end justify-between gap-4">
               <p
+                data-anim="4"
+                data-count-value="4210"
                 class="font-display text-[22px] font-black leading-none text-bleu-abysse md:text-[25px]"
               >
-                4210
+                0
               </p>
               <p
+                data-anim="1"
                 class="text-right font-body text-[9px] leading-none text-bleu-abysse/82"
               >
                 test en autocontrole*
@@ -88,6 +98,7 @@ import { productionStats } from "../../../data/expertises";
           </div>
 
           <p
+            data-anim="1"
             class="mt-3 font-body text-[8px] leading-[1.25] text-bleu-abysse/82"
           >
             *Pour tout le groupe Reunimer en moyenne dans l'annee.
@@ -95,11 +106,13 @@ import { productionStats } from "../../../data/expertises";
 
           <div class="mt-6 h-px w-full bg-bleu-abysse/20"></div>
           <p
+            data-anim="1"
             class="mt-4 font-body text-[12px] font-bold leading-none text-bleu-abysse"
           >
             Innovation &amp; RSE
           </p>
           <p
+            data-anim="1"
             class="mt-3 max-w-[258px] font-body text-[12px] leading-[1.45] text-bleu-abysse/82"
           >
             Vers le zero dechet: Parce que maitriser la filiere signifie aussi
@@ -117,6 +130,7 @@ import { productionStats } from "../../../data/expertises";
           class="max-w-[308px]"
           titleClass="max-w-[308px] font-heading text-[12px] font-semibold leading-[1.28] md:text-[13px]"
           dividerClass="mt-3 h-px w-full bg-bleu-abysse/25"
+          titleAnim="1"
         />
         <div class="mt-5 max-w-[392px]">
           <ExpertisesStatGroupList
@@ -124,10 +138,13 @@ import { productionStats } from "../../../data/expertises";
             groupLabelClass="font-body text-[9px] font-bold leading-none text-bleu-abysse/72"
             groupSpacingClass="space-y-7"
             itemsWrapperClass="mt-2 space-y-3"
-            dividerClass="border-b border-bleu-abysse/18 pb-2"
+            dividerClass="pb-2"
             rowClass="flex items-end justify-between gap-4"
             valueClass="font-display text-[34px] font-black leading-none text-bleu-abysse"
             labelClass="max-w-[188px] text-right font-body text-[9px] leading-[1.25] text-bleu-abysse/78"
+            groupLabelAnim="1"
+            valueAnim="4"
+            labelAnim="1"
           />
         </div>
       </div>

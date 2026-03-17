@@ -48,3 +48,10 @@ import { groupSeo } from '../data/groupe';
   <!-- Phase 8: World Stats & Client Portfolio -->
   <WorldStatsSection />
 </PageLayout>
+
+<script>
+  import { initGroupePage } from '../scripts/groupePage.js';
+
+  initGroupePage();
+  document.addEventListener('astro:after-swap', initGroupePage);
+</script>

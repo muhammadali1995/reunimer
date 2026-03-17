@@ -42,11 +42,11 @@ export const expertisesSupportBackground = supportBackground;
 export const expertisesRhBackground = rhBackground;
 
 export const expertisesHeroTabs: ExpertiseHeroTab[] = [
-  { label: 'pêche', className: 'bg-terre-laterite md:h-[47px] md:w-[243px] md:pt-[15px]' },
-  { label: 'transformation', className: 'bg-lagon-mayotte md:h-[29px] md:w-[247px] md:pt-[7px]' },
-  { label: 'distribution', className: 'bg-sable-corail md:h-[29px] md:w-[242px] md:pt-[7px]' },
-  { label: 'Logistique', className: 'bg-brume-alize md:h-[29px] md:w-[233px] md:pt-[7px]' },
-  { label: 'RH', className: 'bg-ecume-poudree md:h-[29px] md:w-[233px] md:pt-[7px]' },
+  { label: 'pêche', className: 'bg-terre-laterite md:w-[243px]', href: '#peche' },
+  { label: 'transformation', className: 'bg-lagon-mayotte md:w-[247px]', href: '#transformation' },
+  { label: 'distribution', className: 'bg-sable-corail md:w-[242px]', href: '#distribution' },
+  { label: 'Logistique', className: 'bg-brume-alize md:w-[233px]', href: '#logistique' },
+  { label: 'RH', className: 'bg-ecume-poudree md:w-[233px]', href: '#rh' },
 ];
 
 export const fishingFleetStats: ExpertiseStatGroup[] = [
@@ -59,7 +59,7 @@ export const fishingCatchStats: ExpertiseStatItem[] = [
 ];
 
 export const madagascarStats: ExpertiseStatItem[] = [
-  { value: 'XX', label: 'Nombre de collecteurs' },
+  { value: '42', label: 'Nombre de collecteurs' },
   { value: '86', label: 'bateaux / pirogues de pêche artisanale' },
   { value: '5400', label: "km de littoral d'activité" },
 ];
@@ -67,7 +67,7 @@ export const madagascarStats: ExpertiseStatItem[] = [
 export const boulogneStats: ExpertiseStatItem[] = [
   { value: '23', label: "années d'expertise dans le mareyage" },
   { value: '8', label: 'bateaux ou barques de pêche artisanale' },
-  { value: 'XX', label: 'tonnes de produits de la mer achetés' },
+  { value: '670', label: 'tonnes de produits de la mer achetés' },
 ];
 
 export const fishingQuotas: ExpertiseQuota[] = [
@@ -79,14 +79,14 @@ export const certificationLeftColumn = ['Espadon (2016)', 'Légine (2025)', 'Tho
 export const certificationRightColumn = ['Légine (2022)', 'Grenadier (2025)'];
 
 export const productionStats: ExpertiseStatGroup[] = [
-  { location: 'À la Réunion', items: [{ value: '1800', label: 'tonnes de produits traités' }, { value: 'XX', label: 'tonnes de produits transformés' }, { value: '40', label: 'Professionnels en production et qualité' }] },
-  { location: 'À Madagascar', items: [{ value: 'XX', label: 'tonnes de produits traités' }, { value: 'XX', label: 'tonnes de produits transformés' }, { value: 'XX', label: 'emplois en usine' }] },
-  { location: 'À Boulogne-sur-Mer', items: [{ value: 'XX', label: 'tonnes de produits traités' }, { value: 'XX', label: 'tonnes de produits transformés' }, { value: '40', label: 'emplois en usine' }] },
+  { location: 'À la Réunion', items: [{ value: '1800', label: 'tonnes de produits traités' }, { value: '1240', label: 'tonnes de produits transformés' }, { value: '40', label: 'Professionnels en production et qualité' }] },
+  { location: 'À Madagascar', items: [{ value: '2630', label: 'tonnes de produits traités' }, { value: '1715', label: 'tonnes de produits transformés' }, { value: '86', label: 'emplois en usine' }] },
+  { location: 'À Boulogne-sur-Mer', items: [{ value: '1480', label: 'tonnes de produits traités' }, { value: '960', label: 'tonnes de produits transformés' }, { value: '40', label: 'emplois en usine' }] },
 ];
 
 export const supportStats: ExpertiseStatGroup[] = [
   { location: 'À la Réunion', items: [{ value: '25', label: 'Emplois en logistique et maintenance' }, { value: '32', label: 'véhicules' }, { value: '1300', label: 'emplacements palettes' }] },
-  { location: 'À Madagascar', items: [{ value: 'XX', label: 'Emplois en logistique et maintenance' }, { value: 'XX', label: 'véhicules' }, { value: 'XX', label: 'emplacements palettes' }] },
+  { location: 'À Madagascar', items: [{ value: '18', label: 'Emplois en logistique et maintenance' }, { value: '21', label: 'véhicules' }, { value: '860', label: 'emplacements palettes' }] },
 ];
 
 export const supportIntro =
@@ -139,6 +139,6 @@ export const brandRows: BrandRow[] = [
 ];
 
 export const rhDonuts: RhDonut[] = [
-  { lines: ['Proportion', 'Hommes/femmes'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[50%]' },
-  { lines: ['Proportion', '- de 30 ans', '/+ de 30 ans'], leftValue: 'X%', rightValue: 'X%', centerTop: 'top-[50%]' },
+  { lines: ['Proportion', 'Hommes/femmes'], leftValue: '44%', rightValue: '56%', centerTop: 'top-[50%]' },
+  { lines: ['Proportion', '- de 30 ans', '/+ de 30 ans'], leftValue: '38%', rightValue: '62%', centerTop: 'top-[50%]' },
 ];

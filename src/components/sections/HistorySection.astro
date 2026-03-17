@@ -30,7 +30,7 @@ const { id = 'histoire' } = Astro.props;
   <div class="h-[30px] bg-bleu-abysse"></div>
 
   <!-- History Header with background image -->
-  <div class="relative h-[280px] md:h-[340px] lg:h-[373px] overflow-hidden">
+  <div class="relative h-[280px] md:h-[340px] lg:h-[373px] overflow-hidden" data-parallax>
     <Image
       src={pecheurImage}
       alt="Pêcheur malgache souriant avec une corde sur l'épaule"
@@ -47,59 +47,60 @@ const { id = 'histoire' } = Astro.props;
   </div>
 
   <!-- Timeline -->
-  <div class="bg-bleu-abysse py-12 md:py-16 lg:py-20 overflow-x-auto">
+  <div class="overflow-hidden bg-bleu-abysse py-12 md:py-16 lg:py-20">
     <div class="mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0">
-      <!-- Timeline container -->
-      <div class="relative min-w-[700px] lg:min-w-0">
-        <!-- Milestones -->
-        <div class="relative">
-          <!-- Years row -->
-          <div class="grid grid-cols-4">
-            {historyMilestones.map((milestone) => (
-              <div class="pr-4 lg:pr-8">
-                <p class="font-display font-extrabold text-[24px] md:text-[32px] uppercase text-white">
+      <div
+        class="swiper history-swiper overflow-visible"
+        data-history-slider
+        aria-label="Chronologie de l'histoire du groupe"
+      >
+        <div class="swiper-wrapper">
+          {historyMilestones.map((milestone) => (
+            <article
+              class="swiper-slide h-auto"
+              data-history-slide
+              data-anim="4"
+            >
+              <div class="flex h-full flex-col">
+                <p
+                  class="pr-4 font-display text-[32px] font-extrabold uppercase text-white md:pr-6 md:text-[40px] lg:pr-8 lg:text-[48px]"
+                  data-history-year
+                >
                   {milestone.year}
                 </p>
-                <!-- Vertical tick + Dot -->
-                <div class="mt-1">
-                  <div class="w-px h-[20px] bg-white/40 ml-[5px]"></div>
-                  <div class="w-[11px] h-[11px] rounded-full bg-white"></div>
+                <div class="mt-2">
+                  <div class="ml-[5px] h-[20px] w-px bg-white/40"></div>
+                  <div class="h-[11px] w-[11px] rounded-full bg-white"></div>
                 </div>
-              </div>
-            ))}
-          </div>
-
-          <!-- Continuous horizontal line spanning full width -->
-          <div class="h-px bg-white/40 -mt-[5px]"></div>
-
-          <!-- Descriptions row -->
-          <div class="grid grid-cols-4 mt-4">
-            {historyMilestones.map((milestone) => (
-              <div class="pr-4 lg:pr-8">
-                <p class="font-body font-normal text-sm md:text-body-base text-white leading-[1.4] max-w-[255px]">
+                <div class="-mt-[5px] h-px w-full bg-white/40"></div>
+                <p
+                  class="mt-4 max-w-[255px] pr-4 font-body text-sm leading-[1.4] font-normal text-white md:pr-6 md:text-body-base lg:pr-8"
+                  data-history-copy
+                >
                   {milestone.description}
                 </p>
               </div>
-            ))}
-          </div>
+            </article>
+          ))}
         </div>
       </div>
 
-      <!-- Navigation arrows -->
-      <div class="flex justify-end mt-8 gap-3">
+      <div class="mt-8 flex justify-end gap-3">
         <button
-          class="w-[50px] h-[50px] rounded-full border border-white rounded-[3px] flex items-center justify-center text-white hover:bg-turquoise-ocean hover:border-turquoise-ocean transition-colors duration-200 cursor-pointer"
+          class="history-nav-prev flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-white text-white transition-colors duration-200 hover:border-turquoise-ocean hover:bg-turquoise-ocean disabled:cursor-default disabled:border-white/30 disabled:text-white/30 disabled:hover:border-white/30 disabled:hover:bg-transparent"
+          type="button"
           aria-label="Précédent"
         >
-          <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
+          <svg class="h-3.5 w-2 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
             <path d="M9.25 15.25L1.25 8.25L9.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <button
-          class="w-[50px] h-[50px] rounded-full border border-white rounded-[3px] flex items-center justify-center text-white hover:bg-turquoise-ocean hover:border-turquoise-ocean transition-colors duration-200 cursor-pointer"
+          class="history-nav-next flex h-[50px] w-[50px] cursor-pointer items-center justify-center rounded-full border border-white text-white transition-colors duration-200 hover:border-turquoise-ocean hover:bg-turquoise-ocean disabled:cursor-default disabled:border-white/30 disabled:text-white/30 disabled:hover:border-white/30 disabled:hover:bg-transparent"
+          type="button"
           aria-label="Suivant"
         >
-          <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
+          <svg class="h-3.5 w-2 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
             <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
