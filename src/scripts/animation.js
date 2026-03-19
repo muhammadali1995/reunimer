@@ -3,6 +3,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
+gsap.defaults({ overwrite: 'auto', duration: 1, force3D: true });
+
 export const ANIMATION_TYPES = {
   APPEAR_Z: 1,
   FADE_LEFT: 2,
@@ -16,23 +18,23 @@ export function isReducedMotionPreferred() {
 
 export function setAnimationInitial(target, type) {
   if (type === ANIMATION_TYPES.APPEAR_Z) {
-    gsap.set(target, { autoAlpha: 0, y: 20, zIndex: 0 });
+    gsap.set(target, { autoAlpha: 0, y: 14, zIndex: 0 });
     return;
   }
 
   if (type === ANIMATION_TYPES.FADE_LEFT) {
     // Fixed pixel offset — avoids wide elements flying in from far off-screen
-    gsap.set(target, { autoAlpha: 0, x: -60 });
+    gsap.set(target, { autoAlpha: 0, x: -40 });
     return;
   }
 
   if (type === ANIMATION_TYPES.FADE_RIGHT) {
-    gsap.set(target, { autoAlpha: 0, x: 40 });
+    gsap.set(target, { autoAlpha: 0, x: 28 });
     return;
   }
 
   // FADE_UP
-  gsap.set(target, { autoAlpha: 0, y: 50 });
+  gsap.set(target, { autoAlpha: 0, y: 30 });
 }
 
 export function setAnimationFinal(target, type) {
@@ -50,7 +52,7 @@ export function setAnimationFinal(target, type) {
 }
 
 export function toAnimation(target, type, options = {}) {
-  const { duration = 0.75, ease = 'power3.out', onStart, stagger } = options;
+  const { duration = 0.9, ease = 'power3.out', onStart, stagger } = options;
   const animationVars = {
     autoAlpha: 1,
     duration,
@@ -97,6 +99,7 @@ export function createScrollTimeline({
       start,
       once,
       toggleActions,
+      fastScrollEnd: true,
     },
   });
 

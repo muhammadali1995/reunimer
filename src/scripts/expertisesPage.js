@@ -8,6 +8,9 @@ import {
   toAnimation,
 } from './animation.js';
 
+/** Breakpoint: skip heavy scroll-driven parallax on mobile for performance. */
+const isDesktop = () => window.innerWidth >= 768;
+
 function formatCountValue(value, decimals = 0) {
   return decimals > 0 ? value.toFixed(decimals).replace('.', ',') : Math.round(value).toString();
 }
@@ -18,8 +21,8 @@ function animateCountUp(targets) {
 
   return gsap.to(counter, {
     value: 1,
-    duration: 1.4,
-    ease: 'power2.out',
+    duration: 1.7,
+    ease: 'expo.out',
     stagger: 0.1,
     onUpdate: function onUpdate() {
       elements.forEach((element, index) => {
@@ -61,6 +64,92 @@ function initCountsOnView(targets, options = {}) {
         animateCountUp([element]);
       },
     });
+  });
+}
+
+/**
+ * Hero "deep sea" parallax: the hero background image (120% tall)
+ * drifts upward as the user scrolls, creating a diving effect.
+ */
+function initHeroParallax() {
+  if (!isDesktop() || isReducedMotionPreferred()) return;
+
+  const heroSection = document.querySelector('[data-hero-parallax-bg]')?.closest('section');
+  const img = heroSection?.querySelector('[data-hero-parallax-bg]');
+  if (!heroSection || !img) return;
+
+  gsap.fromTo(img,
+    { yPercent: 0 },
+    {
+      yPercent: -12,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: heroSection,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1.2,
+        fastScrollEnd: true,
+      },
+    },
+  );
+}
+
+/**
+ * Fishing section ocean background parallax: the underwater scene (120% tall)
+ * slowly shifts upward as the user scrolls through the fishing content.
+ */
+function initSeaParallax() {
+  if (!isDesktop() || isReducedMotionPreferred()) return;
+
+  const wrapper = document.querySelector('[data-sea-parallax-bg]')?.closest('.relative');
+  const img = wrapper?.querySelector('[data-sea-parallax-bg]');
+  if (!wrapper || !img) return;
+
+  gsap.fromTo(img,
+    { yPercent: 0 },
+    {
+      yPercent: -8,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wrapper,
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.2,
+        fastScrollEnd: true,
+      },
+    },
+  );
+}
+
+/**
+ * Double-layered smoke parallax: two smoke images at different speeds.
+ * Top smoke moves slower (-15%), bottom smoke moves faster (-30%) for depth.
+ * ease: "none" keeps movement locked 1:1 with scroll.
+ */
+function initSmokeParallax() {
+  if (!isDesktop() || isReducedMotionPreferred()) return;
+
+  const smokeLayers = document.querySelectorAll('[data-smoke-parallax]');
+  if (!smokeLayers.length) return;
+
+  smokeLayers.forEach((img) => {
+    const isTop = img.dataset.smokeParallax === 'top';
+    const wrapper = img.closest('.overflow-hidden');
+
+    gsap.fromTo(img,
+      { yPercent: isTop ? 8 : 15 },
+      {
+        yPercent: isTop ? -15 : -30,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: wrapper || img,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+          fastScrollEnd: true,
+        },
+      },
+    );
   });
 }
 
@@ -111,13 +200,13 @@ function initFishingSectionAnimations() {
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.85, ease: 'power4.out', stagger: 0.07 }, '<');
   }
 
   if (quotaDonuts.length) {
     timeline.to(
       quotaDonuts,
-      { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.13 },
       '-=0.2',
     );
   }
@@ -126,8 +215,8 @@ function initFishingSectionAnimations() {
     timeline.to(
       quotaArcs,
       {
-        duration: 1.0,
-        ease: 'power3.out',
+        duration: 1.2,
+        ease: 'power4.out',
         stagger: 0.13,
         strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
       },
@@ -138,7 +227,7 @@ function initFishingSectionAnimations() {
   if (quotaCenters.length) {
     timeline.to(
       quotaCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.13 },
       '-=0.5',
     );
   }
@@ -197,7 +286,7 @@ function initRhSectionAnimations() {
   if (donuts.length) {
     timeline.to(
       donuts,
-      { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.13 },
       '-=0.2',
     );
   }
@@ -206,8 +295,8 @@ function initRhSectionAnimations() {
     timeline.to(
       arcs,
       {
-        duration: 1.0,
-        ease: 'power3.out',
+        duration: 1.2,
+        ease: 'power4.out',
         stagger: 0.13,
         strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
       },
@@ -218,7 +307,7 @@ function initRhSectionAnimations() {
   if (donutCenters.length) {
     timeline.to(
       donutCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.13 },
       '-=0.45',
     );
   }
@@ -228,54 +317,6 @@ function initRhSectionAnimations() {
   }
 }
 
-/**
- * Parallax on the support/logistics section background trucks.
- * The image is 130% tall with extra sky at top. As the user scrolls,
- * the image shifts upward so the trucks appear to rise into frame.
- */
-function initRhParallax() {
-  const section = document.getElementById('rh-section');
-  if (!section || isReducedMotionPreferred()) return;
-
-  const img = section.querySelector('[data-rh-parallax-img]');
-  if (!img) return;
-
-  gsap.set(img, { yPercent: 0 });
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top bottom',
-    end: 'bottom top',
-    scrub: true,
-    onUpdate: (self) => {
-      const yShift = self.progress * -23;
-      gsap.set(img, { yPercent: yShift });
-    },
-  });
-}
-
-function initSupportParallax() {
-  const section = document.getElementById('support-section');
-  if (!section || isReducedMotionPreferred()) return;
-
-  const img = section.querySelector('[data-support-parallax-img]');
-  if (!img) return;
-
-  // Start with image shifted down (sky visible), end shifted up (trucks centered)
-  gsap.set(img, { yPercent: 0 });
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: 'top bottom',
-    end: 'bottom top',
-    scrub: true,
-    onUpdate: (self) => {
-      // Move from 0% (sky showing) to -23% (trucks risen into frame)
-      const yShift = self.progress * -23;
-      gsap.set(img, { yPercent: yShift });
-    },
-  });
-}
 
 function initSupportSectionAnimations() {
   const section = document.getElementById('support-section');
@@ -327,30 +368,30 @@ function initBrandsSectionAnimations() {
 }
 
 /**
- * Fish backdrop animation:
- * The fish illustration is sticky in the left column against the blue ocean background.
- * As the user scrolls into the section, a white backdrop slides up from the bottom
- * behind the fish, transitioning it from a blue background onto a "white board".
- * Mirrors the plate animation logic (blue→white instead of white→dark).
+ * Fish curtain animation:
+ * A separate white div sits inside an overflow-clip container behind the fish.
+ * It starts pushed down 50% (yPercent: 50) so only the bottom half is visible,
+ * then slides up to yPercent: 0 (full white) as the user scrolls.
+ * GPU-accelerated via transform — no clip-path needed.
  */
-function initFishBackdropAnimation() {
-  const wrapper = document.getElementById('fish-pin-wrapper');
-  const backdrop = document.getElementById('fish-white-backdrop');
-  if (!wrapper || !backdrop || isReducedMotionPreferred()) return;
+function initFishCurtainAnimation() {
+  const wrapper = document.getElementById('fish-transition');
+  const curtain = document.getElementById('fish-white-curtain');
+  if (!wrapper || !curtain || isReducedMotionPreferred()) return;
 
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: wrapper,
-      start: 'center center',
-      end: '+=600',
-      pin: true,
-      anticipatePin: 1,
-      scrub: 1.2,
+  gsap.fromTo(curtain,
+    { yPercent: 50 },
+    {
+      yPercent: -50,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: wrapper,
+        start: 'top bottom',
+        end: '+=600',
+        scrub: 0.8,
+        fastScrollEnd: true,
+      },
     },
-  }).fromTo(
-    backdrop,
-    { clipPath: 'inset(100% 0 0 0)' },
-    { clipPath: 'inset(50% 0 0 0)', ease: 'none' },
   );
 }
 
@@ -376,12 +417,12 @@ function initPlateBackdropAnimation() {
       end: '+=600',
       pin: true,
       anticipatePin: 1,
-      scrub: 1.2,
+      scrub: 1.5,
     },
   }).fromTo(
     backdrop,
-    { clipPath: 'inset(100% 0 0 0)' },
-    { clipPath: 'inset(50% 0 0 0)', ease: 'none' },
+    { clipPath: 'inset(50% 0 0 0)' },
+    { clipPath: 'inset(0% 0 0 0)', ease: 'none' },
   );
 }
 
@@ -479,16 +520,17 @@ function initTransformationSectionAnimations() {
 }
 
 export function initExpertisesPage() {
-  initFishBackdropAnimation();
+  initHeroParallax();
+  initSeaParallax();
+  initSmokeParallax();
+  initFishCurtainAnimation();
   initFishingSectionAnimations();
   initTransformationSectionAnimations();
   initQualitySectionAnimations();
   initPlateBackdropAnimation();
   initDistributionSectionAnimations();
   initBrandsSectionAnimations();
-  initSupportParallax();
   initSupportSectionAnimations();
-  initRhParallax();
   initRhSectionAnimations();
 
   const tabs = Array.from(document.querySelectorAll('[data-expertise-tab]'));
@@ -578,4 +620,14 @@ export function initExpertisesPage() {
   }
 
   requestAnimationFrame(updateActiveFromScroll);
+
+  // Refresh ScrollTrigger after all images load to prevent trigger drift
+  if (document.readyState === 'complete') {
+    ScrollTrigger.refresh();
+  } else {
+    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+  }
+
+  // Save parallax styles so orientation changes don't break layout
+  ScrollTrigger.saveStyles('[data-hero-parallax-bg], [data-sea-parallax-bg], [data-smoke-parallax]');
 }

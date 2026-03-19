@@ -75,4 +75,22 @@
     overflow: hidden;
     transition: max-height 0.4s ease;
   }
+
+  /* Smoke layers: feathered edges to eliminate hard line artifacts */
+  [data-smoke-parallax] {
+    mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 15%, black 85%, transparent 100%);
+  }
+
+  /* GSAP scroll-driven animation layers: GPU-accelerated (desktop only to save mobile memory) */
+  @media (min-width: 768px) {
+    [data-parallax-layer],
+    [data-support-parallax-img],
+    [data-rh-parallax-img],
+    [data-hero-parallax-bg],
+    [data-sea-parallax-bg],
+    [data-smoke-parallax] {
+      will-change: transform;
+    }
+  }
 }

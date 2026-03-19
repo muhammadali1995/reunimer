@@ -72,11 +72,14 @@ import Container from "../../ui/Container.astro";
       </div>
     </div>
   </Container>
-  <Image
-    src={expertisesSmokeImage}
-    alt="Produit fume Reunimer"
-    class="h-auto w-screen object-contain z-20 relative"
-  />
+  <div class="relative z-20 overflow-hidden">
+    <Image
+      src={expertisesSmokeImage}
+      alt=""
+      data-smoke-parallax="top"
+      class="h-auto w-screen object-contain relative"
+    />
+  </div>
   <div class="relative z-0 -mt-16 md:-mt-24 xl:-my-[30%]">
     <Image
       src={expertisesTransformationSecondaryImage}
@@ -120,9 +123,12 @@ import Container from "../../ui/Container.astro";
       </div>
     </Container>
   </div>
-  <Image
-    src={expertisesSmokeImage}
-    alt="Produit fume Reunimer"
-    class="h-auto w-screen object-contain z-20 relative"
-  />
+  <div class="relative z-20 overflow-hidden">
+    <Image
+      src={expertisesSmokeImage}
+      alt=""
+      data-smoke-parallax="bottom"
+      class="h-auto w-screen object-contain relative"
+    />
+  </div>
 </section>
