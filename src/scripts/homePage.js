@@ -8,6 +8,21 @@ import {
   setupPanelHover,
 } from './animation.js';
 
+/**
+ * Hero wordmark entrance — plays on page load (not scroll-triggered, above the fold).
+ * Fades in + slight scale + lift from below.
+ */
+function initHeroAnimation() {
+  const wordmark = document.querySelector('[data-hero-wordmark]');
+  if (!wordmark || isReducedMotionPreferred()) return;
+
+  gsap.fromTo(
+    wordmark,
+    { autoAlpha: 0, y: 24, scale: 0.96 },
+    { autoAlpha: 1, y: 0, scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.3 },
+  );
+}
+
 function initSectionTimeline(sectionId, typeMap, buildTimeline) {
   const section = document.getElementById(sectionId);
   if (!section || isReducedMotionPreferred()) return;
@@ -35,12 +50,12 @@ function initGroupeAnimations() {
 
       const fadeLeftEls = section.querySelectorAll('[data-anim="2"]');
       if (fadeLeftEls.length) {
-        timeline.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.15 }), '-=0.4');
+        timeline.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.13 }), '-=0.45');
       }
 
       const images = section.querySelectorAll('[data-anim="3"]');
       if (images.length) {
-        timeline.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.15 }), '-=0.4');
+        timeline.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.12 }), '-=0.45');
       }
     },
   );
@@ -59,19 +74,10 @@ function initSideImageSection(sectionId) {
 
       const textEls = section.querySelectorAll('[data-anim="4"]');
       if (textEls.length) {
-        timeline.add(toAnimation(textEls, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.15 }), '-=0.3');
+        timeline.add(toAnimation(textEls, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.13 }), '-=0.35');
       }
     },
   );
-}
-
-function initActualitesAnimations() {
-  const section = document.getElementById('actualites-section');
-  if (!section || isReducedMotionPreferred()) return;
-
-  gsap.set(section, { autoAlpha: 0 });
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
-  timeline.to(section, { autoAlpha: 1, duration: 1.8, ease: 'power2.inOut' });
 }
 
 function initExpertisesAnimations() {
@@ -89,11 +95,12 @@ function initExpertisesAnimations() {
 
       const cards = section.querySelectorAll('[data-anim="2"]');
       if (cards.length) {
-        timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.15 }), '-=0.35');
+        timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.12 }), '-=0.3');
       }
     },
   );
 }
+
 
 function initExpertiseHover() {
   if (isReducedMotionPreferred()) return;
@@ -108,10 +115,12 @@ function initExpertiseHover() {
 }
 
 export function initHomePage() {
+  initHeroAnimation();
   initGroupeAnimations();
   initSideImageSection('rse-section');
-  initActualitesAnimations();
   initSideImageSection('team-section');
   initExpertisesAnimations();
   initExpertiseHover();
+  // actualites-section uses global data-stagger + heading reveal — no page-specific needed
+  // filiales marquee is self-contained in HomeFilialesSection.astro
 }

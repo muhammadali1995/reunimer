@@ -42,8 +42,8 @@ const { id = 'modele-integre' } = Astro.props;
 
         <!-- Right column: expertise cards grid -->
         <div data-anim="3" class="flex-1">
-          <!-- Top row: 3 cards -->
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3" data-stagger>
+          <!-- Top row: 3 cards — animated by initIntegratedModelAnimations, no data-stagger needed -->
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {expertiseCards.filter(c => !c.fullWidth).map((card) => (
             <div class:list={[
               card.color,

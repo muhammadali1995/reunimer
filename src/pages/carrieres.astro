@@ -13,7 +13,7 @@ import { jobListings } from '../data/jobs';
   title="Carrières — Reunimer"
   description="Rejoignez les talents de Reunimer : découvrez nos offres d'emploi et notre marque employeur au cœur de l'océan Indien."
 >
-  <section class="relative w-full h-[280px] sm:h-[340px] md:h-[400px] lg:h-[553px] -mt-[92px] overflow-hidden">
+  <section class="relative w-full h-[280px] sm:h-[340px] md:h-[400px] lg:h-[553px] -mt-[92px] overflow-hidden" data-ken-burns>
     <Image
       src={heroImage}
       alt="Les métiers de Reunimer : pêche, production, distribution, maintenance et management"
@@ -40,7 +40,7 @@ import { jobListings } from '../data/jobs';
     </Container>
   </section>
 
-  <section class="relative w-full h-[350px] md:h-[500px] lg:h-[649px] overflow-hidden bg-brume-alize">
+  <section class="relative w-full h-[350px] md:h-[500px] lg:h-[649px] overflow-hidden bg-brume-alize" data-ken-burns>
     <Image
       src={johanneSerriImage}
       alt="Johanne Serri, Responsable Ressource Humaine chez Reunimer"
@@ -91,7 +91,7 @@ import { jobListings } from '../data/jobs';
   </section>
 
   <!-- Job Listings Accordion -->
-  <div id="job-accordion">
+  <div id="job-accordion" data-stagger>
     {jobListings.map((job, i) => {
       const jobColors = ['bg-terre-laterite', 'bg-nuit-australe', 'bg-ecume-poudree', 'bg-lagon-mayotte', 'bg-sable-corail'];
       const cycleBg = jobColors[i % jobColors.length];

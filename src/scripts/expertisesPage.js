@@ -111,13 +111,13 @@ function initFishingSectionAnimations() {
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.07 }, '<');
   }
 
   if (quotaDonuts.length) {
     timeline.to(
       quotaDonuts,
-      { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.14 },
+      { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.13 },
       '-=0.2',
     );
   }
@@ -126,9 +126,9 @@ function initFishingSectionAnimations() {
     timeline.to(
       quotaArcs,
       {
-        duration: 0.9,
-        ease: 'power2.out',
-        stagger: 0.14,
+        duration: 1.0,
+        ease: 'power3.out',
+        stagger: 0.13,
         strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
       },
       '<',
@@ -138,15 +138,15 @@ function initFishingSectionAnimations() {
   if (quotaCenters.length) {
     timeline.to(
       quotaCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
-      '-=0.45',
+      { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out', stagger: 0.13 },
+      '-=0.5',
     );
   }
 
   initCountsOnView(countItems, {
     triggerResolver: (element) => element.closest('.flex') || element,
     entranceAnimation: (element) => {
-      gsap.to(element, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out' });
+      gsap.to(element, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' });
     },
   });
 
@@ -197,7 +197,7 @@ function initRhSectionAnimations() {
   if (donuts.length) {
     timeline.to(
       donuts,
-      { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.14 },
+      { autoAlpha: 1, y: 0, duration: 0.6, ease: 'power3.out', stagger: 0.13 },
       '-=0.2',
     );
   }
@@ -206,9 +206,9 @@ function initRhSectionAnimations() {
     timeline.to(
       arcs,
       {
-        duration: 0.9,
-        ease: 'power2.out',
-        stagger: 0.14,
+        duration: 1.0,
+        ease: 'power3.out',
+        stagger: 0.13,
         strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
       },
       '<',
@@ -218,7 +218,7 @@ function initRhSectionAnimations() {
   if (donutCenters.length) {
     timeline.to(
       donutCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
+      { autoAlpha: 1, scale: 1, duration: 0.5, ease: 'power3.out', stagger: 0.13 },
       '-=0.45',
     );
   }
@@ -226,6 +226,55 @@ function initRhSectionAnimations() {
   if (countItems.length) {
     timeline.add(animateCountUp(countItems), '<');
   }
+}
+
+/**
+ * Parallax on the support/logistics section background trucks.
+ * The image is 130% tall with extra sky at top. As the user scrolls,
+ * the image shifts upward so the trucks appear to rise into frame.
+ */
+function initRhParallax() {
+  const section = document.getElementById('rh-section');
+  if (!section || isReducedMotionPreferred()) return;
+
+  const img = section.querySelector('[data-rh-parallax-img]');
+  if (!img) return;
+
+  gsap.set(img, { yPercent: 0 });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+    onUpdate: (self) => {
+      const yShift = self.progress * -23;
+      gsap.set(img, { yPercent: yShift });
+    },
+  });
+}
+
+function initSupportParallax() {
+  const section = document.getElementById('support-section');
+  if (!section || isReducedMotionPreferred()) return;
+
+  const img = section.querySelector('[data-support-parallax-img]');
+  if (!img) return;
+
+  // Start with image shifted down (sky visible), end shifted up (trucks centered)
+  gsap.set(img, { yPercent: 0 });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+    onUpdate: (self) => {
+      // Move from 0% (sky showing) to -23% (trucks risen into frame)
+      const yShift = self.progress * -23;
+      gsap.set(img, { yPercent: yShift });
+    },
+  });
 }
 
 function initSupportSectionAnimations() {
@@ -253,12 +302,12 @@ function initSupportSectionAnimations() {
   }
 
   if (countItems.length) {
-    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.1 }, '-=0.35');
+    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1 }, '-=0.35');
     timeline.add(animateCountUp(countItems), '<');
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }, '<');
   }
 }
 
@@ -275,6 +324,65 @@ function initBrandsSectionAnimations() {
 
   const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
   timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.16 }));
+}
+
+/**
+ * Fish backdrop animation:
+ * The fish illustration is sticky in the left column against the blue ocean background.
+ * As the user scrolls into the section, a white backdrop slides up from the bottom
+ * behind the fish, transitioning it from a blue background onto a "white board".
+ * Mirrors the plate animation logic (blue→white instead of white→dark).
+ */
+function initFishBackdropAnimation() {
+  const wrapper = document.getElementById('fish-pin-wrapper');
+  const backdrop = document.getElementById('fish-white-backdrop');
+  if (!wrapper || !backdrop || isReducedMotionPreferred()) return;
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: wrapper,
+      start: 'center center',
+      end: '+=600',
+      pin: true,
+      anticipatePin: 1,
+      scrub: 1.2,
+    },
+  }).fromTo(
+    backdrop,
+    { clipPath: 'inset(100% 0 0 0)' },
+    { clipPath: 'inset(50% 0 0 0)', ease: 'none' },
+  );
+}
+
+/**
+ * Plate backdrop pin animation:
+ * 1. The plate starts fully visible on a white background.
+ * 2. When the plate center hits the viewport center, the page pins (plate stays fixed).
+ * 3. While pinned, the dark backdrop slides up from the bottom until it covers
+ *    exactly the bottom half of the plate (clip stops at inset(50%)).
+ * 4. Because the plate is centered in a 100vh container, inset(50%) from the top
+ *    aligns exactly with the plate's vertical midpoint.
+ * 5. After the animation completes, the pin releases and normal scroll resumes.
+ */
+function initPlateBackdropAnimation() {
+  const wrapper = document.getElementById('plate-pin-wrapper');
+  const backdrop = document.getElementById('plate-backdrop');
+  if (!wrapper || !backdrop || isReducedMotionPreferred()) return;
+
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: wrapper,
+      start: 'center center',
+      end: '+=600',
+      pin: true,
+      anticipatePin: 1,
+      scrub: 1.2,
+    },
+  }).fromTo(
+    backdrop,
+    { clipPath: 'inset(100% 0 0 0)' },
+    { clipPath: 'inset(50% 0 0 0)', ease: 'none' },
+  );
 }
 
 function initDistributionSectionAnimations() {
@@ -325,12 +433,12 @@ function initQualitySectionAnimations() {
   }
 
   if (countItems.length) {
-    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.1 }, '-=0.3');
+    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1 }, '-=0.3');
     timeline.add(animateCountUp(countItems), '<');
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }, '<');
   }
 }
 
@@ -371,12 +479,16 @@ function initTransformationSectionAnimations() {
 }
 
 export function initExpertisesPage() {
+  initFishBackdropAnimation();
   initFishingSectionAnimations();
   initTransformationSectionAnimations();
   initQualitySectionAnimations();
+  initPlateBackdropAnimation();
   initDistributionSectionAnimations();
   initBrandsSectionAnimations();
+  initSupportParallax();
   initSupportSectionAnimations();
+  initRhParallax();
   initRhSectionAnimations();
 
   const tabs = Array.from(document.querySelectorAll('[data-expertise-tab]'));
@@ -397,7 +509,7 @@ export function initExpertisesPage() {
           height: isActive ? 47 : 29,
           paddingTop: isActive ? 15 : 7,
           duration: 0.3,
-          ease: 'power2.out',
+          ease: 'power3.out',
           overwrite: true,
         });
       } else {

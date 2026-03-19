@@ -66,7 +66,7 @@ import { products } from '../data/products';
 
   <!-- Product Catalogue -->
   <section id="catalogue" class="bg-white pb-16 md:pb-20 lg:pb-[100px]">
-    <div class="mx-auto max-w-[1082px] px-5 md:px-10 lg:px-0 flex flex-col gap-6 md:gap-7 lg:gap-8">
+    <div class="mx-auto max-w-[1082px] px-5 md:px-10 lg:px-0 flex flex-col gap-6 md:gap-7 lg:gap-8" data-stagger>
       {products.map((product) => (
         <ProductCard
           name={product.name}

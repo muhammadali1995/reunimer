@@ -1,13 +1,7 @@
-import {
-  ANIMATION_TYPES,
-  createScrollTimeline,
-  isReducedMotionPreferred,
-  setAnimationInitial,
-  toAnimation,
-} from './animation.js';
+import { gsap, isReducedMotionPreferred, ANIMATION_TYPES, setAnimationInitial, toAnimation } from './animation.js';
 
 function initHeroAnimations() {
-  const heroSection = document.querySelector('section.relative.-mt-\\[92px\\]');
+  const heroSection = document.querySelector('[data-engagements-hero]');
   if (!heroSection || isReducedMotionPreferred() || heroSection.dataset.animInitialized === 'true') return;
 
   heroSection.dataset.animInitialized = 'true';
@@ -17,8 +11,15 @@ function initHeroAnimations() {
 
   textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT));
 
-  const timeline = createScrollTimeline({ trigger: heroSection, start: 'top 80%' });
-  timeline.add(toAnimation(textItems, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.12 }));
+  // Above-fold — load-triggered entrance, not scroll-triggered
+  gsap.to(textItems, {
+    autoAlpha: 1,
+    x: 0,
+    duration: 0.85,
+    ease: 'power3.out',
+    stagger: 0.13,
+    delay: 0.4,
+  });
 }
 
 export function initEngagementsPage() {

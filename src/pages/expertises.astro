@@ -9,7 +9,7 @@ import ExpertisesDistributionSection from "../components/sections/expertises/Exp
 import ExpertisesBrandsSection from "../components/sections/expertises/ExpertisesBrandsSection.astro";
 import ExpertisesSupportSection from "../components/sections/expertises/ExpertisesSupportSection.astro";
 import ExpertisesRhSection from "../components/sections/expertises/ExpertisesRhSection.astro";
-import { expertisesFishingBackground } from "../data/expertises";
+import { expertisesFishingBackground, expertisesTunaImage } from "../data/expertises";
 import { Image } from "astro:assets";
 ---
 
@@ -34,6 +34,22 @@ import { Image } from "astro:assets";
       <ExpertisesFishingSection />
     </div>
   </div>
+  <!-- Fish transition: tuna is pinned between blue fishing section and white transformation section.
+       White backdrop slides up from the bottom until the fish is fully on a white board. -->
+  <div id="fish-pin-wrapper" class="relative flex h-screen items-center justify-center overflow-hidden bg-bleu-abysse">
+    <div id="fish-white-backdrop" class="absolute inset-0 bg-white" style="clip-path: inset(100% 0 0 0);"></div>
+    <div class="relative z-10 w-full max-w-[1000px] px-5 md:px-8">
+      <Image
+        src={expertisesTunaImage}
+        alt="Illustration de thons"
+        class="w-full"
+        widths={[768, 1200, 1600]}
+        sizes="(min-width: 1280px) 1000px, 100vw"
+      />
+    </div>
+  </div>
+
+
   <div id="transformation" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
     <ExpertisesTransformationSection />
   </div>
