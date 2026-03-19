@@ -45,14 +45,16 @@ const isImageLeft = imagePosition === 'left';
     !isImageLeft && 'lg:flex-row-reverse',
   ]}>
     <!-- Image column -->
-    <div class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0">
-      <Image
-        src={imageSrc}
-        alt={imageAlt}
-        class="w-full h-full object-cover"
-        widths={[375, 768, 1024, 1440]}
-        sizes="(min-width: 1024px) 742px, 100vw"
-      />
+    <div class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0 overflow-hidden" data-engagement-parallax>
+      <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          class="h-full w-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 742px, 100vw"
+        />
+      </div>
     </div>
 
     <!-- Text column -->

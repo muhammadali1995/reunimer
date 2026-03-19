@@ -16,21 +16,23 @@ export function isReducedMotionPreferred() {
 
 export function setAnimationInitial(target, type) {
   if (type === ANIMATION_TYPES.APPEAR_Z) {
-    gsap.set(target, { autoAlpha: 0, y: 10, zIndex: 0 });
+    gsap.set(target, { autoAlpha: 0, y: 20, zIndex: 0 });
     return;
   }
 
   if (type === ANIMATION_TYPES.FADE_LEFT) {
-    gsap.set(target, { autoAlpha: 0, x: '-100%' });
+    // Fixed pixel offset — avoids wide elements flying in from far off-screen
+    gsap.set(target, { autoAlpha: 0, x: -60 });
     return;
   }
 
   if (type === ANIMATION_TYPES.FADE_RIGHT) {
-    gsap.set(target, { autoAlpha: 0, x: 28 });
+    gsap.set(target, { autoAlpha: 0, x: 40 });
     return;
   }
 
-  gsap.set(target, { autoAlpha: 0, y: '100%' });
+  // FADE_UP
+  gsap.set(target, { autoAlpha: 0, y: 50 });
 }
 
 export function setAnimationFinal(target, type) {
@@ -39,12 +41,7 @@ export function setAnimationFinal(target, type) {
     return;
   }
 
-  if (type === ANIMATION_TYPES.FADE_LEFT) {
-    gsap.set(target, { autoAlpha: 1, x: 0 });
-    return;
-  }
-
-  if (type === ANIMATION_TYPES.FADE_RIGHT) {
+  if (type === ANIMATION_TYPES.FADE_LEFT || type === ANIMATION_TYPES.FADE_RIGHT) {
     gsap.set(target, { autoAlpha: 1, x: 0 });
     return;
   }
@@ -53,7 +50,7 @@ export function setAnimationFinal(target, type) {
 }
 
 export function toAnimation(target, type, options = {}) {
-  const { duration = 0.7, ease = 'power2.out', onStart, stagger } = options;
+  const { duration = 0.75, ease = 'power3.out', onStart, stagger } = options;
   const animationVars = {
     autoAlpha: 1,
     duration,
@@ -81,20 +78,26 @@ export function toAnimation(target, type, options = {}) {
   return gsap.to(target, animationVars);
 }
 
+/**
+ * Creates a scroll-triggered timeline.
+ * Timeline is paused by default; ScrollTrigger controls playback.
+ * Best practice: pass the timeline via gsap.timeline({ scrollTrigger }) pattern
+ * so GSAP manages the paused state automatically.
+ */
 export function createScrollTimeline({
   trigger,
   start = 'top 80%',
   once = true,
   toggleActions = 'play none none none',
 }) {
-  const timeline = gsap.timeline();
-
-  ScrollTrigger.create({
-    trigger,
-    start,
-    once,
-    toggleActions,
-    animation: timeline,
+  const timeline = gsap.timeline({
+    paused: true,
+    scrollTrigger: {
+      trigger,
+      start,
+      once,
+      toggleActions,
+    },
   });
 
   return timeline;
@@ -102,42 +105,35 @@ export function createScrollTimeline({
 
 /**
  * Staggered scroll entrance — elements fade up one by one when scrolled into view.
- * @param {string|Element} trigger - ScrollTrigger trigger element
- * @param {string|Element[]} targets - Elements to animate
- * @param {object} options
  */
 export function staggeredEntrance(trigger, targets, options = {}) {
   const {
     start = 'top 80%',
     stagger = 0.15,
-    duration = 0.7,
-    y = 40,
-    ease = 'power2.out',
+    duration = 0.75,
+    y = 50,
+    ease = 'power3.out',
   } = options;
 
   gsap.set(targets, { autoAlpha: 0, y });
 
-  const tl = gsap.timeline();
+  const tl = gsap.timeline({
+    paused: true,
+    scrollTrigger: { trigger, start, once: true },
+  });
   tl.to(targets, { autoAlpha: 1, y: 0, duration, ease, stagger });
-
-  ScrollTrigger.create({ trigger, start, once: true, animation: tl });
 
   return tl;
 }
 
 /**
  * Panel hover animation — slides a panel from a resting yPercent to 0 on hover.
- * Also fades in inner reveal elements (separator, description, button).
- * @param {Element} card - The hoverable card element
- * @param {Element} panel - The sliding panel element
- * @param {string|Element[]} revealEls - Elements inside the panel to fade in
- * @param {object} options
  */
 export function setupPanelHover(card, panel, revealEls, options = {}) {
   const {
     restY = 87.5,
-    duration = 0.35,
-    ease = 'power2.out',
+    duration = 0.38,
+    ease = 'power3.out',
   } = options;
 
   gsap.set(panel, { yPercent: restY });
@@ -148,15 +144,15 @@ export function setupPanelHover(card, panel, revealEls, options = {}) {
   card.addEventListener('mouseenter', () => {
     if (hoverTl) hoverTl.kill();
     hoverTl = gsap.timeline();
-    hoverTl.to(panel, { yPercent: 0, duration, ease });
-    hoverTl.to(revealEls, { autoAlpha: 1, duration: 0.25, ease, stagger: 0.06 }, '-=0.15');
+    hoverTl.to(panel, { yPercent: 0, duration, ease, overwrite: true });
+    hoverTl.to(revealEls, { autoAlpha: 1, duration: 0.25, ease, stagger: 0.06, overwrite: true }, '-=0.18');
   });
 
   card.addEventListener('mouseleave', () => {
     if (hoverTl) hoverTl.kill();
     hoverTl = gsap.timeline();
-    hoverTl.to(revealEls, { autoAlpha: 0, duration: 0.15, ease: 'power2.in' });
-    hoverTl.to(panel, { yPercent: restY, duration, ease: 'power2.in' }, '-=0.1');
+    hoverTl.to(revealEls, { autoAlpha: 0, duration: 0.15, ease: 'power2.in', overwrite: true });
+    hoverTl.to(panel, { yPercent: restY, duration, ease: 'power2.in', overwrite: true }, '-=0.1');
   });
 }
 

@@ -27,7 +27,7 @@ import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHr
         <div class="lg:w-[710px] lg:flex-shrink-0">
           <a href={getArticleHref(featuredLargeArticle.slug)} class="group block">
             <!-- Featured Image -->
-            <div class="relative overflow-hidden aspect-[710/498]">
+            <div class="relative overflow-hidden aspect-[710/498]" data-ken-burns>
               <Image
                 src={featuredLargeArticle.image}
                 alt={featuredLargeArticle.imageAlt}
@@ -51,7 +51,7 @@ import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHr
         </div>
 
         <!-- Small Articles (Right) -->
-        <div class="flex-1 mt-8 lg:mt-0 flex flex-col gap-[18px]">
+        <div class="flex-1 mt-8 lg:mt-0 flex flex-col gap-[18px]" data-stagger>
           {featuredSmallArticles.map((article) => (
             <ArticleCard
               layout="horizontal"
@@ -72,7 +72,7 @@ import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHr
   <!-- Article Grid -->
   <section class="bg-white pb-16 md:pb-24 lg:pb-[120px]">
     <Container>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-x-[57px] lg:gap-y-[50px]">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10 lg:gap-x-[57px] lg:gap-y-[50px]" data-stagger>
         {gridArticles.map((article) => (
           <ArticleCard
             tag={article.tag}

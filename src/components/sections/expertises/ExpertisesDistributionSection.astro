@@ -7,18 +7,23 @@ import {
 } from '../../../data/expertises';
 ---
 
-<section id="distribution-section" class="mt-20 bg-bleu-abysse text-bleu-abysse md:mt-24 xl:mt-96">
-  <div class="mx-auto w-[280px] md:w-[504px]">
-        <Image
-          src={expertisesDistributionMagazineCover}
-          alt="Assiette gastronomique illustree pour l'activite distribution"
-          class="w-full -translate-y-1/2"
-          widths={[560, 900, 1200]}
-          sizes="(min-width: 768px) 504px, 280px"
-        />
-      </div>
-  <div class="relative -mt-40 overflow-hidden">
-    <div class="relative mx-auto w-full max-w-[1680px] px-5 md:px-8">
+<section id="distribution-section" class="text-bleu-abysse">
+  <!-- Plate scene: full-viewport-height white section, plate centered. Dark backdrop rises during pin. -->
+  <div id="plate-pin-wrapper" class="relative flex h-screen items-center justify-center overflow-hidden bg-white">
+    <!-- Dark backdrop fills the container; clip-path reveals it from the bottom up to the plate midpoint -->
+    <div id="plate-backdrop" class="absolute inset-0 bg-bleu-abysse" style="clip-path: inset(100% 0 0 0);"></div>
+    <div class="relative z-10 w-[280px] md:w-[504px]">
+      <Image
+        src={expertisesDistributionMagazineCover}
+        alt="Assiette gastronomique illustree pour l'activite distribution"
+        class="plate-image w-full"
+        widths={[560, 900, 1200]}
+        sizes="(min-width: 768px) 504px, 280px"
+      />
+    </div>
+  </div>
+  <div class="relative -mt-px overflow-hidden bg-bleu-abysse">
+    <div class="relative mx-auto w-full max-w-[1680px] px-5 pt-10 md:px-8 md:pt-16">
 
       <div class="mx-auto max-w-[949px] text-center">
         <h2 data-anim="2" class="font-display text-[30px] font-black uppercase leading-[0.97] text-[#ac8652] md:text-[40px] md:leading-[44.5px]">

@@ -39,7 +39,8 @@ function setDonutProgress(element, progress, segments) {
 
 function initIntegratedModelAnimations() {
   const section = document.getElementById('modele-integre');
-  if (!section || isReducedMotionPreferred()) return;
+  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  section.dataset.animInitialized = 'true';
 
   const leftColumn = section.querySelector('[data-anim="2"]');
   const rightColumn = section.querySelector('[data-anim="3"]');
@@ -51,13 +52,13 @@ function initIntegratedModelAnimations() {
   leftItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT));
   rightCards.forEach((card) => setAnimationInitial(card, ANIMATION_TYPES.FADE_UP));
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
+  const timeline = createScrollTimeline({ trigger: section, start: 'top 78%' });
   if (leftItems.length) {
-    timeline.add(toAnimation(leftItems, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.14 }));
+    timeline.add(toAnimation(leftItems, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.13, ease: 'power3.out' }));
   }
 
   if (rightCards.length) {
-    timeline.add(toAnimation(rightCards, ANIMATION_TYPES.FADE_UP, { stagger: 0.12 }), '-=0.2');
+    timeline.add(toAnimation(rightCards, ANIMATION_TYPES.FADE_UP, { stagger: 0.1, ease: 'power3.out' }), '-=0.3');
   }
 }
 
@@ -92,7 +93,8 @@ function animateCountUp(targets) {
 
 function initGroupStatisticsAnimations() {
   const section = document.getElementById('group-statistics');
-  if (!section || isReducedMotionPreferred()) return;
+  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  section.dataset.animInitialized = 'true';
 
   const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
   const countItems = Array.from(section.querySelectorAll('[data-anim="4"]'));
@@ -115,13 +117,14 @@ function initGroupStatisticsAnimations() {
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.12 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, '<');
   }
 }
 
 function initWorldStatsAnimations() {
   const section = document.getElementById('stats-monde');
-  if (!section || isReducedMotionPreferred()) return;
+  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  section.dataset.animInitialized = 'true';
 
   const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
   const countItems = Array.from(section.querySelectorAll('[data-anim="4"]'));
@@ -159,11 +162,11 @@ function initWorldStatsAnimations() {
   }
 
   if (chartLines.length) {
-    timeline.to(chartLines, { scaleY: 1, duration: 0.35, ease: 'power2.out', stagger: 0.06 }, '-=0.15');
+    timeline.to(chartLines, { scaleY: 1, duration: 0.35, ease: 'power3.out', stagger: 0.06 }, '-=0.15');
   }
 
   if (chartBars.length) {
-    timeline.to(chartBars, { scaleX: 1, duration: 0.7, ease: 'power2.out', stagger: 0.08 }, '<');
+    timeline.to(chartBars, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.08 }, '<');
   }
 
   if (countItems.length) {
@@ -174,7 +177,7 @@ function initWorldStatsAnimations() {
   if (donutChart) {
     timeline.to(
       donutChart,
-      { autoAlpha: 1, scale: 1, duration: 0.7, ease: 'power2.out' },
+      { autoAlpha: 1, scale: 1, duration: 0.7, ease: 'power3.out' },
       '-=0.9',
     );
   }
@@ -187,7 +190,7 @@ function initWorldStatsAnimations() {
       {
         progress: 1,
         duration: 0.95,
-        ease: 'power2.out',
+        ease: 'power3.out',
         onUpdate: () => {
           setDonutProgress(donutSurface, donutArc.progress, donutSegments);
         },
@@ -199,7 +202,7 @@ function initWorldStatsAnimations() {
   if (legendRows.length) {
     timeline.to(
       legendRows,
-      { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.06 },
+      { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power3.out', stagger: 0.06 },
       donutChart ? '-=0.35' : '-=0.2',
     );
   }
@@ -207,7 +210,7 @@ function initWorldStatsAnimations() {
   if (legendLines.length) {
     timeline.to(
       legendLines,
-      { scaleX: 1, duration: 0.45, ease: 'power2.out', stagger: 0.06 },
+      { scaleX: 1, duration: 0.45, ease: 'power3.out', stagger: 0.06 },
       '<',
     );
   }
@@ -215,7 +218,8 @@ function initWorldStatsAnimations() {
 
 function initMissionAnimations() {
   const section = document.getElementById('raison-detre');
-  if (!section || isReducedMotionPreferred()) return;
+  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  section.dataset.animInitialized = 'true';
 
   const image = section.querySelector('[data-anim="2"]');
   const textItems = Array.from(section.querySelectorAll('[data-anim="3"]'));
@@ -226,13 +230,13 @@ function initMissionAnimations() {
 
   textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.FADE_UP));
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
+  const timeline = createScrollTimeline({ trigger: section, start: 'top 78%' });
   if (image) {
-    timeline.add(toAnimation(image, ANIMATION_TYPES.FADE_LEFT));
+    timeline.add(toAnimation(image, ANIMATION_TYPES.FADE_LEFT, { ease: 'power3.out' }));
   }
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.FADE_UP, { stagger: 0.14 }), '-=0.2');
+    timeline.add(toAnimation(textItems, ANIMATION_TYPES.FADE_UP, { stagger: 0.13, ease: 'power3.out' }), '-=0.25');
   }
 }
 

@@ -37,7 +37,7 @@ function parseCountValue(value: string) {
   description={engagementsSeo.description}
 >
   <!-- Hero Section -->
-  <section class="relative -mt-[92px]">
+  <section class="relative -mt-[92px]" data-engagements-hero>
     <div
       class="relative h-[360px] sm:h-[420px] md:h-[520px] lg:h-[860px] overflow-hidden"
     >
@@ -202,15 +202,18 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0"
+        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0 overflow-hidden"
+        data-engagement-parallax
       >
+        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="w-full h-full object-cover"
+          class="h-full w-full object-cover"
           widths={[375, 768, 1024, 1440]}
           sizes="(min-width: 1024px) 742px, 100vw"
         />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -290,15 +293,18 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
       <!-- Image column (RIGHT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[54.2%] shrink-0"
+        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[54.2%] shrink-0 overflow-hidden"
+        data-engagement-parallax
       >
+        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="w-full h-full object-cover max-h-[785px]"
+          class="h-full w-full object-cover"
           widths={[375, 768, 1024, 1440]}
           sizes="(min-width: 1024px) 781px, 100vw"
         />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -332,15 +338,18 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[49.3%] shrink-0"
+        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[49.3%] shrink-0 overflow-hidden"
+        data-engagement-parallax
       >
+        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="w-full h-full object-cover"
+          class="h-full w-full object-cover"
           widths={[375, 768, 1024, 1440]}
           sizes="(min-width: 1024px) 710px, 100vw"
         />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -386,15 +395,18 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[440px] lg:h-auto lg:w-[49.3%] shrink-0"
+        class="relative w-full h-[260px] sm:h-[320px] md:h-[440px] lg:h-auto lg:w-[49.3%] shrink-0 overflow-hidden"
+        data-engagement-parallax
       >
-        <Image
-          src={socialSection.image}
-          alt={socialSection.imageAlt}
-          class="w-full h-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 710px, 100vw"
-        />
+        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
+          <Image
+            src={socialSection.image}
+            alt={socialSection.imageAlt}
+            class="absolute top-0 left-[-35.21%] h-full max-w-none w-[133.45%] object-cover"
+            widths={[375, 768, 1024, 1440]}
+            sizes="(min-width: 1024px) 948px, 133vw"
+          />
+        </div>
       </div>
 
       <!-- Text column -->
