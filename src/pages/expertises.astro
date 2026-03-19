@@ -11,6 +11,7 @@ import ExpertisesSupportSection from "../components/sections/expertises/Expertis
 import ExpertisesRhSection from "../components/sections/expertises/ExpertisesRhSection.astro";
 import { expertisesFishingBackground, expertisesTunaImage } from "../data/expertises";
 import { Image } from "astro:assets";
+import knifeImage from "../assets/images/expertise/knife.png";
 ---
 
 <PageLayout
@@ -21,11 +22,12 @@ import { Image } from "astro:assets";
   <div class="sticky top-[92px] z-30 -mt-6 -mb-[47px] lg:top-[136px]">
     <ExpertisesStickyNav />
   </div>
-  <div class="relative">
+  <div class="relative overflow-clip">
     <Image
       src={expertisesFishingBackground}
       alt="Banc de thons sous la surface"
-      class="absolute inset-x-0 -top-[10%] h-[110%] w-full object-cover"
+      class="absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover"
+      data-sea-parallax-bg
       widths={[768, 1024, 1440, 1920]}
       sizes="100vw"
     />
@@ -34,11 +36,12 @@ import { Image } from "astro:assets";
       <ExpertisesFishingSection />
     </div>
   </div>
-  <!-- Fish transition: tuna is pinned between blue fishing section and white transformation section.
-       White backdrop slides up from the bottom until the fish is fully on a white board. -->
-  <div id="fish-pin-wrapper" class="relative flex h-screen items-center justify-center overflow-hidden bg-bleu-abysse">
-    <div id="fish-white-backdrop" class="absolute inset-0 bg-white" style="clip-path: inset(100% 0 0 0);"></div>
-    <div class="relative z-10 w-full max-w-[1000px] px-5 md:px-8">
+  <!-- Fish transition: white curtain rises behind the fish on scroll -->
+  <div id="fish-transition" class="relative">
+    <div class="absolute -top-1/2 inset-x-0 h-full overflow-hidden">
+      <div id="fish-white-curtain" class="absolute inset-0 bg-white"></div>
+    </div>
+    <div class="relative z-10 w-full mx-auto -translate-y-1/2 max-w-[1000px] px-5 md:px-8 pt-8">
       <Image
         src={expertisesTunaImage}
         alt="Illustration de thons"
@@ -46,9 +49,15 @@ import { Image } from "astro:assets";
         widths={[768, 1200, 1600]}
         sizes="(min-width: 1280px) 1000px, 100vw"
       />
+       <Image
+        src={knifeImage}
+        alt="Illustration de couteau"
+        class="w-full scale-x-[-1] mt-6 md:mt-10 lg:mt-12 max-w-120 md:max-w-full mx-auto block"
+        widths={[480, 768, 1200, 1600]}
+        sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
+      />
     </div>
   </div>
-
 
   <div id="transformation" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
     <ExpertisesTransformationSection />
