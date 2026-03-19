@@ -101,6 +101,7 @@ function initExpertisesAnimations() {
   );
 }
 
+
 function initExpertiseHover() {
   if (isReducedMotionPreferred()) return;
 
