@@ -245,6 +245,48 @@ function initFishingSectionAnimations() {
 
 }
 
+function initRhParallax() {
+  const section = document.getElementById('rh-section');
+  if (!section || isReducedMotionPreferred()) return;
+
+  const img = section.querySelector('[data-rh-parallax-img]');
+  if (!img) return;
+
+  gsap.set(img, { yPercent: 0 });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+    onUpdate: (self) => {
+      const yShift = self.progress * -23;
+      gsap.set(img, { yPercent: yShift });
+    },
+  });
+}
+
+function initSupportParallax() {
+  const section = document.getElementById('support-section');
+  if (!section || isReducedMotionPreferred()) return;
+
+  const img = section.querySelector('[data-support-parallax-img]');
+  if (!img) return;
+
+  gsap.set(img, { yPercent: 0 });
+
+  ScrollTrigger.create({
+    trigger: section,
+    start: 'top bottom',
+    end: 'bottom top',
+    scrub: true,
+    onUpdate: (self) => {
+      const yShift = self.progress * -23;
+      gsap.set(img, { yPercent: yShift });
+    },
+  });
+}
+
 function initRhSectionAnimations() {
   const section = document.getElementById('rh-section');
   if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
@@ -530,7 +572,9 @@ export function initExpertisesPage() {
   initPlateBackdropAnimation();
   initDistributionSectionAnimations();
   initBrandsSectionAnimations();
+  initSupportParallax();
   initSupportSectionAnimations();
+  initRhParallax();
   initRhSectionAnimations();
 
   const tabs = Array.from(document.querySelectorAll('[data-expertise-tab]'));
