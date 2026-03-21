@@ -306,18 +306,20 @@ function initRhParallax() {
   const img = section.querySelector("[data-rh-parallax-img]")
   if (!img) return
 
-  gsap.set(img, {yPercent: 0})
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top bottom",
-    end: "bottom top",
-    scrub: true,
-    onUpdate: (self) => {
-      const yShift = self.progress * -23
-      gsap.set(img, {yPercent: yShift})
+  gsap.fromTo(
+    img,
+    {yPercent: 0},
+    {
+      yPercent: -23,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
     },
-  })
+  )
 }
 
 function initSupportParallax() {
@@ -327,18 +329,20 @@ function initSupportParallax() {
   const img = section.querySelector("[data-support-parallax-img]")
   if (!img) return
 
-  gsap.set(img, {yPercent: 0})
-
-  ScrollTrigger.create({
-    trigger: section,
-    start: "top bottom",
-    end: "bottom top",
-    scrub: true,
-    onUpdate: (self) => {
-      const yShift = self.progress * -23
-      gsap.set(img, {yPercent: yShift})
+  gsap.fromTo(
+    img,
+    {yPercent: 0},
+    {
+      yPercent: -23,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
     },
-  })
+  )
 }
 
 function initRhSectionAnimations() {
@@ -535,13 +539,12 @@ function initFishCurtainAnimation() {
 
 /**
  * Plate backdrop pin animation:
- * 1. The plate starts fully visible on a white background.
+ * 1. The plate starts on a fully white background (dark backdrop hidden via clip-path).
  * 2. When the plate center hits the viewport center, the page pins (plate stays fixed).
- * 3. While pinned, the dark backdrop slides up from the bottom until it covers
- *    exactly the bottom half of the plate (clip stops at inset(50%)).
- * 4. Because the plate is centered in a 100vh container, inset(50%) from the top
- *    aligns exactly with the plate's vertical midpoint.
- * 5. After the animation completes, the pin releases and normal scroll resumes.
+ * 3. While pinned, the dark backdrop rises from the bottom (clip-path animates from
+ *    inset(100%) to inset(50%)) until it covers the bottom half of the plate.
+ * 4. The white/dark border reaches the plate's vertical midpoint.
+ * 5. Pin releases and normal scroll resumes — plate scrolls away.
  */
 function initPlateBackdropAnimation() {
   const wrapper = document.getElementById("plate-pin-wrapper")
@@ -561,8 +564,8 @@ function initPlateBackdropAnimation() {
     })
     .fromTo(
       backdrop,
-      {clipPath: "inset(50% 0 0 0)"},
-      {clipPath: "inset(0% 0 0 0)", ease: "none"},
+      {clipPath: "inset(100% 0 0 0)"},
+      {clipPath: "inset(50% 0 0 0)", ease: "none"},
     )
 }
 
@@ -707,21 +710,31 @@ function initTransformationSectionAnimations() {
  * Sync the sticky tabs' top position with the navbar.
  * When navbar is visible → tabs sit 50px below navbar bottom.
  * When navbar is hidden → tabs sit at top of viewport.
+ *
+ * Uses gsap.ticker for frame-accurate sync with navbar GSAP animations.
+ * Previous ticker callback is removed before adding a new one to prevent
+ * accumulation across page swaps.
  */
 function initStickyTabsSync() {
   const stickyTabs = document.getElementById("expertise-sticky-tabs")
   const navbar = document.getElementById("navbar")
   if (!stickyTabs || !navbar) return
 
+  // Remove previous ticker callback to prevent accumulation on page swap
+  if (window._stickyTabsTickerFn) {
+    gsap.ticker.remove(window._stickyTabsTickerFn)
+  }
+
   const GAP = 50
+  let lastTop = -1
 
   const update = () => {
-    const navbarRect = navbar.getBoundingClientRect()
-    const navbarBottom = navbarRect.bottom
-    // When navbar is hidden (translated up), its bottom will be <= 0
+    const navbarBottom = navbar.getBoundingClientRect().bottom
     const top = Math.max(0, navbarBottom + GAP)
+    // Skip DOM writes if value hasn't changed (avoid layout thrashing)
+    if (top === lastTop) return
+    lastTop = top
     stickyTabs.style.top = `${top}px`
-    // Expose scroll-margin for anchor sections: tabs top + tabs height
     const scrollMt = top + stickyTabs.offsetHeight
     document.documentElement.style.setProperty(
       "--sticky-tabs-offset",
@@ -729,7 +742,7 @@ function initStickyTabsSync() {
     )
   }
 
-  // Run on every frame via scroll + a persistent ticker for GSAP-driven navbar moves
+  window._stickyTabsTickerFn = update
   gsap.ticker.add(update)
   update()
 }
@@ -854,13 +867,6 @@ export function initExpertisesPage() {
   }
 
   requestAnimationFrame(updateActiveFromScroll)
-
-  // Refresh ScrollTrigger after all images load to prevent trigger drift
-  if (document.readyState === "complete") {
-    ScrollTrigger.refresh()
-  } else {
-    window.addEventListener("load", () => ScrollTrigger.refresh(), {once: true})
-  }
 
   // Save parallax styles so orientation changes don't break layout
   ScrollTrigger.saveStyles(

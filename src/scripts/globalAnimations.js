@@ -360,6 +360,12 @@ function cleanupGlobalAnimations() {
     window._navbarScrollCleanup();
   }
 
+  // Kill expertise sticky tabs ticker callback (survives DOM replacement)
+  if (window._stickyTabsTickerFn) {
+    gsap.ticker.remove(window._stickyTabsTickerFn);
+    window._stickyTabsTickerFn = null;
+  }
+
   // Kill all ScrollTriggers to prevent accumulation across page navigations.
   // Page-specific scripts (expertisesPage, groupePage, etc.) register AFTER this
   // via their own astro:after-swap handlers, so their triggers are re-created fresh.
@@ -387,8 +393,11 @@ export function initGlobalAnimations() {
   initKenBurns();
   initEngagementParallax();
 
-  // Refresh ScrollTrigger positions after fonts/images have settled
-  document.fonts.ready.then(() => {
-    ScrollTrigger.refresh();
-  });
+  // Refresh ScrollTrigger positions after fonts AND images have settled.
+  // Single consolidated refresh — page-specific scripts should NOT call refresh separately.
+  const refreshOnce = () => ScrollTrigger.refresh();
+  document.fonts.ready.then(refreshOnce);
+  if (document.readyState !== 'complete') {
+    window.addEventListener('load', refreshOnce, { once: true });
+  }
 }

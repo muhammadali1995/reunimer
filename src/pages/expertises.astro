@@ -11,6 +11,7 @@ import ExpertisesSupportSection from "../components/sections/expertises/Expertis
 import ExpertisesRhSection from "../components/sections/expertises/ExpertisesRhSection.astro"
 import {
   expertisesFishingBackground,
+  expertisesSmokeImage,
   expertisesTunaImage,
 } from "../data/expertises"
 import {Image} from "astro:assets"
@@ -66,10 +67,25 @@ import knifeImage from "../assets/images/expertise/knife.png"
     </div>
   </div>
 
-  <div id="transformation" class="relative z-20 -mt-[150px] scroll-mt-[var(--sticky-tabs-offset,150px)]">
+  <div
+    id="transformation"
+    class="relative z-20 -mt-[150px] scroll-mt-[var(--sticky-tabs-offset,150px)]"
+  >
     <ExpertisesTransformationSection />
   </div>
-  <ExpertisesQualitySection />
+  <!-- Smoke sits at the border between transformation and quality sections -->
+  <div class="absolute -mt-[20%] z-20 pointer-events-none w-full">
+    <Image
+      src={expertisesSmokeImage}
+      alt=""
+      aria-hidden="true"
+      class="w-full"
+      data-smoke-parallax="top"
+    />
+  </div>
+  <div class="z-40">
+    <ExpertisesQualitySection />
+  </div>
   <div id="distribution" class="scroll-mt-[var(--sticky-tabs-offset,150px)]">
     <ExpertisesDistributionSection />
   </div>
