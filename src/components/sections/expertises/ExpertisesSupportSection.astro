@@ -10,23 +10,19 @@ import {
 } from '../../../data/expertises';
 ---
 
-<section id="support-section" class="relative text-white">
-  <!-- Sticky background: stays fixed at top while content scrolls over it -->
-  <div class="sticky top-0 h-screen overflow-hidden bg-[#08131d]">
-    <Image
-      src={expertisesSupportBackground}
-      alt="Infrastructure logistique Reunimer"
-      class="absolute inset-0 h-full w-full object-cover object-[center_20%]"
-      widths={[768, 1280, 1920]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,21,32,0.08)_0%,rgba(7,21,32,0.22)_18%,rgba(4,11,18,0.72)_52%,rgba(2,6,10,0.96)_100%)]"></div>
-    <div class="absolute inset-x-0 top-0 h-[180px] bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0)_100%)]"></div>
-  </div>
-
-  <!-- Content scrolls naturally after the sticky bg -->
-  <Container class="relative z-10 py-16 md:py-[92px]">
-    <div class="mx-auto max-w-[742px]">
+<section id="support-section" class="relative overflow-hidden bg-[#08131d] py-16 text-white md:py-[92px]">
+  <Image
+    src={expertisesSupportBackground}
+    alt="Infrastructure logistique Reunimer"
+    class="absolute inset-x-0 top-0 h-[130%] w-full object-cover object-[center_20%]"
+    widths={[768, 1280, 1920]}
+    sizes="100vw"
+    data-support-parallax-img
+  />
+  <div class="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,21,32,0.08)_0%,rgba(7,21,32,0.22)_18%,rgba(4,11,18,0.72)_52%,rgba(2,6,10,0.96)_100%)]"></div>
+  <div class="absolute inset-x-0 top-0 h-[180px] bg-[linear-gradient(180deg,rgba(255,255,255,0.2),rgba(255,255,255,0)_100%)]"></div>
+  <Container class="relative">
+    <div class="mx-auto max-w-[742px] pt-[240px] md:pt-[380px]">
       <div class="max-w-[590px]">
         <h2 data-anim="1" class="max-w-[520px] font-display text-[28px] font-black uppercase leading-[0.98] tracking-[-0.02em] text-white md:text-[42px]">
           Logistique &amp; supports :

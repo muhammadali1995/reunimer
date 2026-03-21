@@ -286,7 +286,7 @@ function initRhSectionAnimations() {
   if (donuts.length) {
     timeline.to(
       donuts,
-      { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.14 },
       '-=0.2',
     );
   }
@@ -295,9 +295,9 @@ function initRhSectionAnimations() {
     timeline.to(
       arcs,
       {
-        duration: 1.2,
-        ease: 'power4.out',
-        stagger: 0.13,
+        duration: 0.9,
+        ease: 'power2.out',
+        stagger: 0.14,
         strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
       },
       '<',
@@ -307,7 +307,7 @@ function initRhSectionAnimations() {
   if (donutCenters.length) {
     timeline.to(
       donutCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.13 },
+      { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
       '-=0.45',
     );
   }
@@ -343,12 +343,12 @@ function initSupportSectionAnimations() {
   }
 
   if (countItems.length) {
-    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1 }, '-=0.35');
+    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.1 }, '-=0.35');
     timeline.add(animateCountUp(countItems), '<');
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '<');
   }
 }
 
