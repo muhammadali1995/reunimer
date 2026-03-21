@@ -40,42 +40,25 @@ const isImageLeft = imagePosition === "left"
   id={id}
   class:list={[
     bgClass,
-    "relative overflow-hidden scroll-mt-[135px]",
+    "relative scroll-mt-[135px]",
     className,
   ]}
 >
   <div
     class:list={[
-      "flex flex-col lg:flex-row lg:min-h-[785px]",
+      "flex flex-col lg:flex-row",
       !isImageLeft && "lg:flex-row-reverse",
     ]}
   >
     <!-- Image column -->
-    <div
-      class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px]"
-      data-engagement-parallax
-    >
-      <!-- Mobile/tablet: absolute fill, height driven by min-h -->
+    <div class="w-full lg:w-[51.5%] shrink-0">
       <Image
         src={imageSrc}
         alt={imageAlt}
-        class="absolute inset-0 w-full h-full object-contain xl:object-cover lg:hidden"
-        widths={[375, 768, 1024]}
-        sizes="100vw"
+        class="w-full h-auto"
+        widths={[375, 768, 1024, 1440]}
+        sizes="(min-width: 1024px) 51.5vw, 100vw"
       />
-      <!-- Desktop: absolute parallax image -->
-      <div
-        class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
-        data-parallax-img-wrapper
-      >
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          class="h-full w-full object-contain xl:object-cover"
-          widths={[1024, 1440]}
-          sizes="742px"
-        />
-      </div>
     </div>
 
     <!-- Text column -->

@@ -199,33 +199,18 @@ function parseCountValue(value: string) {
   <!-- Notre lien aux femmes et aux hommes -->
   <section
     id={femmesHommesSection.id}
-    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
+    class="bg-gris-clair relative scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
+    <div class="flex flex-col lg:flex-row">
       <!-- Image column (LEFT) -->
-      <div
-        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden"
-        data-engagement-parallax
-      >
+      <div class="w-full lg:w-[51.5%] shrink-0">
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="w-full h-auto"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 51.5vw, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={femmesHommesSection.image}
-            alt={femmesHommesSection.imageAlt}
-            class="h-full w-full object-contain"
-            widths={[1024, 1440]}
-            sizes="742px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -303,33 +288,18 @@ function parseCountValue(value: string) {
   <!-- Notre lien à l'énergie -->
   <section
     id={energieSection.id}
-    class="bg-white relative overflow-hidden scroll-mt-[135px]"
+    class="bg-white relative scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
+    <div class="flex flex-col lg:flex-row-reverse">
       <!-- Image column (RIGHT) -->
-      <div
-        class="relative w-full lg:w-[54.2%] shrink-0 overflow-hidden"
-        data-engagement-parallax
-      >
+      <div class="w-full lg:w-[54.2%] shrink-0">
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="w-full h-auto"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 54.2vw, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={energieSection.image}
-            alt={energieSection.imageAlt}
-            class="h-full w-full object-cover"
-            widths={[1024, 1440]}
-            sizes="781px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -358,33 +328,18 @@ function parseCountValue(value: string) {
   <!-- Notre lien à la santé -->
   <section
     id={santeSection.id}
-    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
+    class="bg-gris-clair relative scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
+    <div class="flex flex-col lg:flex-row">
       <!-- Image column (LEFT) -->
-      <div
-        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
-        data-engagement-parallax
-      >
+      <div class="w-full lg:w-[49.3%] shrink-0">
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="w-full h-auto object-contain lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="w-full h-auto"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 49.3vw, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={santeSection.image}
-            alt={santeSection.imageAlt}
-            class="h-full w-full object-contain lg:object-cover"
-            widths={[1024, 1440]}
-            sizes="710px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -425,33 +380,18 @@ function parseCountValue(value: string) {
   <!-- Notre lien au social -->
   <section
     id={socialSection.id}
-    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
+    class="bg-gris-clair relative scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
+    <div class="flex flex-col lg:flex-row">
       <!-- Image column (LEFT) -->
-      <div
-        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
-        data-engagement-parallax
-      >
+      <div class="w-full lg:w-[49.3%] shrink-0">
         <Image
           src={socialSection.image}
           alt={socialSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="w-full h-auto"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 49.3vw, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={socialSection.image}
-            alt={socialSection.imageAlt}
-            class="absolute top-0 left-[-35.21%] h-full max-w-none w-[133.45%] object-contain xl:object-cover"
-            widths={[1024, 1440]}
-            sizes="948px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
