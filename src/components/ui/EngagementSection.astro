@@ -13,72 +13,96 @@
  * - Text top padding: ~94–116px from section top
  */
 
-import { Image } from 'astro:assets';
-import Button from './Button.astro';
-import type { EngagementSectionProps } from '../../types';
+import {Image} from "astro:assets"
+import Button from "./Button.astro"
+import type {EngagementSectionProps} from "../../types"
 
-type Props = EngagementSectionProps;
+type Props = EngagementSectionProps
 
 const {
   title,
   bodyText,
   imageSrc,
   imageAlt,
-  imagePosition = 'left',
-  bgColor = 'white',
+  imagePosition = "left",
+  bgColor = "white",
   id,
-  buttonHref = '#footer-contact-heading',
+  buttonHref = "#footer-contact-heading",
   showButton = true,
-  class: className = '',
-} = Astro.props;
+  class: className = "",
+} = Astro.props
 
-const bgClass = bgColor === 'gris-clair' ? 'bg-gris-clair' : 'bg-white';
-const isImageLeft = imagePosition === 'left';
+const bgClass = bgColor === "gris-clair" ? "bg-gris-clair" : "bg-white"
+const isImageLeft = imagePosition === "left"
 ---
 
 <section
   id={id}
-  class:list={[bgClass, 'relative overflow-hidden scroll-mt-[135px]', className]}
+  class:list={[
+    bgClass,
+    "relative overflow-hidden scroll-mt-[135px]",
+    className,
+  ]}
 >
-  <div class:list={[
-    'flex flex-col lg:flex-row lg:min-h-[785px]',
-    !isImageLeft && 'lg:flex-row-reverse',
-  ]}>
+  <div
+    class:list={[
+      "flex flex-col lg:flex-row lg:min-h-[785px]",
+      !isImageLeft && "lg:flex-row-reverse",
+    ]}
+  >
     <!-- Image column -->
-    <div class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0 overflow-hidden" data-engagement-parallax>
-      <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
+    <div
+      class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px]"
+      data-engagement-parallax
+    >
+      <!-- Mobile/tablet: absolute fill, height driven by min-h -->
+      <Image
+        src={imageSrc}
+        alt={imageAlt}
+        class="absolute inset-0 w-full h-full object-contain xl:object-cover lg:hidden"
+        widths={[375, 768, 1024]}
+        sizes="100vw"
+      />
+      <!-- Desktop: absolute parallax image -->
+      <div
+        class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+        data-parallax-img-wrapper
+      >
         <Image
           src={imageSrc}
           alt={imageAlt}
-          class="h-full w-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 742px, 100vw"
+          class="h-full w-full object-contain xl:object-cover"
+          widths={[1024, 1440]}
+          sizes="742px"
         />
       </div>
     </div>
 
     <!-- Text column -->
     <div class="flex-1 px-6 py-8 md:px-10 md:py-12 lg:py-[100px] lg:px-[54px]">
-      <h2 class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse">
+      <h2
+        class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+      >
         {title}
       </h2>
-      <p class="mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-base leading-[1.5] md:text-[17px] md:leading-[1.5] lg:text-xl lg:leading-[1.461] text-bleu-abysse max-w-[445px]">
+      <p
+        class="mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-base leading-[1.4] text-bleu-abysse max-w-[445px]"
+      >
         {bodyText}
       </p>
 
       <!-- Slot for partner logos, descriptions, key figures, etc. -->
       <slot />
 
-      {showButton && (
-        <div class="mt-6 md:mt-8 lg:mt-[40px]">
-          <Button
-            variant="outline-dark"
-            href={buttonHref}
-          >
-            En savoir plus
-          </Button>
-        </div>
-      )}
+      {
+        showButton && (
+          <div class="mt-6 md:mt-8 lg:mt-[40px]">
+            <Button variant="outline-dark" href={buttonHref}>
+              En savoir plus
+            </Button>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>

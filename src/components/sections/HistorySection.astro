@@ -14,33 +14,40 @@
  *   Nav arrows at right for scrolling
  */
 
-import { Image } from 'astro:assets';
-import pecheurImage from '../../assets/images/groupe/pecheur-malgache.png';
-import { historyMilestones } from '../../data/groupe';
+import {Image} from "astro:assets"
+import pecheurImage from "../../assets/images/groupe/pecheur-malgache.jpg"
+import {historyMilestones} from "../../data/groupe"
 
 interface Props {
-  id?: string;
+  id?: string
 }
 
-const { id = 'histoire' } = Astro.props;
+const {id = "histoire"} = Astro.props
 ---
 
 <section id={id} class="scroll-mt-[135px]">
   <!-- Divider bar -->
-  <div class="h-[30px] bg-bleu-abysse"></div>
+  <div class="h-[30px] bg-turquoise-ocean"></div>
 
   <!-- History Header with background image -->
-  <div class="relative h-[280px] md:h-[340px] lg:h-[373px] overflow-hidden" data-parallax>
+  <div
+    class="relative h-[280px] md:h-[340px] lg:h-[373px] overflow-hidden"
+    data-parallax
+  >
     <Image
       src={pecheurImage}
       alt="Pêcheur malgache souriant avec une corde sur l'épaule"
-      class="absolute inset-0 w-full -mt-20 object-center grayscale scale-x-[-1]"
+      class="absolute inset-0 w-full h-full object-cover object-top grayscale"
       widths={[375, 768, 1440]}
       sizes="100vw"
     />
     <div class="absolute inset-0 bg-black/20"></div>
-    <div class="relative h-full mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0 flex items-center">
-      <h2 class="font-display font-extrabold text-[28px] leading-[34px] md:text-display-lg uppercase text-white">
+    <div
+      class="relative h-full mx-auto w-full max-w-[1284px] px-5 md:px-10 lg:px-0 flex items-center"
+    >
+      <h2
+        class="font-display font-extrabold text-[28px] leading-[34px] md:text-display-lg uppercase text-white"
+      >
         Notre histoire
       </h2>
     </div>
@@ -55,33 +62,35 @@ const { id = 'histoire' } = Astro.props;
         aria-label="Chronologie de l'histoire du groupe"
       >
         <div class="swiper-wrapper">
-          {historyMilestones.map((milestone) => (
-            <article
-              class="swiper-slide h-auto"
-              data-history-slide
-              data-anim="4"
-            >
-              <div class="flex h-full flex-col">
-                <p
-                  class="pr-4 font-display text-[32px] font-extrabold uppercase text-white md:pr-6 md:text-[40px] lg:pr-8 lg:text-[48px]"
-                  data-history-year
-                >
-                  {milestone.year}
-                </p>
-                <div class="mt-2">
-                  <div class="ml-[5px] h-[20px] w-px bg-white/40"></div>
-                  <div class="h-[11px] w-[11px] rounded-full bg-white"></div>
+          {
+            historyMilestones.map((milestone) => (
+              <article
+                class="swiper-slide h-auto"
+                data-history-slide
+                data-anim="4"
+              >
+                <div class="flex h-full flex-col">
+                  <p
+                    class="pr-4 font-display text-[32px] font-extrabold uppercase text-white md:pr-6 lg:pr-8"
+                    data-history-year
+                  >
+                    {milestone.year}
+                  </p>
+                  <div class="mt-2">
+                    <div class="ml-[5px] h-[20px] w-px bg-white/40" />
+                    <div class="h-[11px] w-[11px] rounded-full bg-white" />
+                  </div>
+                  <div class="-mt-[5px] h-px w-full bg-white/40" />
+                  <p
+                    class="mt-4 max-w-[255px] pr-4 font-body text-sm leading-[1.4] font-normal text-white md:pr-6 md:text-body-base lg:pr-8"
+                    data-history-copy
+                  >
+                    {milestone.description}
+                  </p>
                 </div>
-                <div class="-mt-[5px] h-px w-full bg-white/40"></div>
-                <p
-                  class="mt-4 max-w-[255px] pr-4 font-body text-sm leading-[1.4] font-normal text-white md:pr-6 md:text-body-base lg:pr-8"
-                  data-history-copy
-                >
-                  {milestone.description}
-                </p>
-              </div>
-            </article>
-          ))}
+              </article>
+            ))
+          }
         </div>
       </div>
 
@@ -91,8 +100,18 @@ const { id = 'histoire' } = Astro.props;
           type="button"
           aria-label="Précédent"
         >
-          <svg class="h-3.5 w-2 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
-            <path d="M9.25 15.25L1.25 8.25L9.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            class="h-3.5 w-2 shrink-0"
+            viewBox="0 0 10.5 16.5"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M9.25 15.25L1.25 8.25L9.25 1.25"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </button>
         <button
@@ -100,8 +119,18 @@ const { id = 'histoire' } = Astro.props;
           type="button"
           aria-label="Suivant"
         >
-          <svg class="h-3.5 w-2 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
-            <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            class="h-3.5 w-2 shrink-0"
+            viewBox="0 0 10.5 16.5"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M1.25 15.25L9.25 8.25L1.25 1.25"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"></path>
           </svg>
         </button>
       </div>

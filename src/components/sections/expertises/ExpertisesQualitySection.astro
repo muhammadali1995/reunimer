@@ -1,13 +1,15 @@
 ---
-import Container from "../../ui/Container.astro";
-import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro";
-import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
-import { productionStats } from "../../../data/expertises";
+import {Image} from "astro:assets"
+import Container from "../../ui/Container.astro"
+import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro"
+import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro"
+import {productionStats} from "../../../data/expertises"
+import labQualityImage from "../../../assets/images/expertise/lab-quality.png"
 ---
 
 <section
   id="quality-section"
-  class="relative z-20 overflow-hidden bg-white py-16 text-bleu-abysse md:py-[92px] xl:-mt-[500px]"
+  class="relative overflow-hidden bg-white py-16 text-bleu-abysse md:pb-[92px]"
 >
   <div
     class="absolute inset-x-0 top-0 h-[220px] bg-[radial-gradient(circle_at_24%_10%,rgba(255,255,255,0.9),rgba(255,255,255,0)_55%),radial-gradient(circle_at_70%_0%,rgba(255,255,255,0.75),rgba(255,255,255,0)_44%)] opacity-90"
@@ -15,9 +17,9 @@ import { productionStats } from "../../../data/expertises";
   </div>
   <Container class="relative">
     <div
-      class="mx-auto max-w-[980px] grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-[46px]"
+      class="mx-auto max-w-[980px] z-30 grid gap-12 md:grid-cols-[0.95fr_1.05fr] md:gap-[46px] pt-50"
     >
-      <div>
+      <div class="z-30">
         <ExpertisesSectionHeader
           title="Securite et excellence : nos engagements cles"
           class="max-w-[308px]"
@@ -47,6 +49,16 @@ import { productionStats } from "../../../data/expertises";
           </div>
         </div>
 
+        <div class="mt-6 overflow-hidden rounded-[5px]">
+          <Image
+            src={labQualityImage}
+            alt="Laboratoire de contrôle qualité"
+            class="h-[180px] w-full object-cover md:h-[220px]"
+            widths={[466, 932]}
+            sizes="(min-width: 768px) 466px, 100vw"
+          />
+        </div>
+
         <div class="mt-7 max-w-[260px]">
           <div class="h-px w-full bg-bleu-abysse/20"></div>
           <p
@@ -71,11 +83,11 @@ import { productionStats } from "../../../data/expertises";
                 class="h-[18px] w-auto object-contain"
               />
             </div>
-              <p
-                data-anim="1"
-                class="mt-[4px] text-right font-body text-[9px] leading-none text-bleu-abysse/82"
-              >
-                test Eurofins*
+            <p
+              data-anim="1"
+              class="mt-[4px] text-right font-body text-[9px] leading-none text-bleu-abysse/82"
+            >
+              test Eurofins*
             </p>
           </div>
 
@@ -118,8 +130,8 @@ import { productionStats } from "../../../data/expertises";
             Vers le zero dechet: Parce que maitriser la filiere signifie aussi
             respecter la ressource dans son integralite, Reunimer innove dans la
             valorisation des co-produits. Cette demarche transforme chaque etape
-            de la production en un levier d'economie circulaire, minimisant notre
-            empreinte environnementale.
+            de la production en un levier d'economie circulaire, minimisant
+            notre empreinte environnementale.
           </p>
         </div>
       </div>

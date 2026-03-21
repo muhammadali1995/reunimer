@@ -1,9 +1,9 @@
 ---
-import { Image } from "astro:assets";
-import PageLayout from "../layouts/PageLayout.astro";
-import Container from "../components/ui/Container.astro";
-import Button from "../components/ui/Button.astro";
-import EngagementSection from "../components/ui/EngagementSection.astro";
+import {Image} from "astro:assets"
+import PageLayout from "../layouts/PageLayout.astro"
+import Container from "../components/ui/Container.astro"
+import Button from "../components/ui/Button.astro"
+import EngagementSection from "../components/ui/EngagementSection.astro"
 import {
   engagementsSeo,
   engagementsHero,
@@ -17,18 +17,18 @@ import {
   formationSection,
   socialSection,
   filieresSection,
-} from "../data/engagements";
+} from "../data/engagements"
 
 function parseCountValue(value: string) {
-  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
-  if (!match) return null;
-  const decimalPart = match[2].match(/[.,](\d+)$/u);
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u)
+  if (!match) return null
+  const decimalPart = match[2].match(/[.,](\d+)$/u)
   return {
     prefix: match[1],
-    numericValue: Number(match[2].replace(',', '.')),
+    numericValue: Number(match[2].replace(",", ".")),
     suffix: match[3],
     decimals: decimalPart ? decimalPart[1].length : 0,
-  };
+  }
 }
 ---
 
@@ -82,7 +82,9 @@ function parseCountValue(value: string) {
   <!-- Intro: ONG placeholder labels -->
   <section class="bg-white pt-10 md:pt-14 lg:pt-[59px]">
     <Container>
-      <div class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-10 lg:gap-[445px]">
+      <div
+        class="flex flex-col gap-4 sm:flex-row sm:justify-between sm:gap-10 lg:gap-[445px]"
+      >
         <h2
           class="font-heading font-semibold text-2xl md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
         >
@@ -202,17 +204,27 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[51.5%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden"
         data-engagement-parallax
       >
-        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="h-full w-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 742px, 100vw"
+          class="w-full h-auto object-cover lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={femmesHommesSection.image}
+            alt={femmesHommesSection.imageAlt}
+            class="h-full w-full object-contain"
+            widths={[1024, 1440]}
+            sizes="742px"
+          />
         </div>
       </div>
 
@@ -231,7 +243,7 @@ function parseCountValue(value: string) {
           <Image
             src={femmesHommesSection.logo}
             alt={femmesHommesSection.logoAlt}
-            class="w-[150px] md:w-[175px] lg:w-[200px] h-auto"
+            class="w-[150px] md:w-[175px] lg:w-[200px] h-auto xl:object-cover"
             widths={[150, 175, 200]}
             sizes="200px"
           />
@@ -261,23 +273,26 @@ function parseCountValue(value: string) {
           <div class="mt-4 lg:mt-[18px] max-w-[467px]">
             {
               femmesHommesSection.stats.map((stat) => {
-                const parsed = parseCountValue(stat.value);
+                const parsed = parseCountValue(stat.value)
                 return (
-                <div class="flex items-baseline justify-between gap-4 py-3 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
-                  <span
-                    class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0"
-                    data-count-value={parsed ? parsed.numericValue : undefined}
-                    data-count-decimals={parsed ? parsed.decimals : undefined}
-                    data-count-prefix={parsed ? parsed.prefix : undefined}
-                    data-count-suffix={parsed ? parsed.suffix : undefined}
-                  >
-                    {stat.value}
-                  </span>
-                  <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse text-right max-w-[220px] sm:max-w-none">
-                    {stat.label}
-                  </span>
-                </div>
-              )})
+                  <div class="flex items-baseline justify-between gap-4 py-3 lg:py-[6px] border-b border-bleu-abysse/50 first:border-t first:border-t-bleu-abysse/50">
+                    <span
+                      class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse shrink-0"
+                      data-count-value={
+                        parsed ? parsed.numericValue : undefined
+                      }
+                      data-count-decimals={parsed ? parsed.decimals : undefined}
+                      data-count-prefix={parsed ? parsed.prefix : undefined}
+                      data-count-suffix={parsed ? parsed.suffix : undefined}
+                    >
+                      {stat.value}
+                    </span>
+                    <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse text-right max-w-[220px] sm:max-w-none">
+                      {stat.label}
+                    </span>
+                  </div>
+                )
+              })
             }
           </div>
         </div>
@@ -293,17 +308,27 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
       <!-- Image column (RIGHT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[54.2%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[54.2%] shrink-0 overflow-hidden"
         data-engagement-parallax
       >
-        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="h-full w-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 781px, 100vw"
+          class="w-full h-auto object-cover lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={energieSection.image}
+            alt={energieSection.imageAlt}
+            class="h-full w-full object-cover"
+            widths={[1024, 1440]}
+            sizes="781px"
+          />
         </div>
       </div>
 
@@ -338,17 +363,27 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[420px] lg:h-auto lg:w-[49.3%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
         data-engagement-parallax
       >
-        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="h-full w-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 710px, 100vw"
+          class="w-full h-auto object-contain lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={santeSection.image}
+            alt={santeSection.imageAlt}
+            class="h-full w-full object-contain lg:object-cover"
+            widths={[1024, 1440]}
+            sizes="710px"
+          />
         </div>
       </div>
 
@@ -395,16 +430,26 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full h-[260px] sm:h-[320px] md:h-[440px] lg:h-auto lg:w-[49.3%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
         data-engagement-parallax
       >
-        <div class="absolute inset-x-0 top-0 h-[115%] w-full" data-parallax-img-wrapper>
+        <Image
+          src={socialSection.image}
+          alt={socialSection.imageAlt}
+          class="w-full h-auto object-cover lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
+        />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          data-parallax-img-wrapper
+        >
           <Image
             src={socialSection.image}
             alt={socialSection.imageAlt}
-            class="absolute top-0 left-[-35.21%] h-full max-w-none w-[133.45%] object-cover"
-            widths={[375, 768, 1024, 1440]}
-            sizes="(min-width: 1024px) 948px, 133vw"
+            class="absolute top-0 left-[-35.21%] h-full max-w-none w-[133.45%] object-contain xl:object-cover"
+            widths={[1024, 1440]}
+            sizes="948px"
           />
         </div>
       </div>
@@ -450,7 +495,7 @@ function parseCountValue(value: string) {
         <div class="mt-10 md:mt-12 lg:mt-[132px] max-w-[487px]">
           <div class="border-t border-bleu-abysse/50 pt-5 lg:pt-[33px]">
             <h3
-              class="font-heading font-semibold text-base leading-tight md:text-lg lg:text-[20px] lg:leading-[24.4px] text-bleu-abysse"
+              class="font-heading font-semibold text-base leading-tight md:text-lg lg:text-[20px] lg:leading-[24.4px] text-bleu-abysse tracking-[-1px]"
             >
               {socialSection.statsTitle}
             </h3>
@@ -460,23 +505,28 @@ function parseCountValue(value: string) {
             >
               {
                 socialSection.stats.map((stat) => {
-                  const parsed = parseCountValue(stat.value);
+                  const parsed = parseCountValue(stat.value)
                   return (
-                  <div class="flex flex-col gap-2">
-                    <span
-                      class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse"
-                      data-count-value={parsed ? parsed.numericValue : undefined}
-                      data-count-decimals={parsed ? parsed.decimals : undefined}
-                      data-count-prefix={parsed ? parsed.prefix : undefined}
-                      data-count-suffix={parsed ? parsed.suffix : undefined}
-                    >
-                      {stat.value}
-                    </span>
-                    <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse">
-                      {stat.label}
-                    </span>
-                  </div>
-                  )})
+                    <div class="flex flex-col gap-2">
+                      <span
+                        class="font-display font-black text-2xl md:text-3xl lg:text-[40px] lg:leading-[44.5px] text-bleu-abysse"
+                        data-count-value={
+                          parsed ? parsed.numericValue : undefined
+                        }
+                        data-count-decimals={
+                          parsed ? parsed.decimals : undefined
+                        }
+                        data-count-prefix={parsed ? parsed.prefix : undefined}
+                        data-count-suffix={parsed ? parsed.suffix : undefined}
+                      >
+                        {stat.value}
+                      </span>
+                      <span class="font-body font-normal text-sm md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse">
+                        {stat.label}
+                      </span>
+                    </div>
+                  )
+                })
               }
             </div>
           </div>
@@ -518,8 +568,13 @@ function parseCountValue(value: string) {
           </div>
         </div>
 
-        <div class="flex flex-col gap-8 sm:flex-row sm:flex-wrap lg:flex-row lg:items-start lg:gap-[80px]">
-          <div class="flex flex-col items-start justify-between gap-6 pb-4" style="height:stretch">
+        <div
+          class="flex flex-col gap-8 sm:flex-row sm:flex-wrap lg:flex-row lg:items-start lg:gap-[80px]"
+        >
+          <div
+            class="flex flex-col items-start justify-between gap-6 pb-4"
+            style="height:stretch"
+          >
             <Image
               src={filieresSection.partners[0].logo}
               alt={filieresSection.partners[0].alt}
@@ -532,7 +587,9 @@ function parseCountValue(value: string) {
             </Button>
           </div>
 
-          <div class="flex flex-col items-start justify-between gap-6 h-[fill-available] pb-4">
+          <div
+            class="flex flex-col items-start justify-between gap-6 h-[fill-available] pb-4"
+          >
             <Image
               src={filieresSection.partners[1].logo}
               alt={filieresSection.partners[1].alt}
@@ -573,8 +630,8 @@ function parseCountValue(value: string) {
 </PageLayout>
 
 <script>
-  import { initEngagementsPage } from "../scripts/engagementsPage.js";
+  import {initEngagementsPage} from "../scripts/engagementsPage.js"
 
-  initEngagementsPage();
-  document.addEventListener('astro:after-swap', initEngagementsPage);
+  initEngagementsPage()
+  document.addEventListener("astro:after-swap", initEngagementsPage)
 </script>
