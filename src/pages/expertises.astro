@@ -1,17 +1,20 @@
 ---
-import PageLayout from "../layouts/PageLayout.astro";
-import ExpertisesHeroSection from "../components/sections/expertises/ExpertisesHeroSection.astro";
-import ExpertisesStickyNav from "../components/sections/expertises/ExpertisesStickyNav.astro";
-import ExpertisesFishingSection from "../components/sections/expertises/ExpertisesFishingSection.astro";
-import ExpertisesTransformationSection from "../components/sections/expertises/ExpertisesTransformationSection.astro";
-import ExpertisesQualitySection from "../components/sections/expertises/ExpertisesQualitySection.astro";
-import ExpertisesDistributionSection from "../components/sections/expertises/ExpertisesDistributionSection.astro";
-import ExpertisesBrandsSection from "../components/sections/expertises/ExpertisesBrandsSection.astro";
-import ExpertisesSupportSection from "../components/sections/expertises/ExpertisesSupportSection.astro";
-import ExpertisesRhSection from "../components/sections/expertises/ExpertisesRhSection.astro";
-import { expertisesFishingBackground, expertisesTunaImage } from "../data/expertises";
-import { Image } from "astro:assets";
-import knifeImage from "../assets/images/expertise/knife.png";
+import PageLayout from "../layouts/PageLayout.astro"
+import ExpertisesHeroSection from "../components/sections/expertises/ExpertisesHeroSection.astro"
+import ExpertisesStickyNav from "../components/sections/expertises/ExpertisesStickyNav.astro"
+import ExpertisesFishingSection from "../components/sections/expertises/ExpertisesFishingSection.astro"
+import ExpertisesTransformationSection from "../components/sections/expertises/ExpertisesTransformationSection.astro"
+import ExpertisesQualitySection from "../components/sections/expertises/ExpertisesQualitySection.astro"
+import ExpertisesDistributionSection from "../components/sections/expertises/ExpertisesDistributionSection.astro"
+import ExpertisesBrandsSection from "../components/sections/expertises/ExpertisesBrandsSection.astro"
+import ExpertisesSupportSection from "../components/sections/expertises/ExpertisesSupportSection.astro"
+import ExpertisesRhSection from "../components/sections/expertises/ExpertisesRhSection.astro"
+import {
+  expertisesFishingBackground,
+  expertisesTunaImage,
+} from "../data/expertises"
+import {Image} from "astro:assets"
+import knifeImage from "../assets/images/expertise/knife.png"
 ---
 
 <PageLayout
@@ -19,74 +22,69 @@ import knifeImage from "../assets/images/expertise/knife.png";
   description="Découvrez les expertises du groupe Reunimer : pêche, transformation, distribution, logistique et ressources humaines."
 >
   <ExpertisesHeroSection />
-  <div class="sticky top-[92px] z-30 -mt-6 -mb-[47px] lg:top-[136px]">
+  <div class="sticky top-0 z-30 -mt-6 -mb-[47px]" id="expertise-sticky-tabs">
     <ExpertisesStickyNav />
   </div>
-  <div class="relative overflow-clip md:-mt-[412px]">
+  <div class="relative md:-mt-[412px]">
     <Image
       src={expertisesFishingBackground}
       alt="Banc de thons sous la surface"
-      class="absolute inset-x-0 top-0 h-[150%] w-full object-cover"
+      class="absolute inset-x-0 top-0 h-[170%] w-full object-cover"
       data-sea-parallax-bg
       widths={[768, 1024, 1440, 1920]}
       sizes="100vw"
     />
 
-    <div id="peche" class="scroll-mt-[150px] md:pt-[129px] lg:scroll-mt-[194px]">
+    <div
+      id="peche"
+      class="scroll-mt-[var(--sticky-tabs-offset,150px)] md:pt-[129px]"
+    >
       <ExpertisesFishingSection />
-    </div>
-
-    <!-- Fish & knife transition:
-         Static images centred between the two sections.
-         The sea background (from this wrapper) shows behind them.
-         A white mask slides UP from below — behind the images (z-0) — as the
-         user scrolls, creating the illusion the fish sink into the white section. -->
-    <div id="fish-transition" class="relative overflow-hidden py-20 lg:py-[120px]">
-      <!-- White mask: starts fully below the container, rises on scroll -->
-      <div
-        id="fish-white-curtain"
-        class="absolute inset-x-0 bottom-0 h-full bg-white"
-        style="transform: translateY(100%);"
-      ></div>
-      <!-- Fish + knife: static, rendered above the mask -->
-      <div class="relative z-10 mx-auto w-full max-w-[1000px] px-5 md:px-8">
-        <Image
-          src={expertisesTunaImage}
-          alt="Illustration de thons"
-          class="w-full"
-          widths={[768, 1200, 1600]}
-          sizes="(min-width: 1280px) 1000px, 100vw"
-        />
-        <Image
-          src={knifeImage}
-          alt="Illustration de couteau"
-          class="mx-auto mt-6 block w-full scale-x-[-1] md:mt-10 md:max-w-full lg:mt-12 max-w-120"
-          widths={[480, 768, 1200, 1600]}
-          sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
-        />
-      </div>
     </div>
   </div>
 
-  <div id="transformation" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+  <!-- Fish & knife: pinned in viewport, sits above the next section (z-30).
+       The transformation section (z-20) scrolls up behind it, its white bg
+       acting as a natural mask. When it reaches the fish midpoint, the pin
+       releases and the fish scrolls away with 100px gap before content. -->
+  <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-[120px]">
+    <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
+      <Image
+        src={expertisesTunaImage}
+        alt="Illustration de thons"
+        class="w-full"
+        widths={[768, 1200, 1600]}
+        sizes="(min-width: 1280px) 1000px, 100vw"
+      />
+      <Image
+        src={knifeImage}
+        alt="Illustration de couteau"
+        class="mx-auto mt-6 block w-full scale-x-[-1] md:mt-10 md:max-w-full lg:mt-12 max-w-120"
+        widths={[480, 768, 1200, 1600]}
+        sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
+      />
+    </div>
+  </div>
+
+  <div id="transformation" class="relative z-20 -mt-[150px] scroll-mt-[var(--sticky-tabs-offset,150px)]">
     <ExpertisesTransformationSection />
   </div>
   <ExpertisesQualitySection />
-  <div id="distribution" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+  <div id="distribution" class="scroll-mt-[var(--sticky-tabs-offset,150px)]">
     <ExpertisesDistributionSection />
   </div>
   <ExpertisesBrandsSection />
-  <div id="logistique" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+  <div id="logistique" class="scroll-mt-[var(--sticky-tabs-offset,150px)]">
     <ExpertisesSupportSection />
   </div>
-  <div id="rh" class="scroll-mt-[150px] lg:scroll-mt-[194px]">
+  <div id="rh" class="scroll-mt-[var(--sticky-tabs-offset,150px)]">
     <ExpertisesRhSection />
   </div>
 </PageLayout>
 
 <script>
-  import { initExpertisesPage } from "../scripts/expertisesPage.js";
+  import {initExpertisesPage} from "../scripts/expertisesPage.js"
 
-  initExpertisesPage();
-  document.addEventListener('astro:after-swap', initExpertisesPage);
+  initExpertisesPage()
+  document.addEventListener("astro:after-swap", initExpertisesPage)
 </script>

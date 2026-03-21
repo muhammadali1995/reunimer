@@ -6,7 +6,7 @@ import { expertisesHeroTabs } from "../../../data/expertises";
 <div class="py-3">
   <Container>
     <nav aria-label="Navigation des expertises">
-      <div class="flex flex-wrap gap-2 xl:w-[1198px] xl:flex-nowrap xl:items-end xl:gap-0">
+      <div class="flex flex-wrap gap-2 xl:w-[1198px] xl:flex-nowrap xl:items-start xl:gap-0">
         {
           expertisesHeroTabs.map((tab, index) => (
             <a
@@ -17,7 +17,7 @@ import { expertisesHeroTabs } from "../../../data/expertises";
               aria-current={index === 0 ? "true" : "false"}
               class:list={[
                 "relative flex h-[40px] min-w-[112px] flex-1 items-center justify-center px-3 text-center transition-[transform,height,padding] duration-200 hover:-translate-y-0.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70 md:flex-none",
-                index === 0 ? "md:h-[47px] md:items-start md:pt-[15px]" : "md:h-[29px] md:items-start md:pt-[7px]",
+                index === 0 ? "md:h-[47px] md:items-end md:pb-[15px]" : "md:h-[29px] md:items-end md:pb-[7px]",
                 tab.className,
               ]}
             >

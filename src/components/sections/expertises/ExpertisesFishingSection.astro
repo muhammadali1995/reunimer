@@ -1,5 +1,5 @@
 ---
-import { Image } from "astro:assets";
+import {Image} from "astro:assets"
 import {
   boulogneStats,
   certificationLeftColumn,
@@ -11,34 +11,36 @@ import {
   fishingFleetStats,
   fishingQuotas,
   madagascarStats,
-} from "../../../data/expertises";
-import Container from "../../ui/Container.astro";
-import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro";
-import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro";
+} from "../../../data/expertises"
+import Container from "../../ui/Container.astro"
+import ExpertisesSectionHeader from "./ExpertisesSectionHeader.astro"
+import ExpertisesStatGroupList from "./ExpertisesStatGroupList.astro"
 
 function parseStatValue(value: string) {
-  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u);
+  const match = value.match(/^([^0-9]*)([0-9]+(?:[.,][0-9]+)?)(.*)$/u)
   if (!match) {
-    return null;
+    return null
   }
 
-  const decimalPart = match[2].match(/[.,](\d+)$/u);
+  const decimalPart = match[2].match(/[.,](\d+)$/u)
 
   return {
     prefix: match[1],
-    numericValue: Number(match[2].replace(',', '.')),
+    numericValue: Number(match[2].replace(",", ".")),
     suffix: match[3],
     decimalPlaces: decimalPart ? decimalPart[1].length : 0,
-  };
+  }
 }
 ---
 
-<section id="peche-section" class="overflow-visible text-white">
+<section id="peche-section" class="overflow-visible pt-[124px] text-white">
   <Container
-    class="relative pb-[300px]! min-h-0 py-16 md:pt-20 xl:min-h-[2385px] xl:pt-[111px] xl:pb-0"
+    class="relative min-h-0 py-16 md:pt-20 xl:min-h-[2385px] xl:pt-[111px] xl:pb-0"
   >
     <div class="flex flex-col xl:flex-row xl:items-stretch">
-      <div class="pointer-events-none hidden xl:flex xl:w-[530px] xl:shrink-0 xl:self-stretch">
+      <div
+        class="pointer-events-none hidden xl:flex xl:w-[530px] xl:shrink-0 xl:self-stretch"
+      >
         <div class="mt-[230px] sticky top-56 h-fit w-full" data-fish-sticky>
           <div class="relative">
             <Image
@@ -51,309 +53,342 @@ function parseStatValue(value: string) {
           </div>
         </div>
       </div>
-      <div class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-[163px] xl:ml-0 xl:flex-1">
-      <h2
-        data-anim="1"
-        class="font-display uppercase text-display-lg font-black leading-[44.5px] text-white"
+      <div
+        class="mx-auto mt-20 max-w-[710px] md:mt-24 lg:ml-auto xl:mt-[163px] xl:ml-0 xl:flex-1 xl:sticky xl:top-[259px]"
       >
-        Une pêche responsable
-      </h2>
-      <p
-        data-anim="1"
-        class="mt-[37px] max-w-[701px] font-heading text-heading-lg font-normal leading-[1.461] text-white"
-      >
-        Reunimer maîtrise l'amont pour sécuriser l'aval. En accédant directement
-        à la ressource, le Groupe garantit une matière première d'une fraîcheur
-        irréprochable, totalement traçable et prélevée dans le respect des
-        équilibres océaniques.
-      </p>
-      <div class="mt-20 max-w-[710px]">
-        <ExpertisesSectionHeader
-          title="Une puissance de pêche hauturière et australe"
-          titleClass="font-heading text-heading-lg font-semibold text-white"
-          dividerClass="mt-[17px] h-px w-full bg-white/40"
-          titleAnim="1"
-        />
-        <div
-          class="mt-[33px] grid gap-10 md:grid-cols-[326px_328px] md:gap-[56px]"
+        <h2
+          data-anim="1"
+          class="font-display uppercase text-display-lg font-black leading-[44.5px] text-white"
         >
-          <div class="flex flex-col gap-[18px]">
-            <p
-              data-anim="1"
-              class="font-body text-body-base font-bold leading-[1.4] text-white"
-            >
-              {fishingFleetStats[0].location}
-            </p>
-            <ExpertisesStatGroupList
-              items={fishingFleetStats[0].items}
-              groupSpacingClass="space-y-0"
-              itemsWrapperClass="space-y-[18px]"
-              dividerClass="pb-3"
-              rowClass="flex items-end justify-between gap-6"
-              valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
-              labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
-              valueAnim="4"
-              labelAnim="1"
-            />
-          </div>
-          <div class="pt-0 md:pt-[40px]">
-            <ExpertisesStatGroupList
-              items={fishingCatchStats}
-              groupSpacingClass="space-y-0"
-              itemsWrapperClass="space-y-[18px]"
-              dividerClass="pb-3"
-              rowClass="flex items-end justify-between gap-6"
-              valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
-              labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
-              valueAnim="4"
-              labelAnim="1"
-            />
-          </div>
-        </div>
-      </div>
-      <div class="mt-[75px] max-w-[710px]">
-        <ExpertisesSectionHeader
-          title="Un modèle de collecte artisanale et de mareyage"
-          titleClass="font-heading text-heading-lg font-semibold text-white"
-          dividerClass="mt-[17px] h-px w-full bg-white/40"
-          titleAnim="1"
-        />
-        <div
-          class="mt-[45px] grid gap-8 lg:grid-cols-[326px_330px] lg:gap-[50px]"
-        >
-          <div
-            class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
-          >
-            <p
-              data-anim="1"
-              class="font-body text-body-base font-bold leading-[1.4] text-white"
-            >
-              À Madagascar
-            </p>
-            <div class="mt-[18px]">
-              <ExpertisesStatGroupList
-                items={madagascarStats}
-                groupSpacingClass="space-y-0"
-                itemsWrapperClass="space-y-[18px]"
-                dividerClass="pb-3"
-                rowClass="flex items-end justify-between gap-4"
-                valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
-                labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
-                valueAnim="4"
-                labelAnim="1"
-              />
-            </div>
-          </div>
-          <div
-            class="relative h-[220px] overflow-hidden rounded-[5px] border border-white/15 bg-white/10 shadow-[0_18px_44px_rgba(0,0,0,0.22)] md:h-[247px]"
-          >
-            <Image
-              src={expertisesMadagascarImage}
-              alt="Collecte artisanale à Madagascar"
-              class="h-full w-full object-cover"
-              widths={[660, 990]}
-              sizes="330px"
-            /><div
-              class="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,24,38,0.02)_0%,rgba(4,20,35,0.14)_56%,rgba(5,20,34,0.38)_100%)]"
-            >
-            </div>
-          </div>
-        </div>
-        <div
-          class="mt-[50px] grid gap-8 lg:grid-cols-[328px_330px] lg:gap-[49px]"
-        >
-          <div
-            class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
-          >
-            <p
-              data-anim="1"
-              class="font-body text-body-base font-bold leading-[1.4] text-white"
-            >
-              À Boulogne-sur-Mer
-            </p>
-            <div class="mt-[18px]">
-              <ExpertisesStatGroupList
-                items={boulogneStats}
-                groupSpacingClass="space-y-0"
-                itemsWrapperClass="space-y-[18px]"
-                dividerClass="pb-3"
-                rowClass="flex items-end justify-between gap-4"
-                valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
-                labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
-                valueAnim="4"
-                labelAnim="1"
-              />
-            </div>
-          </div>
-          <div
-            class="relative h-[220px] overflow-hidden rounded-[5px] border border-white/15 bg-brume-alize/15 shadow-[0_18px_44px_rgba(0,0,0,0.18)] md:h-[247px]"
-          >
-            <Image
-              src={expertisesBoulogneImage}
-              alt="Produits de la mer préparés à Boulogne-sur-Mer"
-              class="h-full w-full object-cover object-[70%_center]"
-              widths={[660, 990]}
-              sizes="330px"
-            /><div
-              class="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,28,40,0.34)_0%,rgba(13,28,40,0.1)_34%,rgba(13,28,40,0.04)_100%)]"
-            >
-            </div>
-          </div>
-        </div>
+          Une pêche responsable
+        </h2>
         <p
           data-anim="1"
-          class="mt-[74px] font-heading text-heading-lg font-semibold text-white"
+          class="mt-[37px] max-w-[701px] font-heading text-heading-lg font-normal leading-[1.461] text-white"
         >
-          Reunimer sur le marché de la pêche à la légine dans les TAAF
+          Reunimer maîtrise l'amont pour sécuriser l'aval. En accédant
+          directement à la ressource, le Groupe garantit une matière première
+          d'une fraîcheur irréprochable, totalement traçable et prélevée dans le
+          respect des équilibres océaniques.
         </p>
-        <div class="mt-[33px] flex flex-wrap gap-8 pl-0 md:gap-[49px]">
-          {
-            fishingQuotas.map((quota) => {
-              const parsedTop = parseStatValue(quota.top);
-              const parsedBottom = parseStatValue(quota.bottom);
-              const parsedTotal = parseStatValue(quota.total);
-              const center = 117;
-              const radius = 100;
-              const labelRadius = radius;
-              const circumference = 2 * Math.PI * radius;
-              const topShare = Number.parseFloat(quota.top) / 100;
-              const topArcLength = circumference * topShare;
-              const topArcAngle = 360 * topShare;
-              const polarToCartesian = (angle: number) => {
-                const radians = (angle - 90) * (Math.PI / 180);
-                return {
-                  x: center + labelRadius * Math.cos(radians),
-                  y: center + labelRadius * Math.sin(radians),
-                };
-              };
-              const topArcEndAngle = topArcAngle / 2;
-              const topLabel = polarToCartesian(topArcEndAngle / 2);
-              const bottomLabel = polarToCartesian(180);
-
-              return (
-                <div data-quota-donut class="relative h-[190px] w-[190px] md:h-[234px] md:w-[234px]">
-                  <svg viewBox="0 0 234 234" class="h-full w-full">
-                    <circle
-                      cx="117"
-                      cy="117"
-                      r={radius}
-                      fill="none"
-                      stroke="#A34C26"
-                      stroke-width="28"
-                    />
-                    <circle
-                      data-quota-donut-arc
-                      cx="117"
-                      cy="117"
-                      r={radius}
-                      fill="none"
-                      stroke="#fff"
-                      stroke-width="28"
-                      stroke-dasharray={`${topArcLength} ${circumference}`}
-                      stroke-dashoffset={String(topArcLength / 2)}
-                      transform="rotate(-90 117 117)"
-                    />
-                    <text
-                      data-quota-count={parsedTop ? 'true' : undefined}
-                      data-count-value={parsedTop ? parsedTop.numericValue : undefined}
-                      data-count-decimals={parsedTop ? parsedTop.decimalPlaces : undefined}
-                      data-count-prefix={parsedTop ? parsedTop.prefix : undefined}
-                      data-count-suffix={parsedTop ? parsedTop.suffix : undefined}
-                      x={topLabel.x}
-                      y={topLabel.y}
-                      text-anchor="middle"
-                      dominant-baseline="middle"
-                      class="font-body text-[13px] font-bold leading-none fill-bleu-abysse md:text-body-sm"
-                    >
-                      {quota.top}
-                    </text>
-                    <text
-                      data-quota-count={parsedBottom ? 'true' : undefined}
-                      data-count-value={parsedBottom ? parsedBottom.numericValue : undefined}
-                      data-count-decimals={parsedBottom ? parsedBottom.decimalPlaces : undefined}
-                      data-count-prefix={parsedBottom ? parsedBottom.prefix : undefined}
-                      data-count-suffix={parsedBottom ? parsedBottom.suffix : undefined}
-                      x={bottomLabel.x}
-                      y={bottomLabel.y}
-                      text-anchor="middle"
-                      dominant-baseline="middle"
-                      class="font-body text-[13px] font-bold leading-none fill-white md:text-body-sm"
-                    >
-                      {quota.bottom}
-                    </text>
-                  </svg>
-                  <div data-quota-donut-center class="absolute inset-0 flex flex-col items-center justify-center">
-                    <span
-                      data-quota-count={parsedTotal ? 'true' : undefined}
-                      data-count-value={parsedTotal ? parsedTotal.numericValue : undefined}
-                      data-count-decimals={parsedTotal ? parsedTotal.decimalPlaces : undefined}
-                      data-count-prefix={parsedTotal ? parsedTotal.prefix : undefined}
-                      data-count-suffix={parsedTotal ? parsedTotal.suffix : undefined}
-                      class="whitespace-nowrap font-heading text-[34px] font-semibold leading-none text-white md:text-heading-2xl"
-                    >
-                      {quota.total}
-                    </span>
-                    <span class="mt-2 font-body text-body-base font-normal leading-none text-white">
-                      {quota.year}
-                    </span>
-                  </div>
-                </div>
-              );
-            })
-          }
-        </div>
-        <div class="mt-[76px] max-w-[710px]">
+        <div class="mt-20 max-w-[710px]">
           <ExpertisesSectionHeader
-          title="Une exigence de durabilité certifiée"
-          titleClass="font-heading text-heading-lg font-semibold text-white"
-          dividerClass="mt-[17px] h-px w-full bg-white/40"
-          titleAnim="1"
-        />
-        <p
-          data-anim="1"
-          class="mt-[21px] max-w-[543px] font-body text-body-sm font-normal leading-[1.4] text-white md:text-body-base"
-        >
-            Notre stratégie repose sur la sélectivité des espèces et le respect
-            rigoureux des quotas et des saisons. Cet engagement est validé par
-            des certifications internationales de référence :
-          </p>
+            title="Une puissance de pêche hauturière et australe"
+            titleClass="font-heading text-heading-lg font-semibold text-white"
+            dividerClass="mt-[17px] h-px w-full bg-white/40"
+            titleAnim="1"
+          />
           <div
-            class="mt-[42px] grid gap-y-8 md:grid-cols-[315px_338px] md:gap-x-[52px] md:gap-y-0"
+            class="mt-[33px] grid gap-10 md:grid-cols-[326px_328px] md:gap-[56px]"
           >
-            <div class="grid items-center gap-x-4 md:grid-cols-[109px_1fr]">
-              <div
-                class="flex h-[146px] items-center justify-center md:justify-start"
-              >
-                <img
-                  src="/icons/espadon.svg"
-                  alt="Logo de certification MSC"
-                  class="h-[146px] w-[109px] object-contain"
-                />
-              </div>
-              <div
+            <div class="flex flex-col gap-[18px]">
+              <p
                 data-anim="1"
-                class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
+                class="font-body text-body-base font-bold leading-[1.4] text-white"
               >
-                {certificationLeftColumn.map((item) => <p>{item}</p>)}
+                {fishingFleetStats[0].location}
+              </p>
+              <ExpertisesStatGroupList
+                items={fishingFleetStats[0].items}
+                groupSpacingClass="space-y-0"
+                itemsWrapperClass="space-y-[18px]"
+                dividerClass="pb-3"
+                rowClass="flex items-end justify-between gap-6"
+                valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
+                labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                valueAnim="4"
+                labelAnim="1"
+              />
+            </div>
+            <div class="pt-0 md:pt-[40px]">
+              <ExpertisesStatGroupList
+                items={fishingCatchStats}
+                groupSpacingClass="space-y-0"
+                itemsWrapperClass="space-y-[18px]"
+                dividerClass="pb-3"
+                rowClass="flex items-end justify-between gap-6"
+                valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
+                labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                valueAnim="4"
+                labelAnim="1"
+              />
+            </div>
+          </div>
+        </div>
+        <div class="mt-[75px] max-w-[710px]">
+          <ExpertisesSectionHeader
+            title="Un modèle de collecte artisanale et de mareyage"
+            titleClass="font-heading text-heading-lg font-semibold text-white"
+            dividerClass="mt-[17px] h-px w-full bg-white/40"
+            titleAnim="1"
+          />
+          <div
+            class="mt-[45px] grid gap-8 lg:grid-cols-[326px_330px] lg:gap-[50px]"
+          >
+            <div
+              class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
+            >
+              <p
+                data-anim="1"
+                class="font-body text-body-base font-bold leading-[1.4] text-white"
+              >
+                À Madagascar
+              </p>
+              <div class="mt-[18px]">
+                <ExpertisesStatGroupList
+                  items={madagascarStats}
+                  groupSpacingClass="space-y-0"
+                  itemsWrapperClass="space-y-[18px]"
+                  dividerClass="pb-3"
+                  rowClass="flex items-end justify-between gap-4"
+                  valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
+                  labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                  valueAnim="4"
+                  labelAnim="1"
+                />
               </div>
             </div>
-            <div class="grid items-center gap-x-4 md:grid-cols-[146px_1fr]">
-              <div
-                class="flex h-[146px] items-center justify-center md:justify-start"
+            <div
+              class="relative h-[220px] overflow-hidden rounded-[5px] border border-white/15 bg-white/10 shadow-[0_18px_44px_rgba(0,0,0,0.22)] md:h-[247px]"
+            >
+              <Image
+                src={expertisesMadagascarImage}
+                alt="Collecte artisanale à Madagascar"
+                class="h-full w-full object-cover"
+                widths={[660, 990]}
+                sizes="330px"
+              /><div
+                class="absolute inset-0 bg-[linear-gradient(180deg,rgba(4,24,38,0.02)_0%,rgba(4,20,35,0.14)_56%,rgba(5,20,34,0.38)_100%)]"
               >
-                <img
-                  src="/icons/lagine.svg"
-                  alt="Logo Ecolabel pêche durable"
-                  class="h-[146px] w-[146px] object-contain"
+              </div>
+            </div>
+          </div>
+          <div
+            class="mt-[50px] grid gap-8 lg:grid-cols-[328px_330px] lg:gap-[49px]"
+          >
+            <div
+              class="rounded-[5px] border border-white/20 bg-white/5 px-0 py-0 lg:border-0 lg:bg-transparent"
+            >
+              <p
+                data-anim="1"
+                class="font-body text-body-base font-bold leading-[1.4] text-white"
+              >
+                À Boulogne-sur-Mer
+              </p>
+              <div class="mt-[18px]">
+                <ExpertisesStatGroupList
+                  items={boulogneStats}
+                  groupSpacingClass="space-y-0"
+                  itemsWrapperClass="space-y-[18px]"
+                  dividerClass="pb-3"
+                  rowClass="flex items-end justify-between gap-4"
+                  valueClass="font-display text-display-lg font-black uppercase leading-[44.5px] text-white"
+                  labelClass="w-[150px] text-right font-body text-body-sm font-normal leading-[1.4] text-white md:w-[181px] md:text-body-base"
+                  valueAnim="4"
+                  labelAnim="1"
                 />
               </div>
-              <div
-                data-anim="1"
-                class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
+            </div>
+            <div
+              class="relative h-[220px] overflow-hidden rounded-[5px] border border-white/15 bg-brume-alize/15 shadow-[0_18px_44px_rgba(0,0,0,0.18)] md:h-[247px]"
+            >
+              <Image
+                src={expertisesBoulogneImage}
+                alt="Produits de la mer préparés à Boulogne-sur-Mer"
+                class="h-full w-full object-cover object-[70%_center]"
+                widths={[660, 990]}
+                sizes="330px"
+              /><div
+                class="absolute inset-0 bg-[linear-gradient(90deg,rgba(13,28,40,0.34)_0%,rgba(13,28,40,0.1)_34%,rgba(13,28,40,0.04)_100%)]"
               >
-                {certificationRightColumn.map((item) => <p>{item}</p>)}
               </div>
+            </div>
+          </div>
+          <p
+            data-anim="1"
+            class="mt-[74px] font-heading text-heading-lg font-semibold text-white"
+          >
+            Reunimer sur le marché de la pêche à la légine dans les TAAF
+          </p>
+          <div class="mt-[33px] flex flex-wrap gap-8 pl-0 md:gap-[49px]">
+            {
+              fishingQuotas.map((quota) => {
+                const parsedTop = parseStatValue(quota.top)
+                const parsedBottom = parseStatValue(quota.bottom)
+                const parsedTotal = parseStatValue(quota.total)
+                const center = 117
+                const radius = 100
+                const labelRadius = radius
+                const circumference = 2 * Math.PI * radius
+                const topShare = Number.parseFloat(quota.top) / 100
+                const topArcLength = circumference * topShare
+                const topArcAngle = 360 * topShare
+                const polarToCartesian = (angle: number) => {
+                  const radians = (angle - 90) * (Math.PI / 180)
+                  return {
+                    x: center + labelRadius * Math.cos(radians),
+                    y: center + labelRadius * Math.sin(radians),
+                  }
+                }
+                const topArcEndAngle = topArcAngle / 2
+                const topLabel = polarToCartesian(topArcEndAngle / 2)
+                const bottomLabel = polarToCartesian(180)
+
+                return (
+                  <div
+                    data-quota-donut
+                    class="relative h-[190px] w-[190px] md:h-[234px] md:w-[234px]"
+                  >
+                    <svg viewBox="0 0 234 234" class="h-full w-full">
+                      <circle
+                        cx="117"
+                        cy="117"
+                        r={radius}
+                        fill="none"
+                        stroke="#A34C26"
+                        stroke-width="28"
+                      />
+                      <circle
+                        data-quota-donut-arc
+                        cx="117"
+                        cy="117"
+                        r={radius}
+                        fill="none"
+                        stroke="#fff"
+                        stroke-width="28"
+                        stroke-dasharray={`${topArcLength} ${circumference}`}
+                        stroke-dashoffset={String(topArcLength / 2)}
+                        transform="rotate(-90 117 117)"
+                      />
+                      <text
+                        data-quota-count={parsedTop ? "true" : undefined}
+                        data-count-value={
+                          parsedTop ? parsedTop.numericValue : undefined
+                        }
+                        data-count-decimals={
+                          parsedTop ? parsedTop.decimalPlaces : undefined
+                        }
+                        data-count-prefix={
+                          parsedTop ? parsedTop.prefix : undefined
+                        }
+                        data-count-suffix={
+                          parsedTop ? parsedTop.suffix : undefined
+                        }
+                        x={topLabel.x}
+                        y={topLabel.y}
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                        class="font-body text-[13px] font-bold leading-none fill-bleu-abysse md:text-body-sm"
+                      >
+                        {quota.top}
+                      </text>
+                      <text
+                        data-quota-count={parsedBottom ? "true" : undefined}
+                        data-count-value={
+                          parsedBottom ? parsedBottom.numericValue : undefined
+                        }
+                        data-count-decimals={
+                          parsedBottom ? parsedBottom.decimalPlaces : undefined
+                        }
+                        data-count-prefix={
+                          parsedBottom ? parsedBottom.prefix : undefined
+                        }
+                        data-count-suffix={
+                          parsedBottom ? parsedBottom.suffix : undefined
+                        }
+                        x={bottomLabel.x}
+                        y={bottomLabel.y}
+                        text-anchor="middle"
+                        dominant-baseline="middle"
+                        class="font-body text-[13px] font-bold leading-none fill-white md:text-body-sm"
+                      >
+                        {quota.bottom}
+                      </text>
+                    </svg>
+                    <div
+                      data-quota-donut-center
+                      class="absolute inset-0 flex flex-col items-center justify-center"
+                    >
+                      <span
+                        data-quota-count={parsedTotal ? "true" : undefined}
+                        data-count-value={
+                          parsedTotal ? parsedTotal.numericValue : undefined
+                        }
+                        data-count-decimals={
+                          parsedTotal ? parsedTotal.decimalPlaces : undefined
+                        }
+                        data-count-prefix={
+                          parsedTotal ? parsedTotal.prefix : undefined
+                        }
+                        data-count-suffix={
+                          parsedTotal ? parsedTotal.suffix : undefined
+                        }
+                        class="whitespace-nowrap font-heading text-[34px] font-semibold leading-none text-white md:text-heading-2xl"
+                      >
+                        {quota.total}
+                      </span>
+                      <span class="mt-2 font-body text-body-base font-normal leading-none text-white">
+                        {quota.year}
+                      </span>
+                    </div>
+                  </div>
+                )
+              })
+            }
+          </div>
+          <div class="mt-[76px] max-w-[710px]">
+            <ExpertisesSectionHeader
+              title="Une exigence de durabilité certifiée"
+              titleClass="font-heading text-heading-lg font-semibold text-white"
+              dividerClass="mt-[17px] h-px w-full bg-white/40"
+              titleAnim="1"
+            />
+            <p
+              data-anim="1"
+              class="mt-[21px] max-w-[543px] font-body text-body-sm font-normal leading-[1.4] text-white md:text-body-base"
+            >
+              Notre stratégie repose sur la sélectivité des espèces et le
+              respect rigoureux des quotas et des saisons. Cet engagement est
+              validé par des certifications internationales de référence :
+            </p>
+            <div
+              class="mt-[42px] grid gap-y-8 md:grid-cols-[315px_338px] md:gap-x-[52px] md:gap-y-0"
+            >
+              <div class="grid items-center gap-x-4 md:grid-cols-[109px_1fr]">
+                <div
+                  class="flex h-[146px] items-center justify-center md:justify-start"
+                >
+                  <img
+                    src="/icons/espadon.svg"
+                    alt="Logo de certification MSC"
+                    class="h-[146px] w-[109px] object-contain"
+                  />
+                </div>
+                <div
+                  data-anim="1"
+                  class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
+                >
+                  {certificationLeftColumn.map((item) => <p>{item}</p>)}
+                </div>
               </div>
+              <div class="grid items-center gap-x-4 md:grid-cols-[146px_1fr]">
+                <div
+                  class="flex h-[146px] items-center justify-center md:justify-start"
+                >
+                  <img
+                    src="/icons/lagine.svg"
+                    alt="Logo Ecolabel pêche durable"
+                    class="h-[146px] w-[146px] object-contain"
+                  />
+                </div>
+                <div
+                  data-anim="1"
+                  class="font-body text-body-sm font-normal leading-[1.4] text-white md:pt-[6px] md:text-body-base"
+                >
+                  {certificationRightColumn.map((item) => <p>{item}</p>)}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

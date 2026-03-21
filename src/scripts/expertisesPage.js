@@ -6,51 +6,62 @@ import {
   isReducedMotionPreferred,
   setAnimationInitial,
   toAnimation,
-} from './animation.js';
+} from "./animation.js"
 
 /** Breakpoint: skip heavy scroll-driven parallax on mobile for performance. */
-const isDesktop = () => window.innerWidth >= 768;
+const isDesktop = () => window.innerWidth >= 768
 
 function formatCountValue(value, decimals = 0) {
-  return decimals > 0 ? value.toFixed(decimals).replace('.', ',') : Math.round(value).toString();
+  return decimals > 0
+    ? value.toFixed(decimals).replace(".", ",")
+    : Math.round(value).toString()
 }
 
 function animateCountUp(targets) {
-  const elements = Array.isArray(targets) ? targets : Array.from(targets);
-  const counter = { value: 0 };
+  const elements = Array.isArray(targets) ? targets : Array.from(targets)
+  const counter = {value: 0}
 
   return gsap.to(counter, {
     value: 1,
     duration: 1.7,
-    ease: 'expo.out',
+    ease: "expo.out",
     stagger: 0.1,
     onUpdate: function onUpdate() {
       elements.forEach((element, index) => {
-        const targetValue = Number(element.dataset.countValue || '0');
-        const decimals = Number(element.dataset.countDecimals || '0');
-        const staggerDelay = index * 0.1;
-        const progress = Math.min(Math.max((this.progress() - staggerDelay / 1.4) / (1 - staggerDelay / 1.4), 0), 1);
-        const rawValue = targetValue * progress;
-        const currentValue = decimals > 0 ? Number(rawValue.toFixed(decimals)) : Math.round(rawValue);
+        const targetValue = Number(element.dataset.countValue || "0")
+        const decimals = Number(element.dataset.countDecimals || "0")
+        const staggerDelay = index * 0.1
+        const progress = Math.min(
+          Math.max(
+            (this.progress() - staggerDelay / 1.4) / (1 - staggerDelay / 1.4),
+            0,
+          ),
+          1,
+        )
+        const rawValue = targetValue * progress
+        const currentValue =
+          decimals > 0
+            ? Number(rawValue.toFixed(decimals))
+            : Math.round(rawValue)
 
-        element.textContent = `${element.dataset.countPrefix || ''}${formatCountValue(currentValue, decimals)}${element.dataset.countSuffix || ''}`;
-      });
+        element.textContent = `${element.dataset.countPrefix || ""}${formatCountValue(currentValue, decimals)}${element.dataset.countSuffix || ""}`
+      })
     },
-  });
+  })
 }
 
 function initCountsOnView(targets, options = {}) {
   const {
-    start = 'top 85%',
+    start = "top 85%",
     triggerResolver = (element) => element,
     entranceAnimation,
-  } = options;
+  } = options
 
   targets.forEach((element) => {
-    const trigger = triggerResolver(element);
-    if (!trigger || element.dataset.countInitialized === 'true') return;
+    const trigger = triggerResolver(element)
+    if (!trigger || element.dataset.countInitialized === "true") return
 
-    element.dataset.countInitialized = 'true';
+    element.dataset.countInitialized = "true"
 
     ScrollTrigger.create({
       trigger,
@@ -58,13 +69,13 @@ function initCountsOnView(targets, options = {}) {
       once: true,
       onEnter: () => {
         if (entranceAnimation) {
-          entranceAnimation(element, trigger);
+          entranceAnimation(element, trigger)
         }
 
-        animateCountUp([element]);
+        animateCountUp([element])
       },
-    });
-  });
+    })
+  })
 }
 
 /**
@@ -72,26 +83,29 @@ function initCountsOnView(targets, options = {}) {
  * drifts upward as the user scrolls, creating a diving effect.
  */
 function initHeroParallax() {
-  if (!isDesktop() || isReducedMotionPreferred()) return;
+  if (!isDesktop() || isReducedMotionPreferred()) return
 
-  const heroSection = document.querySelector('[data-hero-parallax-bg]')?.closest('section');
-  const img = heroSection?.querySelector('[data-hero-parallax-bg]');
-  if (!heroSection || !img) return;
+  const heroSection = document
+    .querySelector("[data-hero-parallax-bg]")
+    ?.closest("section")
+  const img = heroSection?.querySelector("[data-hero-parallax-bg]")
+  if (!heroSection || !img) return
 
-  gsap.fromTo(img,
-    { yPercent: 0 },
+  gsap.fromTo(
+    img,
+    {yPercent: 0},
     {
       yPercent: -12,
-      ease: 'none',
+      ease: "none",
       scrollTrigger: {
         trigger: heroSection,
-        start: 'top top',
-        end: 'bottom top',
+        start: "top top",
+        end: "bottom top",
         scrub: 1.2,
         fastScrollEnd: true,
       },
     },
-  );
+  )
 }
 
 /**
@@ -99,26 +113,29 @@ function initHeroParallax() {
  * slowly shifts upward as the user scrolls through the fishing content.
  */
 function initSeaParallax() {
-  if (!isDesktop() || isReducedMotionPreferred()) return;
+  if (!isDesktop() || isReducedMotionPreferred()) return
 
-  const wrapper = document.querySelector('[data-sea-parallax-bg]')?.closest('.relative');
-  const img = wrapper?.querySelector('[data-sea-parallax-bg]');
-  if (!wrapper || !img) return;
+  const wrapper = document
+    .querySelector("[data-sea-parallax-bg]")
+    ?.closest(".relative")
+  const img = wrapper?.querySelector("[data-sea-parallax-bg]")
+  if (!wrapper || !img) return
 
-  gsap.fromTo(img,
-    { yPercent: 0 },
+  gsap.fromTo(
+    img,
+    {yPercent: 0},
     {
       yPercent: -20,
-      ease: 'none',
+      ease: "none",
       scrollTrigger: {
         trigger: wrapper,
-        start: 'top bottom',
-        end: 'bottom top',
+        start: "top bottom",
+        end: "bottom top",
         scrub: 1.2,
         fastScrollEnd: true,
       },
     },
-  );
+  )
 }
 
 /**
@@ -127,88 +144,118 @@ function initSeaParallax() {
  * ease: "none" keeps movement locked 1:1 with scroll.
  */
 function initSmokeParallax() {
-  if (!isDesktop() || isReducedMotionPreferred()) return;
+  if (!isDesktop() || isReducedMotionPreferred()) return
 
-  const smokeLayers = document.querySelectorAll('[data-smoke-parallax]');
-  if (!smokeLayers.length) return;
+  const smokeLayers = document.querySelectorAll("[data-smoke-parallax]")
+  if (!smokeLayers.length) return
 
   smokeLayers.forEach((img) => {
-    const isTop = img.dataset.smokeParallax === 'top';
-    const wrapper = img.closest('.overflow-hidden');
+    const isTop = img.dataset.smokeParallax === "top"
+    const wrapper = img.closest(".overflow-hidden")
 
-    gsap.fromTo(img,
-      { yPercent: isTop ? 8 : 15 },
+    gsap.fromTo(
+      img,
+      {yPercent: isTop ? 8 : 15},
       {
         yPercent: isTop ? -15 : -30,
-        ease: 'none',
+        ease: "none",
         scrollTrigger: {
           trigger: wrapper || img,
-          start: 'top bottom',
-          end: 'bottom top',
+          start: "top bottom",
+          end: "bottom top",
           scrub: true,
           fastScrollEnd: true,
         },
       },
-    );
-  });
+    )
+  })
 }
 
 function initFishingSectionAnimations() {
-  const section = document.getElementById('peche-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("peche-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
-  const countItems = Array.from(section.querySelectorAll('[data-anim="4"][data-count-value]'));
-  const statLines = Array.from(section.querySelectorAll('[data-stat-line]'));
-  const quotaDonuts = Array.from(section.querySelectorAll('[data-quota-donut]'));
-  const quotaArcs = Array.from(section.querySelectorAll('[data-quota-donut-arc]'));
-  const quotaCenters = Array.from(section.querySelectorAll('[data-quota-donut-center]'));
-  const quotaCountItems = Array.from(section.querySelectorAll('[data-quota-count="true"][data-count-value]'));
+  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'))
+  const countItems = Array.from(
+    section.querySelectorAll('[data-anim="4"][data-count-value]'),
+  )
+  const statLines = Array.from(section.querySelectorAll("[data-stat-line]"))
+  const quotaDonuts = Array.from(section.querySelectorAll("[data-quota-donut]"))
+  const quotaArcs = Array.from(
+    section.querySelectorAll("[data-quota-donut-arc]"),
+  )
+  const quotaCenters = Array.from(
+    section.querySelectorAll("[data-quota-donut-center]"),
+  )
+  const quotaCountItems = Array.from(
+    section.querySelectorAll('[data-quota-count="true"][data-count-value]'),
+  )
 
-  textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z));
+  textItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z),
+  )
   countItems.forEach((item) => {
-    const decimals = Number(item.dataset.countDecimals || '0');
-    item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
-    gsap.set(item, { autoAlpha: 0, y: 10 });
-  });
-  statLines.forEach((line) => gsap.set(line, { scaleX: 0, transformOrigin: 'left center' }));
-  quotaDonuts.forEach((donut) => gsap.set(donut, { autoAlpha: 0, y: 24 }));
+    const decimals = Number(item.dataset.countDecimals || "0")
+    item.textContent = `${item.dataset.countPrefix || ""}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ""}`
+    gsap.set(item, {autoAlpha: 0, y: 10})
+  })
+  statLines.forEach((line) =>
+    gsap.set(line, {scaleX: 0, transformOrigin: "left center"}),
+  )
+  quotaDonuts.forEach((donut) => gsap.set(donut, {autoAlpha: 0, y: 24}))
   quotaArcs.forEach((arc) => {
-    const dashArray = String(arc.getAttribute('stroke-dasharray') || '0 0').split(' ');
-    const visibleLength = Number(dashArray[0] || '0');
-    const totalLength = Number(dashArray[1] || dashArray[0] || '0');
+    const dashArray = String(
+      arc.getAttribute("stroke-dasharray") || "0 0",
+    ).split(" ")
+    const visibleLength = Number(dashArray[0] || "0")
+    const totalLength = Number(dashArray[1] || dashArray[0] || "0")
 
-    arc.dataset.arcVisibleLength = String(visibleLength);
-    arc.dataset.arcTotalLength = String(totalLength);
+    arc.dataset.arcVisibleLength = String(visibleLength)
+    arc.dataset.arcTotalLength = String(totalLength)
 
-    gsap.set(arc, { strokeDasharray: `0 ${totalLength}` });
-  });
+    gsap.set(arc, {strokeDasharray: `0 ${totalLength}`})
+  })
   quotaCenters.forEach((center) => {
-    gsap.set(center, { autoAlpha: 0, scale: 0.88, transformOrigin: 'center center' });
-  });
+    gsap.set(center, {
+      autoAlpha: 0,
+      scale: 0.88,
+      transformOrigin: "center center",
+    })
+  })
   quotaCountItems.forEach((item) => {
-    const decimals = Number(item.dataset.countDecimals || '0');
-    item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
-  });
+    const decimals = Number(item.dataset.countDecimals || "0")
+    item.textContent = `${item.dataset.countPrefix || ""}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ""}`
+  })
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 72%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 72%"})
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }));
+    timeline.add(
+      toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, {stagger: 0.08}),
+    )
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.85, ease: 'power4.out', stagger: 0.07 }, '<');
+    timeline.to(
+      statLines,
+      {scaleX: 1, duration: 0.85, ease: "power4.out", stagger: 0.07},
+      "<",
+    )
   }
 
   if (quotaDonuts.length) {
     timeline.to(
       quotaDonuts,
-      { autoAlpha: 1, y: 0, duration: 0.75, ease: 'power3.out', stagger: 0.13 },
-      '-=0.2',
-    );
+      {autoAlpha: 1, y: 0, duration: 0.75, ease: "power3.out", stagger: 0.13},
+      "-=0.2",
+    )
   }
 
   if (quotaArcs.length) {
@@ -216,121 +263,147 @@ function initFishingSectionAnimations() {
       quotaArcs,
       {
         duration: 1.2,
-        ease: 'power4.out',
+        ease: "power4.out",
         stagger: 0.13,
-        strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
+        strokeDasharray: (_, arc) =>
+          `${arc.dataset.arcVisibleLength || "0"} ${arc.dataset.arcTotalLength || "0"}`,
       },
-      '<',
-    );
+      "<",
+    )
   }
 
   if (quotaCenters.length) {
     timeline.to(
       quotaCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.13 },
-      '-=0.5',
-    );
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.65,
+        ease: "power3.out",
+        stagger: 0.13,
+      },
+      "-=0.5",
+    )
   }
 
   initCountsOnView(countItems, {
-    triggerResolver: (element) => element.closest('.flex') || element,
+    triggerResolver: (element) => element.closest(".flex") || element,
     entranceAnimation: (element) => {
-      gsap.to(element, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out' });
+      gsap.to(element, {autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out"})
     },
-  });
+  })
 
   initCountsOnView(quotaCountItems, {
-    triggerResolver: (element) => element.closest('[data-quota-donut]') || element,
-  });
-
+    triggerResolver: (element) =>
+      element.closest("[data-quota-donut]") || element,
+  })
 }
 
 function initRhParallax() {
-  const section = document.getElementById('rh-section');
-  if (!section || isReducedMotionPreferred()) return;
+  const section = document.getElementById("rh-section")
+  if (!section || isReducedMotionPreferred()) return
 
-  const img = section.querySelector('[data-rh-parallax-img]');
-  if (!img) return;
+  const img = section.querySelector("[data-rh-parallax-img]")
+  if (!img) return
 
-  gsap.set(img, { yPercent: 0 });
+  gsap.set(img, {yPercent: 0})
 
   ScrollTrigger.create({
     trigger: section,
-    start: 'top bottom',
-    end: 'bottom top',
+    start: "top bottom",
+    end: "bottom top",
     scrub: true,
     onUpdate: (self) => {
-      const yShift = self.progress * -23;
-      gsap.set(img, { yPercent: yShift });
+      const yShift = self.progress * -23
+      gsap.set(img, {yPercent: yShift})
     },
-  });
+  })
 }
 
 function initSupportParallax() {
-  const section = document.getElementById('support-section');
-  if (!section || isReducedMotionPreferred()) return;
+  const section = document.getElementById("support-section")
+  if (!section || isReducedMotionPreferred()) return
 
-  const img = section.querySelector('[data-support-parallax-img]');
-  if (!img) return;
+  const img = section.querySelector("[data-support-parallax-img]")
+  if (!img) return
 
-  gsap.set(img, { yPercent: 0 });
+  gsap.set(img, {yPercent: 0})
 
   ScrollTrigger.create({
     trigger: section,
-    start: 'top bottom',
-    end: 'bottom top',
+    start: "top bottom",
+    end: "bottom top",
     scrub: true,
     onUpdate: (self) => {
-      const yShift = self.progress * -23;
-      gsap.set(img, { yPercent: yShift });
+      const yShift = self.progress * -23
+      gsap.set(img, {yPercent: yShift})
     },
-  });
+  })
 }
 
 function initRhSectionAnimations() {
-  const section = document.getElementById('rh-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("rh-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
-  const donuts = Array.from(section.querySelectorAll('[data-rh-donut]'));
-  const arcs = Array.from(section.querySelectorAll('[data-rh-donut-arc]'));
-  const donutCenters = Array.from(section.querySelectorAll('[data-rh-donut-center]'));
-  const countItems = Array.from(section.querySelectorAll('[data-rh-count="true"][data-count-value]'));
+  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'))
+  const donuts = Array.from(section.querySelectorAll("[data-rh-donut]"))
+  const arcs = Array.from(section.querySelectorAll("[data-rh-donut-arc]"))
+  const donutCenters = Array.from(
+    section.querySelectorAll("[data-rh-donut-center]"),
+  )
+  const countItems = Array.from(
+    section.querySelectorAll('[data-rh-count="true"][data-count-value]'),
+  )
 
-  textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z));
-  donuts.forEach((donut) => gsap.set(donut, { autoAlpha: 0, y: 24 }));
+  textItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z),
+  )
+  donuts.forEach((donut) => gsap.set(donut, {autoAlpha: 0, y: 24}))
   arcs.forEach((arc) => {
-    const dashArray = String(arc.getAttribute('stroke-dasharray') || '0 0').split(' ');
-    const visibleLength = Number(dashArray[0] || '0');
-    const totalLength = Number(dashArray[1] || dashArray[0] || '0');
+    const dashArray = String(
+      arc.getAttribute("stroke-dasharray") || "0 0",
+    ).split(" ")
+    const visibleLength = Number(dashArray[0] || "0")
+    const totalLength = Number(dashArray[1] || dashArray[0] || "0")
 
-    arc.dataset.arcVisibleLength = String(visibleLength);
-    arc.dataset.arcTotalLength = String(totalLength);
+    arc.dataset.arcVisibleLength = String(visibleLength)
+    arc.dataset.arcTotalLength = String(totalLength)
 
-    gsap.set(arc, { strokeDasharray: `0 ${totalLength}` });
-  });
+    gsap.set(arc, {strokeDasharray: `0 ${totalLength}`})
+  })
   donutCenters.forEach((center) => {
-    gsap.set(center, { autoAlpha: 0, scale: 0.88, transformOrigin: 'center center' });
-  });
+    gsap.set(center, {
+      autoAlpha: 0,
+      scale: 0.88,
+      transformOrigin: "center center",
+    })
+  })
   countItems.forEach((item) => {
-    const decimals = Number(item.dataset.countDecimals || '0');
-    item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
-  });
+    const decimals = Number(item.dataset.countDecimals || "0")
+    item.textContent = `${item.dataset.countPrefix || ""}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ""}`
+  })
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 72%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 72%"})
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }));
+    timeline.add(
+      toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, {stagger: 0.08}),
+    )
   }
 
   if (donuts.length) {
     timeline.to(
       donuts,
-      { autoAlpha: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.14 },
-      '-=0.2',
-    );
+      {autoAlpha: 1, y: 0, duration: 0.55, ease: "power2.out", stagger: 0.14},
+      "-=0.2",
+    )
   }
 
   if (arcs.length) {
@@ -338,113 +411,126 @@ function initRhSectionAnimations() {
       arcs,
       {
         duration: 0.9,
-        ease: 'power2.out',
+        ease: "power2.out",
         stagger: 0.14,
-        strokeDasharray: (_, arc) => `${arc.dataset.arcVisibleLength || '0'} ${arc.dataset.arcTotalLength || '0'}`,
+        strokeDasharray: (_, arc) =>
+          `${arc.dataset.arcVisibleLength || "0"} ${arc.dataset.arcTotalLength || "0"}`,
       },
-      '<',
-    );
+      "<",
+    )
   }
 
   if (donutCenters.length) {
     timeline.to(
       donutCenters,
-      { autoAlpha: 1, scale: 1, duration: 0.45, ease: 'power2.out', stagger: 0.14 },
-      '-=0.45',
-    );
+      {
+        autoAlpha: 1,
+        scale: 1,
+        duration: 0.45,
+        ease: "power2.out",
+        stagger: 0.14,
+      },
+      "-=0.45",
+    )
   }
 
   if (countItems.length) {
-    timeline.add(animateCountUp(countItems), '<');
+    timeline.add(animateCountUp(countItems), "<")
   }
 }
 
-
 function initSupportSectionAnimations() {
-  const section = document.getElementById('support-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("support-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
-  const countItems = Array.from(section.querySelectorAll('[data-anim="4"][data-count-value]'));
-  const statLines = Array.from(section.querySelectorAll('[data-stat-line]'));
+  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'))
+  const countItems = Array.from(
+    section.querySelectorAll('[data-anim="4"][data-count-value]'),
+  )
+  const statLines = Array.from(section.querySelectorAll("[data-stat-line]"))
 
-  textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z));
+  textItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z),
+  )
   countItems.forEach((item) => {
-    const decimals = Number(item.dataset.countDecimals || '0');
-    item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
-    gsap.set(item, { autoAlpha: 0, y: 10 });
-  });
-  statLines.forEach((line) => gsap.set(line, { scaleX: 0, transformOrigin: 'left center' }));
+    const decimals = Number(item.dataset.countDecimals || "0")
+    item.textContent = `${item.dataset.countPrefix || ""}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ""}`
+    gsap.set(item, {autoAlpha: 0, y: 10})
+  })
+  statLines.forEach((line) =>
+    gsap.set(line, {scaleX: 0, transformOrigin: "left center"}),
+  )
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 72%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 72%"})
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }));
+    timeline.add(
+      toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, {stagger: 0.08}),
+    )
   }
 
   if (countItems.length) {
-    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.45, ease: 'power2.out', stagger: 0.1 }, '-=0.35');
-    timeline.add(animateCountUp(countItems), '<');
+    timeline.to(
+      countItems,
+      {autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.1},
+      "-=0.35",
+    )
+    timeline.add(animateCountUp(countItems), "<")
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.6, ease: 'power2.out', stagger: 0.08 }, '<');
+    timeline.to(
+      statLines,
+      {scaleX: 1, duration: 0.6, ease: "power2.out", stagger: 0.08},
+      "<",
+    )
   }
 }
 
 function initBrandsSectionAnimations() {
-  const section = document.getElementById('brands-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("brands-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const cards = Array.from(section.querySelectorAll('[data-brand-card]'));
-  if (!cards.length) return;
+  const cards = Array.from(section.querySelectorAll("[data-brand-card]"))
+  if (!cards.length) return
 
-  cards.forEach((card) => setAnimationInitial(card, ANIMATION_TYPES.FADE_RIGHT));
+  cards.forEach((card) => setAnimationInitial(card, ANIMATION_TYPES.FADE_RIGHT))
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
-  timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.16 }));
+  const timeline = createScrollTimeline({trigger: section, start: "top 75%"})
+  timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_RIGHT, {stagger: 0.16}))
 }
 
 /**
- * Fish & knife curtain animation:
- * The fish/knife images are static — they never move.
- * The sea background (extended from the fishing section) shows behind them.
- * A white mask (the leading edge of the next section) slides UP from fully
- * below the container to fully covering it as the user scrolls through.
- * Because the fish images are z-10 and the mask is z-0, the fish appear to
- * sink into the rising white background without moving themselves.
- * No pinning — this is a pure scroll-scrub transform animation.
+ * Fish & knife pin:
+ * The fish is pinned in the viewport while the transformation section
+ * (z-20) scrolls up over it (z-10). The next section's background
+ * naturally acts as the rising mask — no overlay needed.
  */
 function initFishCurtainAnimation() {
-  const wrapper = document.getElementById('fish-transition');
-  const curtain = document.getElementById('fish-white-curtain');
-  if (!wrapper || !curtain) return;
+  const pinTarget = document.getElementById("fish-pin-wrapper")
+  if (!pinTarget || isReducedMotionPreferred()) return
 
-  if (isReducedMotionPreferred()) {
-    // Skip immediately to fully covered for reduced-motion users.
-    gsap.set(curtain, { yPercent: 0 });
-    return;
-  }
-
-  gsap.fromTo(
-    curtain,
-    { yPercent: 100 },   // white starts fully below the container
-    {
-      yPercent: 0,       // white ends fully covering the container
-      ease: 'none',
-      scrollTrigger: {
-        trigger: wrapper,
-        start: 'top bottom',    // begins as wrapper enters from bottom
-        end: 'bottom center',   // completes when wrapper bottom hits mid-screen
-        scrub: 1.2,
-        fastScrollEnd: true,
-      },
-    },
-  );
+  ScrollTrigger.create({
+    trigger: pinTarget,
+    start: "center center",
+    end: "+=690",
+    pin: true,
+    pinSpacing: true,
+  })
 }
 
 /**
@@ -458,230 +544,326 @@ function initFishCurtainAnimation() {
  * 5. After the animation completes, the pin releases and normal scroll resumes.
  */
 function initPlateBackdropAnimation() {
-  const wrapper = document.getElementById('plate-pin-wrapper');
-  const backdrop = document.getElementById('plate-backdrop');
-  if (!wrapper || !backdrop || isReducedMotionPreferred()) return;
+  const wrapper = document.getElementById("plate-pin-wrapper")
+  const backdrop = document.getElementById("plate-backdrop")
+  if (!wrapper || !backdrop || isReducedMotionPreferred()) return
 
-  gsap.timeline({
-    scrollTrigger: {
-      trigger: wrapper,
-      start: 'center center',
-      end: '+=600',
-      pin: true,
-      anticipatePin: 1,
-      scrub: 1.5,
-    },
-  }).fromTo(
-    backdrop,
-    { clipPath: 'inset(50% 0 0 0)' },
-    { clipPath: 'inset(0% 0 0 0)', ease: 'none' },
-  );
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: wrapper,
+        start: "center center",
+        end: "+=600",
+        pin: true,
+        anticipatePin: 1,
+        scrub: 1.5,
+      },
+    })
+    .fromTo(
+      backdrop,
+      {clipPath: "inset(50% 0 0 0)"},
+      {clipPath: "inset(0% 0 0 0)", ease: "none"},
+    )
 }
 
 function initDistributionSectionAnimations() {
-  const section = document.getElementById('distribution-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("distribution-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const textItems = Array.from(section.querySelectorAll('[data-anim="2"]'));
-  const cards = Array.from(section.querySelectorAll('[data-distribution-card]'));
+  const textItems = Array.from(section.querySelectorAll('[data-anim="2"]'))
+  const cards = Array.from(section.querySelectorAll("[data-distribution-card]"))
 
-  textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT));
-  cards.forEach((card) => setAnimationInitial(card, ANIMATION_TYPES.FADE_UP));
+  textItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT),
+  )
+  cards.forEach((card) => setAnimationInitial(card, ANIMATION_TYPES.FADE_UP))
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 75%"})
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.12 }));
+    timeline.add(
+      toAnimation(textItems, ANIMATION_TYPES.FADE_LEFT, {stagger: 0.12}),
+    )
   }
 
   if (cards.length) {
-    timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.16 }), '-=0.25');
+    timeline.add(
+      toAnimation(cards, ANIMATION_TYPES.FADE_UP, {stagger: 0.16}),
+      "-=0.25",
+    )
   }
 }
 
 function initQualitySectionAnimations() {
-  const section = document.getElementById('quality-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("quality-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
-  const countItems = Array.from(section.querySelectorAll('[data-anim="4"][data-count-value]'));
-  const statLines = Array.from(section.querySelectorAll('[data-stat-line]'));
+  const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'))
+  const countItems = Array.from(
+    section.querySelectorAll('[data-anim="4"][data-count-value]'),
+  )
+  const statLines = Array.from(section.querySelectorAll("[data-stat-line]"))
 
-  textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z));
+  textItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z),
+  )
   countItems.forEach((item) => {
-    const decimals = Number(item.dataset.countDecimals || '0');
-    item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
-    gsap.set(item, { autoAlpha: 0, y: 10 });
-  });
-  statLines.forEach((line) => gsap.set(line, { scaleX: 0, transformOrigin: 'left center' }));
+    const decimals = Number(item.dataset.countDecimals || "0")
+    item.textContent = `${item.dataset.countPrefix || ""}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ""}`
+    gsap.set(item, {autoAlpha: 0, y: 10})
+  })
+  statLines.forEach((line) =>
+    gsap.set(line, {scaleX: 0, transformOrigin: "left center"}),
+  )
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 72%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 72%"})
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }));
+    timeline.add(
+      toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, {stagger: 0.08}),
+    )
   }
 
   if (countItems.length) {
-    timeline.to(countItems, { autoAlpha: 1, y: 0, duration: 0.5, ease: 'power3.out', stagger: 0.1 }, '-=0.3');
-    timeline.add(animateCountUp(countItems), '<');
+    timeline.to(
+      countItems,
+      {autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.1},
+      "-=0.3",
+    )
+    timeline.add(animateCountUp(countItems), "<")
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.65, ease: 'power3.out', stagger: 0.08 }, '<');
+    timeline.to(
+      statLines,
+      {scaleX: 1, duration: 0.65, ease: "power3.out", stagger: 0.08},
+      "<",
+    )
   }
 }
 
 function initTransformationSectionAnimations() {
-  const section = document.getElementById('transformation-section');
-  if (!section || isReducedMotionPreferred() || section.dataset.animInitialized === 'true') return;
+  const section = document.getElementById("transformation-section")
+  if (
+    !section ||
+    isReducedMotionPreferred() ||
+    section.dataset.animInitialized === "true"
+  )
+    return
 
-  section.dataset.animInitialized = 'true';
+  section.dataset.animInitialized = "true"
 
-  const topTextItems = Array.from(section.querySelectorAll('[data-transformation-top-text]'));
-  const topImage = section.querySelector('[data-transformation-top-image]');
-  const rightText = section.querySelector('[data-transformation-right-text]');
-  if (!topTextItems.length && !topImage && !rightText) return;
+  const topTextItems = Array.from(
+    section.querySelectorAll("[data-transformation-top-text]"),
+  )
+  const topImage = section.querySelector("[data-transformation-top-image]")
+  const rightText = section.querySelector("[data-transformation-right-text]")
+  if (!topTextItems.length && !topImage && !rightText) return
 
-  topTextItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT));
+  topTextItems.forEach((item) =>
+    setAnimationInitial(item, ANIMATION_TYPES.FADE_LEFT),
+  )
 
   if (topImage) {
-    setAnimationInitial(topImage, ANIMATION_TYPES.FADE_UP);
+    setAnimationInitial(topImage, ANIMATION_TYPES.FADE_UP)
   }
 
   if (rightText) {
-    setAnimationInitial(rightText, ANIMATION_TYPES.FADE_UP);
+    setAnimationInitial(rightText, ANIMATION_TYPES.FADE_UP)
   }
 
-  const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
+  const timeline = createScrollTimeline({trigger: section, start: "top 75%"})
 
   if (topTextItems.length) {
-    timeline.add(toAnimation(topTextItems, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.12 }));
+    timeline.add(
+      toAnimation(topTextItems, ANIMATION_TYPES.FADE_LEFT, {stagger: 0.12}),
+    )
   }
 
   if (topImage) {
-    timeline.add(toAnimation(topImage, ANIMATION_TYPES.FADE_UP), '-=0.2');
+    timeline.add(toAnimation(topImage, ANIMATION_TYPES.FADE_UP), "-=0.2")
   }
 
   if (rightText) {
-    timeline.add(toAnimation(rightText, ANIMATION_TYPES.FADE_UP), '-=0.15');
+    timeline.add(toAnimation(rightText, ANIMATION_TYPES.FADE_UP), "-=0.15")
   }
 }
 
+/**
+ * Sync the sticky tabs' top position with the navbar.
+ * When navbar is visible → tabs sit 50px below navbar bottom.
+ * When navbar is hidden → tabs sit at top of viewport.
+ */
+function initStickyTabsSync() {
+  const stickyTabs = document.getElementById("expertise-sticky-tabs")
+  const navbar = document.getElementById("navbar")
+  if (!stickyTabs || !navbar) return
+
+  const GAP = 50
+
+  const update = () => {
+    const navbarRect = navbar.getBoundingClientRect()
+    const navbarBottom = navbarRect.bottom
+    // When navbar is hidden (translated up), its bottom will be <= 0
+    const top = Math.max(0, navbarBottom + GAP)
+    stickyTabs.style.top = `${top}px`
+    // Expose scroll-margin for anchor sections: tabs top + tabs height
+    const scrollMt = top + stickyTabs.offsetHeight
+    document.documentElement.style.setProperty(
+      "--sticky-tabs-offset",
+      `${scrollMt}px`,
+    )
+  }
+
+  // Run on every frame via scroll + a persistent ticker for GSAP-driven navbar moves
+  gsap.ticker.add(update)
+  update()
+}
+
 export function initExpertisesPage() {
-  initHeroParallax();
-  initSeaParallax();
-  initSmokeParallax();
-  initFishCurtainAnimation();
-  initFishingSectionAnimations();
-  initTransformationSectionAnimations();
-  initQualitySectionAnimations();
-  initPlateBackdropAnimation();
-  initDistributionSectionAnimations();
-  initBrandsSectionAnimations();
-  initSupportParallax();
-  initSupportSectionAnimations();
-  initRhParallax();
-  initRhSectionAnimations();
+  initStickyTabsSync()
+  initHeroParallax()
+  initSeaParallax()
+  initSmokeParallax()
+  initFishCurtainAnimation()
+  initFishingSectionAnimations()
+  initTransformationSectionAnimations()
+  initQualitySectionAnimations()
+  initPlateBackdropAnimation()
+  initDistributionSectionAnimations()
+  initBrandsSectionAnimations()
+  initSupportParallax()
+  initSupportSectionAnimations()
+  initRhParallax()
+  initRhSectionAnimations()
 
-  const tabs = Array.from(document.querySelectorAll('[data-expertise-tab]'));
-  const sectionIds = ['peche', 'transformation', 'distribution', 'logistique', 'rh'];
+  const tabs = Array.from(document.querySelectorAll("[data-expertise-tab]"))
+  const sectionIds = [
+    "peche",
+    "transformation",
+    "distribution",
+    "logistique",
+    "rh",
+  ]
 
-  if (!tabs.length) return;
+  if (!tabs.length) return
 
-  const isMd = () => window.innerWidth >= 768;
+  const isMd = () => window.innerWidth >= 768
 
   const setActiveTab = (targetId) => {
     tabs.forEach((tab) => {
-      const isActive = tab.dataset.target === targetId;
-      tab.dataset.active = String(isActive);
-      tab.setAttribute('aria-current', isActive ? 'page' : 'false');
+      const isActive = tab.dataset.target === targetId
+      tab.dataset.active = String(isActive)
+      tab.setAttribute("aria-current", isActive ? "page" : "false")
 
       if (isMd()) {
         gsap.to(tab, {
           height: isActive ? 47 : 29,
-          paddingTop: isActive ? 15 : 7,
+          paddingBottom: isActive ? 15 : 7,
           duration: 0.3,
-          ease: 'power3.out',
+          ease: "power3.out",
           overwrite: true,
-        });
+        })
       } else {
-        tab.classList.toggle('md:h-[47px]', isActive);
-        tab.classList.toggle('md:pt-[15px]', isActive);
-        tab.classList.toggle('md:h-[29px]', !isActive);
-        tab.classList.toggle('md:pt-[7px]', !isActive);
+        tab.classList.toggle("md:h-[47px]", isActive)
+        tab.classList.toggle("md:pb-[15px]", isActive)
+        tab.classList.toggle("md:h-[29px]", !isActive)
+        tab.classList.toggle("md:pb-[7px]", !isActive)
       }
-    });
-  };
+    })
+  }
 
   tabs.forEach((tab) => {
-    if (tab.dataset.navInitialized === 'true') return;
-    tab.dataset.navInitialized = 'true';
-    tab.addEventListener('click', () => {
-      const targetId = tab.dataset.target;
-      if (targetId) setActiveTab(targetId);
-    });
-  });
+    if (tab.dataset.navInitialized === "true") return
+    tab.dataset.navInitialized = "true"
+    tab.addEventListener("click", () => {
+      const targetId = tab.dataset.target
+      if (targetId) setActiveTab(targetId)
+    })
+  })
 
   const sections = sectionIds
     .map((id) => document.getElementById(id))
-    .filter(Boolean);
+    .filter(Boolean)
 
   if (!sections.length) {
-    setActiveTab('peche');
-    return;
+    setActiveTab("peche")
+    return
   }
 
-  const getStickyOffset = () => (window.innerWidth >= 1024 ? 194 : 150);
+  const stickyTabs = document.getElementById("expertise-sticky-tabs")
+  const getStickyOffset = () => {
+    if (stickyTabs) {
+      return parseFloat(stickyTabs.style.top || "0") + stickyTabs.offsetHeight
+    }
+    return window.innerWidth >= 1024 ? 194 : 150
+  }
 
   const updateActiveFromScroll = () => {
-    const referenceY = window.scrollY + getStickyOffset();
-    let activeId = sections[0].id;
+    const referenceY = window.scrollY + getStickyOffset()
+    let activeId = sections[0].id
 
     sections.forEach((section) => {
       if (section.offsetTop <= referenceY) {
-        activeId = section.id;
+        activeId = section.id
       }
-    });
+    })
 
-    setActiveTab(activeId);
-  };
+    setActiveTab(activeId)
+  }
 
-  const hashTarget = window.location.hash.replace('#', '');
+  const hashTarget = window.location.hash.replace("#", "")
   if (sectionIds.includes(hashTarget)) {
-    setActiveTab(hashTarget);
+    setActiveTab(hashTarget)
   } else {
-    updateActiveFromScroll();
+    updateActiveFromScroll()
   }
 
-  if (document.body.dataset.expertisesScrollBound !== 'true') {
-    let ticking = false;
+  if (document.body.dataset.expertisesScrollBound !== "true") {
+    let ticking = false
 
-    window.addEventListener('scroll', () => {
-      if (ticking) return;
-      ticking = true;
-      requestAnimationFrame(() => {
-        updateActiveFromScroll();
-        ticking = false;
-      });
-    }, { passive: true });
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (ticking) return
+        ticking = true
+        requestAnimationFrame(() => {
+          updateActiveFromScroll()
+          ticking = false
+        })
+      },
+      {passive: true},
+    )
 
-    window.addEventListener('resize', updateActiveFromScroll);
-    document.body.dataset.expertisesScrollBound = 'true';
+    window.addEventListener("resize", updateActiveFromScroll)
+    document.body.dataset.expertisesScrollBound = "true"
   }
 
-  requestAnimationFrame(updateActiveFromScroll);
+  requestAnimationFrame(updateActiveFromScroll)
 
   // Refresh ScrollTrigger after all images load to prevent trigger drift
-  if (document.readyState === 'complete') {
-    ScrollTrigger.refresh();
+  if (document.readyState === "complete") {
+    ScrollTrigger.refresh()
   } else {
-    window.addEventListener('load', () => ScrollTrigger.refresh(), { once: true });
+    window.addEventListener("load", () => ScrollTrigger.refresh(), {once: true})
   }
 
   // Save parallax styles so orientation changes don't break layout
-  ScrollTrigger.saveStyles('[data-hero-parallax-bg], [data-sea-parallax-bg], [data-smoke-parallax]');
+  ScrollTrigger.saveStyles(
+    "[data-hero-parallax-bg], [data-sea-parallax-bg], [data-smoke-parallax]",
+  )
 }
