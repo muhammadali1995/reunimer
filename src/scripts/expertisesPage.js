@@ -410,27 +410,37 @@ function initBrandsSectionAnimations() {
 }
 
 /**
- * Fish curtain animation:
- * A separate white div sits inside an overflow-clip container behind the fish.
- * It starts pushed down 50% (yPercent: 50) so only the bottom half is visible,
- * then slides up to yPercent: 0 (full white) as the user scrolls.
- * GPU-accelerated via transform — no clip-path needed.
+ * Fish & knife curtain animation:
+ * The fish/knife images are static — they never move.
+ * The sea background (extended from the fishing section) shows behind them.
+ * A white mask (the leading edge of the next section) slides UP from fully
+ * below the container to fully covering it as the user scrolls through.
+ * Because the fish images are z-10 and the mask is z-0, the fish appear to
+ * sink into the rising white background without moving themselves.
+ * No pinning — this is a pure scroll-scrub transform animation.
  */
 function initFishCurtainAnimation() {
   const wrapper = document.getElementById('fish-transition');
   const curtain = document.getElementById('fish-white-curtain');
-  if (!wrapper || !curtain || isReducedMotionPreferred()) return;
+  if (!wrapper || !curtain) return;
 
-  gsap.fromTo(curtain,
-    { yPercent: 50 },
+  if (isReducedMotionPreferred()) {
+    // Skip immediately to fully covered for reduced-motion users.
+    gsap.set(curtain, { yPercent: 0 });
+    return;
+  }
+
+  gsap.fromTo(
+    curtain,
+    { yPercent: 100 },   // white starts fully below the container
     {
-      yPercent: -50,
+      yPercent: 0,       // white ends fully covering the container
       ease: 'none',
       scrollTrigger: {
         trigger: wrapper,
-        start: 'top bottom',
-        end: '+=600',
-        scrub: 0.8,
+        start: 'top bottom',    // begins as wrapper enters from bottom
+        end: 'bottom center',   // completes when wrapper bottom hits mid-screen
+        scrub: 1.2,
         fastScrollEnd: true,
       },
     },

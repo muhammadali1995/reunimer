@@ -35,27 +35,36 @@ import knifeImage from "../assets/images/expertise/knife.png";
     <div id="peche" class="scroll-mt-[150px] md:pt-[129px] lg:scroll-mt-[194px]">
       <ExpertisesFishingSection />
     </div>
-  </div>
-  <!-- Fish transition: white curtain rises behind the fish on scroll -->
-  <div id="fish-transition" class="relative">
-    <div class="absolute -top-1/2 inset-x-0 h-full overflow-hidden">
-      <div id="fish-white-curtain" class="absolute inset-0 bg-white"></div>
-    </div>
-    <div class="relative z-10 w-full mx-auto -translate-y-1/2 max-w-[1000px] px-5 md:px-8 pt-8">
-      <Image
-        src={expertisesTunaImage}
-        alt="Illustration de thons"
-        class="w-full"
-        widths={[768, 1200, 1600]}
-        sizes="(min-width: 1280px) 1000px, 100vw"
-      />
-       <Image
-        src={knifeImage}
-        alt="Illustration de couteau"
-        class="w-full scale-x-[-1] mt-6 md:mt-10 lg:mt-12 max-w-120 md:max-w-full mx-auto block"
-        widths={[480, 768, 1200, 1600]}
-        sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
-      />
+
+    <!-- Fish & knife transition:
+         Static images centred between the two sections.
+         The sea background (from this wrapper) shows behind them.
+         A white mask slides UP from below — behind the images (z-0) — as the
+         user scrolls, creating the illusion the fish sink into the white section. -->
+    <div id="fish-transition" class="relative overflow-hidden py-20 lg:py-[120px]">
+      <!-- White mask: starts fully below the container, rises on scroll -->
+      <div
+        id="fish-white-curtain"
+        class="absolute inset-x-0 bottom-0 h-full bg-white"
+        style="transform: translateY(100%);"
+      ></div>
+      <!-- Fish + knife: static, rendered above the mask -->
+      <div class="relative z-10 mx-auto w-full max-w-[1000px] px-5 md:px-8">
+        <Image
+          src={expertisesTunaImage}
+          alt="Illustration de thons"
+          class="w-full"
+          widths={[768, 1200, 1600]}
+          sizes="(min-width: 1280px) 1000px, 100vw"
+        />
+        <Image
+          src={knifeImage}
+          alt="Illustration de couteau"
+          class="mx-auto mt-6 block w-full scale-x-[-1] md:mt-10 md:max-w-full lg:mt-12 max-w-120"
+          widths={[480, 768, 1200, 1600]}
+          sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
+        />
+      </div>
     </div>
   </div>
 
