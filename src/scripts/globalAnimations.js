@@ -325,8 +325,9 @@ function initKenBurns() {
 }
 
 /**
- * Phase 16 — Engagement image parallax: wrapper div (h-[115%]) shifts vertically.
- * Uses gsap.quickSetter for zero-overhead per-frame updates.
+ * Phase 16 — Engagement image parallax: wrapper div (h-[120%]) shifts vertically.
+ * The image fills its wrapper with object-cover and the wrapper is 20% taller than the
+ * container, giving room for a -17% yPercent shift as the user scrolls.
  */
 function initEngagementParallax() {
   if (isReducedMotionPreferred()) return;
@@ -343,8 +344,8 @@ function initEngagementParallax() {
       end: 'bottom top',
       scrub: 1.5,
       onUpdate: (self) => {
-        // Wrapper is 115% tall → safe shift range: 0 to -13%
-        setY(self.progress * -13);
+        // Wrapper is 120% tall → safe shift range: 0 to -17%
+        setY(self.progress * -17);
       },
     });
   });

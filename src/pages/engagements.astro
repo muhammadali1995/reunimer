@@ -40,14 +40,20 @@ function parseCountValue(value: string) {
   <section class="relative -mt-[92px]" data-engagements-hero>
     <div
       class="relative h-[360px] sm:h-[420px] md:h-[520px] lg:h-[860px] overflow-hidden"
+      data-engagement-parallax
     >
-      <Image
-        src={engagementsHero.image}
-        alt={engagementsHero.imageAlt}
-        class="w-full h-full object-cover"
-        widths={[375, 768, 1024, 1440]}
-        sizes="100vw"
-      />
+      <div
+        class="absolute inset-x-0 top-0 h-[120%] w-full"
+        data-parallax-img-wrapper
+      >
+        <Image
+          src={engagementsHero.image}
+          alt={engagementsHero.imageAlt}
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="100vw"
+        />
+      </div>
 
       <!-- Text overlay — centered mobile, right-side desktop -->
       <div
@@ -204,24 +210,24 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
         data-engagement-parallax
       >
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
           widths={[375, 768, 1024]}
           sizes="100vw"
         />
         <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
           data-parallax-img-wrapper
         >
           <Image
             src={femmesHommesSection.image}
             alt={femmesHommesSection.imageAlt}
-            class="h-full w-full object-contain"
+            class="h-full w-full object-cover object-right"
             widths={[1024, 1440]}
             sizes="742px"
           />
@@ -308,24 +314,24 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
       <!-- Image column (RIGHT) -->
       <div
-        class="relative w-full lg:w-[54.2%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[54.2%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
         data-engagement-parallax
       >
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
+          class="absolute inset-0 w-full h-full object-cover object-left lg:hidden"
           widths={[375, 768, 1024]}
           sizes="100vw"
         />
         <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
           data-parallax-img-wrapper
         >
           <Image
             src={energieSection.image}
             alt={energieSection.imageAlt}
-            class="h-full w-full object-cover"
+            class="h-full w-full object-cover object-left"
             widths={[1024, 1440]}
             sizes="781px"
           />
@@ -363,24 +369,24 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
         data-engagement-parallax
       >
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="w-full h-auto object-contain lg:hidden"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
           widths={[375, 768, 1024]}
           sizes="100vw"
         />
         <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
           data-parallax-img-wrapper
         >
           <Image
             src={santeSection.image}
             alt={santeSection.imageAlt}
-            class="h-full w-full object-contain lg:object-cover"
+            class="h-full w-full object-cover object-right"
             widths={[1024, 1440]}
             sizes="710px"
           />
@@ -430,24 +436,24 @@ function parseCountValue(value: string) {
     <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
       <!-- Image column (LEFT) -->
       <div
-        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden"
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
         data-engagement-parallax
       >
         <Image
           src={socialSection.image}
           alt={socialSection.imageAlt}
-          class="w-full h-auto object-cover lg:hidden"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
           widths={[375, 768, 1024]}
           sizes="100vw"
         />
         <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[115%] w-full"
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
           data-parallax-img-wrapper
         >
           <Image
             src={socialSection.image}
             alt={socialSection.imageAlt}
-            class="absolute top-0 left-[-35.21%] h-full max-w-none w-[133.45%] object-contain xl:object-cover"
+            class="h-full w-full object-cover object-right"
             widths={[1024, 1440]}
             sizes="948px"
           />
