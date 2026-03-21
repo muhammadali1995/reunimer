@@ -108,7 +108,7 @@ function initSeaParallax() {
   gsap.fromTo(img,
     { yPercent: 0 },
     {
-      yPercent: -8,
+      yPercent: -20,
       ease: 'none',
       scrollTrigger: {
         trigger: wrapper,
