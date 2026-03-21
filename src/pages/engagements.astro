@@ -40,14 +40,20 @@ function parseCountValue(value: string) {
   <section class="relative -mt-[92px]" data-engagements-hero>
     <div
       class="relative h-[360px] sm:h-[420px] md:h-[520px] lg:h-[860px] overflow-hidden"
+      data-engagement-parallax
     >
-      <Image
-        src={engagementsHero.image}
-        alt={engagementsHero.imageAlt}
-        class="w-full h-full object-cover"
-        widths={[375, 768, 1024, 1440]}
-        sizes="100vw"
-      />
+      <div
+        class="absolute inset-x-0 top-0 h-[120%] w-full"
+        data-parallax-img-wrapper
+      >
+        <Image
+          src={engagementsHero.image}
+          alt={engagementsHero.imageAlt}
+          class="w-full h-full object-cover"
+          widths={[375, 768, 1024, 1440]}
+          sizes="100vw"
+        />
+      </div>
 
       <!-- Text overlay — centered mobile, right-side desktop -->
       <div
@@ -199,18 +205,33 @@ function parseCountValue(value: string) {
   <!-- Notre lien aux femmes et aux hommes -->
   <section
     id={femmesHommesSection.id}
-    class="bg-gris-clair relative scroll-mt-[135px]"
+    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row lg:min-h-[1063px]">
       <!-- Image column (LEFT) -->
-      <div class="w-full lg:w-[51.5%] shrink-0">
+      <div
+        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
+        data-engagement-parallax
+      >
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="w-full h-auto"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 51.5vw, 100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={femmesHommesSection.image}
+            alt={femmesHommesSection.imageAlt}
+            class="h-full w-full object-cover object-right"
+            widths={[1024, 1440]}
+            sizes="742px"
+          />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -288,18 +309,33 @@ function parseCountValue(value: string) {
   <!-- Notre lien à l'énergie -->
   <section
     id={energieSection.id}
-    class="bg-white relative scroll-mt-[135px]"
+    class="bg-white relative overflow-hidden scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row-reverse">
+    <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
       <!-- Image column (RIGHT) -->
-      <div class="w-full lg:w-[54.2%] shrink-0">
+      <div
+        class="relative w-full lg:w-[54.2%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
+        data-engagement-parallax
+      >
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="w-full h-auto"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 54.2vw, 100vw"
+          class="absolute inset-0 w-full h-full object-cover object-left lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={energieSection.image}
+            alt={energieSection.imageAlt}
+            class="h-full w-full object-cover object-left"
+            widths={[1024, 1440]}
+            sizes="781px"
+          />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -328,18 +364,33 @@ function parseCountValue(value: string) {
   <!-- Notre lien à la santé -->
   <section
     id={santeSection.id}
-    class="bg-gris-clair relative scroll-mt-[135px]"
+    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
       <!-- Image column (LEFT) -->
-      <div class="w-full lg:w-[49.3%] shrink-0">
+      <div
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
+        data-engagement-parallax
+      >
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="w-full h-auto"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 49.3vw, 100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={santeSection.image}
+            alt={santeSection.imageAlt}
+            class="h-full w-full object-cover object-right"
+            widths={[1024, 1440]}
+            sizes="710px"
+          />
+        </div>
       </div>
 
       <!-- Text column -->
@@ -380,18 +431,33 @@ function parseCountValue(value: string) {
   <!-- Notre lien au social -->
   <section
     id={socialSection.id}
-    class="bg-gris-clair relative scroll-mt-[135px]"
+    class="bg-gris-clair relative overflow-hidden scroll-mt-[135px]"
   >
-    <div class="flex flex-col lg:flex-row">
+    <div class="flex flex-col lg:flex-row lg:min-h-[1141px]">
       <!-- Image column (LEFT) -->
-      <div class="w-full lg:w-[49.3%] shrink-0">
+      <div
+        class="relative w-full lg:w-[49.3%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
+        data-engagement-parallax
+      >
         <Image
           src={socialSection.image}
           alt={socialSection.imageAlt}
-          class="w-full h-auto"
-          widths={[375, 768, 1024, 1440]}
-          sizes="(min-width: 1024px) 49.3vw, 100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
         />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={socialSection.image}
+            alt={socialSection.imageAlt}
+            class="h-full w-full object-cover object-right"
+            widths={[1024, 1440]}
+            sizes="948px"
+          />
+        </div>
       </div>
 
       <!-- Text column -->

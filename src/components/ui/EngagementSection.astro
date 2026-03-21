@@ -34,31 +34,47 @@ const {
 
 const bgClass = bgColor === "gris-clair" ? "bg-gris-clair" : "bg-white"
 const isImageLeft = imagePosition === "left"
+const objectPos = isImageLeft ? "object-right" : "object-left"
 ---
 
 <section
   id={id}
   class:list={[
     bgClass,
-    "relative scroll-mt-[135px]",
+    "relative overflow-hidden scroll-mt-[135px]",
     className,
   ]}
 >
   <div
     class:list={[
-      "flex flex-col lg:flex-row",
+      "flex flex-col lg:flex-row lg:min-h-[785px]",
       !isImageLeft && "lg:flex-row-reverse",
     ]}
   >
     <!-- Image column -->
-    <div class="w-full lg:w-[51.5%] shrink-0">
+    <div
+      class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden min-h-[300px] md:min-h-[400px] lg:min-h-0"
+      data-engagement-parallax
+    >
       <Image
         src={imageSrc}
         alt={imageAlt}
-        class="w-full h-auto"
-        widths={[375, 768, 1024, 1440]}
-        sizes="(min-width: 1024px) 51.5vw, 100vw"
+        class:list={["absolute inset-0 w-full h-full object-cover lg:hidden", objectPos]}
+        widths={[375, 768, 1024]}
+        sizes="100vw"
       />
+      <div
+        class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
+        data-parallax-img-wrapper
+      >
+        <Image
+          src={imageSrc}
+          alt={imageAlt}
+          class:list={["h-full w-full object-cover", objectPos]}
+          widths={[1024, 1440]}
+          sizes="742px"
+        />
+      </div>
     </div>
 
     <!-- Text column -->
