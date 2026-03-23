@@ -59,22 +59,10 @@ const objectPos = isImageLeft ? "object-right" : "object-left"
       <Image
         src={imageSrc}
         alt={imageAlt}
-        class:list={["absolute inset-0 w-full h-full object-cover lg:hidden", objectPos]}
-        widths={[375, 768, 1024]}
-        sizes="100vw"
+        class:list={["absolute inset-0 w-full h-full object-cover", objectPos]}
+        widths={[375, 768, 1024, 1440]}
+        sizes="(min-width: 1024px) 742px, 100vw"
       />
-      <div
-        class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
-        data-parallax-img-wrapper
-      >
-        <Image
-          src={imageSrc}
-          alt={imageAlt}
-          class:list={["h-full w-full object-cover", objectPos]}
-          widths={[1024, 1440]}
-          sizes="742px"
-        />
-      </div>
     </div>
 
     <!-- Text column -->
