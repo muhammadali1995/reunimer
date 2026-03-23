@@ -332,22 +332,33 @@ function initKenBurns() {
 function initEngagementParallax() {
   if (isReducedMotionPreferred()) return;
 
+  const getRatio = el => window.innerHeight / (window.innerHeight + el.offsetHeight);
+
   document.querySelectorAll('[data-engagement-parallax]').forEach((container) => {
     const wrapper = container.querySelector('[data-parallax-img-wrapper]');
     if (!wrapper) return;
 
-    const setY = gsap.quickSetter(wrapper, 'yPercent');
+    const isHero = container.closest('[data-engagements-hero]') !== null;
 
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1.5,
-      onUpdate: (self) => {
-        // Wrapper is 120% tall → safe shift range: 0 to -17%
-        setY(self.progress * -17);
+    gsap.fromTo(
+      wrapper,
+      { 
+        y: () => isHero ? 0 : -window.innerHeight * getRatio(container),
+        willChange: "transform",
+        force3D: true
       },
-    });
+      {
+        y: () => window.innerHeight * (1 - getRatio(container)),
+        ease: "none",
+        scrollTrigger: {
+          trigger: container,
+          start: () => isHero ? "top top" : "top bottom",
+          end: "bottom top",
+          scrub: 2.5,
+          invalidateOnRefresh: true,
+        },
+      }
+    );
   });
 }
 

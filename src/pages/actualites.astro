@@ -28,12 +28,14 @@ import { featuredLargeArticle, featuredSmallArticles, gridArticles, getArticleHr
           <a href={getArticleHref(featuredLargeArticle.slug)} class="group block">
             <!-- Featured Image -->
             <div class="relative overflow-hidden aspect-[710/498]" data-ken-burns>
-              <Image
-                src={featuredLargeArticle.image}
-                alt={featuredLargeArticle.imageAlt}
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                loading="lazy"
-              />
+              <div class="absolute inset-0 w-full h-full transition-transform duration-500 group-hover:scale-105">
+                <Image
+                  src={featuredLargeArticle.image}
+                  alt={featuredLargeArticle.imageAlt}
+                  class="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
               <div class="absolute top-[19px] left-[14px]">
                 <Tag color={featuredLargeArticle.tagColor}>{featuredLargeArticle.tag}</Tag>
               </div>
