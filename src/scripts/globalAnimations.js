@@ -348,13 +348,30 @@ function initEngagementParallax() {
         img.style.top = '0';
         img.style.left = rect.left + 'px';
         img.style.width = rect.width + 'px';
-        img.style.height = '100vh';
+        img.style.height = rect.height + 'px';
         img.style.objectFit = 'cover';
       });
     }
 
     applyFixedStyles();
     window.addEventListener('resize', applyFixedStyles);
+
+    // Subtle vertical drift on each fixed image
+    containers.forEach((container) => {
+      const img = container.querySelector('img, picture img');
+      if (!img) return;
+
+      gsap.to(img, {
+        y: -60,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: true,
+        },
+      });
+    });
 
     return () => {
       window.removeEventListener('resize', applyFixedStyles);
