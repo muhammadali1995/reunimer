@@ -109,15 +109,15 @@ function initGroupStatisticsAnimations() {
 
   const timeline = createScrollTimeline({ trigger: section, start: 'top 75%' });
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.12 }));
+    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.12 }), 0);
   }
 
   if (countItems.length) {
-    timeline.add(animateCountUp(countItems), '-=0.15');
+    timeline.add(animateCountUp(countItems), 0);
   }
 
   if (statLines.length) {
-    timeline.to(statLines, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, '<');
+    timeline.to(statLines, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.1 }, 0);
   }
 }
 
@@ -128,8 +128,8 @@ function initWorldStatsAnimations() {
 
   const textItems = Array.from(section.querySelectorAll('[data-anim="1"]'));
   const countItems = Array.from(section.querySelectorAll('[data-anim="4"]'));
+  const barCounts = Array.from(section.querySelectorAll('[data-bar-count]'));
   const chartBars = Array.from(section.querySelectorAll('[data-chart-bar]'));
-  const chartLines = Array.from(section.querySelectorAll('[data-chart-line]'));
   const donutChart = section.querySelector('[data-donut-chart]');
   const donutSurface = donutChart?.firstElementChild;
   const legendRows = Array.from(section.querySelectorAll('[data-legend-row]'));
@@ -138,11 +138,13 @@ function initWorldStatsAnimations() {
   textItems.forEach((item) => setAnimationInitial(item, ANIMATION_TYPES.APPEAR_Z));
   countItems.forEach((item) => {
     const decimals = Number(item.dataset.countDecimals || '0');
-    setAnimationInitial(item, ANIMATION_TYPES.FADE_RIGHT);
     item.textContent = `${item.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${item.dataset.countSuffix || ''}`;
   });
-  chartBars.forEach((bar) => gsap.set(bar, { scaleX: 0, transformOrigin: 'left center' }));
-  chartLines.forEach((line) => gsap.set(line, { scaleY: 0, transformOrigin: 'center top' }));
+  chartBars.forEach((bar) => gsap.set(bar, { width: 0 }));
+  barCounts.forEach((el) => {
+    const decimals = Number(el.dataset.countDecimals || '0');
+    el.textContent = `${el.dataset.countPrefix || ''}${formatCountValue(0, decimals)}${el.dataset.countSuffix || ''}`;
+  });
   legendRows.forEach((row) => gsap.set(row, { autoAlpha: 0, y: 18 }));
   legendLines.forEach((line) => gsap.set(line, { scaleX: 0, transformOrigin: 'left center' }));
 
@@ -158,20 +160,38 @@ function initWorldStatsAnimations() {
   const timeline = createScrollTimeline({ trigger: section, start: 'top 72%' });
 
   if (textItems.length) {
-    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }));
-  }
-
-  if (chartLines.length) {
-    timeline.to(chartLines, { scaleY: 1, duration: 0.35, ease: 'power3.out', stagger: 0.06 }, '-=0.15');
-  }
-
-  if (chartBars.length) {
-    timeline.to(chartBars, { scaleX: 1, duration: 0.7, ease: 'power3.out', stagger: 0.08 }, '<');
+    timeline.add(toAnimation(textItems, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.08 }), 0);
   }
 
   if (countItems.length) {
-    timeline.add(animateCountUp(countItems), '-=0.45');
-    timeline.add(toAnimation(countItems, ANIMATION_TYPES.FADE_RIGHT, { stagger: 0.05 }), '<');
+    timeline.add(animateCountUp(countItems), 0);
+  }
+
+  if (chartBars.length) {
+    const barDuration = 0.7;
+    const barStagger = 0.08;
+
+    chartBars.forEach((bar, i) => {
+      const target = bar.dataset.barTarget || '100%';
+      const barCount = barCounts[i];
+
+      timeline.to(bar, { width: target, duration: barDuration, ease: 'power3.out' }, i * barStagger);
+
+      if (barCount) {
+        const targetValue = Number(barCount.dataset.countValue || '0');
+        const decimals = Number(barCount.dataset.countDecimals || '0');
+        const counter = { value: 0 };
+        timeline.to(counter, {
+          value: targetValue,
+          duration: barDuration,
+          ease: 'power3.out',
+          onUpdate: () => {
+            const currentValue = decimals > 0 ? Number(counter.value.toFixed(decimals)) : Math.round(counter.value);
+            barCount.textContent = `${barCount.dataset.countPrefix || ''}${formatCountValue(currentValue, decimals)}${barCount.dataset.countSuffix || ''}`;
+          },
+        }, '<');
+      }
+    });
   }
 
   if (donutChart) {

@@ -325,29 +325,47 @@ function initKenBurns() {
 }
 
 /**
- * Phase 16 — Engagement image parallax: wrapper div (h-[120%]) shifts vertically.
- * The image fills its wrapper with object-cover and the wrapper is 20% taller than the
- * container, giving room for a -17% yPercent shift as the user scrolls.
+ * Fixed-image parallax: the image stays fixed while content scrolls over it.
+ * clip-path: inset(0) on the container clips the fixed image to the column bounds.
+ * The image is sized to match its container column, not the viewport.
+ * Desktop only.
  */
 function initEngagementParallax() {
   if (isReducedMotionPreferred()) return;
 
-  document.querySelectorAll('[data-engagement-parallax]').forEach((container) => {
-    const wrapper = container.querySelector('[data-parallax-img-wrapper]');
-    if (!wrapper) return;
+  const mm = gsap.matchMedia();
+  mm.add('(min-width: 1024px)', () => {
+    const containers = document.querySelectorAll('[data-engagement-parallax]');
 
-    const setY = gsap.quickSetter(wrapper, 'yPercent');
+    function applyFixedStyles() {
+      containers.forEach((container) => {
+        const img = container.querySelector('img, picture img');
+        if (!img) return;
 
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1.5,
-      onUpdate: (self) => {
-        // Wrapper is 120% tall → safe shift range: 0 to -17%
-        setY(self.progress * -17);
-      },
-    });
+        const rect = container.getBoundingClientRect();
+        container.style.clipPath = 'inset(0)';
+        img.style.position = 'fixed';
+        img.style.top = '0';
+        img.style.left = rect.left + 'px';
+        img.style.width = rect.width + 'px';
+        img.style.height = '100vh';
+        img.style.objectFit = 'cover';
+      });
+    }
+
+    applyFixedStyles();
+    window.addEventListener('resize', applyFixedStyles);
+
+    return () => {
+      window.removeEventListener('resize', applyFixedStyles);
+      containers.forEach((container) => {
+        const img = container.querySelector('img, picture img');
+        if (!img) return;
+
+        container.style.clipPath = '';
+        img.style.cssText = '';
+      });
+    };
   });
 }
 

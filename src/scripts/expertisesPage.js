@@ -306,20 +306,18 @@ function initRhParallax() {
   const img = section.querySelector("[data-rh-parallax-img]")
   if (!img) return
 
-  gsap.fromTo(
-    img,
-    {yPercent: 0},
-    {
-      yPercent: -23,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
+  gsap.set(img, { yPercent: -15 })
+
+  gsap.to(img, {
+    yPercent: 15,
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
     },
-  )
+  })
 }
 
 function initSupportParallax() {
@@ -329,20 +327,18 @@ function initSupportParallax() {
   const img = section.querySelector("[data-support-parallax-img]")
   if (!img) return
 
-  gsap.fromTo(
-    img,
-    {yPercent: 0},
-    {
-      yPercent: -23,
-      ease: "none",
-      scrollTrigger: {
-        trigger: section,
-        start: "top bottom",
-        end: "bottom top",
-        scrub: true,
-      },
+  gsap.set(img, { yPercent: -15 })
+
+  gsap.to(img, {
+    yPercent: 15,
+    ease: "none",
+    scrollTrigger: {
+      trigger: section,
+      start: "top bottom",
+      end: "bottom top",
+      scrub: true,
     },
-  )
+  })
 }
 
 function initRhSectionAnimations() {
@@ -439,7 +435,7 @@ function initRhSectionAnimations() {
   }
 
   if (countItems.length) {
-    timeline.add(animateCountUp(countItems), "<")
+    timeline.add(animateCountUp(countItems), 0)
   }
 }
 
@@ -484,16 +480,16 @@ function initSupportSectionAnimations() {
     timeline.to(
       countItems,
       {autoAlpha: 1, y: 0, duration: 0.45, ease: "power2.out", stagger: 0.1},
-      "-=0.35",
+      0,
     )
-    timeline.add(animateCountUp(countItems), "<")
+    timeline.add(animateCountUp(countItems), 0)
   }
 
   if (statLines.length) {
     timeline.to(
       statLines,
       {scaleX: 1, duration: 0.6, ease: "power2.out", stagger: 0.08},
-      "<",
+      0,
     )
   }
 }
@@ -645,16 +641,16 @@ function initQualitySectionAnimations() {
     timeline.to(
       countItems,
       {autoAlpha: 1, y: 0, duration: 0.5, ease: "power3.out", stagger: 0.1},
-      "-=0.3",
+      0,
     )
-    timeline.add(animateCountUp(countItems), "<")
+    timeline.add(animateCountUp(countItems), 0)
   }
 
   if (statLines.length) {
     timeline.to(
       statLines,
       {scaleX: 1, duration: 0.65, ease: "power3.out", stagger: 0.08},
-      "<",
+      0,
     )
   }
 }

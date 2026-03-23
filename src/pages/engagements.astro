@@ -42,18 +42,13 @@ function parseCountValue(value: string) {
       class="relative h-[360px] sm:h-[420px] md:h-[520px] lg:h-[860px] overflow-hidden"
       data-engagement-parallax
     >
-      <div
-        class="absolute inset-x-0 top-0 h-[120%] w-full"
-        data-parallax-img-wrapper
-      >
-        <Image
-          src={engagementsHero.image}
-          alt={engagementsHero.imageAlt}
-          class="w-full h-full object-cover"
-          widths={[375, 768, 1024, 1440]}
-          sizes="100vw"
-        />
-      </div>
+      <Image
+        src={engagementsHero.image}
+        alt={engagementsHero.imageAlt}
+        class="absolute inset-0 w-full h-full object-cover"
+        widths={[375, 768, 1024, 1440]}
+        sizes="100vw"
+      />
 
       <!-- Text overlay — centered mobile, right-side desktop -->
       <div
@@ -216,22 +211,10 @@ function parseCountValue(value: string) {
         <Image
           src={femmesHommesSection.image}
           alt={femmesHommesSection.imageAlt}
-          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 742px, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={femmesHommesSection.image}
-            alt={femmesHommesSection.imageAlt}
-            class="h-full w-full object-cover object-right"
-            widths={[1024, 1440]}
-            sizes="742px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -320,22 +303,10 @@ function parseCountValue(value: string) {
         <Image
           src={energieSection.image}
           alt={energieSection.imageAlt}
-          class="absolute inset-0 w-full h-full object-cover object-left lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="absolute inset-0 w-full h-full object-cover object-left"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 781px, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={energieSection.image}
-            alt={energieSection.imageAlt}
-            class="h-full w-full object-cover object-left"
-            widths={[1024, 1440]}
-            sizes="781px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -375,22 +346,10 @@ function parseCountValue(value: string) {
         <Image
           src={santeSection.image}
           alt={santeSection.imageAlt}
-          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 710px, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={santeSection.image}
-            alt={santeSection.imageAlt}
-            class="h-full w-full object-cover object-right"
-            widths={[1024, 1440]}
-            sizes="710px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->
@@ -442,22 +401,10 @@ function parseCountValue(value: string) {
         <Image
           src={socialSection.image}
           alt={socialSection.imageAlt}
-          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
-          widths={[375, 768, 1024]}
-          sizes="100vw"
+          class="absolute inset-0 w-full h-full object-cover object-right"
+          widths={[375, 768, 1024, 1440]}
+          sizes="(min-width: 1024px) 948px, 100vw"
         />
-        <div
-          class="hidden lg:block absolute inset-x-0 top-0 h-[120%] w-full"
-          data-parallax-img-wrapper
-        >
-          <Image
-            src={socialSection.image}
-            alt={socialSection.imageAlt}
-            class="h-full w-full object-cover object-right"
-            widths={[1024, 1440]}
-            sizes="948px"
-          />
-        </div>
       </div>
 
       <!-- Text column -->

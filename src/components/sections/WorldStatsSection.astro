@@ -90,36 +90,34 @@ const donutCenterStat = parseCountValue('106,1 M€');
       </div>
 
       <!-- Continent distribution chart -->
-      <div class="mt-10 md:mt-12 lg:mt-16 max-w-[582px]">
-        <div class="flex flex-col gap-2.5">
+      <div class="mt-10 md:mt-12 lg:mt-16 max-w-[780px]">
+        <div class="flex flex-col gap-3 md:gap-4">
           {continents.map((c) => {
             const parsedPct = parseCountValue(`${c.pct}%`);
 
             return (
-            <div class="flex items-center gap-3">
-              <p data-anim="1" class="font-body font-bold text-[13px] md:text-[15px] leading-[1.4] text-white text-right w-[120px] md:w-[150px] lg:w-[199px] shrink-0">
+            <div class="flex items-center gap-2 md:gap-3">
+              <p data-anim="1" class="font-body font-bold text-[13px] md:text-[15px] lg:text-[18px] leading-[1.4] text-white text-right w-[120px] md:w-[170px] lg:w-[230px] shrink-0">
                 {c.name}
               </p>
-              <div class="flex items-center gap-3 flex-1 min-w-0">
-                <span data-chart-line class="w-[2px] h-[20px] bg-turquoise-ocean shrink-0 origin-top" />
-                <div class="hidden sm:block h-[2px] flex-1 bg-white/15 overflow-hidden rounded-full">
-                  <div
-                    data-chart-bar
-                    class="h-full bg-turquoise-ocean origin-left"
-                    style={`width: ${c.pct}%;`}
-                  />
-                </div>
+              <div class="flex items-center gap-2 md:gap-3 flex-1 min-w-0">
+                <div
+                  data-chart-bar
+                  data-bar-target={`${(c.pct / 36) * 100}%`}
+                  class="h-[22px] md:h-[28px] lg:h-[32px] bg-turquoise-ocean rounded-[3px]"
+                  style="width: 0%;"
+                />
+                <p
+                  data-bar-count
+                  data-count-value={parsedPct.numericValue}
+                  data-count-prefix={parsedPct.prefix}
+                  data-count-suffix={parsedPct.suffix}
+                  data-count-decimals={parsedPct.decimals}
+                  class="font-body font-normal text-[13px] md:text-[15px] lg:text-[18px] leading-[1.4] text-white shrink-0"
+                >
+                  {c.pct}%
+                </p>
               </div>
-              <p
-                data-anim="4"
-                data-count-value={parsedPct.numericValue}
-                data-count-prefix={parsedPct.prefix}
-                data-count-suffix={parsedPct.suffix}
-                data-count-decimals={parsedPct.decimals}
-                class="font-body font-normal text-[13px] md:text-[15px] leading-[1.4] text-white shrink-0"
-              >
-                {c.pct}%
-              </p>
             </div>
             );
           })}
