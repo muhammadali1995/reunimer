@@ -348,7 +348,7 @@ function initEngagementParallax() {
         img.style.top = '0';
         img.style.left = rect.left + 'px';
         img.style.width = rect.width + 'px';
-        img.style.height = rect.height + 'px';
+        img.style.height = Math.max(rect.height, window.innerHeight) + 'px';
         img.style.objectFit = 'cover';
       });
     }
