@@ -7,7 +7,6 @@
 7. centered fish animation
 8. centered pan animation
 9. cannot uploaded the pan's bg texture (need to ask from the client)
-10. 3 card designs are not the same as figma
 11. pan img is bigger in the figma
 12. remove parallex effect from the last section of groupe page
 13. update the animations of engagements page images to like smoke animation
@@ -15,3 +14,8 @@
 15. actualties animation + post is missing
 16. carriers is broken
 17. create search input pop-up animation
+
+
+DONE
+
+10. 3 card designs are not the same as figma
