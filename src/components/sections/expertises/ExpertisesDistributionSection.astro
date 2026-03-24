@@ -76,13 +76,13 @@ import {
                   <h3 class="font-heading text-[16px] font-semibold leading-none tracking-[-0.04em] text-white md:text-[20px]">
                     {card.title}
                   </h3>
-                  <div class="mx-auto mt-[14px] w-full max-w-[280px] overflow-hidden rounded-[10px] border border-white/18 bg-white/10 shadow-[0_18px_30px_rgba(0,0,0,0.24)] md:max-w-none">
+                  <div class="mx-auto mt-6 w-full max-w-[280px] overflow-hidden rounded-[10px] border border-white/18 bg-white/10 shadow-[0_18px_30px_rgba(0,0,0,0.24)] md:max-w-none">
                     <div class="relative aspect-square overflow-hidden">
                       <Image
                         src={card.image}
                         alt={card.alt}
                         class:list={[
-                          "h-full w-full object-contain",
+                          "h-full w-full object-cover",
                           card.imageClass,
                         ]}
                         widths={[480, 720]}
@@ -90,7 +90,7 @@ import {
                       />
                     </div>
                   </div>
-                  <p class="mx-auto mt-3 max-w-[220px] font-body text-[13px] leading-[1.4] text-white md:max-w-[285px] md:text-[16px]">
+                  <p class="mx-auto mt-6 max-w-[220px] font-body text-[13px] leading-[1.4] text-white md:max-w-[285px] md:text-[16px]">
                     {card.description}
                   </p>
                 </article>
