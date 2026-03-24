@@ -1,6 +1,4 @@
 1. update home page hero img to sea waves video
-2. there is extra vertical line under the hero section of home page between right-side images
-3. decrease the speed of animation in 5 cards pop-up animation section
 4. add img-zoom animation in actualties section :: home and actualties page
 5. groupe page logo hover animation
 6. map animation is missing some routes (lines)
@@ -19,3 +17,5 @@
 DONE
 
 10. 3 card designs are not the same as figma
+2. there is extra vertical line under the hero section of home page between right-side images
+3. decrease the speed of animation in 5 cards pop-up animation section

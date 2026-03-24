@@ -90,12 +90,12 @@ function initExpertisesAnimations() {
     (section, timeline) => {
       const introEls = section.querySelectorAll('[data-anim="1"]');
       if (introEls.length) {
-        timeline.add(toAnimation(introEls, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.12 }));
+        timeline.add(toAnimation(introEls, ANIMATION_TYPES.APPEAR_Z, { stagger: 0.2, duration: 1.2 }));
       }
 
       const cards = section.querySelectorAll('[data-anim="2"]');
       if (cards.length) {
-        timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.12 }), '-=0.3');
+        timeline.add(toAnimation(cards, ANIMATION_TYPES.FADE_UP, { stagger: 0.2, duration: 1.2 }), '-=0.3');
       }
     },
   );
@@ -109,7 +109,7 @@ function initExpertiseHover() {
     const panel = card.querySelector('[data-panel]');
     const revealEls = card.querySelectorAll('[data-reveal]');
     if (panel && revealEls.length) {
-      setupPanelHover(card, panel, revealEls);
+      setupPanelHover(card, panel, revealEls, { duration: 0.8 });
     }
   });
 }
