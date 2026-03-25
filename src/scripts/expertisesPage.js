@@ -560,7 +560,7 @@ function initPlateBackdropAnimation() {
       scrollTrigger: {
         trigger: wrapper,
         start: "center center",
-        end: "+=600",
+        end: "+=1000",
         pin: true,
         anticipatePin: 1,
         scrub: 1.5,
@@ -569,7 +569,7 @@ function initPlateBackdropAnimation() {
     .fromTo(
       backdrop,
       {clipPath: "inset(100% 0 0 0)"},
-      {clipPath: "inset(50% 0 0 0)", ease: "none"},
+      {clipPath: "inset(calc(0% - 32px) 0 0 0)", ease: "none"},
     )
 }
 
