@@ -1,26 +1,36 @@
 ---
 import {Image} from "astro:assets"
 import Container from "../../ui/Container.astro"
+import distributionTextureImage from "../../../assets/images/expertise/texture.png"
 import {
   distributionCards,
   expertisesDistributionMagazineCover,
 } from "../../../data/expertises"
 ---
 
-<section id="distribution-section" class="text-bleu-abysse">
-  <!-- Plate scene: full-viewport-height white section, plate centered. Dark backdrop rises during pin. -->
+<section id="distribution-section" class="relative overflow-hidden text-bleu-abysse">
+  <!-- <Image
+    src={distributionTextureImage}
+    alt=""
+    class="pointer-events-none absolute left-0 h-[65%] bottom-0 z-0 w-full"
+    widths={[768, 1200, 1680, 2200]}
+    sizes="100vw"
+  /> -->
+  <div
+    class="pointer-events-none bg-bleu-abysse absolute left-0 h-[65%] bottom-0 z-0 w-full"
+  
+  ></div>
   <div
     id="plate-pin-wrapper"
-    class="relative flex h-screen items-center justify-center overflow-hidden bg-white"
+    class="relative z-10 flex h-screen items-center justify-center overflow-hidden"
   >
-    <!-- Dark backdrop fills the container; clip-path reveals it from the bottom up to the plate midpoint -->
     <div
       id="plate-backdrop"
-      class="absolute inset-0 bg-bleu-abysse"
+      class="absolute inset-0 z-0 overflow-hidden"
       style="clip-path: inset(100% 0 0 0);"
     >
     </div>
-    <div class="relative z-10 w-[280px] md:w-[504px]">
+    <div class="relative z-10 w-[280px] md:w-[504px] 2xl:w-[700px]">
       <Image
         src={expertisesDistributionMagazineCover}
         alt="Assiette gastronomique illustree pour l'activite distribution"
@@ -30,9 +40,9 @@ import {
       />
     </div>
   </div>
-  <div class="relative -mt-px overflow-hidden bg-bleu-abysse">
+  <div class="">
     <div
-      class="relative mx-auto w-full max-w-[1680px] px-5 pt-10 md:px-8 md:pt-16"
+      class="relative z-10 mx-auto w-full max-w-[1680px] px-5 md:px-8 "
     >
       <div class="mx-auto max-w-[949px] text-center">
         <h2
