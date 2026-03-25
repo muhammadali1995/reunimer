@@ -241,12 +241,17 @@ function parseStatValue(value: string) {
                   >
                     <svg viewBox="0 0 234 234" class="h-full w-full">
                       <circle
+                        data-quota-donut-arc
                         cx="117"
                         cy="117"
                         r={radius}
                         fill="none"
                         stroke="#A34C26"
                         stroke-width="28"
+                        stroke-linecap="butt"
+                        stroke-dasharray={`${circumference} ${circumference}`}
+                        stroke-dashoffset="0"
+                        transform="rotate(-90 117 117)"
                       />
                       <circle
                         data-quota-donut-arc
@@ -256,6 +261,7 @@ function parseStatValue(value: string) {
                         fill="none"
                         stroke="#fff"
                         stroke-width="28"
+                        stroke-linecap="butt"
                         stroke-dasharray={`${topArcLength} ${circumference}`}
                         stroke-dashoffset={String(topArcLength / 2)}
                         transform="rotate(-90 117 117)"

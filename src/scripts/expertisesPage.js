@@ -220,7 +220,10 @@ function initFishingSectionAnimations() {
     arc.dataset.arcVisibleLength = String(visibleLength)
     arc.dataset.arcTotalLength = String(totalLength)
 
-    gsap.set(arc, {strokeDasharray: `0 ${totalLength}`})
+    gsap.set(arc, {
+      strokeDasharray: `0 ${totalLength}`,
+      opacity: 0.4,
+    })
   })
   quotaCenters.forEach((center) => {
     gsap.set(center, {
@@ -262,13 +265,14 @@ function initFishingSectionAnimations() {
     timeline.to(
       quotaArcs,
       {
-        duration: 1.2,
-        ease: "power4.out",
-        stagger: 0.13,
+        duration: 1.85,
+        ease: "power2.inOut",
+        stagger: 0.18,
+        opacity: 1,
         strokeDasharray: (_, arc) =>
           `${arc.dataset.arcVisibleLength || "0"} ${arc.dataset.arcTotalLength || "0"}`,
       },
-      "<",
+      "-=0.05",
     )
   }
 
@@ -278,11 +282,11 @@ function initFishingSectionAnimations() {
       {
         autoAlpha: 1,
         scale: 1,
-        duration: 0.65,
-        ease: "power3.out",
-        stagger: 0.13,
+        duration: 0.8,
+        ease: "power2.out",
+        stagger: 0.18,
       },
-      "-=0.5",
+      "-=0.65",
     )
   }
 
