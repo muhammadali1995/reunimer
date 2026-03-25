@@ -1,18 +1,18 @@
 ---
-import { Image } from 'astro:assets';
-import heroImage from '../../../assets/images/home/hero-home.png';
+import heroVideo from '../../../assets/images/home/hero.mp4';
 import wordmark from '../../../assets/logos/reunimer-wordmark.svg';
 ---
 
 <section class="relative -mt-[92px] h-screen overflow-hidden" data-parallax data-parallax-speed="0.15">
-  <Image
-    src={heroImage}
-    alt="Vue aérienne de l'océan"
+  <video
+    src={heroVideo}
+    autoplay
+    loop
+    muted
+    playsinline
     class="absolute inset-0 h-full w-full object-cover"
-    widths={[768, 1024, 1440, 1920]}
-    sizes="100vw"
-  />
-  <div class="absolute inset-0 flex items-center justify-center" data-hero-wordmark>
+  ></video>
+  <div class="absolute inset-0 z-10 flex items-center justify-center" data-hero-wordmark>
     <img
       src={wordmark.src}
       alt="REUNIMER"
