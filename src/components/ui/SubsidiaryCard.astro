@@ -11,11 +11,11 @@ const { subsidiary } = Astro.props;
 <div class="group flex flex-col gap-3.5">
   <div class="relative w-full h-[190px] border border-bleu-abysse flex flex-col items-center justify-center p-4 cursor-pointer transition-colors duration-300 group-hover:bg-turquoise-ocean group-hover:border-turquoise-ocean overflow-hidden">
     <div
-      class="max-w-full max-h-full flex items-center justify-center text-bleu-abysse transition-all duration-300 group-hover:-translate-y-3 group-hover:text-white [&_svg]:max-w-full [&_svg]:max-h-[100px] [&_svg]:w-auto [&_svg]:h-auto"
+      class="subsidiary-card-logo max-w-full max-h-full flex items-center justify-center text-bleu-abysse transform-gpu group-hover:-translate-y-3 group-hover:text-white [&_svg]:max-w-full [&_svg]:max-h-[100px] [&_svg]:w-auto [&_svg]:h-auto"
       set:html={subsidiary.logo}
     />
     <!-- "En savoir plus" — slides up from below logo on hover -->
-    <span class="inline-flex items-center gap-2 text-white font-heading font-semibold text-xs tracking-[1.44px] uppercase underline underline-offset-4 mt-3 translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+    <span class="subsidiary-card-cta inline-flex items-center gap-2 text-white font-heading font-semibold text-xs tracking-[1.44px] uppercase underline underline-offset-4 mt-3 translate-y-8 opacity-0 transform-gpu group-hover:translate-y-0 group-hover:opacity-100">
       En savoir plus
       <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
         <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -24,3 +24,30 @@ const { subsidiary } = Astro.props;
   </div>
   <p class="font-body font-bold text-body-base text-black text-center">{subsidiary.label}</p>
 </div>
+
+<style>
+  .subsidiary-card-logo,
+  .subsidiary-card-cta {
+    will-change: transform, opacity;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+  .subsidiary-card-logo {
+    -webkit-transition-property: color, -webkit-transform;
+    transition-property: color, transform;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+  }
+
+  .subsidiary-card-cta {
+    -webkit-transition-property: opacity, -webkit-transform;
+    transition-property: opacity, transform;
+    -webkit-transition-duration: 300ms;
+    transition-duration: 300ms;
+    -webkit-transition-timing-function: ease;
+    transition-timing-function: ease;
+  }
+</style>
