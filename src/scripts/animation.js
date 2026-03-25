@@ -3,7 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-gsap.defaults({ overwrite: 'auto', duration: 1, force3D: true });
+gsap.defaults({ overwrite: 'auto', duration: 1 });
 
 export const ANIMATION_TYPES = {
   APPEAR_Z: 1,

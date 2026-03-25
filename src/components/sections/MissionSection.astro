@@ -28,15 +28,28 @@ const { id = "raison-detre" } = Astro.props;
     <!-- Left: image (z-10 so girl's hand overlaps text area) -->
     <div
       data-anim="2"
-      class="relative h-[400px] sm:h-[500px] lg:h-full lg:w-[680px] lg:shrink-0 z-10"
+      class="relative h-[400px] sm:h-[500px] lg:h-full lg:w-[50%] lg:shrink-0 z-10 overflow-hidden"
+      data-engagement-parallax
     >
       <Image
         src={raisonDetreImage}
         alt="Jeune fille dégustant une brochette de poisson sur la plage"
-        class="absolute inset-0 w-full h-full object-cover"
-        widths={[375, 680, 960]}
-        sizes="(min-width: 1024px) 680px, 100vw"
+        class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
+        widths={[375, 680]}
+        sizes="100vw"
       />
+      <div
+        class="hidden lg:block absolute inset-x-0 top-0 h-[140%] w-full"
+        data-parallax-img-wrapper
+      >
+        <Image
+          src={raisonDetreImage}
+          alt="Jeune fille dégustant une brochette de poisson sur la plage"
+          class="h-full w-full object-cover object-right"
+          widths={[720, 960]}
+          sizes="50vw"
+        />
+      </div>
     </div>
 
     <!-- Right: text content -->

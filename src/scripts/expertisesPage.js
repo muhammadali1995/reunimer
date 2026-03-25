@@ -306,17 +306,19 @@ function initRhParallax() {
   const img = section.querySelector("[data-rh-parallax-img]")
   if (!img) return
 
-  gsap.set(img, { yPercent: -15 })
+  requestAnimationFrame(() => {
+    gsap.set(img, { yPercent: -15 })
 
-  gsap.to(img, {
-    yPercent: 15,
-    ease: "none",
-    scrollTrigger: {
-      trigger: section,
-      start: "top bottom",
-      end: "bottom top",
-      scrub: true,
-    },
+    gsap.to(img, {
+      yPercent: 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    })
   })
 }
 
@@ -327,17 +329,19 @@ function initSupportParallax() {
   const img = section.querySelector("[data-support-parallax-img]")
   if (!img) return
 
-  gsap.set(img, { yPercent: -15 })
+  requestAnimationFrame(() => {
+    gsap.set(img, { yPercent: -15 })
 
-  gsap.to(img, {
-    yPercent: 15,
-    ease: "none",
-    scrollTrigger: {
-      trigger: section,
-      start: "top bottom",
-      end: "bottom top",
-      scrub: true,
-    },
+    gsap.to(img, {
+      yPercent: 15,
+      ease: "none",
+      scrollTrigger: {
+        trigger: section,
+        start: "top bottom",
+        end: "bottom top",
+        scrub: true,
+      },
+    })
   })
 }
 
