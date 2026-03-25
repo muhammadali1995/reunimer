@@ -31,8 +31,8 @@ const pinOrigins = [
   { x: 854.5, y: 579.5 },
 ];
 const pinDestinations = [
-  // France → various destinations + USA (e.g., [299, 229])
-  [[408, 424], [410, 435], [853, 574], [813, 542], [861, 570], [853, 510], [1124, 586], [981, 343], [299, 229]],
+  // France → various destinations + USA (e.g., [299, 229]) + Afrique du Sud (approx [730, 610])
+  [[408, 424], [410, 435], [853, 574], [813, 542], [861, 570], [853, 510], [1124, 586], [981, 343], [299, 229], [730, 610]],
   // Madagascar → 3 destinations
   [[1120, 605], [1276, 714], [1160, 330]],
   // Réunion → 8 destinations
@@ -192,7 +192,9 @@ const routeGroups = pinOrigins.map((pin, i) => ({
                   fill="none"
                   stroke="white"
                   stroke-width="1.2"
-                  opacity="0.7"
+                  stroke-dasharray="2 6"
+                  stroke-linecap="round"
+                  opacity="0"
                   data-route-path
                 />
               ))}
@@ -236,6 +238,18 @@ const routeGroups = pinOrigins.map((pin, i) => ({
   import { gsap } from 'gsap';
 
   function initMapPins() {
+    const hideWorldPinVisual = (pin: Element) => {
+      const visuals = (pin as HTMLElement).querySelectorAll('.pin-ring, .pin-ring-steady, .pin-dot');
+      gsap.killTweensOf(visuals);
+      gsap.to(visuals, { opacity: 0, duration: 0.16, ease: 'power2.out', overwrite: true });
+    };
+
+    const showWorldPinVisual = (pin: Element) => {
+      const visuals = (pin as HTMLElement).querySelectorAll('.pin-ring, .pin-ring-steady, .pin-dot');
+      gsap.killTweensOf(visuals);
+      gsap.to(visuals, { opacity: 1, duration: 0.2, ease: 'power2.out', overwrite: true });
+    };
+
     // --- Regional map pins (glow + tooltip) ---
     const pins = document.querySelectorAll('.map-pin');
 
@@ -243,7 +257,8 @@ const routeGroups = pinOrigins.map((pin, i) => ({
       const ring = pin.querySelector('.pin-ring') as HTMLElement;
       const tooltip = pin.querySelector('.pin-tooltip') as HTMLElement;
 
-      if (!ring) return;
+      if (!ring || (pin as HTMLElement).dataset.mapPinInitialized === 'true') return;
+      (pin as HTMLElement).dataset.mapPinInitialized = 'true';
 
       // Staggered pulsing glow animation on the ring
       gsap.to(ring, {
@@ -256,10 +271,13 @@ const routeGroups = pinOrigins.map((pin, i) => ({
       });
 
       // Keep a steady ring visible underneath the pulsing one
-      const steadyRing = ring.cloneNode(true) as HTMLElement;
-      steadyRing.classList.remove('pin-ring');
-      steadyRing.classList.add('pin-ring-steady');
-      pin.insertBefore(steadyRing, ring);
+      let steadyRing = pin.querySelector('.pin-ring-steady') as HTMLElement | null;
+      if (!steadyRing) {
+        steadyRing = ring.cloneNode(true) as HTMLElement;
+        steadyRing.classList.remove('pin-ring');
+        steadyRing.classList.add('pin-ring-steady');
+        pin.insertBefore(steadyRing, ring);
+      }
 
       gsap.set(steadyRing, { opacity: 0.3 });
 
@@ -303,7 +321,8 @@ const routeGroups = pinOrigins.map((pin, i) => ({
     worldMapPins.forEach((pin, index) => {
       const ring = pin.querySelector('.pin-ring') as HTMLElement;
 
-      if (!ring) return;
+      if (!ring || (pin as HTMLElement).dataset.worldPinInitialized === 'true') return;
+      (pin as HTMLElement).dataset.worldPinInitialized = 'true';
 
       // Pulsing glow
       gsap.to(ring, {
@@ -315,10 +334,13 @@ const routeGroups = pinOrigins.map((pin, i) => ({
         delay: index * 0.3,
       });
 
-      const steadyRing = ring.cloneNode(true) as HTMLElement;
-      steadyRing.classList.remove('pin-ring');
-      steadyRing.classList.add('pin-ring-steady');
-      pin.insertBefore(steadyRing, ring);
+      let steadyRing = pin.querySelector('.pin-ring-steady') as HTMLElement | null;
+      if (!steadyRing) {
+        steadyRing = ring.cloneNode(true) as HTMLElement;
+        steadyRing.classList.remove('pin-ring');
+        steadyRing.classList.add('pin-ring-steady');
+        pin.insertBefore(steadyRing, ring);
+      }
       gsap.set(steadyRing, { opacity: 0.3 });
 
       // Find matching flux overlay and route group
@@ -338,31 +360,35 @@ const routeGroups = pinOrigins.map((pin, i) => ({
       overlay.style.clipPath = `circle(0% at ${pinLeft} ${pinTop})`;
       overlay.style.opacity = '1';
 
-      // Set initial state for route paths (hidden via stroke-dashoffset)
+      // Set initial state for route paths while preserving the dotted stroke.
       const routePaths = routeGroup?.querySelectorAll('[data-route-path]') as NodeListOf<SVGPathElement>;
       if (routePaths) {
         routePaths.forEach((path) => {
-          const length = path.getTotalLength();
-          path.style.strokeDasharray = `${length}`;
-          path.style.strokeDashoffset = `${length}`;
+          path.style.opacity = '0';
+          path.style.strokeDashoffset = '12';
         });
       }
 
       pinEl.addEventListener('mouseenter', () => {
+        gsap.killTweensOf(overlay);
+
         // Reset all other overlays and route groups
         fluxOverlays.forEach((o) => {
           const el = o as HTMLElement;
           if (el !== overlay) {
+            gsap.killTweensOf(el);
             gsap.to(el, {
               clipPath: `circle(0% at ${el.dataset.clipOriginLeft || '50%'} ${el.dataset.clipOriginTop || '50%'})`,
-              duration: 0.3,
+              duration: 0.22,
               ease: 'power2.in',
+              overwrite: true,
             });
           }
         });
         document.querySelectorAll('[data-route-group]').forEach((g) => {
           if (g !== routeGroup) {
-            gsap.to(g, { opacity: 0, duration: 0.2 });
+            gsap.killTweensOf(g);
+            gsap.to(g, { opacity: 0, duration: 0.16, overwrite: true });
           }
         });
 
@@ -370,56 +396,74 @@ const routeGroups = pinOrigins.map((pin, i) => ({
         if (routeGroup && routePaths) {
           gsap.set(routeGroup, { opacity: 1 });
           routePaths.forEach((path, i) => {
-            gsap.to(path, {
+            gsap.killTweensOf(path);
+            gsap.fromTo(path, {
+              opacity: 0,
+              strokeDashoffset: 12,
+            }, {
+              opacity: 0.7,
               strokeDashoffset: 0,
-              duration: 1,
+              duration: 0.55,
               ease: 'power2.inOut',
-              delay: i * 0.06,
+              delay: i * 0.035,
+              overwrite: true,
             });
           });
         }
 
-        // Reveal flux overlay (labels) with slight delay so lines draw first
+        hideWorldPinVisual(pin);
+
+        // Reveal flux overlay only for the hovered pin.
         gsap.to(overlay, {
           clipPath: `circle(150% at ${pinLeft} ${pinTop})`,
-          duration: 0.8,
+          duration: 0.45,
           ease: 'power2.out',
-          delay: 0.3,
+          overwrite: true,
         });
 
         // Hide other world pins
         worldMapPins.forEach((otherPin) => {
           if (otherPin !== pin) {
-            gsap.to(otherPin, { opacity: 0, duration: 0.25, ease: 'power2.out' });
+            gsap.killTweensOf(otherPin);
+            gsap.to(otherPin, { opacity: 0, duration: 0.18, ease: 'power2.out', overwrite: true });
           }
         });
       });
 
       pinEl.addEventListener('mouseleave', () => {
+        gsap.killTweensOf(overlay);
+
         // Collapse overlay
         gsap.to(overlay, {
           clipPath: `circle(0% at ${pinLeft} ${pinTop})`,
-          duration: 0.4,
+          duration: 0.22,
           ease: 'power2.in',
+          overwrite: true,
         });
 
         // Un-draw route lines
         if (routeGroup && routePaths) {
           routePaths.forEach((path) => {
-            const length = path.getTotalLength();
+            gsap.killTweensOf(path);
             gsap.to(path, {
-              strokeDashoffset: length,
-              duration: 0.4,
+              opacity: 0,
+              strokeDashoffset: -12,
+              duration: 0.2,
               ease: 'power2.in',
+              overwrite: true,
             });
           });
-          gsap.to(routeGroup, { opacity: 0, delay: 0.4, duration: 0.1 });
+          gsap.killTweensOf(routeGroup);
+          gsap.to(routeGroup, { opacity: 0, delay: 0.18, duration: 0.08, overwrite: true });
         }
+
+        showWorldPinVisual(pin);
 
         // Restore other world pins
         worldMapPins.forEach((otherPin) => {
           if (otherPin !== pin) {
-            gsap.to(otherPin, { opacity: 1, duration: 0.3, ease: 'power2.out' });
+            gsap.killTweensOf(otherPin);
+            gsap.to(otherPin, { opacity: 1, duration: 0.2, ease: 'power2.out', overwrite: true });
           }
         });
       });
