@@ -530,14 +530,20 @@ function initBrandsSectionAnimations() {
  */
 function initFishCurtainAnimation() {
   const pinTarget = document.getElementById("fish-pin-wrapper")
-  if (!pinTarget || isReducedMotionPreferred()) return
+  const fishImg = pinTarget?.querySelector("img")
+  if (!pinTarget || !fishImg || isReducedMotionPreferred()) return
 
-  ScrollTrigger.create({
-    trigger: pinTarget,
-    start: "center center",
-    end: "+=690",
-    pin: true,
-    pinSpacing: true,
+  gsap.to(fishImg, {
+    yPercent: 70,
+    ease: "none",
+    scrollTrigger: {
+      trigger: pinTarget,
+      start: "center center",
+      end: "+=720",
+      pin: true,
+      pinSpacing: true,
+      scrub: true,
+    }
   })
 }
 
