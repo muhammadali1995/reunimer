@@ -57,13 +57,6 @@ import knifeImage from "../assets/images/expertise/knife.png"
         widths={[768, 1200, 1600]}
         sizes="(min-width: 1280px) 1000px, 100vw"
       />
-      <Image
-        src={knifeImage}
-        alt="Illustration de couteau"
-        class="mx-auto mt-6 block w-full scale-x-[-1] md:mt-10 md:max-w-full lg:mt-12 max-w-120"
-        widths={[480, 768, 1200, 1600]}
-        sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
-      />
     </div>
   </div>
 
@@ -71,6 +64,17 @@ import knifeImage from "../assets/images/expertise/knife.png"
     id="transformation"
     class="relative z-20 -mt-[150px] scroll-mt-[var(--sticky-tabs-offset,150px)]"
   >
+    <div class="bg-white pt-60 md:pt-80">
+      <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
+        <Image
+          src={knifeImage}
+          alt="Illustration de couteau"
+          class="mx-auto block w-full max-w-120 scale-x-[-1] md:max-w-full"
+          widths={[480, 768, 1200, 1600]}
+          sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
+        />
+      </div>
+    </div>
     <ExpertisesTransformationSection />
   </div>
   <!-- Smoke sits at the border between transformation and quality sections -->
