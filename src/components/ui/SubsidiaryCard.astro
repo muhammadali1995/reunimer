@@ -8,14 +8,15 @@ interface Props {
 const { subsidiary } = Astro.props;
 ---
 
-<div class="group flex flex-col gap-3.5">
-  <div class="relative w-full h-[190px] border border-bleu-abysse flex flex-col items-center justify-center p-4 cursor-pointer transition-[background-color,border-color] duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:bg-turquoise-ocean group-hover:border-turquoise-ocean overflow-hidden">
+<div class="flex flex-col gap-3.5" data-subsidiary-card>
+  <div class="relative w-full h-[190px] border border-bleu-abysse flex flex-col items-center justify-center p-4 cursor-pointer overflow-hidden" data-card-bg>
     <div
-      class="max-w-full max-h-full flex items-center justify-center text-bleu-abysse transform-gpu transition-[transform,color] duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] will-change-[transform,opacity] [backface-visibility:hidden] group-hover:-translate-y-3 group-hover:text-white [&_svg]:max-w-full [&_svg]:max-h-[100px] [&_svg]:w-auto [&_svg]:h-auto"
+      class="max-w-full max-h-full flex items-center justify-center text-bleu-abysse transform-gpu will-change-[transform,color] [backface-visibility:hidden] [&_svg]:max-w-full [&_svg]:max-h-[100px] [&_svg]:w-auto [&_svg]:h-auto"
+      data-card-logo
       set:html={subsidiary.logo}
     />
     <!-- "En savoir plus" — slides up from below logo on hover -->
-    <span class="inline-flex items-center gap-2 text-white font-heading font-semibold text-xs tracking-[1.44px] uppercase underline underline-offset-4 mt-3 translate-y-8 opacity-0 transform-gpu transition-[transform,opacity] duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] will-change-[transform,opacity] [backface-visibility:hidden] group-hover:translate-y-0 group-hover:opacity-100">
+    <span class="absolute bottom-6 inline-flex items-center gap-2 text-white font-heading font-semibold text-xs tracking-[1.44px] uppercase underline underline-offset-4 transform-gpu will-change-[transform,opacity] [backface-visibility:hidden]" data-card-link>
       En savoir plus
       <svg class="w-2 h-3.5 shrink-0" viewBox="0 0 10.5 16.5" fill="none" aria-hidden="true">
         <path d="M1.25 15.25L9.25 8.25L1.25 1.25" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
@@ -24,3 +25,40 @@ const { subsidiary } = Astro.props;
   </div>
   <p class="font-body font-bold text-body-base text-black text-center">{subsidiary.label}</p>
 </div>
+
+<script>
+  import { gsap } from 'gsap';
+
+  function initSubsidiaryCards() {
+    const cards = document.querySelectorAll('[data-subsidiary-card]');
+    
+    cards.forEach((card) => {
+      // Prevent attaching multiple timelines
+      if ((card as any)._hasHoverTimeline) return;
+      (card as any)._hasHoverTimeline = true;
+
+      const bg = card.querySelector('[data-card-bg]');
+      const logo = card.querySelector('[data-card-logo]');
+      const link = card.querySelector('[data-card-link]');
+      
+      if (!bg || !logo || !link) return;
+
+      // Initial state
+      gsap.set(link, { y: 32, autoAlpha: 0 });
+      gsap.set(bg, { backgroundColor: 'transparent', borderColor: '#002C41' });
+
+      // Smoother duration and ease function
+      const tl = gsap.timeline({ paused: true, defaults: { duration: 0.5, ease: 'power3.out', overwrite: 'auto' } });
+      
+      tl.to(bg, { backgroundColor: '#0A97A6', borderColor: '#0A97A6' }, 0)
+        .to(logo, { y: -12, color: '#ffffff' }, 0)
+        .to(link, { y: 0, autoAlpha: 1 }, 0.05);
+
+      card.addEventListener('mouseenter', () => tl.play());
+      card.addEventListener('mouseleave', () => tl.reverse());
+    });
+  }
+
+  initSubsidiaryCards();
+  document.addEventListener('astro:after-swap', initSubsidiaryCards);
+</script>
