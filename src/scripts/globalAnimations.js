@@ -85,6 +85,9 @@ function initStaggeredContainers() {
           duration: 0.75,
           ease: 'power3.out',
           stagger: 0.12,
+          onComplete: () => {
+            children.forEach((child) => gsap.set(child, { clearProps: 'transform' }));
+          },
         });
       },
     });
@@ -308,19 +311,20 @@ function initKenBurns() {
     const img = container.querySelector('img, picture img');
     if (!img) return;
 
-    const setScale = gsap.quickSetter(img, 'scale');
-
-    gsap.set(img, { scale: 1 });
-
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top bottom',
-      end: 'bottom top',
-      scrub: 1.5,
-      onUpdate: (self) => {
-        setScale(1 + self.progress * 0.08);
+    gsap.fromTo(
+      img,
+      { scale: 1 },
+      {
+        scale: 1.08,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
       },
-    });
+    );
   });
 }
 
@@ -338,6 +342,10 @@ function initEngagementParallax() {
     if (!wrapper) return;
 
     const setY = gsap.quickSetter(wrapper, 'yPercent');
+    // Start pushed down at +5% so parallax movement is visible immediately,
+    // then travel up to -28% as user scrolls — wrapper is 140% tall so range is safe.
+    const startY = 5;
+    const endY = -28;
 
     ScrollTrigger.create({
       trigger: container,
@@ -345,8 +353,7 @@ function initEngagementParallax() {
       end: 'bottom top',
       scrub: 1.5,
       onUpdate: (self) => {
-        // Wrapper is 140% tall → safe shift range: 0 to -28%
-        setY(self.progress * -28);
+        setY(startY + self.progress * (endY - startY));
       },
     });
   });
