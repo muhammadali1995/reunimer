@@ -333,56 +333,22 @@ function initKenBurns() {
 function initEngagementParallax() {
   if (isReducedMotionPreferred()) return;
 
-  const mm = gsap.matchMedia();
-  mm.add('(min-width: 1024px)', () => {
-    const containers = document.querySelectorAll('[data-engagement-parallax]');
+  document.querySelectorAll('[data-engagement-parallax]').forEach((container) => {
+    const wrapper = container.querySelector('[data-parallax-img-wrapper]');
+    if (!wrapper) return;
 
-    function applyFixedStyles() {
-      containers.forEach((container) => {
-        const img = container.querySelector('img, picture img');
-        if (!img) return;
+    const setY = gsap.quickSetter(wrapper, 'yPercent');
 
-        const rect = container.getBoundingClientRect();
-        container.style.clipPath = 'inset(0)';
-        img.style.position = 'fixed';
-        img.style.top = '0';
-        img.style.left = rect.left + 'px';
-        img.style.width = rect.width + 'px';
-        img.style.height = Math.max(rect.height, window.innerHeight) + 'px';
-        img.style.objectFit = 'cover';
-      });
-    }
-
-    applyFixedStyles();
-    window.addEventListener('resize', applyFixedStyles);
-
-    // Subtle vertical drift on each fixed image
-    containers.forEach((container) => {
-      const img = container.querySelector('img, picture img');
-      if (!img) return;
-
-      gsap.to(img, {
-        y: -60,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: container,
-          start: 'top bottom',
-          end: 'bottom top',
-          scrub: true,
-        },
-      });
+    ScrollTrigger.create({
+      trigger: container,
+      start: 'top bottom',
+      end: 'bottom top',
+      scrub: 1.5,
+      onUpdate: (self) => {
+        // Wrapper is 140% tall → safe shift range: 0 to -28%
+        setY(self.progress * -28);
+      },
     });
-
-    return () => {
-      window.removeEventListener('resize', applyFixedStyles);
-      containers.forEach((container) => {
-        const img = container.querySelector('img, picture img');
-        if (!img) return;
-
-        container.style.clipPath = '';
-        img.style.cssText = '';
-      });
-    };
   });
 }
 
