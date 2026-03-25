@@ -46,16 +46,16 @@ function initGroupeAnimations() {
     },
     (section, timeline) => {
       const title = section.querySelector('[data-anim="1"]');
-      if (title) timeline.add(toAnimation(title, ANIMATION_TYPES.APPEAR_Z));
+      if (title) timeline.add(toAnimation(title, ANIMATION_TYPES.APPEAR_Z, { duration: 1.3 }));
 
       const fadeLeftEls = section.querySelectorAll('[data-anim="2"]');
       if (fadeLeftEls.length) {
-        timeline.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.13 }), '-=0.45');
+        timeline.add(toAnimation(fadeLeftEls, ANIMATION_TYPES.FADE_LEFT, { stagger: 0.187, duration: 1.3 }), '-=0.45');
       }
 
       const images = section.querySelectorAll('[data-anim="3"]');
       if (images.length) {
-        timeline.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.12 }), '-=0.45');
+        timeline.add(toAnimation(images, ANIMATION_TYPES.FADE_UP, { stagger: 0.173, duration: 1.3 }), '-=0.45');
       }
     },
   );
