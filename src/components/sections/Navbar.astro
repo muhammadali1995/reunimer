@@ -170,12 +170,12 @@ const languages = [
     </button>
   </div>
   <div
-    class="pointer-events-none absolute top-full left-0 right-0 opacity-0 invisible -translate-y-3 transition-all duration-300 ease-out"
+    class="pointer-events-none absolute top-full left-0 -right-6 opacity-0 invisible -translate-y-3 transition-all duration-300 ease-out"
     id="navbar-search-panel"
     aria-hidden="true"
   >
     <div class="mx-4 flex justify-end pt-3 sm:mx-6 lg:mx-[26px] lg:pt-4">
-      <div class="flex w-[200px] items-center gap-3 rounded-full border border-brume-alize bg-white px-5 py-3 shadow-[0_14px_30px_rgba(0,0,0,0.08)] transition-colors focus-within:border-turquoise-ocean">
+      <div class="flex w-96 items-center gap-3 rounded-full border border-brume-alize bg-white px-5 py-3 shadow-[0_14px_30px_rgba(0,0,0,0.08)] transition-colors focus-within:border-turquoise-ocean">
           <svg class="h-4 w-4 shrink-0 text-turquoise-ocean" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d={searchIconPath} fill="currentColor"/>
           </svg>
@@ -183,7 +183,7 @@ const languages = [
             id="navbar-search-input"
             type="search"
             name="q"
-            placeholder="Rechercher un contenu, une expertise, une page..."
+            placeholder="Rechercher du contenu, une page..."
             class="w-full border-none bg-transparent p-0 font-heading text-sm text-bleu-abysse placeholder:text-bleu-abysse/55 focus:outline-none"
           />
       </div>
