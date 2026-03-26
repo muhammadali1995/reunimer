@@ -5,9 +5,9 @@
 5. 2 logos on the last section of engagements page should be aligned
 7. the height of the actualties details page img is too big
 8. pagination should work :: actualties details
-9. search bar
 10. product hover animation is not working on safari
 
 DONE
+9. search bar
 6. gray area should be full width :: engagements page
 11. change the label color on actualties page from light blue to dark blue
