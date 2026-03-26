@@ -544,17 +544,17 @@ function parseCountValue(value: string) {
     <div
       class="relative px-6 pt-12 md:px-10 md:pt-16 lg:px-[88px] lg:pt-[132px]"
     >
-      <h2
+      <div
+        class="mt-10 md:mt-12 lg:mt-[56px] flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-center lg:gap-44"
+      >
+        <div class="lg:max-w-[512px] lg:flex-none">
+          <div class="flex flex-col gap-4">
+           <h2
         class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
       >
         {filieresSection.title}
       </h2>
 
-      <div
-        class="mt-10 md:mt-12 lg:mt-[56px] flex flex-col gap-10 lg:flex-row lg:items-start lg:justify-between lg:gap-[72px]"
-      >
-        <div class="lg:max-w-[512px] lg:flex-none">
-          <div class="flex flex-col gap-4">
             <p
               class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
             >
@@ -570,7 +570,7 @@ function parseCountValue(value: string) {
         </div>
 
         <div
-          class="flex flex-col gap-8 sm:flex-row sm:flex-wrap lg:flex-row lg:items-start lg:gap-[80px]"
+          class="flex flex-col gap-8 h-[-webkit-fill-available] pt-12 sm:flex-row sm:flex-wrap lg:flex-row lg:items-start lg:gap-[80px]"
         >
           <div
             class="flex flex-col items-start justify-between gap-6 pb-4"
