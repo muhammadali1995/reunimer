@@ -41,11 +41,11 @@ const gallerySlides = detail.gallery.map((_, startIndex) => {
             <div class="swiper-slide">
               <div class="flex flex-col md:flex-row gap-[10px]">
                 <!-- Main Photo -->
-                <div class="relative overflow-hidden md:w-[574px] md:flex-shrink-0 aspect-[574/498]">
+                <div class="relative overflow-hidden md:w-[574px] md:flex-shrink-0">
                   <Image
                     src={slideImages[0].image}
                     alt={slideImages[0].alt}
-                    class="absolute inset-0 w-full h-full object-cover"
+                    class="inset-0 w-full h-[500px] object-cover"
                     loading={slideIndex === 0 ? 'eager' : 'lazy'}
                   />
                   <div class="absolute top-[21px] left-[15px]">
@@ -53,20 +53,20 @@ const gallerySlides = detail.gallery.map((_, startIndex) => {
                   </div>
                 </div>
                 <!-- Secondary Photo -->
-                <div class="relative overflow-hidden md:w-[410px] md:flex-shrink-0 aspect-[410/498] hidden md:block">
+                <div class="relative overflow-hidden md:w-[410px] md:flex-shrink-0 hidden md:block">
                   <Image
                     src={slideImages[1].image}
                     alt={slideImages[1].alt}
-                    class="absolute inset-0 w-full h-full object-cover"
+                    class="inset-0 w-full h-[500px] object-cover"
                     loading={slideIndex === 0 ? 'eager' : 'lazy'}
                   />
                 </div>
                 <!-- Tertiary Photo (narrow) -->
-                <div class="relative overflow-hidden md:flex-1 aspect-[152/498] hidden lg:block">
+                <div class="relative overflow-hidden md:flex-1 hidden lg:block">
                   <Image
                     src={slideImages[2].image}
                     alt={slideImages[2].alt}
-                    class="absolute inset-0 w-full h-full object-cover"
+                    class="inset-0 w-full h-[500px] object-cover"
                     loading={slideIndex === 0 ? 'eager' : 'lazy'}
                   />
                 </div>
