@@ -542,7 +542,7 @@ function parseCountValue(value: string) {
     class="relative overflow-hidden scroll-mt-[135px] bg-white"
   >
     <div
-      class="relative px-6 py-12 md:px-10 md:py-16 lg:px-[88px] lg:pt-[132px] lg:pb-[110px]"
+      class="relative px-6 pt-12 md:px-10 md:pt-16 lg:px-[88px] lg:pt-[132px]"
     >
       <h2
         class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
@@ -606,24 +606,28 @@ function parseCountValue(value: string) {
       </div>
 
       <div
-        class="mt-12 md:mt-14 lg:mt-[86px] flex flex-col gap-8 bg-gris-clair w-full px-6 py-8 md:px-8 md:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-[82px] lg:px-[84px] lg:py-[58px]"
+        class="mt-12 md:mt-14 lg:mt-[86px] -mx-6 md:-mx-10 lg:-mx-[88px] bg-gris-clair"
       >
-        <div class="lg:flex-none">
-          <Image
-            src={filieresSection.medal}
-            alt={filieresSection.medalAlt}
-            class="w-[220px] md:w-[260px] lg:w-[304px] h-auto"
-            widths={[220, 260, 304]}
-            sizes="304px"
-          />
-        </div>
+        <div
+          class="flex flex-col gap-8 px-6 py-8 md:px-10 md:py-10 lg:flex-row lg:items-center lg:justify-between lg:gap-[82px] lg:px-[172px] lg:py-[58px]"
+        >
+          <div class="lg:flex-none">
+            <Image
+              src={filieresSection.medal}
+              alt={filieresSection.medalAlt}
+              class="w-[220px] md:w-[260px] lg:w-[304px] h-auto"
+              widths={[220, 260, 304]}
+              sizes="304px"
+            />
+          </div>
 
-        <div class="lg:max-w-[445px] lg:pt-[32px]">
-          <p
-            class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
-          >
-            {filieresSection.medalDescription}
-          </p>
+          <div class="lg:max-w-[445px] lg:pt-[32px]">
+            <p
+              class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
+            >
+              {filieresSection.medalDescription}
+            </p>
+          </div>
         </div>
       </div>
     </div>
