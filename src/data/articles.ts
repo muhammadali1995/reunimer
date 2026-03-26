@@ -53,7 +53,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-groupe',
     tag: 'GROUPE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
@@ -63,7 +63,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-filiere',
     tag: 'FILIÈRE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
@@ -73,7 +73,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-groupe-2',
     tag: 'GROUPE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
@@ -83,7 +83,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-groupe-3',
     tag: 'GROUPE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
@@ -93,7 +93,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-filiere-2',
     tag: 'FILIÈRE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",
@@ -103,7 +103,7 @@ export const articles: Article[] = [
   {
     slug: 'engagement-durable-groupe-4',
     tag: 'GROUPE',
-    tagColor: 'turquoise-ocean',
+    tagColor: 'bleu-abysse',
     date: '11 FÉV. 2026',
     title: 'Un engagement durable',
     description: "L'audace (nous ouvrons la voie). Nous ne sommes pas les marchés, nous les bâtissons. Là où il n'y a rien, … En savoir plus \u00BB",

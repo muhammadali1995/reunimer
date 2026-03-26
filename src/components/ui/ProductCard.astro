@@ -32,7 +32,7 @@ const {
 
 <div class:list={['group relative', className]}>
   <!-- Card with clipped corners -->
-  <div class="relative rounded-[20px] md:rounded-[30px] lg:rounded-[45px] overflow-hidden h-[200px] sm:h-[240px] md:h-[260px] lg:h-[327px] bg-[#DACBB4]">
+  <div class="relative rounded-[20px] md:rounded-[30px] lg:rounded-[45px] overflow-hidden h-[200px] sm:h-[240px] md:h-[260px] lg:h-[327px] bg-[#DACBB4] [isolation:isolate] [transform:translateZ(0)] [backface-visibility:hidden]">
     <Image
       src={imageSrc}
       alt={imageAlt}
@@ -53,7 +53,7 @@ const {
     </div>
 
     <!-- Hover CTA — inside card, bottom-left, slides up on hover -->
-    <div class="absolute bottom-0 left-[3.7%] translate-y-full opacity-0 group-hover:translate-y-[-16px] group-hover:opacity-100 transition-all duration-300 z-10">
+    <div class="absolute bottom-0 left-[3.7%] translate-y-full opacity-0 group-hover:translate-y-[-16px] group-hover:opacity-100 transition-all duration-300 z-10 [transform:translateZ(0)] [backface-visibility:hidden] will-change-[transform,opacity]">
       <Button variant="pill-light" href="#footer-contact-heading" class="whitespace-nowrap">
         Contactez-nous pour en savoir plus
       </Button>

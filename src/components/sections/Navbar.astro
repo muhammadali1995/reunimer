@@ -41,8 +41,9 @@ const languages = [
   class="fixed lg:top-11 left-0 right-0 z-50 flex justify-center"
   id="navbar"
 >
+  <div class="relative w-full max-w-[1360px]">
   <!-- Desktop bar -->
-  <div class="bg-white w-full max-w-[1360px] h-[92px] flex items-center justify-between px-4 sm:px-6 lg:px-[26px]">
+  <div class="bg-white w-full h-[92px] flex items-center justify-between px-4 sm:px-6 lg:px-[26px] shadow-[0_10px_35px_rgba(0,0,0,0.04)]">
     <!-- Logo -->
     <a href="/" class="shrink-0" aria-label="Reunimer — Accueil">
       <Image
@@ -108,7 +109,10 @@ const languages = [
         <button
           type="button"
           class="shrink-0 text-bleu-abysse hover:text-turquoise-ocean transition-colors cursor-pointer"
+          id="desktop-search-btn"
           aria-label="Rechercher"
+          aria-expanded="false"
+          aria-controls="navbar-search-panel"
         >
           <svg class="w-3.5 h-3.5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d={searchIconPath} fill="currentColor"/>
@@ -165,6 +169,27 @@ const languages = [
       <span class="block w-6 h-[2px] bg-bleu-abysse transition-all duration-300 origin-center" id="bar3"></span>
     </button>
   </div>
+  <div
+    class="pointer-events-none absolute top-full left-0 right-0 opacity-0 invisible -translate-y-3 transition-all duration-300 ease-out"
+    id="navbar-search-panel"
+    aria-hidden="true"
+  >
+    <div class="mx-4 flex justify-end pt-3 sm:mx-6 lg:mx-[26px] lg:pt-4">
+      <div class="flex w-[200px] items-center gap-3 rounded-full border border-brume-alize bg-white px-5 py-3 shadow-[0_14px_30px_rgba(0,0,0,0.08)] transition-colors focus-within:border-turquoise-ocean">
+          <svg class="h-4 w-4 shrink-0 text-turquoise-ocean" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d={searchIconPath} fill="currentColor"/>
+          </svg>
+          <input
+            id="navbar-search-input"
+            type="search"
+            name="q"
+            placeholder="Rechercher un contenu, une expertise, une page..."
+            class="w-full border-none bg-transparent p-0 font-heading text-sm text-bleu-abysse placeholder:text-bleu-abysse/55 focus:outline-none"
+          />
+      </div>
+    </div>
+  </div>
+  </div>
 </nav>
 
 <!-- Mobile menu overlay -->
@@ -212,7 +237,10 @@ const languages = [
       <button
         type="button"
         class="bg-transparent border-none p-0 text-bleu-abysse cursor-pointer transition-colors inline-flex items-center justify-center hover:text-turquoise-ocean"
+        id="mobile-search-btn"
         aria-label="Rechercher"
+        aria-expanded="false"
+        aria-controls="navbar-search-panel"
       >
         <svg class="w-5 h-5" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d={searchIconPath} fill="currentColor"/>
@@ -377,6 +405,56 @@ const languages = [
 
   initLangDropdown('lang-desktop');
   initLangDropdown('lang-mobile');
+
+  // --- Search panel ---
+  const searchPanel = document.getElementById('navbar-search-panel');
+  const searchInput = document.getElementById('navbar-search-input') as HTMLInputElement | null;
+  const desktopSearchBtn = document.getElementById('desktop-search-btn');
+  const mobileSearchBtn = document.getElementById('mobile-search-btn');
+  let searchOpen = false;
+
+  const setSearchState = (nextOpen: boolean) => {
+    if (!searchPanel) return;
+
+    searchOpen = nextOpen;
+    desktopSearchBtn?.setAttribute('aria-expanded', String(nextOpen));
+    mobileSearchBtn?.setAttribute('aria-expanded', String(nextOpen));
+    searchPanel.setAttribute('aria-hidden', String(!nextOpen));
+
+    if (nextOpen) {
+      searchPanel.classList.remove('opacity-0', 'invisible', '-translate-y-3', 'pointer-events-none');
+      searchPanel.classList.add('opacity-100', 'visible', 'translate-y-0', 'pointer-events-auto');
+      requestAnimationFrame(() => searchInput?.focus());
+      return;
+    }
+
+    searchPanel.classList.add('opacity-0', 'invisible', '-translate-y-3', 'pointer-events-none');
+    searchPanel.classList.remove('opacity-100', 'visible', 'translate-y-0', 'pointer-events-auto');
+  };
+
+  const toggleSearch = (event: Event) => {
+    event.stopPropagation();
+    setSearchState(!searchOpen);
+  };
+
+  desktopSearchBtn?.addEventListener('click', toggleSearch);
+  mobileSearchBtn?.addEventListener('click', toggleSearch);
+
+  document.addEventListener('click', (event) => {
+    if (!searchOpen || !searchPanel) return;
+
+    const target = event.target as Node;
+    if (searchPanel.contains(target)) return;
+    if (desktopSearchBtn?.contains(target) || mobileSearchBtn?.contains(target)) return;
+
+    setSearchState(false);
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      setSearchState(false);
+    }
+  });
 
   // --- Desktop dropdowns ---
   const desktopDropdownItems = Array.from(document.querySelectorAll('[data-nav-item]')) as HTMLElement[];
