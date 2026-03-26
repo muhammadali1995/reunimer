@@ -1,10 +1,10 @@
 1. fish should be white when the animation stops
 2. texture
-4. there is whitespace between section and img in the engagements page
 
 DONE
 10. product hover animation is not working on safari
 
+4. there is whitespace between section and img in the engagements page
 3. move the substitle a bit down in the hr section, expertise page
 5. 2 logos on the last section of engagements page should be aligned
 7. the height of the actualties details page img is too big

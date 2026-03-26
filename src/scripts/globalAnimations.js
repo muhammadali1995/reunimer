@@ -342,9 +342,8 @@ function initEngagementParallax() {
     if (!wrapper) return;
 
     const setY = gsap.quickSetter(wrapper, 'yPercent');
-    // Start pushed down at +5% so parallax movement is visible immediately,
-    // then travel up to -28% as user scrolls — wrapper is 140% tall so range is safe.
-    const startY = 5;
+    // Start flush with the section edge to avoid a visible gap before scroll begins.
+    const startY = 0;
     const endY = -28;
 
     ScrollTrigger.create({
