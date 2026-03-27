@@ -548,43 +548,38 @@ function initFishCurtainAnimation() {
   )
     return
 
-  const revealState = {value: 0}
-  const applyReveal = () => {
-    const revealPercent = revealState.value * 100
-    const inversePercent = (1 - revealState.value) * 100
+  // The visible "section line" is the bottom edge of the sea background image —
+  // NOT the transformation section top. The sea image has h-[170%] and may have
+  // parallax applied, so we must read its live viewport position each frame.
+  const seaImg = document.querySelector("[data-sea-parallax-bg]")
 
-    // Bottom-to-top wipe: colored fish clips from bottom, white fish+knife reveals from bottom.
-    gsap.set(primaryMask, {
-      clipPath: `inset(0 0 ${revealPercent}% 0)`,
-    })
-    gsap.set(secondaryMask, {
-      clipPath: `inset(${inversePercent}% 0 0 0)`,
-    })
+  // Initial state
+  primaryMask.style.clipPath = "inset(0 0 0% 0)"
+  secondaryMask.style.clipPath = "inset(100% 0 0 0)"
+
+  const syncClip = () => {
+    const stageRect = fishStage.getBoundingClientRect()
+    const seaBottom = seaImg
+      ? seaImg.getBoundingClientRect().bottom
+      : stageRect.bottom
+    // How many px of the fish stage the "sea" has retreated from the bottom
+    const overlap = stageRect.bottom - seaBottom
+    const pct = Math.max(0, Math.min(100, (overlap / stageRect.height) * 100))
+    primaryMask.style.clipPath = `inset(0 0 ${pct}% 0)`
+    secondaryMask.style.clipPath = `inset(${100 - pct}% 0 0 0)`
   }
 
-  applyReveal()
-
-  gsap
-    .timeline({
-      scrollTrigger: {
-        trigger: pinTarget,
-        start: "center center",
-        end: "+=900",
-        pin: true,
-        pinSpacing: true,
-        scrub: true,
-      },
-    })
-    .to(
-      revealState,
-      {
-        value: 1,
-        ease: "none",
-        duration: 0.2,
-        onUpdate: applyReveal,
-      },
-      0.2,
-    )
+  gsap.timeline({
+    scrollTrigger: {
+      trigger: pinTarget,
+      start: "center center",
+      end: "+=900",
+      pin: true,
+      pinSpacing: true,
+      scrub: true,
+      onUpdate: syncClip,
+    },
+  }).to({}, {duration: 1, ease: "none"})
 }
 
 /**
