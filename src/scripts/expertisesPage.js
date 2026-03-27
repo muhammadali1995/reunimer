@@ -530,21 +530,69 @@ function initBrandsSectionAnimations() {
  */
 function initFishCurtainAnimation() {
   const pinTarget = document.getElementById("fish-pin-wrapper")
-  const fishImg = pinTarget?.querySelector("img")
-  if (!pinTarget || !fishImg || isReducedMotionPreferred()) return
+  const fishStage = pinTarget?.querySelector("[data-fish-curtain-stage]")
+  const primaryMask = pinTarget?.querySelector("[data-fish-curtain-primary-mask]")
+  const secondaryMask = pinTarget?.querySelector(
+    "[data-fish-curtain-secondary-mask]",
+  )
+  const primaryFish = pinTarget?.querySelector("[data-fish-curtain-primary]")
+  const secondaryFish = pinTarget?.querySelector("[data-fish-curtain-secondary]")
+  if (
+    !pinTarget ||
+    !fishStage ||
+    !primaryMask ||
+    !secondaryMask ||
+    !primaryFish ||
+    !secondaryFish ||
+    isReducedMotionPreferred()
+  )
+    return
 
-  gsap.to(fishImg, {
-    yPercent: 70,
-    ease: "none",
-    scrollTrigger: {
-      trigger: pinTarget,
-      start: "center center",
-      end: "+=720",
-      pin: true,
-      pinSpacing: true,
-      scrub: true,
-    }
-  })
+  const revealState = {value: 0}
+  const applyReveal = () => {
+    const revealPercent = revealState.value * 100
+    const inversePercent = (1 - revealState.value) * 100
+
+    gsap.set(primaryMask, {
+      clipPath: `inset(0 0 ${revealPercent}% 0)`,
+    })
+    gsap.set(secondaryMask, {
+      clipPath: `inset(0 0 ${inversePercent}% 0)`,
+    })
+  }
+
+  applyReveal()
+
+  gsap
+    .timeline({
+      scrollTrigger: {
+        trigger: pinTarget,
+        start: "center center",
+        end: "+=720",
+        pin: true,
+        pinSpacing: true,
+        scrub: true,
+      },
+    })
+    .to(
+      fishStage,
+      {
+        yPercent: 70,
+        ease: "none",
+        duration: 1,
+      },
+      0,
+    )
+    .to(
+      revealState,
+      {
+        value: 1,
+        ease: "none",
+        duration: 0.3,
+        onUpdate: applyReveal,
+      },
+      0.7,
+    )
 }
 
 /**
