@@ -530,21 +530,56 @@ function initBrandsSectionAnimations() {
  */
 function initFishCurtainAnimation() {
   const pinTarget = document.getElementById("fish-pin-wrapper")
-  const fishImg = pinTarget?.querySelector("img")
-  if (!pinTarget || !fishImg || isReducedMotionPreferred()) return
+  const fishStage = pinTarget?.querySelector("[data-fish-curtain-stage]")
+  const primaryMask = pinTarget?.querySelector("[data-fish-curtain-primary-mask]")
+  const secondaryMask = pinTarget?.querySelector(
+    "[data-fish-curtain-secondary-mask]",
+  )
+  const primaryFish = pinTarget?.querySelector("[data-fish-curtain-primary]")
+  const secondaryFish = pinTarget?.querySelector("[data-fish-curtain-secondary]")
+  if (
+    !pinTarget ||
+    !fishStage ||
+    !primaryMask ||
+    !secondaryMask ||
+    !primaryFish ||
+    !secondaryFish ||
+    isReducedMotionPreferred()
+  )
+    return
 
-  gsap.to(fishImg, {
-    yPercent: 70,
-    ease: "none",
+  // The visible "section line" is the bottom edge of the sea background image —
+  // NOT the transformation section top. The sea image has h-[170%] and may have
+  // parallax applied, so we must read its live viewport position each frame.
+  const seaImg = document.querySelector("[data-sea-parallax-bg]")
+
+  // Initial state
+  primaryMask.style.clipPath = "inset(0 0 0% 0)"
+  secondaryMask.style.clipPath = "inset(100% 0 0 0)"
+
+  const syncClip = () => {
+    const stageRect = fishStage.getBoundingClientRect()
+    const seaBottom = seaImg
+      ? seaImg.getBoundingClientRect().bottom
+      : stageRect.bottom
+    // How many px of the fish stage the "sea" has retreated from the bottom
+    const overlap = stageRect.bottom - seaBottom
+    const pct = Math.max(0, Math.min(100, (overlap / stageRect.height) * 100))
+    primaryMask.style.clipPath = `inset(0 0 ${pct}% 0)`
+    secondaryMask.style.clipPath = `inset(${100 - pct}% 0 0 0)`
+  }
+
+  gsap.timeline({
     scrollTrigger: {
       trigger: pinTarget,
       start: "center center",
-      end: "+=720",
+      end: "+=900",
       pin: true,
       pinSpacing: true,
       scrub: true,
-    }
-  })
+      onUpdate: syncClip,
+    },
+  }).to({}, {duration: 1, ease: "none"})
 }
 
 /**
