@@ -13,10 +13,10 @@ import {
   expertisesFishingBackground,
   expertisesSmokeImage,
   expertisesTunaImage,
+  knifeImage
 } from "../data/expertises"
 import {Image} from "astro:assets"
 import fishWhiteImage from "../assets/images/expertise/fish-white.png"
-import knifeImage from "../assets/images/expertise/knife.png"
 ---
 
 <PageLayout
@@ -49,7 +49,7 @@ import knifeImage from "../assets/images/expertise/knife.png"
        The transformation section (z-20) scrolls up behind it, its white bg
        acting as a natural mask. When it reaches the fish midpoint, the pin
        releases and the fish scrolls away with 100px gap before content. -->
-  <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-[120px]">
+  <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-30">
     <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
       <div class="relative" data-fish-curtain-stage>
         <Image
@@ -62,8 +62,8 @@ import knifeImage from "../assets/images/expertise/knife.png"
         />
         <div
           class="absolute inset-0"
+          style="clip-path: inset(100% 0 0 0);"
           data-fish-curtain-secondary-mask
-          style="clip-path: inset(0 0 100% 0);"
         >
           <Image
             src={fishWhiteImage}
@@ -76,7 +76,7 @@ import knifeImage from "../assets/images/expertise/knife.png"
           />
         </div>
         <div
-          class="absolute inset-0 overflow-hidden"
+          class="absolute inset-0"
           data-fish-curtain-primary-mask
           style="clip-path: inset(0 0 0 0);"
         >
@@ -95,8 +95,19 @@ import knifeImage from "../assets/images/expertise/knife.png"
 
   <div
     id="transformation"
-    class="relative z-20 pt-10 scroll-mt-[var(--sticky-tabs-offset,150px)]"
+    class="relative z-20 scroll-mt-[var(--sticky-tabs-offset,150px)]"
   >
+   <div class="bg-white">
+      <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
+        <Image
+          src={knifeImage}
+          alt="Illustration de couteau"
+          class="mx-auto block w-full max-w-120 scale-x-[-1] md:max-w-full"
+          widths={[480, 768, 1200, 1600]}
+          sizes="(min-width: 1280px) 1000px, (min-width: 768px) 100vw, 480px"
+        />
+      </div>
+    </div>
     <ExpertisesTransformationSection />
   </div>
   <!-- Smoke sits at the border between transformation and quality sections -->

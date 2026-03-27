@@ -553,11 +553,12 @@ function initFishCurtainAnimation() {
     const revealPercent = revealState.value * 100
     const inversePercent = (1 - revealState.value) * 100
 
+    // Bottom-to-top wipe: colored fish clips from bottom, white fish+knife reveals from bottom.
     gsap.set(primaryMask, {
       clipPath: `inset(0 0 ${revealPercent}% 0)`,
     })
     gsap.set(secondaryMask, {
-      clipPath: `inset(0 0 ${inversePercent}% 0)`,
+      clipPath: `inset(${inversePercent}% 0 0 0)`,
     })
   }
 
@@ -568,30 +569,21 @@ function initFishCurtainAnimation() {
       scrollTrigger: {
         trigger: pinTarget,
         start: "center center",
-        end: "+=720",
+        end: "+=900",
         pin: true,
         pinSpacing: true,
         scrub: true,
       },
     })
     .to(
-      fishStage,
-      {
-        yPercent: 70,
-        ease: "none",
-        duration: 1,
-      },
-      0,
-    )
-    .to(
       revealState,
       {
         value: 1,
         ease: "none",
-        duration: 0.3,
+        duration: 0.2,
         onUpdate: applyReveal,
       },
-      0.7,
+      0.2,
     )
 }
 
