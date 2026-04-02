@@ -557,6 +557,8 @@ function initFishCurtainAnimation() {
   primaryMask.style.clipPath = "inset(0 0 0% 0)"
   secondaryMask.style.clipPath = "inset(100% 0 0 0)"
 
+  const OFFSET = 48 // 12 units = 48px padding on top and bottom
+
   const syncClip = () => {
     const stageRect = fishStage.getBoundingClientRect()
     const seaBottom = seaImg
@@ -564,9 +566,11 @@ function initFishCurtainAnimation() {
       : stageRect.bottom
     // How many px of the fish stage the "sea" has retreated from the bottom
     const overlap = stageRect.bottom - seaBottom
-    const pct = Math.max(0, Math.min(100, (overlap / stageRect.height) * 100))
-    primaryMask.style.clipPath = `inset(0 0 ${pct}% 0)`
-    secondaryMask.style.clipPath = `inset(${100 - pct}% 0 0 0)`
+
+    // We use px for the insets to correctly account for the OFFSET-padded mask.
+    // The mask div is (stageRect.height + OFFSET * 2) px tall.
+    primaryMask.style.clipPath = `inset(0 0 ${Math.max(0, overlap + OFFSET)}px 0)`
+    secondaryMask.style.clipPath = `inset(${Math.max(0, stageRect.height - overlap + OFFSET)}px 0 0 0)`
   }
 
   gsap.timeline({
