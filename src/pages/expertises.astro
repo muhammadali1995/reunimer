@@ -31,7 +31,7 @@ import fishWhiteImage from "../assets/images/expertise/fish-white.png"
     <Image
       src={expertisesFishingBackground}
       alt="Banc de thons sous la surface"
-      class="absolute inset-x-0 top-0 h-[170%] w-full object-cover"
+      class="absolute inset-x-0 top-0 h-[170%] w-full object-cover object-top"
       data-sea-parallax-bg
       widths={[768, 1024, 1440, 1920]}
       sizes="100vw"
@@ -51,17 +51,17 @@ import fishWhiteImage from "../assets/images/expertise/fish-white.png"
        releases and the fish scrolls away with 100px gap before content. -->
   <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-30">
     <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
-      <div class="relative" data-fish-curtain-stage>
+      <div class="relative overflow-visible" data-fish-curtain-stage>
         <Image
           src={expertisesTunaImage}
           alt=""
           aria-hidden="true"
-          class="pointer-events-none opacity-0 w-full"
+          class="pointer-events-none opacity-0 w-full h-auto"
           widths={[768, 1200, 1600]}
           sizes="(min-width: 1280px) 1000px, 100vw"
         />
         <div
-          class="absolute inset-0"
+          class="absolute inset-x-0 -inset-y-12 overflow-hidden max-h-[420px]"
           style="clip-path: inset(100% 0 0 0);"
           data-fish-curtain-secondary-mask
         >
@@ -69,21 +69,21 @@ import fishWhiteImage from "../assets/images/expertise/fish-white.png"
             src={fishWhiteImage}
             alt=""
             aria-hidden="true"
-            class="absolute inset-0 w-full object-fill scale-x-[-1]"
+            class="absolute inset-x-0 top-12 w-full h-auto scale-x-[-1] object-top"
             data-fish-curtain-secondary
             widths={[768, 1200, 1600]}
             sizes="(min-width: 1280px) 1000px, 100vw"
           />
         </div>
         <div
-          class="absolute inset-0"
+          class="absolute inset-x-0 -inset-y-12 overflow-visible"
           data-fish-curtain-primary-mask
           style="clip-path: inset(0 0 0 0);"
         >
           <Image
             src={expertisesTunaImage}
             alt="Illustration de thons"
-            class="absolute inset-0 h-full w-full object-fill"
+            class="absolute inset-x-0 top-12 h-auto w-full object-top"
             data-fish-curtain-primary
             widths={[768, 1200, 1600]}
             sizes="(min-width: 1280px) 1000px, 100vw"
