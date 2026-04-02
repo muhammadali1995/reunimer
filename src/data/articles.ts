@@ -119,6 +119,12 @@ export const articleDetails: Record<string, ArticleDetail> = {
       { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx' },
       { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — vue d\'ensemble' },
       { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — détail' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — cuisine' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — équipe' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — produits' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — atelier' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — dégustation' },
+      { image: articlePlaceholder, alt: 'Visite du Chef Thierry Marx — finale' },
     ],
     body: [
       'Ipsunda ime non cumquat emperchil etus etur, voluptatem et alit, tem dem excero id quo temposte sim hilicius, aut pa doluptatior reictatur sae volorecus et expeliquid quam la dem fuga. Ipsunda ime non cumquat emperchil etus etur, voluptatem et alit, tem dem excero id quo temposte sim hilicius, aut pa doluptatior reictatur sae volorecus et expeliquid quam la dem fuga. Ipsunda ime non cumquat emperchil etus etur, voluptatem et alit, tem dem excero id quo temposte sim hilicius, aut pa doluptatior reictatur sae volorecus et expeliquid quam la dem fuga.',
