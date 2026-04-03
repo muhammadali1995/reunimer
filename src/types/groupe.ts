@@ -29,6 +29,7 @@ export interface Subsidiary {
   name: string;
   label: string;
   logo: string;
+  href?: string;
 }
 
 export interface FilialRegion {
