@@ -1,0 +1,42 @@
+---
+import { phbPresentation } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+import SectionHeading from '../../../ui/SectionHeading.astro';
+---
+
+<!-- Figma: bg gris-clair, SectionHeading left, 2-column text layout -->
+<section id="presentation" class="bg-gris-clair py-16 md:py-20 lg:py-[104px] scroll-mt-[135px]">
+  <Container class="!max-w-[1000px]">
+    <div data-anim="2">
+      <SectionHeading title={phbPresentation.title} class="mb-10 md:mb-14 lg:mb-16" />
+    </div>
+    <div class="flex flex-col gap-8 md:flex-row md:gap-12 lg:gap-16">
+      <!-- Left column: subtitle — slides bottom to top -->
+      <div class="md:w-1/2">
+        <p class="font-heading font-normal text-base md:text-xl md:leading-[1.461] text-bleu-abysse" data-anim="3">
+          <Fragment set:html={phbPresentation.subtitle
+            .replace(
+              /vente, l'élaboration et le conditionnement de produits de la mer/,
+              '<strong class="font-bold">vente, l\'élaboration et le conditionnement de produits de la mer</strong>'
+            )
+            .replace(
+              /la Manche et la Mer du Nord/,
+              '<strong class="font-bold">la Manche et la Mer du Nord</strong>'
+            )
+          } />
+        </p>
+      </div>
+      <!-- Right column: body text — slides right to left -->
+      <div class="md:w-1/2">
+        {phbPresentation.body.map((paragraph) => (
+          <p class="font-body font-normal text-base leading-[1.4] text-bleu-abysse" data-anim="4">
+            <Fragment set:html={paragraph
+              .replace(/GMS/, '<strong class="font-bold">GMS</strong>')
+              .replace(/40 collaborateurs/, '<strong class="font-bold">40 collaborateurs</strong>')
+            } />
+          </p>
+        ))}
+      </div>
+    </div>
+  </Container>
+</section>

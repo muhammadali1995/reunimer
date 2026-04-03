@@ -1,0 +1,27 @@
+---
+import { phbKeyFigures } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+import SectionHeading from '../../../ui/SectionHeading.astro';
+---
+
+<!-- Figma: bg white, 2x2 grid of stats with separator lines -->
+<section id="chiffres-cles" class="bg-white py-16 md:py-20 lg:py-[104px] scroll-mt-[135px]">
+  <Container class="!max-w-[1000px]">
+    <SectionHeading title={phbKeyFigures.title} class="mb-10 md:mb-14 lg:mb-16" />
+    <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-x-16 lg:gap-x-[54px] lg:gap-y-10">
+      {phbKeyFigures.stats.map((stat) => (
+        <div class="flex flex-col gap-3" data-anim="1">
+          <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1 sm:gap-4">
+            <span class="font-display font-black text-[28px] sm:text-[32px] md:text-[40px] leading-[1.1] md:leading-[44.5px] uppercase text-bleu-abysse shrink-0" data-count>
+              {stat.value}
+            </span>
+            <span class="font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse sm:text-right">
+              {stat.description}
+            </span>
+          </div>
+          <div class="h-px bg-bleu-abysse/20" data-stat-line />
+        </div>
+      ))}
+    </div>
+  </Container>
+</section>

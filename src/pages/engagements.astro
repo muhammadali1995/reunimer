@@ -88,11 +88,13 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           {introLabels.left}
         </h2>
         <h2
           class="font-heading font-semibold text-2xl md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           {introLabels.right}
         </h2>
@@ -118,15 +120,17 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-white"
+          data-anim="3"
         >
           Explorez nos<br />Engagements
         </h2>
         <p
           class="mt-4 md:mt-6 lg:mt-[21px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-white max-w-[445px]"
+          data-anim="3"
         >
           {introReport.description}
         </p>
-        <div class="mt-6 md:mt-8 lg:mt-[29px]">
+        <div class="mt-6 md:mt-8 lg:mt-[29px]" data-anim="3">
           <Button variant="outline-light" href={introReport.buttonHref}>
             {introReport.buttonLabel}
           </Button>
@@ -148,6 +152,7 @@ function parseCountValue(value: string) {
     <!-- Kelonia partner logo + description -->
     <div
       class="mt-6 md:mt-8 lg:mt-[31px] flex flex-col sm:flex-row gap-4 lg:gap-6"
+      data-anim="3"
     >
       <div class="shrink-0">
         <Image
@@ -179,6 +184,7 @@ function parseCountValue(value: string) {
     <!-- Bôndy partner logo + description -->
     <div
       class="mt-6 md:mt-8 lg:mt-[31px] flex flex-col sm:flex-row gap-4 lg:gap-6"
+      data-anim="3"
     >
       <div class="shrink-0">
         <Image
@@ -235,12 +241,13 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           Notre lien aux femmes<br class="hidden lg:block" /> et aux hommes
         </h2>
 
         <!-- Together logo -->
-        <div class="mt-6 md:mt-8 lg:mt-[43px]">
+        <div class="mt-6 md:mt-8 lg:mt-[43px]" data-anim="3">
           <Image
             src={femmesHommesSection.logo}
             alt={femmesHommesSection.logoAlt}
@@ -253,19 +260,20 @@ function parseCountValue(value: string) {
         <!-- Together description -->
         <p
           class="mt-4 md:mt-5 lg:mt-[25px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[562px]"
+          data-anim="3"
         >
           {femmesHommesSection.description}
         </p>
 
         <!-- Button -->
-        <div class="mt-5 md:mt-6 lg:mt-[25px]">
+        <div class="mt-5 md:mt-6 lg:mt-[25px]" data-anim="3">
           <Button variant="outline-dark" href="#footer-contact-heading">
             En savoir plus
           </Button>
         </div>
 
         <!-- Key Figures -->
-        <div class="mt-8 md:mt-10 lg:mt-[48px]">
+        <div class="mt-8 md:mt-10 lg:mt-[48px]" data-anim="3">
           <h3
             class="font-body font-bold text-sm md:text-base lg:text-base lg:leading-[19.4px] text-bleu-abysse"
           >
@@ -339,16 +347,19 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           Notre lien &agrave; l&rsquo;&eacute;nergie
         </h2>
         <p
           class="mt-5 md:mt-6 lg:mt-[52px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]"
+          data-anim="3"
         >
           {energieSection.paragraphs[0]}
         </p>
         <p
           class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[445px]"
+          data-anim="3"
         >
           {energieSection.paragraphs[1]}
         </p>
@@ -394,16 +405,19 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           Notre lien &agrave; la sant&eacute;
         </h2>
         <p
           class="mt-4 md:mt-5 lg:mt-[17px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[496px]"
+          data-anim="3"
         >
           {santeSection.paragraphs[0]}
         </p>
         <p
           class="mt-4 lg:mt-[22px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[496px]"
+          data-anim="3"
         >
           {santeSection.paragraphs[1]}
         </p>
@@ -461,23 +475,26 @@ function parseCountValue(value: string) {
       >
         <h2
           class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+          data-anim="3"
         >
           {socialSection.title}
         </h2>
 
         <p
           class="mt-4 md:mt-5 lg:mt-[36px] font-heading font-normal text-base leading-relaxed md:text-lg md:leading-[1.461] lg:text-xl lg:leading-[29.2px] text-bleu-abysse max-w-[512px]"
+          data-anim="3"
         >
           {socialSection.subtitle}
         </p>
 
         <p
           class="mt-4 md:mt-5 lg:mt-[15px] font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse max-w-[512px]"
+          data-anim="3"
         >
           {socialSection.bodyText}
         </p>
 
-        <div class="mt-6 md:mt-8 lg:mt-[30px]">
+        <div class="mt-6 md:mt-8 lg:mt-[30px]" data-anim="3">
           <Image
             src={socialSection.logo}
             alt={socialSection.logoAlt}
@@ -487,13 +504,13 @@ function parseCountValue(value: string) {
           />
         </div>
 
-        <div class="mt-6 md:mt-8 lg:mt-[31px]">
+        <div class="mt-6 md:mt-8 lg:mt-[31px]" data-anim="3">
           <Button variant="outline-dark" href="#footer-contact-heading">
             En savoir plus
           </Button>
         </div>
 
-        <div class="mt-10 md:mt-12 lg:mt-[132px] max-w-[487px]">
+        <div class="mt-10 md:mt-12 lg:mt-[132px] max-w-[487px]" data-anim="3">
           <div class="border-t border-bleu-abysse/50 pt-5 lg:pt-[33px]">
             <h3
               class="font-heading font-semibold text-base leading-tight md:text-lg lg:text-[20px] lg:leading-[24.4px] text-bleu-abysse tracking-[-1px]"
@@ -551,18 +568,21 @@ function parseCountValue(value: string) {
           <div class="flex flex-col gap-4">
            <h2
         class="font-heading font-semibold text-xl leading-tight md:text-2xl lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+        data-anim="3"
       >
         {filieresSection.title}
       </h2>
 
             <p
               class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
+              data-anim="3"
             >
               {filieresSection.paragraphs[0]}
             </p>
 
             <p
               class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
+              data-anim="3"
             >
               {filieresSection.paragraphs[1]}
             </p>
@@ -623,6 +643,7 @@ function parseCountValue(value: string) {
           <div class="lg:max-w-[445px] lg:pt-[32px]">
             <p
               class="font-body font-normal text-sm leading-[1.4] md:text-base lg:text-base lg:leading-[22.4px] text-bleu-abysse"
+              data-anim="3"
             >
               {filieresSection.medalDescription}
             </p>

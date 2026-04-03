@@ -28,7 +28,7 @@ import meatImage from '../assets/images/expertise/meat.png';
 import pecheurCreoleLogo from '../assets/logos/le-pecheur-creole.png';
 import seafoodKorailLogo from '../assets/images/brands/seafood-korail.png';
 import redPremierLogo from '../assets/images/brands/red-premier.jpg';
-
+export const knifeImage = import('../assets/images/expertise/knife.png');
 export const expertisesHeroImage = heroImage;
 export const expertisesFishingBackground = fishingBackground;
 export const expertisesFishIllustration = fishIllustration;

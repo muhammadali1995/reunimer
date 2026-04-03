@@ -13,9 +13,10 @@ import {
   expertisesFishingBackground,
   expertisesSmokeImage,
   expertisesTunaImage,
+  knifeImage
 } from "../data/expertises"
 import {Image} from "astro:assets"
-import knifeImage from "../assets/images/expertise/knife.png"
+import fishWhiteImage from "../assets/images/expertise/fish-white.png"
 ---
 
 <PageLayout
@@ -30,7 +31,7 @@ import knifeImage from "../assets/images/expertise/knife.png"
     <Image
       src={expertisesFishingBackground}
       alt="Banc de thons sous la surface"
-      class="absolute inset-x-0 top-0 h-[170%] w-full object-cover"
+      class="absolute inset-x-0 top-0 h-[170%] w-full object-cover object-top"
       data-sea-parallax-bg
       widths={[768, 1024, 1440, 1920]}
       sizes="100vw"
@@ -48,23 +49,55 @@ import knifeImage from "../assets/images/expertise/knife.png"
        The transformation section (z-20) scrolls up behind it, its white bg
        acting as a natural mask. When it reaches the fish midpoint, the pin
        releases and the fish scrolls away with 100px gap before content. -->
-  <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-[120px]">
+  <div id="fish-pin-wrapper" class="relative z-30 py-20 lg:py-30">
     <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
-      <Image
-        src={expertisesTunaImage}
-        alt="Illustration de thons"
-        class="w-full"
-        widths={[768, 1200, 1600]}
-        sizes="(min-width: 1280px) 1000px, 100vw"
-      />
+      <div class="relative overflow-visible" data-fish-curtain-stage>
+        <Image
+          src={expertisesTunaImage}
+          alt=""
+          aria-hidden="true"
+          class="pointer-events-none opacity-0 w-full h-auto"
+          widths={[768, 1200, 1600]}
+          sizes="(min-width: 1280px) 1000px, 100vw"
+        />
+        <div
+          class="absolute inset-x-0 -inset-y-12 overflow-hidden max-h-[413px]"
+          style="clip-path: inset(100% 0 0 0);"
+          data-fish-curtain-secondary-mask
+        >
+          <Image
+            src={fishWhiteImage}
+            alt=""
+            aria-hidden="true"
+            class="absolute inset-x-0 top-12 w-full h-auto scale-x-[-1] object-top"
+            data-fish-curtain-secondary
+            widths={[768, 1200, 1600]}
+            sizes="(min-width: 1280px) 1000px, 100vw"
+          />
+        </div>
+        <div
+          class="absolute inset-x-0 -inset-y-12 overflow-visible"
+          data-fish-curtain-primary-mask
+          style="clip-path: inset(0 0 0 0);"
+        >
+          <Image
+            src={expertisesTunaImage}
+            alt="Illustration de thons"
+            class="absolute inset-x-0 top-12 h-auto w-full object-top"
+            data-fish-curtain-primary
+            widths={[768, 1200, 1600]}
+            sizes="(min-width: 1280px) 1000px, 100vw"
+          />
+        </div>
+      </div>
     </div>
   </div>
 
   <div
     id="transformation"
-    class="relative z-20 -mt-[150px] scroll-mt-[var(--sticky-tabs-offset,150px)]"
+    class="relative z-20 scroll-mt-[var(--sticky-tabs-offset,150px)]"
   >
-    <div class="bg-white pt-60 md:pt-80">
+   <div class="bg-white">
       <div class="mx-auto w-full max-w-[1000px] px-5 md:px-8">
         <Image
           src={knifeImage}

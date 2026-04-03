@@ -530,21 +530,60 @@ function initBrandsSectionAnimations() {
  */
 function initFishCurtainAnimation() {
   const pinTarget = document.getElementById("fish-pin-wrapper")
-  const fishImg = pinTarget?.querySelector("img")
-  if (!pinTarget || !fishImg || isReducedMotionPreferred()) return
+  const fishStage = pinTarget?.querySelector("[data-fish-curtain-stage]")
+  const primaryMask = pinTarget?.querySelector("[data-fish-curtain-primary-mask]")
+  const secondaryMask = pinTarget?.querySelector(
+    "[data-fish-curtain-secondary-mask]",
+  )
+  const primaryFish = pinTarget?.querySelector("[data-fish-curtain-primary]")
+  const secondaryFish = pinTarget?.querySelector("[data-fish-curtain-secondary]")
+  if (
+    !pinTarget ||
+    !fishStage ||
+    !primaryMask ||
+    !secondaryMask ||
+    !primaryFish ||
+    !secondaryFish ||
+    isReducedMotionPreferred()
+  )
+    return
 
-  gsap.to(fishImg, {
-    yPercent: 70,
-    ease: "none",
+  // The visible "section line" is the bottom edge of the sea background image —
+  // NOT the transformation section top. The sea image has h-[170%] and may have
+  // parallax applied, so we must read its live viewport position each frame.
+  const seaImg = document.querySelector("[data-sea-parallax-bg]")
+
+  // Initial state
+  primaryMask.style.clipPath = "inset(0 0 0% 0)"
+  secondaryMask.style.clipPath = "inset(100% 0 0 0)"
+
+  const OFFSET = 48 // 12 units = 48px padding on top and bottom
+
+  const syncClip = () => {
+    const stageRect = fishStage.getBoundingClientRect()
+    const seaBottom = seaImg
+      ? seaImg.getBoundingClientRect().bottom
+      : stageRect.bottom
+    // How many px of the fish stage the "sea" has retreated from the bottom
+    const overlap = stageRect.bottom - seaBottom
+
+    // We use px for the insets to correctly account for the OFFSET-padded mask.
+    // The mask div is (stageRect.height + OFFSET * 2) px tall.
+    primaryMask.style.clipPath = `inset(0 0 ${Math.max(0, overlap + OFFSET)}px 0)`
+    secondaryMask.style.clipPath = `inset(${Math.max(0, stageRect.height - overlap + OFFSET)}px 0 0 0)`
+  }
+
+  gsap.timeline({
     scrollTrigger: {
       trigger: pinTarget,
       start: "center center",
-      end: "+=720",
+      end: "+=900",
       pin: true,
       pinSpacing: true,
       scrub: true,
-    }
-  })
+      onUpdate: syncClip,
+    },
+  }).to({}, {duration: 1, ease: "none"})
 }
 
 /**

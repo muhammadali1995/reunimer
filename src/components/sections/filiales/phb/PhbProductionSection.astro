@@ -1,0 +1,169 @@
+---
+import { Image } from 'astro:assets';
+import { phbProductionIntro, phbProductionAuto, phbProductionManuelle } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+import SectionHeading from '../../../ui/SectionHeading.astro';
+---
+
+<!--
+  Figma: Three sub-sections stacked
+  1. Production intro — white bg, heading + 2-column text
+  2. Production automatisée — white bg, image left, stats right
+  3. Production manuelle — gris-clair bg, text left, image right
+-->
+<section id="production" class="scroll-mt-[135px]">
+
+  <!-- Production intro — lagon-mayotte bg -->
+  <div class="bg-lagon-mayotte py-16 md:py-20 lg:py-[104px]">
+    <Container class="!max-w-[1000px]">
+      <div data-anim="2">
+        <SectionHeading title={phbProductionIntro.title} light class="mb-10 md:mb-14 lg:mb-16" />
+      </div>
+      <div class="flex flex-col gap-8 md:flex-row md:gap-12 lg:gap-16">
+        {phbProductionIntro.body.map((paragraph, i) => (
+          <div class="md:w-1/2" data-anim={i === 0 ? "3" : "4"}>
+            <p class="font-body font-normal text-base lg:text-[20px] leading-[1.4] text-white">
+              <Fragment set:html={paragraph} />
+            </p>
+          </div>
+        ))}
+      </div>
+    </Container>
+  </div>
+
+  <!-- Production automatisée — white bg -->
+  <div class="bg-white relative overflow-hidden">
+    <div class="flex flex-col lg:flex-row lg:min-h-[785px]">
+      <!-- Image column -->
+      <div
+        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-auto lg:min-h-0"
+        data-engagement-parallax
+      >
+        <Image
+          src={phbProductionAuto.image}
+          alt="Production automatisée PHF"
+          class="absolute inset-0 w-full h-full object-cover object-right lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
+        />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[140%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={phbProductionAuto.image}
+            alt="Production automatisée PHF"
+            class="h-full w-full object-cover object-right"
+            widths={[1024, 1440]}
+            sizes="742px"
+          />
+        </div>
+      </div>
+      <!-- Text column -->
+      <div class="flex-1 px-5 py-8 sm:px-6 md:px-10 md:py-12 lg:py-[100px] lg:px-[54px]">
+        <h3 class="font-heading font-semibold text-xl leading-tight sm:text-2xl md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse" data-anim="1">
+          {phbProductionAuto.title}
+        </h3>
+        {phbProductionAuto.subtitle && (
+          <p class="mt-3 sm:mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse/70 max-w-[445px]" data-anim="1">
+            {phbProductionAuto.subtitle}
+          </p>
+        )}
+        <div class="flex flex-col gap-4 sm:gap-5 lg:gap-6 mt-6 sm:mt-8 max-w-[467px]">
+          {phbProductionAuto.stats.map((stat) => {
+            const parts = stat.description.split(' — ');
+            return (
+              <div data-anim="1">
+                {parts[0] && (
+                  <p class="font-body font-bold text-sm md:text-base text-bleu-abysse mb-1 sm:mb-2">
+                    {parts[0]}
+                  </p>
+                )}
+                <div class="flex items-baseline justify-between gap-3 sm:gap-4">
+                  <span class="font-display font-black text-2xl sm:text-[28px] md:text-3xl lg:text-[40px] leading-[1.1] lg:leading-[44.5px] uppercase text-bleu-abysse shrink-0" data-count>
+                    {stat.value}
+                  </span>
+                  {parts[1] && (
+                    <span class="font-body font-normal text-xs sm:text-sm md:text-base leading-[1.4] text-bleu-abysse text-right">
+                      {parts[1]}
+                    </span>
+                  )}
+                </div>
+                <div class="h-px bg-bleu-abysse/20 mt-2 sm:mt-3" data-stat-line />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Production manuelle — gris-clair bg -->
+  <div class="bg-gris-clair relative overflow-hidden">
+    <div class="flex flex-col lg:flex-row-reverse lg:min-h-[785px]">
+      <!-- Image column (RIGHT on desktop) -->
+      <div
+        class="relative w-full lg:w-[51.5%] shrink-0 overflow-hidden h-[260px] sm:h-[320px] md:h-[400px] lg:h-auto lg:min-h-0"
+        data-engagement-parallax
+      >
+        <Image
+          src={phbProductionManuelle.image}
+          alt="Production manuelle PHF"
+          class="absolute inset-0 w-full h-full object-cover object-left lg:hidden"
+          widths={[375, 768, 1024]}
+          sizes="100vw"
+        />
+        <div
+          class="hidden lg:block absolute inset-x-0 top-0 h-[140%] w-full"
+          data-parallax-img-wrapper
+        >
+          <Image
+            src={phbProductionManuelle.image}
+            alt="Production manuelle PHF"
+            class="h-full w-full object-cover object-left"
+            widths={[1024, 1440]}
+            sizes="742px"
+          />
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="flex-1 px-5 py-8 sm:px-6 md:px-10 md:py-12 lg:py-[100px] lg:px-[54px]">
+        <h3 class="font-heading font-semibold text-xl leading-tight sm:text-2xl md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse" data-anim="1">
+          {phbProductionManuelle.title}
+        </h3>
+        {phbProductionManuelle.subtitle && (
+          <p class="mt-3 sm:mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-sm md:text-base leading-[1.4] text-bleu-abysse max-w-[445px]" data-anim="1">
+            <Fragment set:html={phbProductionManuelle.subtitle.replace(
+              /20 artisans experts/,
+              '<strong class="font-bold">20 artisans experts</strong>'
+            )} />
+          </p>
+        )}
+        <div class="flex flex-col gap-4 sm:gap-5 lg:gap-6 mt-6 sm:mt-8 max-w-[467px]">
+          {phbProductionManuelle.stats.map((stat) => {
+            const parts = stat.description.split(' — ');
+            return (
+              <div data-anim="1">
+                {parts.length > 1 && parts[0] && (
+                  <p class="font-body font-bold text-sm md:text-base text-bleu-abysse mb-1 sm:mb-2">
+                    {parts[0]}
+                  </p>
+                )}
+                <div class="flex items-baseline justify-between gap-3 sm:gap-4">
+                  <span class="font-display font-black text-2xl sm:text-[28px] md:text-3xl lg:text-[40px] leading-[1.1] lg:leading-[44.5px] uppercase text-bleu-abysse shrink-0" data-count>
+                    {stat.value}
+                  </span>
+                  <span class="font-body font-normal text-xs sm:text-sm md:text-base leading-[1.4] text-bleu-abysse text-right">
+                    {parts.length > 1 ? parts[1] : parts[0]}
+                  </span>
+                </div>
+                <div class="h-px bg-bleu-abysse/20 mt-2 sm:mt-3" data-stat-line />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
