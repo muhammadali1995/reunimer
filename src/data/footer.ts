@@ -54,5 +54,4 @@ export const legalLinks: LegalLink[] = [
 
 export const socialLinks: SocialLink[] = [
   { href: '#', label: 'YouTube',  icon: socialIcon },
-  { href: '#', label: 'LinkedIn', icon: linkedinIcon },
 ];
