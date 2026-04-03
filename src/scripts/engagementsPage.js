@@ -1,4 +1,4 @@
-import { gsap, isReducedMotionPreferred, ANIMATION_TYPES, setAnimationInitial, toAnimation } from './animation.js';
+import { gsap, ScrollTrigger, isReducedMotionPreferred, ANIMATION_TYPES, setAnimationInitial, toAnimation } from './animation.js';
 
 function initHeroAnimations() {
   const heroSection = document.querySelector('[data-engagements-hero]');
@@ -22,6 +22,27 @@ function initHeroAnimations() {
   });
 }
 
+function initScrollAnimations() {
+  if (isReducedMotionPreferred()) return;
+
+  const fadeUpEls = document.querySelectorAll('[data-anim="3"]:not([data-anim-initialized])');
+
+  fadeUpEls.forEach((el) => {
+    el.dataset.animInitialized = 'true';
+    setAnimationInitial(el, ANIMATION_TYPES.FADE_UP);
+
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 85%',
+      once: true,
+      onEnter() {
+        toAnimation(el, ANIMATION_TYPES.FADE_UP);
+      },
+    });
+  });
+}
+
 export function initEngagementsPage() {
   initHeroAnimations();
+  initScrollAnimations();
 }

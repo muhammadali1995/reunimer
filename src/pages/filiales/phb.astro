@@ -1,0 +1,28 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PhbHeroSection from '../../components/sections/filiales/phb/PhbHeroSection.astro';
+import PhbPresentationSection from '../../components/sections/filiales/phb/PhbPresentationSection.astro';
+import PhbHistorySection from '../../components/sections/filiales/phb/PhbHistorySection.astro';
+import PhbKeyFiguresSection from '../../components/sections/filiales/phb/PhbKeyFiguresSection.astro';
+import PhbProductionSection from '../../components/sections/filiales/phb/PhbProductionSection.astro';
+import PhbProductsSection from '../../components/sections/filiales/phb/PhbProductsSection.astro';
+---
+
+<PageLayout
+  title="PHF — Pêcheries des Hautes-de-France | Reunimer"
+  description="PHF, filiale du groupe Reunimer spécialisée dans la vente, l'élaboration et le conditionnement de produits de la mer à Boulogne-sur-Mer."
+>
+  <PhbHeroSection />
+  <PhbPresentationSection />
+  <PhbHistorySection />
+  <PhbKeyFiguresSection />
+  <PhbProductionSection />
+  <PhbProductsSection />
+</PageLayout>
+
+<script>
+  import { initPhbPage } from '../../scripts/phbPage.js';
+
+  initPhbPage();
+  document.addEventListener('astro:after-swap', initPhbPage);
+</script>

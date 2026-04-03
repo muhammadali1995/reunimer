@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+import { phbProducts } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+import SectionHeading from '../../../ui/SectionHeading.astro';
+import Button from '../../../ui/Button.astro';
+---
+
+<!-- Figma: bg white, centered heading, 3-col grid of product cards with rounded images -->
+<section id="nos-produits" class="bg-white py-16 md:py-20 lg:py-[104px] scroll-mt-[135px]">
+  <Container class="!max-w-[1000px]">
+    <SectionHeading title="Nos produits" align="center" class="mb-10 md:mb-14 lg:mb-16" />
+    <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-x-4 sm:gap-x-8 lg:gap-x-[55px] gap-y-6 lg:gap-y-[33px]">
+      {phbProducts.map((product) => (
+        <div class="group flex flex-col gap-[6px] cursor-pointer" data-anim="1">
+          <div class="h-[140px] sm:h-[180px] md:h-[229px] rounded-[10px] sm:rounded-[15px] overflow-hidden">
+            <Image
+              src={product.image}
+              alt={product.name}
+              class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+              widths={[280, 345, 500]}
+              sizes="(min-width: 1024px) 345px, (min-width: 640px) 50vw, 100vw"
+            />
+          </div>
+          <p class="font-heading font-bold text-sm sm:text-lg md:text-xl leading-[1.461] text-bleu-abysse">
+            {product.name}
+          </p>
+        </div>
+      ))}
+    </div>
+    <div class="flex justify-center mt-12 md:mt-16">
+      <Button variant="pill-primary" href="/produits">
+        Voir tous nos produits
+      </Button>
+    </div>
+  </Container>
+</section>
