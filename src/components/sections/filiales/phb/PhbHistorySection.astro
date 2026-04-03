@@ -1,0 +1,24 @@
+---
+import { phbHistory } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+import SectionHeading from '../../../ui/SectionHeading.astro';
+---
+
+<!-- Figma: bg bleu-abysse (dark), white text, bold dates -->
+<section id="historique" class="bg-bleu-abysse py-16 md:py-20 lg:py-[104px] scroll-mt-[135px]">
+  <Container class="!max-w-[1000px]">
+    <div data-anim="2">
+      <SectionHeading title={phbHistory.title} light class="mb-10 md:mb-14 lg:mb-16" />
+    </div>
+    <div class="max-w-[760px]">
+      {phbHistory.body.map((paragraph) => (
+        <p class="font-body font-normal text-base lg:text-[20px] leading-[1.4] text-white mb-4 last:mb-0" data-anim="3">
+          <Fragment set:html={paragraph
+            .replace(/En 2003/, '<strong class="font-bold">En 2003</strong>')
+            .replace(/Depuis octobre 2025/, '<strong class="font-bold">Depuis octobre 2025</strong>')
+          } />
+        </p>
+      ))}
+    </div>
+  </Container>
+</section>

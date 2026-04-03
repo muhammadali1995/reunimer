@@ -81,11 +81,13 @@ const objectPos = isImageLeft ? "object-right" : "object-left"
     <div class="flex-1 px-6 py-8 md:px-10 md:py-12 lg:py-[100px] lg:px-[54px]">
       <h2
         class="font-heading font-semibold text-2xl leading-tight md:text-[28px] lg:text-[32px] lg:leading-[39px] text-bleu-abysse"
+        data-anim="3"
       >
         {title}
       </h2>
       <p
         class="mt-4 md:mt-5 lg:mt-[37px] font-body font-normal text-base leading-[1.4] text-bleu-abysse max-w-[445px]"
+        data-anim="3"
       >
         {bodyText}
       </p>
@@ -95,7 +97,7 @@ const objectPos = isImageLeft ? "object-right" : "object-left"
 
       {
         showButton && (
-          <div class="mt-6 md:mt-8 lg:mt-[40px]">
+          <div class="mt-6 md:mt-8 lg:mt-[40px]" data-anim="3">
             <Button variant="outline-dark" href={buttonHref}>
               En savoir plus
             </Button>

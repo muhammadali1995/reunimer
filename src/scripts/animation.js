@@ -159,4 +159,51 @@ export function setupPanelHover(card, panel, revealEls, options = {}) {
   });
 }
 
+/**
+ * Count-up animation — animates a number from 0 to its target value.
+ * Parses the element's text to extract the numeric part and preserves
+ * formatting (space-separated thousands, comma decimals, suffixes like €, %, KG).
+ */
+export function countUp(element, options = {}) {
+  const { duration = 1.8, ease = 'power2.out' } = options;
+  const originalText = element.textContent.trim();
+
+  // Extract prefix (non-numeric leading chars), numeric part, and suffix
+  const match = originalText.match(/^([^\d]*)(\d[\d\s.,]*\d|\d)(.*)$/);
+  if (!match) return;
+
+  const [, prefix, numStr, suffix] = match;
+  const usesCommaDecimal = /,\d{1,2}$/.test(numStr) && !/,\d{3}/.test(numStr);
+  const cleaned = usesCommaDecimal
+    ? numStr.replace(/\s/g, '').replace(',', '.')
+    : numStr.replace(/[\s,.]/g, '');
+  const target = parseFloat(cleaned);
+  if (isNaN(target)) return;
+
+  // Detect space-separated thousand grouping
+  const usesSpaceGrouping = /\d\s\d{3}/.test(numStr);
+  const decimalPlaces = usesCommaDecimal
+    ? (numStr.split(',')[1] || '').length
+    : 0;
+
+  const proxy = { val: 0 };
+  gsap.to(proxy, {
+    val: target,
+    duration,
+    ease,
+    onUpdate() {
+      let formatted;
+      if (decimalPlaces > 0) {
+        formatted = proxy.val.toFixed(decimalPlaces).replace('.', ',');
+      } else {
+        formatted = Math.round(proxy.val).toString();
+        if (usesSpaceGrouping) {
+          formatted = formatted.replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
+        }
+      }
+      element.textContent = prefix + formatted + suffix;
+    },
+  });
+}
+
 export { gsap, ScrollTrigger };

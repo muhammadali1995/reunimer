@@ -1,0 +1,57 @@
+---
+import { Image } from 'astro:assets';
+import { phbHero } from '../../../../data/phb';
+import Container from '../../../ui/Container.astro';
+---
+
+<section class="relative -mt-[92px] h-[440px] md:h-[540px] lg:h-[645px] flex items-center overflow-hidden" data-phb-hero>
+  <!-- Background image with parallax wrapper -->
+  <div class="absolute inset-0" data-engagement-parallax>
+    <div class="absolute inset-x-0 top-0 h-[140%] w-full" data-parallax-img-wrapper>
+      <Image
+        src={phbHero.backgroundImage}
+        alt="PHF — Pêcheries des Hautes-de-France"
+        class="h-full w-full object-cover"
+        widths={[768, 1200, 1920]}
+        sizes="100vw"
+        loading="eager"
+      />
+    </div>
+  </div>
+
+  <!-- Logo — positioned left, vertically centered, offset for navbar -->
+  <Container class="!max-w-[1000px]">
+    <div class="relative h-full flex items-center pt-[120px] md:pt-[110px] lg:pt-0">
+      <Image
+        src={phbHero.logo}
+        alt={phbHero.title}
+        data-anim="2"
+        class="w-[80px] md:w-[140px] lg:w-[170px] h-auto"
+        widths={[80, 140, 170]}
+        sizes="170px"
+        loading="eager"
+      />
+    </div>
+  </Container>
+
+  <!-- Sub-navigation bar -->
+  <div class="absolute bottom-0 left-0 right-0 backdrop-blur-[8.75px] bg-[rgba(0,59,82,0.36)]" data-anim="2">
+    <div class="mx-auto max-w-[1440px] px-4 md:px-6 py-4 md:py-5 flex items-center justify-start md:justify-center gap-5 md:gap-10 lg:gap-12 overflow-x-auto scrollbar-hide">
+      <a href="#presentation" class="font-heading font-semibold text-[10px] md:text-xs tracking-[1.2px] uppercase text-white whitespace-nowrap hover:text-turquoise-ocean transition-colors">
+        Présentation
+      </a>
+      <a href="#historique" class="font-heading font-semibold text-[10px] md:text-xs tracking-[1.2px] uppercase text-white whitespace-nowrap hover:text-turquoise-ocean transition-colors">
+        Historique
+      </a>
+      <a href="#chiffres-cles" class="font-heading font-semibold text-[10px] md:text-xs tracking-[1.2px] uppercase text-white whitespace-nowrap hover:text-turquoise-ocean transition-colors">
+        Chiffres-clés
+      </a>
+      <a href="#production" class="font-heading font-semibold text-[10px] md:text-xs tracking-[1.2px] uppercase text-white whitespace-nowrap hover:text-turquoise-ocean transition-colors">
+        Production
+      </a>
+      <a href="#nos-produits" class="font-heading font-semibold text-[10px] md:text-xs tracking-[1.2px] uppercase text-white whitespace-nowrap hover:text-turquoise-ocean transition-colors">
+        Nos produits
+      </a>
+    </div>
+  </div>
+</section>

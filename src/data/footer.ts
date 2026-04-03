@@ -43,6 +43,7 @@ export const sitePlan: SitePlanColumn[] = [
   },
   { title: 'Actualités', href: '/actualites', links: [] },
   { title: 'Carrières',  href: '/carrieres',  links: [] },
+  { title: 'PHB',  href: '/filiales/phb',  links: [] },
 ];
 
 export const legalLinks: LegalLink[] = [
