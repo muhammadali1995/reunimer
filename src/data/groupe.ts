@@ -134,7 +134,7 @@ export const filialeRegions: FilialRegion[] = [
     name: 'En France Métropolitaine',
     gridRow: [
       { name: 'MSF', label: 'Distribution', logo: copefritoLogo },
-      { name: 'PHF', label: 'Mareyage & distribution', logo: phfLogo },
+      { name: 'PHF', label: 'Mareyage & distribution', logo: phfLogo, href: '/filiales/phb' },
       { name: 'Stargel Seafoods', label: 'Distribution', logo: stargelLogo },
     ],
     centeredRow: [
